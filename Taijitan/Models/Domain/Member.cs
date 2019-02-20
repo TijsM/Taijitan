@@ -23,7 +23,7 @@ namespace Taijitan.Models.Domain
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("City must have a name");
+                    throw new ArgumentException("Member must have a name");
                 _name = value;
             }
         }
@@ -32,7 +32,7 @@ namespace Taijitan.Models.Domain
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("City must have a name");
+                    throw new ArgumentException("Member must have a firstname");
                 _firstName = value;
             }
               
@@ -42,7 +42,7 @@ namespace Taijitan.Models.Domain
             set
             {
                 if (_dateOfBirth > DateTime.Today)
-                    throw new ArgumentException("City must have a name");
+                    throw new ArgumentException("Member must have a date of birth");
                 _dateOfBirth = value;
             }
         }
@@ -55,7 +55,7 @@ namespace Taijitan.Models.Domain
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("City must have a name");
+                    throw new ArgumentException("Member must have a phonenumber");
                 _phoneNumber = value;
             }
         }
@@ -65,7 +65,7 @@ namespace Taijitan.Models.Domain
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("City must have a name");
+                    throw new ArgumentException("Member must have an email");
                 _email = value;
             }
         }
