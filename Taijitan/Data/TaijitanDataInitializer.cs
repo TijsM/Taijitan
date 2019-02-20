@@ -33,13 +33,13 @@ namespace Taijitan.Data
                 City adinkerke = new City("8660", "Adinkerke");
                 _dbContext.Cities.Add(adinkerke);
 
-                Member jarne = new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", bekegem, "Belgium", "16", 0492554616, "jarne.deschacht@student.hogent.be");
+                Member jarne = new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", bekegem, "Belgium", "16", "0492554616", "jarne.deschacht@student.hogent.be");
                 _dbContext.Members.Add(jarne);
-                Member tijs = new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Unknown", nazareth, "Belgium", "Unknown", 0499721771, "tijs.martens@student.hogent.be");
+                Member tijs = new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Unknown", nazareth, "Belgium", "Unknown", "0499721771", "tijs.martens@student.hogent.be");
                 _dbContext.Members.Add(tijs);
-                Member robbe = new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Unknown", adinkerke, "Belgium", "Unknown", 0000000000, "robbe.dekien@student.hogent.be");
+                Member robbe = new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Unknown", adinkerke, "Belgium", "Unknown", "0000000000", "robbe.dekien@student.hogent.be");
                 _dbContext.Members.Add(robbe);
-                Member stef = new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Unknown", gent, "Belgium", "Unknown", 0000000000, "stef.verlinde@student.hogent.be");
+                Member stef = new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Unknown", gent, "Belgium", "Unknown", "0000000000", "stef.verlinde@student.hogent.be");
                 _dbContext.Members.Add(stef);
                 await CreateUser("admin@taijitan.be", "admin@taijitan.be", "P@ssword1", "Admin");
                 await CreateUser("lid@taijitan.be", "admin@taijitan.be", "P@ssword1", "Admin");
