@@ -40,15 +40,19 @@ namespace Taijitan
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
             services.AddAuthorization(options => {
                 options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
                 options.AddPolicy("Lid", policy => policy.RequireClaim(ClaimTypes.Role, "Lid"));
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddScoped<TaijitanDataInitializer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,TaijitanDataInitializer dataInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -73,6 +77,7 @@ namespace Taijitan
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            dataInitializer.InitializeData().Wait();
         }
     }
 }

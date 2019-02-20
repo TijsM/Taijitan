@@ -14,15 +14,10 @@ namespace Taijitan.Data.Mappers
         {
             builder.ToTable("Member");
             builder.HasKey(m => m.MemberId);
-            builder.Property(m => m.Name)
+            builder.HasOne(m => m.City)
+                .WithMany()
                 .IsRequired()
-                .HasMaxLength(100);
-            builder.Property(m => m.Firstname)
-               .IsRequired()
-               .HasMaxLength(100);
-            builder.Property(m => m.Email)
-               .IsRequired()
-               .HasMaxLength(100);
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

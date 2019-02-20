@@ -11,6 +11,7 @@ namespace Taijitan.Data
     public class ApplicationDbContext : IdentityDbContext
     {
         public DbSet<Member> Members { get; set; }
+        public DbSet<City> Cities { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -21,6 +22,8 @@ namespace Taijitan.Data
         {
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new MemberConfiguration());
+            builder.ApplyConfiguration(new CityConfiguration());
+            
         }
     }
 }
