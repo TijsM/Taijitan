@@ -34,6 +34,19 @@ namespace TaijitanTest.Models
             Assert.Equal(_phoneNumber, member.PhoneNumber);
             Assert.Equal(_email, member.Email);
         }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public void NewMember_InvalidName(string invalidName)
+        {
+            Assert.Throws<ArgumentException>(() 
+                => new Member(invalidName, _firstName, _dateOfBirth, _street, _city, _country, _housenumber, _phoneNumber, _email));
+        }
+
+
+
         #endregion
 
 
