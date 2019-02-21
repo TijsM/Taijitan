@@ -44,7 +44,8 @@ namespace Taijitan
 
             services.AddAuthorization(options => {
                 options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
-                options.AddPolicy("Lid", policy => policy.RequireClaim(ClaimTypes.Role, "Lid"));
+                options.AddPolicy("Teacher", policy => policy.RequireClaim(ClaimTypes.Role, "Teacher"));
+                options.AddPolicy("Member", policy => policy.RequireClaim(ClaimTypes.Role, "Member"));
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
