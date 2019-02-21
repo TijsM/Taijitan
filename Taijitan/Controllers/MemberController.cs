@@ -33,11 +33,10 @@ namespace Taijitan.Controllers
         [HttpPost]
         public IActionResult Edit(int id,EditViewModel evm)
         {
-
-            
+            Member m = null;
             if (ModelState.IsValid)
             {
-                Member m = null;
+                
                 try
                 {
                     m = _memberRepository.GetById(id);
@@ -49,7 +48,7 @@ namespace Taijitan.Controllers
 
                 }
             }
-            return View();
+            return View(); ;
         }
     }
 }
