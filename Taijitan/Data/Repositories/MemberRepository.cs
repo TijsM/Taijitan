@@ -36,7 +36,7 @@ namespace Taijitan.Data
 
         public Member GetById(int id)
         {
-            return _members.SingleOrDefault(m => m.MemberId == id);
+            return _members.SingleOrDefault(m => m.UserId == id);
         }
 
         public void SaveChanges()

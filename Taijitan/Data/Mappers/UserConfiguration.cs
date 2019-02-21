@@ -18,7 +18,6 @@ namespace Taijitan.Data.Mappers
                     .WithMany()
                     .IsRequired()
                     .OnDelete(DeleteBehavior.Restrict);
-                builder.Property(u => )
             }
         }
     }
