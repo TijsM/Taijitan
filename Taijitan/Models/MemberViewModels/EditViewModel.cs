@@ -16,7 +16,7 @@ namespace Taijitan.Models.MemberViewModels
         public string CityName { get; set; }
         public string Country { get; set; }
         public string HouseNumber { get; set; }
-        public string PhonenNumber { get; set; }
+        public string PhoneNumber { get; set; }
         public string Email { get; set; }
 
 
