@@ -33,16 +33,34 @@ namespace Taijitan.Data
                 City adinkerke = new City("8660", "Adinkerke");
                 _dbContext.Cities.Add(adinkerke);
 
-                Member jarne = new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", bekegem, "Belgium", "16", "0492554616", "jarne.deschacht@student.hogent.be");
-                _dbContext.Members.Add(jarne);
-                Member tijs = new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Unknown", nazareth, "Belgium", "Unknown", "0499721771", "tijs.martens@student.hogent.be");
-                _dbContext.Members.Add(tijs);
-                Member robbe = new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Unknown", adinkerke, "Belgium", "Unknown", "0000000000", "robbe.dekien@student.hogent.be");
-                _dbContext.Members.Add(robbe);
-                Member stef = new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Unknown", gent, "Belgium", "Unknown", "0000000000", "stef.verlinde@student.hogent.be");
-                _dbContext.Members.Add(stef);
+                IEnumerable<Member> members = new List<Member>
+                {
+                     new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", bekegem, "Belgium", "16", "0492554616", "jarne.deschacht@student.hogent.be"),
+                     new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Unknown", nazareth, "Belgium", "Unknown", "0499721771", "tijs.martens@student.hogent.be"),
+                     new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Garzebekeveldstraat", adinkerke, "Belgium", "Unknown", "0000000000", "robbe.dekien@student.hogent.be"),
+                     new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Unknown", gent, "Belgium", "Unknown", "0000000000", "stef.verlinde@student.hogent.be")
+                };
+                //Member jarne = new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", bekegem, "Belgium", "16", "0492554616", "jarne.deschacht@student.hogent.be");
+                //_dbContext.Members.Add(jarne);
+                //Member tijs = new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Unknown", nazareth, "Belgium", "Unknown", "0499721771", "tijs.martens@student.hogent.be");
+                //_dbContext.Members.Add(tijs);
+                //Member robbe = new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Garzebekeveldstraat", adinkerke, "Belgium", "Unknown", "0000000000", "robbe.dekien@student.hogent.be");
+                //_dbContext.Members.Add(robbe);
+                //Member stef = new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Unknown", gent, "Belgium", "Unknown", "0000000000", "stef.verlinde@student.hogent.be");
+                //_dbContext.Members.Add(stef);
+
+                foreach(Member member in members)
+                {
+                    _dbContext.Members.Add(member);
+                    var username = String.Format("{0}{1}", member.FirstName, member.Name);
+                    var email = member.Email;
+                    var password = "P@ssword1";
+                    var role = "Admin";
+                    await CreateUser(username, email, password, role);
+                }
+
                 await CreateUser("admin@taijitan.be", "admin@taijitan.be", "P@ssword1", "Admin");
-                await CreateUser("lid@taijitan.be", "admin@taijitan.be", "P@ssword1", "Admin");
+                await CreateUser("lid@taijitan.be", "lid@taijitan.be", "P@ssword1", "Lid");
                 _dbContext.SaveChanges();
             }
         }
