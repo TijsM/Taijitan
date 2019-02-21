@@ -25,25 +25,31 @@ namespace Taijitan.Controllers
             if (m == null)
                 return NotFound();
 
-            return View(m);
+            return View(new EditViewModel(m));
         }
+
+      
+
         [HttpPost]
         public IActionResult Edit(int id,EditViewModel evm)
         {
+
+            
             if (ModelState.IsValid)
             {
                 Member m = null;
                 try
                 {
                     m = _memberRepository.GetById(id);
-                    m.Change(evm.Name, evm.FirstName, evm.DateOfBirth, evm.Street,_cityRepository.GetByPostalCode(evm.PostalCode), evm.Country, evm.HouseNumber, evm.PhoneNumber, evm.Email);
+                    m.Change(evm.Name, evm.FirstName, evm.DateOfBirth, evm.Street, _cityRepository.GetByPostalCode(evm.PostalCode), evm.Country, evm.HouseNumber, evm.PhoneNumber, evm.Email);
+                    _memberRepository.SaveChanges();
                 }
                 catch
                 {
 
                 }
             }
-            return View("Confirmation");
+            return View();
         }
     }
 }

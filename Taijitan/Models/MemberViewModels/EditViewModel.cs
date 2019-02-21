@@ -41,10 +41,11 @@ namespace Taijitan.Models.MemberViewModels
 
         [Required(ErrorMessage = "{0} is required")]
         [DataType(DataType.PhoneNumber)]
-        public string PhonenNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "{0} is required")]
         [DataType(DataType.EmailAddress)]
+        [Display(Name = "Phone number")]
         public string Email { get; set; }
 
 
@@ -58,6 +59,7 @@ namespace Taijitan.Models.MemberViewModels
             CityName = member.City?.Name ?? "Not Found";
             Country = member.Country;
             HouseNumber = member.HouseNumber;
+            PhoneNumber = member.PhoneNumber;
             Email = member.Email;
         }
     }
