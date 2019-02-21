@@ -3,30 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace Taijitan.Models.Domain {
     public class City {
-        #region Fields
-        private string _postalCode;
-        private string _name;
-        #endregion
-
         #region Properties
-        public string Postalcode {
-            get => _postalCode;
-            set {
-                Regex postcodeRegex = new Regex(@"^\d{4}$");
-                if (value == null || !postcodeRegex.IsMatch(value))
-                    throw new ArgumentException("Postal code must contain exactly 4 digits");
-                _postalCode = value;
-            }
-        }
-
-        public string Name {
-            get => _name;
-            set {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("City must have a name");
-                _name = value;
-            }
-        }
+        public string Postalcode { get; set; }
+        public string Name { get; set; }
         #endregion
 
         #region Contstructors
