@@ -21,7 +21,7 @@ namespace Taijitan.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.ApplyConfiguration(new MemberConfiguration());
+            builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new CityConfiguration());
             
         }

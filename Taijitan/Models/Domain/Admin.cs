@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Taijitan.Models.Domain
 {
-    public class Member : User
+    public class Admin : User
     {
-        public Member(string name, string firstName, DateTime dateOfBirth,string street,City city,string country,string houseNumber,string phoneNumber, string email)
+        public Admin(string name, string firstName, DateTime dateOfBirth, string street, City city, string country, string houseNumber, string phoneNumber, string email)
         {
             Name = name;
             FirstName = firstName;
@@ -19,7 +19,7 @@ namespace Taijitan.Models.Domain
             Country = country;
             HouseNumber = houseNumber;
         }
-        private Member() { }
+        private Admin() { }
 
         public override void Change(string name, string firstName, DateTime dateOfBirth, string street, City city, string country, string houseNumber, string phoneNumber, string email)
         {

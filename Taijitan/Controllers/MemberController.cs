@@ -11,10 +11,10 @@ namespace Taijitan.Controllers
 {
     public class MemberController : Controller
     {
-        private readonly IMemberRepository _memberRepository;
+        private readonly IUserRepository _memberRepository;
         private readonly ICityRepository _cityRepository;
 
-        public MemberController(IMemberRepository memberRepository,ICityRepository cityRepository)
+        public MemberController(IUserRepository memberRepository,ICityRepository cityRepository)
         {
             _memberRepository = memberRepository;
             _cityRepository = cityRepository;

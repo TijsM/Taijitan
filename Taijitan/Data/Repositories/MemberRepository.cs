@@ -7,7 +7,7 @@ using Taijitan.Models.Domain;
 
 namespace Taijitan.Data
 {
-    public class MemberRepository : IMemberRepository
+    public class MemberRepository : IUserRepository
     {
         private readonly ApplicationDbContext _context;
         private readonly DbSet<Member> _members;
