@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Taijitan.Models.Domain
 {
-    interface IMemberRepository
+    public interface IMemberRepository
     {
         IEnumerable<Member> GetAll();
         Member GetById(int id);

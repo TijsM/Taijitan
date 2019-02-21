@@ -13,6 +13,8 @@ using Taijitan.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Security.Claims;
+using Taijitan.Models.Domain;
+using Taijitan.Data.Repositories;
 
 namespace Taijitan
 {
@@ -44,11 +46,14 @@ namespace Taijitan
 
             services.AddAuthorization(options => {
                 options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
-                options.AddPolicy("Lid", policy => policy.RequireClaim(ClaimTypes.Role, "Lid"));
+                options.AddPolicy("Teacher", policy => policy.RequireClaim(ClaimTypes.Role, "Teacher"));
+                options.AddPolicy("Member", policy => policy.RequireClaim(ClaimTypes.Role, "Member"));
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddScoped<TaijitanDataInitializer>();
+            services.AddScoped<IMemberRepository,MemberRepository>();
+            services.AddScoped<ICityRepository, CityRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

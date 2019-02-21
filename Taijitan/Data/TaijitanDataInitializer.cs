@@ -52,15 +52,16 @@ namespace Taijitan.Data
                 foreach(Member member in members)
                 {
                     _dbContext.Members.Add(member);
-                    var username = String.Format("{0}{1}", member.FirstName, member.Name);
+                    var username = member.Email;
                     var email = member.Email;
                     var password = "P@ssword1";
-                    var role = "Admin";
+                    var role = "Teacher";
                     await CreateUser(username, email, password, role);
                 }
 
                 await CreateUser("admin@taijitan.be", "admin@taijitan.be", "P@ssword1", "Admin");
-                await CreateUser("lid@taijitan.be", "lid@taijitan.be", "P@ssword1", "Lid");
+                await CreateUser("teacher@taijitan.be", "teacher@taijitan.be", "P@ssword1", "Teacher");
+                await CreateUser("member@taijitan.be", "member@taijitan.be", "P@ssword1", "Member");
                 _dbContext.SaveChanges();
             }
         }
