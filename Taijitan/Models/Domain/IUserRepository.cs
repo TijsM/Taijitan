@@ -8,6 +8,7 @@ namespace Taijitan.Models.Domain
     public interface IUserRepository
     {
         IEnumerable<User> GetAll();
+        IEnumerable<User> GetByPartofName(string searchTerm);
         User GetById(int id);
         User GetByEmail(string email);
         void Add(User user);

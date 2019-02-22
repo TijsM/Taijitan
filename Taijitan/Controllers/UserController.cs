@@ -25,12 +25,26 @@ namespace Taijitan.Controllers
             _userManager = userManager;
         }  
 
-        public IActionResult Index()
+        public IActionResult Index(string searchTerm = "")
         {
             IEnumerable<User> users;
-            users = _userRepository.GetAll();
+            if (searchTerm == null || searchTerm.Equals(""))
+            {
+                users = _userRepository.GetAll();
+            }
+            else
+            {
+                users = _userRepository.GetByPartofName(searchTerm);
+            }
             return View(users);
         }
+
+        //public IActionResult Index(string searchTerm)
+        //{
+        //    IEnumerable<User> users;
+        //    users = _userRepository.GetByPartofName(searchTerm);
+        //    return View(users);
+        //}
 
         public IActionResult Edit()
         {

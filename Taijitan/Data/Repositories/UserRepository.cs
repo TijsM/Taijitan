@@ -51,6 +51,15 @@ namespace Taijitan.Data
                 .SingleOrDefault(m => m.UserId == id);
         }
 
+        public IEnumerable<User> GetByPartofName(string searchTerm)
+        {
+            return _users
+                .Where(u => u.Name.Contains(searchTerm))
+                .Include(m => m.City)
+                .AsNoTracking()
+                .ToList();
+        }
+
         public void SaveChanges()
         {
             _context.SaveChanges();
