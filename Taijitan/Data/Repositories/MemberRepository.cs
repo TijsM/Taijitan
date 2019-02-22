@@ -11,6 +11,7 @@ namespace Taijitan.Data
     {
         private readonly ApplicationDbContext _context;
         private readonly DbSet<Member> _members;
+        
 
         public MemberRepository(ApplicationDbContext context)
         {
