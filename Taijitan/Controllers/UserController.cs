@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Taijitan.Models.Domain;
@@ -9,25 +11,29 @@ using Taijitan.Models.UserViewModel;
 
 namespace Taijitan.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
         private readonly ICityRepository _cityRepository;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public UserController(IUserRepository userRepository,ICityRepository cityRepository)
+        public UserController(IUserRepository userRepository,ICityRepository cityRepository, UserManager<IdentityUser> userManager)
         {
             _userRepository = userRepository;
             _cityRepository = cityRepository;
-        }
-        public IActionResult Edit(int id)
+            _userManager = userManager;
+        }  
+        public IActionResult Edit()
         {
-            User u = _userRepository.GetById(id);
+            string userEmail = _userManager.GetUserName(HttpContext.User);
+            User u = _userRepository.GetByEmail(userEmail);
             if (u == null)
                 return NotFound();
 
+            ViewData["userId"] = u.UserId;
             return View(new EditViewModel(u));
         }
-
         [HttpPost]
         public IActionResult Edit(int id,EditViewModel evm)
         {
@@ -46,7 +52,7 @@ namespace Taijitan.Controllers
 
                 }
             }
-            return View(); ;
+            return RedirectToAction("Index","Home");
         }
     }
 }
