@@ -31,12 +31,17 @@ namespace Taijitan.Data
 
         public IEnumerable<Member> GetAll()
         {
-            return _members.AsNoTracking().ToList();
+            return _members
+                .Include(m => m.City)
+                .AsNoTracking()
+                .ToList();
         }
 
         public Member GetById(int id)
         {
-            return _members.SingleOrDefault(m => m.UserId == id);
+            return _members
+                .Include(m =>m.City)
+                .SingleOrDefault(m => m.UserId == id);
         }
 
         public void SaveChanges()
