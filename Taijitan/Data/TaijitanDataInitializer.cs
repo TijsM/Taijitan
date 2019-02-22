@@ -40,6 +40,19 @@ namespace Taijitan.Data
                      new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Garzebekeveldstraat", adinkerke, "Belgium", "Unknown", "0000000000", "robbe.dekien@student.hogent.be"),
                      new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Unknown", gent, "Belgium", "Unknown", "0000000000", "stef.verlinde@student.hogent.be")
                 };
+
+                IEnumerable<Teacher> teachers = new List<Teacher>
+                {
+                     new Teacher("Chan", "Jacky", new DateTime(1960, 10, 18), "HongkongStreet", gent, "Belgie", "1", "+23456987447", "teacher@taijitan.be" )
+
+                };
+
+                IEnumerable<Admin> admins = new List<Admin>
+                {
+                     new Admin("Admin", "Administrator", new DateTime(1980, 1, 15), "StationStraat", nazareth, "Belgie", "15", "+3249981557", "admin@taijitan.be"),
+                };
+
+
                 //Member jarne = new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", bekegem, "Belgium", "16", "0492554616", "jarne.deschacht@student.hogent.be");
                 //_dbContext.Members.Add(jarne);
                 //Member tijs = new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Unknown", nazareth, "Belgium", "Unknown", "0499721771", "tijs.martens@student.hogent.be");
@@ -49,19 +62,39 @@ namespace Taijitan.Data
                 //Member stef = new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Unknown", gent, "Belgium", "Unknown", "0000000000", "stef.verlinde@student.hogent.be");
                 //_dbContext.Members.Add(stef);
 
-                foreach (Member member in members)
+                foreach (User member in members)
                 {
                     _dbContext.Users_Domain.Add(member);
                     var username = member.Email;
                     var email = member.Email;
                     var password = "P@ssword1";
+                    var role = "Member";
+                    await CreateUser(username, email, password, role);
+                }
+
+                foreach (User teacher in teachers)
+                {
+                    _dbContext.Users_Domain.Add(teacher);
+                    var username = teacher.Email;
+                    var email = teacher.Email;
+                    var password = "P@ssword1";
                     var role = "Teacher";
                     await CreateUser(username, email, password, role);
                 }
 
-                await CreateUser("admin@taijitan.be", "admin@taijitan.be", "P@ssword1", "Admin");
-                await CreateUser("teacher@taijitan.be", "teacher@taijitan.be", "P@ssword1", "Teacher");
-                await CreateUser("member@taijitan.be", "member@taijitan.be", "P@ssword1", "Member");
+                foreach (User admin in admins)
+                {
+                    _dbContext.Users_Domain.Add(admin);
+                    var username = admin.Email;
+                    var email = admin.Email;
+                    var password = "P@ssword1";
+                    var role = "Admin";
+                    await CreateUser(username, email, password, role);
+                }
+
+                //await CreateUser("admin@taijitan.be", "admin@taijitan.be", "P@ssword1", "Admin");
+                //await CreateUser("teacher@taijitan.be", "teacher@taijitan.be", "P@ssword1", "Teacher");
+                //await CreateUser("member@taijitan.be", "member@taijitan.be", "P@ssword1", "Member");
                 _dbContext.SaveChanges();
             }
         }
