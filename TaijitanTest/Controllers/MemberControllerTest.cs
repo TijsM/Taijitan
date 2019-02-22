@@ -9,6 +9,6 @@ namespace TaijitanTest.Controllers
     class MemberControllerTest
     {
         private readonly DummyApplicationDbContext _dummyContext;
-        private readonly MemberController _memberController;
+        private readonly UserController _memberController;
     }
 }

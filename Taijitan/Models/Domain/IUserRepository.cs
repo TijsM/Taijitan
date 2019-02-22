@@ -7,10 +7,10 @@ namespace Taijitan.Models.Domain
 {
     public interface IUserRepository
     {
-        IEnumerable<Member> GetAll();
-        Member GetById(int id);
-        void Add(Member member);
-        void Delete(Member member);
+        IEnumerable<User> GetAll();
+        User GetById(int id);
+        void Add(User user);
+        void Delete(User user);
         void SaveChanges();
     }
 }

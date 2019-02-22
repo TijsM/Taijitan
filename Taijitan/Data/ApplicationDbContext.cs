@@ -10,6 +10,10 @@ namespace Taijitan.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+        public DbSet<User> Users_Domain { get; set; }
+        //vreemde naamgeving omdat EF ook een tabel heeft die User heet
+        //deze zit ook in deze ApplicationDbContext door de overerving
+
         public DbSet<Member> Members { get; set; }
         public DbSet<City> Cities { get; set; }
 

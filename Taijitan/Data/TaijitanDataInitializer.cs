@@ -49,9 +49,9 @@ namespace Taijitan.Data
                 //Member stef = new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Unknown", gent, "Belgium", "Unknown", "0000000000", "stef.verlinde@student.hogent.be");
                 //_dbContext.Members.Add(stef);
 
-                foreach(Member member in members)
+                foreach (Member member in members)
                 {
-                    _dbContext.Members.Add(member);
+                    _dbContext.Users_Domain.Add(member);
                     var username = member.Email;
                     var email = member.Email;
                     var password = "P@ssword1";

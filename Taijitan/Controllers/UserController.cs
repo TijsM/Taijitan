@@ -5,27 +5,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Taijitan.Models.Domain;
-using Taijitan.Models.MemberViewModels;
+using Taijitan.Models.UserViewModel;
 
 namespace Taijitan.Controllers
 {
-    public class MemberController : Controller
+    public class UserController : Controller
     {
-        private readonly IUserRepository _memberRepository;
+        private readonly IUserRepository _userRepository;
         private readonly ICityRepository _cityRepository;
 
-        public MemberController(IUserRepository memberRepository,ICityRepository cityRepository)
+        public UserController(IUserRepository userRepository,ICityRepository cityRepository)
         {
-            _memberRepository = memberRepository;
+            _userRepository = userRepository;
             _cityRepository = cityRepository;
         }
         public IActionResult Edit(int id)
         {
-            Member m = _memberRepository.GetById(id);
-            if (m == null)
+            User u = _userRepository.GetById(id);
+            if (u == null)
                 return NotFound();
 
-            return View(new EditViewModel(m));
+            return View(new EditViewModel(u));
         }
 
       
@@ -33,15 +33,15 @@ namespace Taijitan.Controllers
         [HttpPost]
         public IActionResult Edit(int id,EditViewModel evm)
         {
-            Member m = null;
+            User u = null;
             if (ModelState.IsValid)
             {
                 
                 try
                 {
-                    m = _memberRepository.GetById(id);
-                    m.Change(evm.Name, evm.FirstName, evm.DateOfBirth, evm.Street, _cityRepository.GetByPostalCode(evm.PostalCode), evm.Country, evm.HouseNumber, evm.PhoneNumber, evm.Email);
-                    _memberRepository.SaveChanges();
+                    u = _userRepository.GetById(id);
+                    u.Change(evm.Name, evm.FirstName, evm.DateOfBirth, evm.Street, _cityRepository.GetByPostalCode(evm.PostalCode), evm.Country, evm.HouseNumber, evm.PhoneNumber, evm.Email);
+                    _userRepository.SaveChanges();
                 }
                 catch
                 {

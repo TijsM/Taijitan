@@ -7,39 +7,39 @@ using Taijitan.Models.Domain;
 
 namespace Taijitan.Data
 {
-    public class MemberRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _context;
-        private readonly DbSet<Member> _members;
+        private readonly DbSet<User> _users;
 
-        public MemberRepository(ApplicationDbContext context)
+        public UserRepository(ApplicationDbContext context)
         {
             _context = context;
-            _members = context.Members;
+            _users = context.Users_Domain;
         }
 
 
-        public void Add(Member member)
+        public void Add(User user)
         {
-            _members.Add(member);
+            _users.Add(user);
         }
 
-        public void Delete(Member member)
+        public void Delete(User user)
         {
-            _members.Remove(member);
+            _users.Remove(user);
         }
 
-        public IEnumerable<Member> GetAll()
+        public IEnumerable<User> GetAll()
         {
-            return _members
+            return _users
                 .Include(m => m.City)
                 .AsNoTracking()
                 .ToList();
         }
 
-        public Member GetById(int id)
+        public User GetById(int id)
         {
-            return _members
+            return _users
                 .Include(m =>m.City)
                 .SingleOrDefault(m => m.UserId == id);
         }
