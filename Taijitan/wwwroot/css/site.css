@@ -23,3 +23,11 @@ body {
 .home span {
    color: #336566;
 }
+
+.navbar-header a {
+    color: #336566 !important;
+}
+
+.navbar-collapse collapse a {
+    color: #336566 !important;
+}
