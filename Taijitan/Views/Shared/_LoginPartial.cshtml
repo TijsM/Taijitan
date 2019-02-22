@@ -3,6 +3,16 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
+@{
+    string userNameFirstLetterUpper = "";
+    if (UserManager.GetUserName(User) != null)
+    {
+        var email = UserManager.GetUserName(User);
+        var userName = email.Substring(0, email.IndexOf("."));
+        userNameFirstLetterUpper = char.ToUpper(userName[0]) + userName.Substring(1);
+    }
+}
+
 @if (SignInManager.IsSignedIn(User))
 {
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right" name="logoutForm">
@@ -11,8 +21,8 @@
                 <div class="dropdown">
                     <i class="fas fa-user-ninja fa-2x dropbtn" style="color: white; margin: 0.4em;" onclick="myFunction()"> </i>
                     <div id="myDropdown" class="dropdown-content">
-                        <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
-                        <a onclick="document.logoutForm.submit()" href="#">Logout</a>
+                        <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hallo @userNameFirstLetterUpper !</a>
+                        <a onclick="document.logoutForm.submit()" href="#">Uitloggen</a>
                     </div>
                 </div>
             </li>
@@ -26,16 +36,16 @@ else
             <div class="dropdown">
                 <i class="fas fa-user-ninja fa-2x dropbtn" style="color: white; margin: 0.4em;" onclick="myFunction()" > </i>
                 <div id="myDropdown" class="dropdown-content">
-                    <a asp-area="Identity" asp-page="/Account/Register">Register</a>
-                    <a asp-area="Identity" asp-page="/Account/Login">Login</a>
+                    <a asp-area="Identity" asp-page="/Account/Register">Registreer</a>
+                    <a asp-area="Identity" asp-page="/Account/Login">Inloggen</a>
                 </div>
             </div>
         </li>*@
         <li>
-            <a asp-area="Identity" asp-page="/Account/Register">Register</a>
+            <a asp-area="Identity" asp-page="/Account/Register">Registreer</a>
         </li>
         <li>
-            <a asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a asp-area="Identity" asp-page="/Account/Login">Inloggen</a>
         </li>
     </ul>
     @section scripts {

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<User>
+@{
+    ViewData["Title"] = "Gebruikers";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <tr>
+        <th>Familienaam</th>
+        <th>Voornaam</th>
+        <th>Geboortedatum</th>
+        <th>Adres</th>
+        <th>telefoonnummer</th>
+        <th>emailadres</th>
+        <th></th>
+    </tr>
+    @{ 
+        foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.FirstName</td>
+                <td>@item.DateOfBirth.ToShortDateString()</td>
+                <td>@item.City.Postalcode @item.City.Name - @item.Street @item.HouseNumber</td>
+                <td>@item.PhoneNumber</td>
+                <td>@item.Email</td>
+                <td>
+                    <a asp-controller="user" asp-action="Edit" asp-route-id="@item.UserId">Pas aan</a>
+                    |
+                    <a asp-controller="User" asp-action="Delete" asp-route-id="@item.UserId">Verwijder</a>
+                </td>
+            </tr>
+        }
+    }
+    
+</table>
+
