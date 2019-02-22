@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Taijitan.Controllers;
 using Taijitan.Models.Domain;
@@ -16,9 +17,10 @@ namespace TaijitanTest.Controllers
         private readonly UserController _userController;
         private readonly Mock<IUserRepository> _mockUserRepository;
         private readonly Mock<ICityRepository> _mockCityRepository;
+        private readonly UserManager<IdentityUser> _userManager;
 
         private readonly User _tomJansens;
-        private readonly string _tomJansensFirstName;
+        private readonly int _tomJansensId;
 
     
         #endregion
@@ -29,9 +31,12 @@ namespace TaijitanTest.Controllers
             _dummyContext = new DummyApplicationDbContext();
             _mockUserRepository = new Mock<IUserRepository>();
             _mockCityRepository = new Mock<ICityRepository>();
+            _userManager = new Mock<UserManager<IdentityUser>>().Object;
+            _userController = new UserController
+                (_mockUserRepository.Object, _mockCityRepository.Object, _userManager);
 
             _tomJansens = _dummyContext.UserTomJansens;
-            _tomJansensFirstName = _tomJansens.FirstName;
+            _tomJansensId = _tomJansens.UserId;
         }
         #endregion
 
@@ -39,7 +44,10 @@ namespace TaijitanTest.Controllers
         [Fact]
         public void EddiHttpGet_ValidProductId_PassesUsersDetails()
         {
-           var result = _userController.
+            var result = _userController.Edit() as ViewResult;
+            result.ViewData["userId"] = _tomJansensId;
+            var userViewModel = result?.Model as EditViewModel;
+            Assert.Equal("Tom", userViewModel?.FirstName);
         }
         #endregion
 
