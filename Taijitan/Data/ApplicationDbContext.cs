@@ -15,6 +15,8 @@ namespace Taijitan.Data
         //deze zit ook in deze ApplicationDbContext door de overerving
 
         public DbSet<Member> Members { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<Admin> Admins { get; set; }
         public DbSet<City> Cities { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
