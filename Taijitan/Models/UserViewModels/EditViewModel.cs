@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Taijitan.Models.Domain;
 
-namespace Taijitan.Models.MemberViewModels
+namespace Taijitan.Models.UserViewModel
 {
     public class EditViewModel
     {
@@ -50,18 +50,18 @@ namespace Taijitan.Models.MemberViewModels
         public string Email { get; set; }
 
 
-        public EditViewModel(Member member)
+        public EditViewModel(User user)
         {
-            Name = member.Name;
-            FirstName = member.FirstName;
-            DateOfBirth = member.DateOfBirth;
-            Street = member.Street;
-            PostalCode = member.City?.Postalcode ?? "Not Found";
-            CityName = member.City?.Name ?? "Not Found";
-            Country = member.Country;
-            HouseNumber = member.HouseNumber;
-            PhoneNumber = member.PhoneNumber;
-            Email = member.Email;
+            Name = user.Name;
+            FirstName = user.FirstName;
+            DateOfBirth = user.DateOfBirth;
+            Street = user.Street;
+            PostalCode = user.City?.Postalcode ?? "Not Found";
+            CityName = user.City?.Name ?? "Not Found";
+            Country = user.Country;
+            HouseNumber = user.HouseNumber;
+            PhoneNumber = user.PhoneNumber;
+            Email = user.Email;
         }
 
         public EditViewModel()

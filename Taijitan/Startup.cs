@@ -52,7 +52,7 @@ namespace Taijitan
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddScoped<TaijitanDataInitializer>();
-            services.AddScoped<IUserRepository,MemberRepository>();
+            services.AddScoped<IUserRepository,UserRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
         }
 
