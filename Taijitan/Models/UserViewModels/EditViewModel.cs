@@ -9,44 +9,48 @@ namespace Taijitan.Models.UserViewModel
 {
     public class EditViewModel
     {
-        [Required(ErrorMessage = "{0} is required")]
+        [Required(ErrorMessage = "Naam is verplicht in te vullen")]
+        [Display(Name ="Naam")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "{0} is required")]
+        [Required(ErrorMessage = "Voornaam is verplicht in te vullen")]
+        [Display(Name = "Voornaam")]
         public string FirstName { get; set; }
 
-        [Required(ErrorMessage = "{0} is required")]
-        [Display(Name = "Date of birth")]
+        [Required(ErrorMessage = "Geboortedatum is verplicht in te vullen")]
+        [Display(Name = "Geboortedatum")]
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
 
-        [Required(ErrorMessage = "{0} is required")]
-        [Display(Name = "Streetname")]
+        [Required(ErrorMessage = "Straatnaam is verplicht in te vullen")]
+        [Display(Name = "Straatnaam")]
         public string Street { get; set; }
 
         [DataType(DataType.PostalCode)]
-        [Required(ErrorMessage = "{0} is required")]
+        [Display(Name = "Postcode")]
+        [Required(ErrorMessage = "Postcode is verplicht in te vullen")]
         public string PostalCode { get; set; }
 
-        [Required(ErrorMessage = "{0} is required")]
-        [Display(Name = "City")]
+        [Required(ErrorMessage = "Stadnaam is verplicht in te vullen")]
+        [Display(Name = "Stadnaam")]
         public string CityName { get; set; }
 
-        [Required(ErrorMessage = "{0} is required")]
+        [Required(ErrorMessage = "Land is verplicht in te vullen")]
+        [Display(Name="Land")]
         public string Country { get; set; }
 
-        [Required(ErrorMessage = "{0} is required")]
-        [Display(Name = "House number")]
+        [Required(ErrorMessage = "Huisnummer is verplicht in te vullen")]
+        [Display(Name = "Huisnummer")]
         public string HouseNumber { get; set; }
 
-        [Required(ErrorMessage = "{0} is required")]
+        [Required(ErrorMessage = "Telefoonnummer is verplicht in te vullen")]
         [DataType(DataType.PhoneNumber)]
-        [Display(Name = "Phone number")]
+        [Display(Name = "Telefoonnummer")]
         public string PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "{0} is required")]
+        [Required(ErrorMessage = "E-mailadres is verplicht in te vullen")]
         [DataType(DataType.EmailAddress)]
-        [Display(Name = "E-mail adres")]
+        [Display(Name = "E-mailadres")]
         public string Email { get; set; }
 
 
