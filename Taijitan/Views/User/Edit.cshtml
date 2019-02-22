@@ -4,7 +4,6 @@
 }
 
 <h2>Edit Member</h2>
-<h2>ViewData["user"]</h2>
 
 <form method="post">
     <div asp-validation-summary="All"></div>
@@ -70,8 +69,8 @@
     </div>
 
     <div>
-        <button class="btn btn-primary" type="submit">Save</button>
-        <a asp-action="Index" class="btn btn-default">Cancel</a>
+        <button class="btn btn-primary" asp-route-id="@ViewData["userId"]" type="submit">Save</button>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-default">Cancel</a>
     </div>
 </form>
 

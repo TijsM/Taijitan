@@ -37,6 +37,13 @@ namespace Taijitan.Data
                 .ToList();
         }
 
+        public User GetByEmail(string email)
+        {
+            return _users
+                .Include(m => m.City)
+                .SingleOrDefault(m => m.Email == email);
+        }
+
         public User GetById(int id)
         {
             return _users
