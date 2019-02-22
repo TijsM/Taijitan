@@ -39,20 +39,23 @@ namespace Taijitan.Controllers
         {
             User u = null;
             if (ModelState.IsValid)
-            {
-                
+            { 
                 try
                 {
                     u = _userRepository.GetById(id);
                     u.Change(evm.Name, evm.FirstName, evm.DateOfBirth, evm.Street, _cityRepository.GetByPostalCode(evm.PostalCode), evm.Country, evm.HouseNumber, evm.PhoneNumber, evm.Email);
                     _userRepository.SaveChanges();
+                    TempData["message"] = "Je persoonlijke gegevens werden aangepast";
+                    return RedirectToAction("Index", "Home");
                 }
-                catch
+                catch(Exception e)
                 {
-
+                    ModelState.AddModelError("", e.Message);
                 }
             }
-            return RedirectToAction("Index","Home");
+            ViewData["userId"] = id;
+            return View(evm);
+            
         }
     }
 }

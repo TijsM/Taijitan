@@ -1,76 +1,68 @@
 ﻿@model Taijitan.Models.UserViewModel.EditViewModel
-@{
-    ViewData["Title"] = "Edit Mem";
-}
-
-<h2>Edit Member</h2>
-
+<h2>Wijzig persoonlijke gegevens</h2>
 <form method="post">
-    <div asp-validation-summary="All"></div>
-
-    <div class="form-group">
+    <div class="form-group col-md-6 col-lg-6">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group col-md-6 col-lg-6">
         <label asp-for="FirstName"></label>
         <input asp-for="FirstName" class="form-control" />
         <span asp-validation-for="FirstName" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group col-md-6 col-lg-6">
         <label asp-for="DateOfBirth"></label>
         <input asp-for="DateOfBirth" class="form-control" />
         <span asp-validation-for="DateOfBirth" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group col-md-6 col-lg-6">
         <label asp-for="Street"></label>
         <input asp-for="Street" class="form-control" />
         <span asp-validation-for="Street" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group col-md-6 col-lg-6">
         <label asp-for="PostalCode"></label>
         <input asp-for="PostalCode" class="form-control" />
         <span asp-validation-for="PostalCode" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group col-md-6 col-lg-6">
         <label asp-for="CityName"></label>
         <input asp-for="CityName" class="form-control" />
         <span asp-validation-for="CityName" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group col-md-6 col-lg-6">
         <label asp-for="Country"></label>
         <input asp-for="Country" class="form-control" />
         <span asp-validation-for="Country" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group col-md-6 col-lg-6">
         <label asp-for="HouseNumber"></label>
         <input asp-for="HouseNumber" class="form-control" />
         <span asp-validation-for="HouseNumber" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group col-md-6 col-lg-6">
         <label asp-for="PhoneNumber"></label>
         <input asp-for="PhoneNumber" class="form-control" />
         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group col-md-6 col-lg-6">
         <label asp-for="Email"></label>
         <input asp-for="Email" class="form-control" />
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
-
     <div>
-        <button class="btn btn-primary" asp-route-id="@ViewData["userId"]" type="submit">Save</button>
-        <a asp-action="Index" asp-controller="Home" class="btn btn-default">Cancel</a>
+        <button class="btn btn-primary" asp-route-id="@ViewData["userId"]" asp-controller="User" type="submit">Opslaan</button>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-default">Annuleren</a>
     </div>
 </form>
 
