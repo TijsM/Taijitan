@@ -17,6 +17,7 @@ namespace TaijitanTest.Data
         #region Properties
         public IEnumerable<City> cities => new List<City> { _gent, _antwerpen, _brussel };
         public IEnumerable<User> Users => _users;
+        public User UserTomJansens { get;  }
         #endregion
 
         #region Constructors
@@ -26,9 +27,11 @@ namespace TaijitanTest.Data
             _antwerpen = new City("2000", "Antwerpen");
             _brussel = new City("1000", "Brussel");
 
+            
+            UserTomJansens = new Admin("Tom", "Jansens", new DateTime(1999, 8, 9), "Hoogstraat", _gent, "Belgie", "8", "+32499854775", "tom.jansens@gmail.com");
+
             _users = new List<User>
             {
-                new Admin("Tom", "Jansens",new DateTime(1999, 8, 9), "Hoogstraat", _gent, "Belgie", "8", "+32499854775", "tom.jansens@gmail.com" ),
                 new Admin("Alain", "Vandamme", new DateTime(1980, 1, 15), "StationStraat", _antwerpen, "Belgie", "15", "+3249981557", "alain.vandamma@synalco.be"),
 
                 new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", _gent, "Belgie", "16", "0492554616", "jarne.deschacht@student.hogent.be"),

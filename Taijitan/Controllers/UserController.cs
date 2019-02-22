@@ -28,8 +28,6 @@ namespace Taijitan.Controllers
             return View(new EditViewModel(u));
         }
 
-      
-
         [HttpPost]
         public IActionResult Edit(int id,EditViewModel evm)
         {
