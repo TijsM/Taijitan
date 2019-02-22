@@ -11,7 +11,7 @@ using Taijitan.Models.UserViewModel;
 
 namespace Taijitan.Controllers
 {
-    [Authorize]
+    [Authorize(policy: "Admin")]
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
@@ -24,6 +24,14 @@ namespace Taijitan.Controllers
             _cityRepository = cityRepository;
             _userManager = userManager;
         }  
+
+        public IActionResult Index()
+        {
+            IEnumerable<User> users;
+            users = _userRepository.GetAll();
+            return View(users);
+        }
+
         public IActionResult Edit()
         {
             string userEmail = _userManager.GetUserName(HttpContext.User);
@@ -55,7 +63,14 @@ namespace Taijitan.Controllers
             }
             ViewData["userId"] = id;
             return View(evm);
-            
+        }
+
+        public IActionResult Delete(int id)
+        {
+            User us = _userRepository.GetById(id);
+            _userRepository.Delete(us);
+            _userRepository.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
