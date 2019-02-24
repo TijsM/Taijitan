@@ -26,11 +26,20 @@ body {
    color: #336566;
 }
 
-.navbar{
-    background-color: #336566;
+
+
+
+
+
+.navbar, .navbar .navbar-inverse .navbar-fixed-top{
+    background-color: #336566 !important;
     border-color: white;
+    color: white !important;
 }
 
+.navbar-default .navbar-brand, .navbar-default .navbar-nav > li > a{
+    color: #e7e7e7 !important;
+}
 
 /*Dropdown button*/
 .dropbtn {

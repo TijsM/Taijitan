@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Taijitan.Models.Domain;
 using Taijitan.Models.UserViewModel;
 
+
 namespace Taijitan.Controllers
 {
-    [Authorize(policy: "Admin")]
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
@@ -23,8 +23,9 @@ namespace Taijitan.Controllers
             _userRepository = userRepository;
             _cityRepository = cityRepository;
             _userManager = userManager;
-        }  
+        }
 
+        [Authorize(policy: "Admin")]
         public IActionResult Index(string searchTerm = "")
         {
             IEnumerable<User> users;
@@ -49,12 +50,15 @@ namespace Taijitan.Controllers
         public IActionResult Edit()
         {
             string userEmail = _userManager.GetUserName(HttpContext.User);
-            User u = _userRepository.GetByEmail(userEmail);
+            var u = _userRepository.GetByEmail(userEmail);
             if (u == null)
                 return NotFound();
-
-            ViewData["userId"] = u.UserId;
-            return View(new EditViewModel(u));
+            TempData["Role"] = u.GetType();
+            TempData["Role"] = TempData["Role"].ToString().Split(".")[3];
+            TempData["userId"] = u.UserId;
+            //TempData.Put<User>("user", u);
+            TempData["EditViewModel"] = new EditViewModel(u);
+            return View();
         }
         [HttpPost]
         public IActionResult Edit(int id,EditViewModel evm)
@@ -79,6 +83,7 @@ namespace Taijitan.Controllers
             return View(evm);
         }
 
+        [Authorize(policy: "Admin")]
         public IActionResult Delete(int id)
         {
             User us = _userRepository.GetById(id);

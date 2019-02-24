@@ -70,7 +70,7 @@ namespace Taijitan.Models.UserViewModel
 
         public EditViewModel()
         {
-            
+
         }
     }
 }
