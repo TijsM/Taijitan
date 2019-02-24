@@ -39,21 +39,26 @@ namespace Taijitan.Controllers
             return View(users);
         }
 
-        //public IActionResult Index(string searchTerm)
-        //{
-        //    IEnumerable<User> users;
-        //    users = _userRepository.GetByPartofName(searchTerm);
-        //    return View(users);
-        //}
 
-        public IActionResult Edit()
+        public IActionResult Edit(int? id)
         {
-            string userEmail = _userManager.GetUserName(HttpContext.User);
-            User u = _userRepository.GetByEmail(userEmail);
+            User u = null;
+            if (id == null)
+            {
+                string userEmail = _userManager.GetUserName(HttpContext.User);
+                u = _userRepository.GetByEmail(userEmail);
+               
+            }
+            else
+            {
+                u = _userRepository.GetById((int)id);
+            }
+
             if (u == null)
                 return NotFound();
 
             ViewData["userId"] = u.UserId;
+
             return View(new EditViewModel(u));
         }
         [HttpPost]
