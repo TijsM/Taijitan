@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Taijitan.Models.Domain
 {
-    public enum Formule
+    public enum Formula
     {
         [Display(Name="dinsdag en donderdag")]
         Formule1,
