@@ -9,25 +9,25 @@ namespace Taijitan.Models.Domain
     public enum Formule
     {
         [Display(Name="dinsdag en donderdag")]
-        formule1,
+        Formule1,
 
         [Display(Name = "dinsdag en zaterdag")]
-        formule2,
+        Formule2,
 
         [Display(Name = "woensdag en zaterdag")]
-        formule3,
+        Formule3,
 
         [Display(Name = "woensdag")]
-        formule4,
+        Formule4,
         
         [Display(Name = "zaterdag")]
-        formule5,
+        Formule5,
 
         [Display(Name = "deelname aan activiteit")]
-        formule6,
+        Formule6,
 
         [Display(Name = "deelname meerdaagse stage")]
-        formule7
+        Formule7
 
 
 
