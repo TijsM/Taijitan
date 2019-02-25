@@ -7,6 +7,7 @@ namespace Taijitan.Models.Domain
 {
     public class Teacher : User
     {
+        private IEnumerable<Session> sessions;
         public Teacher(string name, string firstName, DateTime dateOfBirth, string street, City city, string country, string houseNumber, string phoneNumber, string email)
         {
             Name = name;
