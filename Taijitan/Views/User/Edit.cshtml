@@ -1,23 +1,78 @@
-﻿<h2>Beheer je account</h2>
+﻿
+@model Taijitan.Models.UserViewModel.EditViewModel
 
-<div>
-    <h4>Verander de instellingen van je account</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-            <ul class="nav nav-pills nav-stacked">
-                <li class="nav-item active"><a href="#" class="nav-link">Persoonlijke gegevens</a></li>
-                @*<li class="@ManageNavPages.ChangePasswordNavClass(ViewContext) nav-item"><a id="change-password" asp-area="Identity" asp-page="./ChangePassword">Wachtwoord</a></li>*@
-                @{ 
-                    if(TempData["Role"].Equals("Admin"))
-                    {
-                        <li class="nav-item"><a asp-controller="User" asp-action="Index" class="nav-link">Wijzig gegevens leden</a></li>
-                    }
-                }
-            </ul>
-        </div>
-        <div class="col-md-9">
-            <partial name="~/Areas/Identity/Pages/Account/Manage/Index.cshtml" />
-        </div>
+@{
+    ViewData["Title"] = "_EditPartial";
+}
+
+<h2>Wijzig persoonlijke gegevens</h2>
+<form method="post">
+    <div class="form-group col-md-6 col-lg-6">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
-</div>
+
+    <div class="form-group col-md-6 col-lg-6">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-6 col-lg-6">
+        <label asp-for="DateOfBirth"></label>
+        <input asp-for="DateOfBirth" class="form-control" />
+        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-6 col-lg-6">
+        <label asp-for="Street"></label>
+        <input asp-for="Street" class="form-control" />
+        <span asp-validation-for="Street" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-6 col-lg-6">
+        <label asp-for="PostalCode"></label>
+        <input asp-for="PostalCode" class="form-control" />
+        <span asp-validation-for="PostalCode" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-6 col-lg-6">
+        <label asp-for="CityName"></label>
+        <input asp-for="CityName" class="form-control" />
+        <span asp-validation-for="CityName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-6 col-lg-6">
+        <label asp-for="Country"></label>
+        <input asp-for="Country" class="form-control" />
+        <span asp-validation-for="Country" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-6 col-lg-6">
+        <label asp-for="HouseNumber"></label>
+        <input asp-for="HouseNumber" class="form-control" />
+        <span asp-validation-for="HouseNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-6 col-lg-6">
+        <label asp-for="PhoneNumber"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-6 col-lg-6">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div>
+        <button class="btn btn-primary" asp-route-id="@TempData["userId"]" asp-controller="User" asp-action="Edit" type="submit">Opslaan</button>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-default">Annuleren</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

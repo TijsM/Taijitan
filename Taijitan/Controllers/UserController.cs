@@ -25,8 +25,31 @@ namespace Taijitan.Controllers
             _userManager = userManager;
         }
 
+        public IActionResult Index(int? id)
+        {
+            User u = null;
+            if (id == null)
+            {
+                string userEmail = _userManager.GetUserName(HttpContext.User);
+                u = _userRepository.GetByEmail(userEmail);
+
+            }
+            else
+            {
+                u = _userRepository.GetById((int)id);
+            }
+
+            if (u == null)
+                return NotFound();
+            TempData["Role"] = u.GetType();
+            TempData["Role"] = TempData["role"].ToString().Split(".")[3];
+            TempData["userId"] = u.UserId;
+            TempData["EditViewModel"] = new EditViewModel(u);
+            return View("Index");
+        }
+
         [Authorize(policy: "Admin")]
-        public IActionResult Index(string searchTerm = "")
+        public IActionResult Summary(string searchTerm = "")
         {
             IEnumerable<User> users;
             if (searchTerm == null || searchTerm.Equals(""))
@@ -48,7 +71,7 @@ namespace Taijitan.Controllers
             {
                 string userEmail = _userManager.GetUserName(HttpContext.User);
                 u = _userRepository.GetByEmail(userEmail);
-               
+
             }
             else
             {
@@ -61,8 +84,8 @@ namespace Taijitan.Controllers
             TempData["Role"] = TempData["Role"].ToString().Split(".")[3];
             TempData["userId"] = u.UserId;
             //TempData.Put<User>("user", u);
-            TempData["EditViewModel"] = new EditViewModel(u);
-            return View();
+            var model = new EditViewModel(u);
+            return View("Edit", model);
         }
         [HttpPost]
         public IActionResult Edit(int id,EditViewModel evm)

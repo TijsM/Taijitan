@@ -21,7 +21,7 @@
                 <div class="dropdown">
                     <i class="fas fa-user-ninja fa-2x dropbtn" style="color: white; margin: 0.4em;" onclick="myFunction()"> </i>
                     <div id="myDropdown" class="dropdown-content">
-                        <a asp-controller="User" asp-action="Edit">Wijzig gegevens</a>
+                        <a asp-controller="User" asp-action="Index">Wijzig gegevens</a>
                         <a onclick="document.logoutForm.submit()" href="#">Uitloggen</a>
                     </div>
                 </div>
@@ -41,9 +41,9 @@ else
                 </div>
             </div>
         </li>*@
-        <li>
+        @*<li>
             <a asp-area="Identity" asp-page="/Account/Register">Registreer</a>
-        </li>
+        </li>*@
         <li>
             <a asp-area="Identity" asp-page="/Account/Login">Inloggen</a>
         </li>
