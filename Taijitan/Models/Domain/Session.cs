@@ -9,6 +9,6 @@ namespace Taijitan.Models.Domain
     {
         public IEnumerable<Member> members { get; set; }
         public DateTime datum { get; set; }
-        public Formule formula { get; set; }
+        public Formula formula { get; set; }
     }
 }
