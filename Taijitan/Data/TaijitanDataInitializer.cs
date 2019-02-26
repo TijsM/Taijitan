@@ -18,7 +18,6 @@ namespace Taijitan.Data
             _dbContext = dbContext;
             _userManager = userManager;
         }
-
         public async Task InitializeData()
         {
             _dbContext.Database.EnsureDeleted();
@@ -35,10 +34,10 @@ namespace Taijitan.Data
 
                 IEnumerable<Member> members = new List<Member>
                 {
-                     new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", bekegem, "Belgium", "16", "0492554616", "jarne.deschacht@student.hogent.be"),
-                     new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Unknown", nazareth, "Belgium", "Unknown", "0499721771", "tijs.martens@student.hogent.be"),
-                     new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Garzebekeveldstraat", adinkerke, "Belgium", "Unknown", "0000000000", "robbe.dekien@student.hogent.be"),
-                     new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Bijlokeweg", gent, "Belgium", "73", "0000000000", "stef.verlinde@student.hogent.be")
+                     new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", bekegem, "Belgium", "16", "0492554616", "jarne.deschacht@student.hogent.be",Formula.Formule1),
+                     new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Unknown", nazareth, "Belgium", "Unknown", "0499721771", "tijs.martens@student.hogent.be",Formula.Formule4),
+                     new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Garzebekeveldstraat", adinkerke, "Belgium", "Unknown", "0000000000", "robbe.dekien@student.hogent.be",Formula.Formule1),
+                     new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Bijlokeweg", gent, "Belgium", "73", "0000000000", "stef.verlinde@student.hogent.be",Formula.Formule4)
                 };
 
                 IEnumerable<Teacher> teachers = new List<Teacher>
@@ -51,16 +50,6 @@ namespace Taijitan.Data
                 {
                      new Admin("Admin", "Administrator", new DateTime(1980, 1, 15), "StationStraat", nazareth, "Belgie", "15", "+3249981557", "admin@taijitan.be"),
                 };
-
-
-                //Member jarne = new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", bekegem, "Belgium", "16", "0492554616", "jarne.deschacht@student.hogent.be");
-                //_dbContext.Members.Add(jarne);
-                //Member tijs = new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Unknown", nazareth, "Belgium", "Unknown", "0499721771", "tijs.martens@student.hogent.be");
-                //_dbContext.Members.Add(tijs);
-                //Member robbe = new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Garzebekeveldstraat", adinkerke, "Belgium", "Unknown", "0000000000", "robbe.dekien@student.hogent.be");
-                //_dbContext.Members.Add(robbe);
-                //Member stef = new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Unknown", gent, "Belgium", "Unknown", "0000000000", "stef.verlinde@student.hogent.be");
-                //_dbContext.Members.Add(stef);
 
                 foreach (User member in members)
                 {
@@ -91,10 +80,6 @@ namespace Taijitan.Data
                     var role = "Admin";
                     await CreateUser(username, email, password, role);
                 }
-
-                //await CreateUser("admin@taijitan.be", "admin@taijitan.be", "P@ssword1", "Admin");
-                //await CreateUser("teacher@taijitan.be", "teacher@taijitan.be", "P@ssword1", "Teacher");
-                //await CreateUser("member@taijitan.be", "member@taijitan.be", "P@ssword1", "Member");
                 _dbContext.SaveChanges();
             }
         }

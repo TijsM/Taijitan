@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Taijitan.Models.Domain
 {
-    public enum Niveau
+    public enum Rank
     {
         [Display(Name = "witte gordel")]
-        Beginneling,
+        Starter,
 
         [Display(Name = "witte gordel met geel streepje")]
         Kyu6,

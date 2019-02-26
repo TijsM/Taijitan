@@ -7,7 +7,6 @@ namespace Taijitan.Models.Domain
 {
     public class Teacher : User
     {
-        private IEnumerable<Session> sessions;
         public Teacher(string name, string firstName, DateTime dateOfBirth, string street, City city, string country, string houseNumber, string phoneNumber, string email)
         {
             Name = name;
@@ -20,7 +19,8 @@ namespace Taijitan.Models.Domain
             Country = country;
             HouseNumber = houseNumber;
         }
-        private Teacher() { }
+        private Teacher() {
+        }
 
         public override void Change(string name, string firstName, DateTime dateOfBirth, string street, City city, string country, string houseNumber, string phoneNumber, string email)
         {

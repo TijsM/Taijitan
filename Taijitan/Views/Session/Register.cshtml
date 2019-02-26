@@ -1,0 +1,24 @@
+﻿@model Taijitan.Models.ViewModels.SessionViewModel
+@using Taijitan.Helpers;
+<h2>Registreer je aanwezigheid</h2>
+<br />
+<h4>Sessie op @Model.Date. met als lesgever  @Model.Teacher.FirstName @Model.Teacher.Name</h4>
+<h4>Formule: @EnumHelpers.GetDisplayName(@Model.Formula)</h4>
+<div class="col-md-6">
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th>Naam</th>
+            <th>Aanwezig</th>
+        </tr>
+        @{
+            foreach (var item in Model.Members)
+            {
+                <tr>
+                    <td>@item.FirstName @item.Name</td>
+                    <td><input type="checkbox" /></td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+

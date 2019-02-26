@@ -7,7 +7,11 @@ namespace Taijitan.Models.Domain
 {
     public class Member : User
     {
-        public Member(string name, string firstName, DateTime dateOfBirth,string street,City city,string country,string houseNumber,string phoneNumber, string email)
+        public Formula Formula { get; set; }
+        public Rank Rank { get; set; }
+
+        public Member(string name, string firstName, DateTime dateOfBirth,string street,City city,
+            string country,string houseNumber,string phoneNumber, string email,Formula formula)
         {
             Name = name;
             FirstName = firstName;
@@ -18,10 +22,13 @@ namespace Taijitan.Models.Domain
             City = city;
             Country = country;
             HouseNumber = houseNumber;
+            Rank = Rank.Starter;
+            Formula = formula;
         }
         private Member() { }
 
-        public override void Change(string name, string firstName, DateTime dateOfBirth, string street, City city, string country, string houseNumber, string phoneNumber, string email)
+        public override void Change(string name, string firstName, DateTime dateOfBirth, string street, City city,
+            string country, string houseNumber, string phoneNumber, string email)
         {
             Name = name;
             FirstName = firstName;

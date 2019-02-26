@@ -54,6 +54,7 @@ namespace Taijitan
             services.AddScoped<TaijitanDataInitializer>();
             services.AddScoped<IUserRepository,UserRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
+            services.AddScoped<ISessionRepository, SessionRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
