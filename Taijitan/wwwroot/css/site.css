@@ -23,7 +23,7 @@ body {
 }
 
 .home span {
-   color: #336566;
+    color: #336566;
 }
 
 
@@ -31,15 +31,45 @@ body {
 
 
 
-.navbar, .navbar .navbar-inverse .navbar-fixed-top{
+.navbar, .navbar .navbar-inverse .navbar-fixed-top {
     background-color: #336566 !important;
     border-color: white;
     color: white !important;
 }
 
-.navbar-default .navbar-brand, .navbar-default .navbar-nav > li > a{
+.navbar-default .navbar-brand, .navbar-default .navbar-nav > li > a {
     color: #e7e7e7 !important;
 }
+
+.nav-pills > li.active > a {
+    background-color: #336566;
+}
+
+.btn-primary {
+    background-color: #336566;
+}
+
+#navbar_toggle {
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+    #navbar_toggle:hover {
+        background-color: #336566;
+    }
+
+    #navbar_toggle:active {
+        background-color: #336566;
+    }
+
+    #navbar_toggle:focus {
+        background-color: #336566;
+    }
+
+
+
+
 
 /*Dropdown button*/
 .dropbtn {
