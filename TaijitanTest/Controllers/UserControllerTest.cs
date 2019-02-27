@@ -20,7 +20,6 @@ namespace TaijitanTest.Controllers
 
         private readonly Mock<UserManager<IdentityUser>> _userManager;
 
-
         private readonly User _tomJansens;
         private readonly int _tomJansensId;
 
@@ -31,9 +30,16 @@ namespace TaijitanTest.Controllers
         public UserControllerTest()
         {
             _dummyContext = new DummyApplicationDbContext();
+
+            _userManager = new Mock<UserManager<IdentityUser>>();
+            //Setup Van userManager
             _mockUserRepository = new Mock<IUserRepository>();
             _mockCityRepository = new Mock<ICityRepository>();
-            _userManager = new Mock<UserManager<IdentityUser>>();
+            //Mocks van vreemd object vinden binnen de repos
+
+            //Setups
+
+
             _userController = new UserController
                 (_mockUserRepository.Object, _mockCityRepository.Object, _userManager.Object);
 
