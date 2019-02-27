@@ -1,0 +1,58 @@
+﻿@model Taijitan.Models.ViewModels.SessionViewModel
+@using Taijitan.Helpers;
+@using Taijitan.Models.ViewModels
+<h2>Registreer je aanwezigheid</h2>
+<br />
+<h4>Sessie op @Model.Date met als lesgever  @Model.SessionTeacher.FirstName @Model.SessionTeacher.Name</h4>
+<h4>Formule: @EnumHelpers.GetDisplayName(@Model.SessionFormula)</h4>
+
+<br />
+<br />
+    <div class="list-group">
+        @{
+            foreach (var item in Model.Members)
+            {
+        <a asp-action="AddToPresent" asp-route-sessionId="@Model.SessionId" asp-route-id="@item.UserId" class="list-group-item list-group-item-action">@item.FirstName @item.Name</a>
+                @*<button type="submit" asp-controller="Session" asp-action="AddToPresent" asp-route-id="@item.UserId" class="list-group-item list-group-item-action">@item.FirstName @item.Name</button>*@
+            }
+        }
+    </div>
+
+    <a asp-controller="Session" asp-action="AddMemberFromOtherFormula" class="btn btn-taijitan">Voeg lid Toe</a>
+    <br />
+    <br />
+    <div class="list-group">
+        @{
+            foreach (var item in Model.MembersPresent)
+            {
+                <a asp-action="AddToUnconfirmed" asp-controller="Session" asp-route-sessionId="@Model.SessionId" asp-route-id="@item.UserId" class="list-group-item list-group-item-action">@item.FirstName @item.Name</a>
+            }
+        }
+    </div>
+
+    <a asp-controller="Session" asp-action="Confirm" class="btn btn-taijitan">Bevestig aanwezigheden</a>
+
+
+@*<div class="col-md-8 col-md-offset-2">
+
+
+
+        <table class="table table-striped table-bordered table-dark">
+            <tr>
+                <th>Naam</th>
+                <th>Aanwezig</th>
+            </tr>
+            @{
+                foreach (var item in Model.Members)
+                {
+
+
+                    <tr>
+                        <td>@item.FirstName @item.Name</td>
+                        <td><input type="checkbox" /></td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>*@
+

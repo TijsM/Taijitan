@@ -7,6 +7,10 @@ body {
     padding-bottom: 20px;
 }
 
+.btn-taijitan {
+    background-color: #336566 !important;
+    color: white;
+}
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
@@ -67,6 +71,9 @@ body {
         background-color: #336566;
     }
 
+.container .collapse .navbar-text {
+    color: white;
+}
 
 
 
@@ -78,11 +85,10 @@ body {
     cursor: pointer;
 }
 
-    .dropbtn:hover, .dropbtn:focus {
-    }
+
 
 .dropdown {
-    float: right;
+    /*float: right;*/
     position: relative;
     display: inline-block;
 }

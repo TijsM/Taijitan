@@ -11,11 +11,13 @@ namespace Taijitan.Data
     {
         private readonly ApplicationDbContext _context;
         private readonly DbSet<User> _users;
+        private readonly IEnumerable<Member> _members;
 
         public UserRepository(ApplicationDbContext context)
         {
             _context = context;
             _users = context.Users_Domain;
+            _members = _users.OfType<Member>().Where(item => item.GetType() == typeof(Member)).ToList();
         }
 
 
@@ -42,6 +44,11 @@ namespace Taijitan.Data
             return _users
                 .Include(m => m.City)
                 .SingleOrDefault(m => m.Email == email);
+        }
+
+        public IEnumerable<Member> GetByFormula(Formula formula)
+        {
+            return _members.Where(m => m.Formula == formula).ToList();
         }
 
         public User GetById(int id)

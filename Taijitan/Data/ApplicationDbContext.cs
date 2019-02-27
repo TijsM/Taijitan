@@ -18,6 +18,7 @@ namespace Taijitan.Data
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<Session> Sessions { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -29,6 +30,7 @@ namespace Taijitan.Data
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new CityConfiguration());
+            builder.ApplyConfiguration(new SessionConfiguration());
             
         }
     }
