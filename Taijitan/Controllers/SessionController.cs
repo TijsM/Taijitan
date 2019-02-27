@@ -37,8 +37,8 @@ namespace Taijitan.Controllers
             Teacher t;
             string userEmail = _userManager.GetUserName(HttpContext.User);
             t = (Teacher)_userRepository.GetByEmail(userEmail);
-            IEnumerable<Member> members = _userRepository.GetByFormula(svm.Formula);
-            Session s = new Session(svm.Formula, t, members);
+            IEnumerable<Member> members = _userRepository.GetByFormula(svm.SessionFormula);
+            Session s = new Session(svm.SessionFormula, t, members);
             _sessionRepository.Add(s);
             _sessionRepository.SaveChanges();
             svm.Change(s);
@@ -46,21 +46,34 @@ namespace Taijitan.Controllers
         }
 
       
-        [HttpPost]
-        public IActionResult AddToPresent(int id, SessionViewModel svm)
+        //[HttpPost]
+        public IActionResult AddToPresent(int sessionId, int id)
         {
+            Teacher t;
+            string userEmail = _userManager.GetUserName(HttpContext.User);
+            t = (Teacher)_userRepository.GetByEmail(userEmail);
+            Session CurrentSession = _sessionRepository.GetById(sessionId);
             Member m = (Member)_userRepository.GetById(id);
-            svm.AddToMembersPresent(m);
-            return View(svm);
-            
+            CurrentSession.AddToMembersPresent(m);
+            SessionViewModel svm = new SessionViewModel(CurrentSession);
+            svm.SessionTeacher = t;
+            _sessionRepository.SaveChanges();
+            return View("Register", svm);
         }
 
-        [HttpPost]
-        public IActionResult AddToUnconfirmed(SessionViewModel svm, int id)
+        //[HttpPost]
+        public IActionResult AddToUnconfirmed(int sessionId, int id)
         {
+            Teacher t;
+            string userEmail = _userManager.GetUserName(HttpContext.User);
+            t = (Teacher)_userRepository.GetByEmail(userEmail);
+            Session CurrentSession = _sessionRepository.GetById(sessionId);
             Member m = (Member)_userRepository.GetById(id);
-            svm.AddToMembers(m);
-            return View(svm);
+            CurrentSession.AddToMembers(m);
+            SessionViewModel svm = new SessionViewModel(CurrentSession);
+            svm.SessionTeacher = t;
+            _sessionRepository.SaveChanges();
+            return View("Register", svm);
         }
 
 
