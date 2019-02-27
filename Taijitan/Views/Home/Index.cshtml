@@ -37,7 +37,7 @@
         <h1>Welkom @userNameFirstLetterUpper</h1>
         <p>Op de online tool van Taijitan</p>
         <sub>Bekijk en wijzig hier je <a asp-area="" asp-controller="User" asp-action="Index">gegevens</a></sub>
-        } else if (TempData["Admin"])
+        } else if (TempData["Role"].Equals("Admin"))
         {
         <h1>Welkom @userNameFirstLetterUpper</h1>
         <p>Op de online tool van Taijitan</p>
