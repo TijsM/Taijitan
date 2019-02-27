@@ -44,5 +44,26 @@ namespace Taijitan.Controllers
             svm.Change(s);
             return View("Register",svm);
         }
+
+      
+        [HttpPost]
+        public IActionResult AddToPresent(int id, SessionViewModel svm)
+        {
+            Member m = (Member)_userRepository.GetById(id);
+            svm.AddToMembersPresent(m);
+            return View(svm);
+            
+        }
+
+        [HttpPost]
+        public IActionResult AddToUnconfirmed(SessionViewModel svm, int id)
+        {
+            Member m = (Member)_userRepository.GetById(id);
+            svm.AddToMembers(m);
+            return View(svm);
+        }
+
+
+
     }
 }

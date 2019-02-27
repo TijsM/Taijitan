@@ -7,6 +7,10 @@ body {
     padding-bottom: 20px;
 }
 
+.btn-taijitan {
+    background-color: #336566 !important;
+    color: white;
+}
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
@@ -31,7 +35,7 @@ body {
 
 
 
-.navbar, .navbar .navbar-inverse .navbar-fixed-top{
+.navbar, .navbar .navbar-inverse .navbar-fixed-top {
     background-color: #336566 !important;
     border-color: white;
     color: white !important;
@@ -41,6 +45,10 @@ body {
     color: #e7e7e7 !important;
 }
 
+.container .collapse .navbar-text{
+    color: white;
+}
+
 /*Dropdown button*/
 .dropbtn {
     color: white;
@@ -48,11 +56,10 @@ body {
     cursor: pointer;
 }
 
-    .dropbtn:hover, .dropbtn:focus {
-    }
+
 
 .dropdown {
-    float: right;
+    /*float: right;*/
     position: relative;
     display: inline-block;
 }

@@ -4,8 +4,46 @@
 <br />
 <h4>Sessie op @Model.Date. met als lesgever  @Model.Teacher.FirstName @Model.Teacher.Name</h4>
 <h4>Formule: @EnumHelpers.GetDisplayName(@Model.Formula)</h4>
-<div class="col-md-6">
-    <table class="table table-striped table-bordered">
+
+<br />
+<br />
+
+<form method="post">
+    <div class="list-group">
+        @{
+            foreach (var item in Model.Members)
+            {
+               
+                <button type="submit" asp-controller="Session" asp-action="AddToPresent" asp-route-id="@item.UserId" class="list-group-item list-group-item-action">@item.FirstName @item.Name</button>
+            }
+
+        }
+    </div>
+
+    <a asp-controller="Session" asp-action="AddMemberFromOtherFormula" class="btn btn-taijitan">Voeg lid Toe</a>
+</form>
+
+<form method="post">
+    
+
+    <div class="list-group">
+        @{
+            foreach (var item in Model.MembersPresent)
+            {
+                <a asp-controller="Session" asp-action="AddToUnconfirmed" asp-route-id="@item.UserId" class="list-group-item list-group-item-action">@item.FirstName @item.Name</a>
+            }
+        }
+    </div> 
+
+    <a asp-controller="Session" asp-action="Confirm" class="btn btn-taijitan">Bevestig aanwezigheden</a>
+
+</form>
+
+@*<div class="col-md-8 col-md-offset-2">
+    
+
+
+    <table class="table table-striped table-bordered table-dark">
         <tr>
             <th>Naam</th>
             <th>Aanwezig</th>
@@ -13,6 +51,8 @@
         @{
             foreach (var item in Model.Members)
             {
+
+              
                 <tr>
                     <td>@item.FirstName @item.Name</td>
                     <td><input type="checkbox" /></td>
@@ -20,5 +60,5 @@
             }
         }
     </table>
-</div>
+</div>*@
 
