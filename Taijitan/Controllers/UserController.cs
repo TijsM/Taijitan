@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Taijitan.Filters;
 using Taijitan.Models.Domain;
 using Taijitan.Models.UserViewModel;
 
@@ -13,43 +14,45 @@ using Taijitan.Models.UserViewModel;
 namespace Taijitan.Controllers
 {
     [Authorize]
+    [ServiceFilter(typeof(UserFilter))]
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
         private readonly ICityRepository _cityRepository;
-        private readonly UserManager<IdentityUser> _userManager;
 
-        public UserController(IUserRepository userRepository,ICityRepository cityRepository, UserManager<IdentityUser> userManager)
+
+        public UserController(IUserRepository userRepository, ICityRepository cityRepository)
         {
             _userRepository = userRepository;
             _cityRepository = cityRepository;
-            _userManager = userManager;
+
         }
-        
-        public IActionResult Index(int? id)
+
+
+        public IActionResult Index(User user = null)
         {
-            User u = null;
-            if (id == null)
-            {
-                string userEmail = _userManager.GetUserName(HttpContext.User);
-                u = _userRepository.GetByEmail(userEmail);
+            //User u = null;
+            //if (id == null)
+            //{
 
-            }
-            else
-            {
-                u = _userRepository.GetById((int)id);
-            }
+            //    u = user;
 
-            if (u == null)
+            //}
+            //else
+            //{
+            //    u = _userRepository.GetById((int)id);
+            //}
+
+            if (user == null)
                 return NotFound();
-            TempData["Role"] = u.GetType();
+            TempData["Role"] = user.GetType();
             TempData["Role"] = TempData["role"].ToString().Split(".")[3];
-            TempData["userId"] = u.UserId;
-            TempData["EditViewModel"] = new EditViewModel(u);
+            TempData["userId"] = user.UserId;
+            TempData["EditViewModel"] = new EditViewModel(user);
             return View("Index");
         }
 
-        [Authorize(policy: "Admin")]
+
         public IActionResult Summary(string searchTerm = "")
         {
             IEnumerable<User> users;
@@ -65,35 +68,35 @@ namespace Taijitan.Controllers
         }
 
 
-        public IActionResult Edit(int? id)
+        public IActionResult Edit(User user)
         {
-            User u = null;
-            if (id == null)
-            {
-                string userEmail = _userManager.GetUserName(HttpContext.User);
-                u = _userRepository.GetByEmail(userEmail);
+            //User u = null;
+            //if (id == null)
+            //{
+            //    string userEmail = _userManager.GetUserName(HttpContext.User);
+            //    u = _userRepository.GetByEmail(userEmail);
 
-            }
-            else
-            {
-                u = _userRepository.GetById((int)id);
-            }
+            //}
+            //else
+            //{
+            //    u = _userRepository.GetById((int)id);
+            //}
 
-            if (u == null)
+            if (user == null)
                 return NotFound();
-            TempData["Role"] = u.GetType();
+            TempData["Role"] = user.GetType();
             TempData["Role"] = TempData["Role"].ToString().Split(".")[3];
-            TempData["userId"] = u.UserId;
+            TempData["userId"] = user.UserId;
             //TempData.Put<User>("user", u);
-            var model = new EditViewModel(u);
+            var model = new EditViewModel(user);
             return View("Edit", model);
         }
         [HttpPost]
-        public IActionResult Edit(int id,EditViewModel evm)
+        public IActionResult Edit(int id, EditViewModel evm)
         {
             User u = null;
             if (ModelState.IsValid)
-            { 
+            {
                 try
                 {
                     u = _userRepository.GetById(id);
@@ -102,7 +105,7 @@ namespace Taijitan.Controllers
                     TempData["message"] = "Je persoonlijke gegevens werden aangepast";
                     return RedirectToAction("Index", "Home");
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     ModelState.AddModelError("", e.Message);
                 }

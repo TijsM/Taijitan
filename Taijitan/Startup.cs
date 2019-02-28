@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Security.Claims;
 using Taijitan.Models.Domain;
 using Taijitan.Data.Repositories;
+using Taijitan.Filters;
 
 namespace Taijitan
 {
@@ -55,6 +56,7 @@ namespace Taijitan
             services.AddScoped<IUserRepository,UserRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<ISessionRepository, SessionRepository>();
+            services.AddScoped<UserFilter>();
 
             services.AddSession();
 
