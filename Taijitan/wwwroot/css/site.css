@@ -118,3 +118,9 @@ body {
 .show {
     display: block;
 }
+.ChangeAndDeleteColor {
+    color: #336566;
+}
+    .ChangeAndDeleteColor:hover {
+        color: black;
+    }

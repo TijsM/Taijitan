@@ -31,8 +31,8 @@
                 <th>Voornaam</th>
                 <th>Geboortedatum</th>
                 <th>Adres</th>
-                <th>telefoonnummer</th>
-                <th>emailadres</th>
+                <th>Telefoonnummer</th>
+                <th>E-mailadres</th>
                 <th></th>
             </tr>
 
@@ -46,9 +46,9 @@
                     <td>@item.PhoneNumber</td>
                     <td>@item.Email</td>
                     <td>
-                        <a asp-controller="User" asp-action="Edit" asp-route-id="@item.UserId" asp-route-isFromSummary="1">Pas aan</a>
-                        |
-                        <a asp-controller="User" asp-action="Delete" asp-route-id="@item.UserId">Verwijder</a>
+                        <a asp-controller="User" asp-action="Edit" asp-route-id="@item.UserId" asp-route-isFromSummary="1"><i title="Gegevens van gebruiker aanpassen" class="fas fa-edit fa-lg ChangeAndDeleteColor"></i></a>
+                        
+                        <a asp-controller="User" asp-action="Delete" asp-route-id="@item.UserId"><i title="Gebruiker verwijderen" class="fas fa-trash-alt fa-lg ChangeAndDeleteColor"></i></a>
                     </td>
                 </tr>
 

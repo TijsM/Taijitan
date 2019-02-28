@@ -31,18 +31,6 @@ namespace Taijitan.Controllers
 
         public IActionResult Index(User user = null)
         {
-            //User u = null;
-            //if (id == null)
-            //{
-
-            //    u = user;
-
-            //}
-            //else
-            //{
-            //    u = _userRepository.GetById((int)id);
-            //}
-
             if (user == null)
                 return NotFound();
             TempData["Role"] = user.GetType();
@@ -68,37 +56,24 @@ namespace Taijitan.Controllers
         }
 
 
-        public IActionResult Edit(User user,int isFromSummary = 0)
+        public IActionResult Edit(int id,int isFromSummary = 0)
         {
-            //User u = null;
-            //if (id == null)
-            //{
-            //    string userEmail = _userManager.GetUserName(HttpContext.User);
-            //    u = _userRepository.GetByEmail(userEmail);
+            User user = _userRepository.GetById(id);
 
-            //}
-            //else
-            //{
-            //    u = _userRepository.GetById((int)id);
-            //}
-
-
-
-            if (u == null)
+            if (user == null)
                 return NotFound();
             TempData["Role"] = user.GetType();
             TempData["Role"] = TempData["Role"].ToString().Split(".")[3];
-            TempData["userId"] = u.UserId;
+            TempData["userId"] = user.UserId;
             ViewData["isFromSummary"] = isFromSummary;
 
-            var model = new EditViewModel(u);
+            var model = new EditViewModel(user);
             return View("Edit", model);
         }
         [HttpPost]
-        public IActionResult Edit(int id,EditViewModel evm,int isFromSummary = 0)
+        public IActionResult Edit(int id,User user,EditViewModel evm,int isFromSummary = 0)
         {
             User u = null;
-            User loggedInUser = null;
             if (ModelState.IsValid)
             {
                 try
@@ -106,9 +81,7 @@ namespace Taijitan.Controllers
                     u = _userRepository.GetById(id);
                     u.Change(evm.Name, evm.FirstName, evm.DateOfBirth, evm.Street, _cityRepository.GetByPostalCode(evm.PostalCode), evm.Country, evm.HouseNumber, evm.PhoneNumber, evm.Email);
                     _userRepository.SaveChanges();
-                    string userEmail = _userManager.GetUserName(HttpContext.User);
-                    loggedInUser = _userRepository.GetByEmail(userEmail);
-                    string rol = loggedInUser.GetType().ToString().Split(".")[3];
+                     string rol = user.GetType().ToString().Split(".")[3];
                     TempData["message"] = $"De persoonlijke gegevens van {u.FirstName} {u.Name} werden aangepast";
 
                     if (rol.Equals("Admin") && isFromSummary == 1)
