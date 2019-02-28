@@ -62,8 +62,7 @@ namespace Taijitan.Controllers
 
             if (user == null)
                 return NotFound();
-            TempData["Role"] = user.GetType();
-            TempData["Role"] = TempData["Role"].ToString().Split(".")[3];
+            TempData["Role"] = user.GetType().ToString().Split(".")[3];
             TempData["userId"] = user.UserId;
             ViewData["isFromSummary"] = isFromSummary;
 
