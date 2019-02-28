@@ -17,6 +17,9 @@ namespace Taijitan.Data.Mappers
             builder.HasMany(s => s.Members)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Restrict);
+            builder.HasMany(s => s.MembersPresent)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Restrict);
             
         }
     }

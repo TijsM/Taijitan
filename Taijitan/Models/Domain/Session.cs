@@ -30,7 +30,7 @@ namespace Taijitan.Models.Domain
         {
             List<Member> _hulpPresent = MembersPresent.ToList();
             _hulpPresent.Add(mb);
-            MembersPresent = _hulpPresent.AsReadOnly();
+            MembersPresent = _hulpPresent;
 
             List<Member> _hulp = Members.ToList();
             _hulp.Remove(mb);
@@ -41,11 +41,11 @@ namespace Taijitan.Models.Domain
         {
             List<Member> _hulp = Members.ToList();
             _hulp.Add(mb);
-            Members = _hulp.AsReadOnly();
+            Members = _hulp;
 
             List<Member> _hulpPresent = MembersPresent.ToList();
             _hulpPresent.Remove(mb);
-            MembersPresent = _hulpPresent.AsReadOnly();
+            MembersPresent = _hulpPresent;
         }
     }
 }

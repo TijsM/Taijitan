@@ -10,7 +10,7 @@ namespace Taijitan.Data.Repositories
     public class SessionRepository : ISessionRepository
     {
         private readonly ApplicationDbContext _context;
-        private readonly DbSet<Session> _sessions;
+        private  readonly DbSet<Session> _sessions;
 
         public SessionRepository(ApplicationDbContext context)
         {
@@ -30,12 +30,12 @@ namespace Taijitan.Data.Repositories
 
         public IEnumerable<Session> GetAll()
         {
-            return _sessions.Include(s => s.Members).AsNoTracking().ToList();
+            return _sessions.Include(s => s.Members).Include(s => s.MembersPresent).AsNoTracking().ToList();
         }
 
         public Session GetById(int id)
         {
-            return _sessions.Include(s => s.Members).SingleOrDefault(s => s.SessionId == id);
+            return _sessions.Include(s => s.Members).Include(s => s.MembersPresent).SingleOrDefault(s => s.SessionId == id);
         }
 
         public void SaveChanges()
