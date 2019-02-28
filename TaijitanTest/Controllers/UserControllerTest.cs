@@ -21,8 +21,6 @@ namespace TaijitanTest.Controllers
         private UserManager<IdentityUser> _userManager;
 
         private User _tomJansens;
-        private int _tomJansensId;
-
 
         #endregion
 
@@ -50,7 +48,6 @@ namespace TaijitanTest.Controllers
         {
             //Arrange
             _tomJansens = _dummyContext.UserTomJansens;
-            _tomJansensId = _tomJansens.UserId;
 
             _mockUserRepository = new Mock<IUserRepository>();
             _mockCityRepository = new Mock<ICityRepository>();
@@ -58,11 +55,11 @@ namespace TaijitanTest.Controllers
             //_userManager = new Mock<UserManager<IdentityUser>>();
 
             _userController = new UserController
-               (_mockUserRepository.Object, _mockCityRepository.Object, _userManager);
+               (_mockUserRepository.Object, _mockCityRepository.Object);
 
             //Act
-            var result = _userController.Edit(_tomJansensId) as ViewResult;
-            result.ViewData["userId"] = _tomJansensId;
+            var result = _userController.Edit(_tomJansens) as ViewResult;
+            result.ViewData["userId"] = _tomJansens.UserId;
             var userViewModel = result?.Model as EditViewModel;
 
             //Assert
