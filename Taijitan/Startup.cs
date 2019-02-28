@@ -56,7 +56,8 @@ namespace Taijitan
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<ISessionRepository, SessionRepository>();
 
-            services.AddMemoryCache();
+            services.AddSession();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,10 +80,12 @@ namespace Taijitan
 
             app.UseAuthentication();
 
+            app.UseSession();
+
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                    name: "default",
+            routes.MapRoute(
+                name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
             dataInitializer.InitializeData().Wait();

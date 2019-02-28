@@ -5,6 +5,9 @@
 <br />
 <h4>Sessie op @Model.Date met als lesgever  @Model.SessionTeacher.FirstName @Model.SessionTeacher.Name</h4>
 
+@{
+    Session session = (Session) TempData["session"];
+}
 <br />
 <h3>Leden ingeschreven in formule: @EnumHelpers.GetDisplayName(@Model.SessionFormula)</h3>
     <div class="list-group">

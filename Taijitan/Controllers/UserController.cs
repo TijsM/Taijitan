@@ -12,6 +12,7 @@ using Taijitan.Models.UserViewModel;
 
 namespace Taijitan.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
@@ -24,7 +25,7 @@ namespace Taijitan.Controllers
             _cityRepository = cityRepository;
             _userManager = userManager;
         }
-
+        
         public IActionResult Index(int? id)
         {
             User u = null;

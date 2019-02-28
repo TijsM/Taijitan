@@ -11,6 +11,7 @@ using Taijitan.Models.ViewModels;
 
 namespace Taijitan.Controllers
 {
+    [Authorize(Policy = "Teacher")]
     public class SessionController : Controller
     {
         private readonly ISessionRepository _sessionRepository;
@@ -23,7 +24,6 @@ namespace Taijitan.Controllers
             _sessionRepository = sessionRepository;
             _userManager = userManager;
         }
-        [Authorize(Policy ="Teacher")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -31,7 +31,6 @@ namespace Taijitan.Controllers
             return View(new SessionViewModel());
         }
         [HttpPost]
-        [Authorize(Policy = "Teacher")]
         public IActionResult Create(SessionViewModel svm)
         {
             Teacher t;
@@ -42,6 +41,7 @@ namespace Taijitan.Controllers
             _sessionRepository.Add(s);
             _sessionRepository.SaveChanges();
             svm.Change(s);
+            TempData["session"] = s;
             return View("Register",svm);
         }
 
