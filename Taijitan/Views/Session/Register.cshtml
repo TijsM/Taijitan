@@ -4,10 +4,9 @@
 <h2>Registreer je aanwezigheid</h2>
 <br />
 <h4>Sessie op @Model.Date met als lesgever  @Model.SessionTeacher.FirstName @Model.SessionTeacher.Name</h4>
-<h4>Formule: @EnumHelpers.GetDisplayName(@Model.SessionFormula)</h4>
 
 <br />
-<br />
+<h3>Leden ingeschreven in formule: @EnumHelpers.GetDisplayName(@Model.SessionFormula)</h3>
     <div class="list-group">
         @{
             foreach (var item in Model.Members)
@@ -18,9 +17,10 @@
         }
     </div>
 
-    <a asp-controller="Session" asp-action="AddMemberFromOtherFormula" class="btn btn-taijitan">Voeg lid Toe</a>
+    <a asp-controller="Session" asp-action="AddMemberFromOtherFormula" class="btn btn-taijitan">Voeg gast toe</a>
     <br />
     <br />
+<h3>Leden aanwezig</h3>
     <div class="list-group">
         @{
             foreach (var item in Model.MembersPresent)
