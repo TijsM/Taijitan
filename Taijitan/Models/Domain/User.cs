@@ -19,6 +19,18 @@ namespace Taijitan.Models.Domain
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
 
-        public abstract void Change(string name, string firstName, DateTime dateOfBirth, string street, City city, string country, string houseNumber, string phoneNumber, string email);
+        public void Change(string name, string firstName, DateTime dateOfBirth, string street, City city,
+            string country, string houseNumber, string phoneNumber, string email)
+        {
+            Name = name;
+            FirstName = firstName;
+            DateOfBirth = dateOfBirth;
+            PhoneNumber = phoneNumber;
+            Email = email;
+            Street = street;
+            City = city;
+            Country = country;
+            HouseNumber = houseNumber;
+        }
     }
 }

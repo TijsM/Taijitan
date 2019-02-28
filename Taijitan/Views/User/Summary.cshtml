@@ -46,7 +46,7 @@
                     <td>@item.PhoneNumber</td>
                     <td>@item.Email</td>
                     <td>
-                        <a asp-controller="user" asp-action="Edit" asp-route-id="@item.UserId">Pas aan</a>
+                        <a asp-controller="User" asp-action="Edit" asp-route-id="@item.UserId" asp-route-isFromSummary="1">Pas aan</a>
                         |
                         <a asp-controller="User" asp-action="Delete" asp-route-id="@item.UserId">Verwijder</a>
                     </td>

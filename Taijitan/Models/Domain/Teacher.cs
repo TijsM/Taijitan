@@ -21,18 +21,5 @@ namespace Taijitan.Models.Domain
         }
         private Teacher() {
         }
-
-        public override void Change(string name, string firstName, DateTime dateOfBirth, string street, City city, string country, string houseNumber, string phoneNumber, string email)
-        {
-            Name = name;
-            FirstName = firstName;
-            DateOfBirth = dateOfBirth;
-            PhoneNumber = phoneNumber;
-            Email = email;
-            Street = street;
-            City = city;
-            Country = country;
-            HouseNumber = houseNumber;
-        }
     }
 }

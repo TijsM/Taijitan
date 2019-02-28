@@ -49,7 +49,7 @@ namespace Taijitan.Controllers
             return View("Index");
         }
 
-        [Authorize(policy: "Admin")]
+        [Authorize(Policy="Admin")]
         public IActionResult Summary(string searchTerm = "")
         {
             IEnumerable<User> users;
@@ -65,7 +65,7 @@ namespace Taijitan.Controllers
         }
 
 
-        public IActionResult Edit(int? id)
+        public IActionResult Edit(int? id,int isFromSummary = 0)
         {
             User u = null;
             if (id == null)
@@ -79,19 +79,23 @@ namespace Taijitan.Controllers
                 u = _userRepository.GetById((int)id);
             }
 
+
+
             if (u == null)
                 return NotFound();
             TempData["Role"] = u.GetType();
             TempData["Role"] = TempData["Role"].ToString().Split(".")[3];
             TempData["userId"] = u.UserId;
-            //TempData.Put<User>("user", u);
+            ViewData["isFromSummary"] = isFromSummary;
+
             var model = new EditViewModel(u);
             return View("Edit", model);
         }
         [HttpPost]
-        public IActionResult Edit(int id,EditViewModel evm)
+        public IActionResult Edit(int id,EditViewModel evm,int isFromSummary = 0)
         {
             User u = null;
+            User loggedInUser = null;
             if (ModelState.IsValid)
             { 
                 try
@@ -99,19 +103,28 @@ namespace Taijitan.Controllers
                     u = _userRepository.GetById(id);
                     u.Change(evm.Name, evm.FirstName, evm.DateOfBirth, evm.Street, _cityRepository.GetByPostalCode(evm.PostalCode), evm.Country, evm.HouseNumber, evm.PhoneNumber, evm.Email);
                     _userRepository.SaveChanges();
-                    TempData["message"] = "Je persoonlijke gegevens werden aangepast";
+                    string userEmail = _userManager.GetUserName(HttpContext.User);
+                    loggedInUser = _userRepository.GetByEmail(userEmail);
+                    string rol = loggedInUser.GetType().ToString().Split(".")[3];
+                    TempData["message"] = $"De persoonlijke gegevens van {u.FirstName} {u.Name} werden aangepast";
+
+                    if (rol.Equals("Admin") && isFromSummary == 1)
+                    {
+                        return RedirectToAction(nameof(Summary));
+                    }
                     return RedirectToAction("Index", "Home");
                 }
-                catch(Exception e)
+                catch
                 {
-                    ModelState.AddModelError("", e.Message);
+                    TempData["error"] = $"er ging iets mis bij het wijzigen van {u.FirstName} {u.Name}";
+                    return RedirectToAction(nameof(Summary));
                 }
             }
             ViewData["userId"] = id;
             return View(evm);
         }
 
-        [Authorize(policy: "Admin")]
+        [Authorize(Policy="Admin")]
         public IActionResult Delete(int id)
         {
             User us = _userRepository.GetById(id);
