@@ -9,42 +9,60 @@
 <form>
     <div class="form-inline">
         <div class="form-group">
-            <input name="searchTerm" class="form-control mb-2 mr-sm-2"  placeholder="Zoek op familienaam">
-            <input type="submit" value="Zoek" class="btn btn-primary" /> 
+            <input name="searchTerm" class="form-control mb-2 mr-sm-2" placeholder="Zoek op familienaam">
+            <input type="submit" value="Zoek" class="btn btn-primary" />
+            <button asp-controller="User" asp-action="Summary" asp-route-searchTerm="" class="btn btn-taijitan">reset</button>
         </div>
     </div>
 </form>
 
 <br /><br />
 
-<table class="table">
-    <tr>
-        <th>Familienaam</th>
-        <th>Voornaam</th>
-        <th>Geboortedatum</th> 
-        <th>Adres</th>
-        <th>telefoonnummer</th>
-        <th>emailadres</th>
-        <th></th>
-    </tr>
-    @{ 
-        foreach(var item in Model)
-        {
+
+
+@{
+    if (Model.Any())
+    {
+        <table class="table">
+
+
             <tr>
-                <td>@item.Name</td>
-                <td>@item.FirstName</td>
-                <td>@item.DateOfBirth.ToShortDateString()</td>
-                <td>@item.City.Postalcode @item.City.Name - @item.Street @item.HouseNumber</td>
-                <td>@item.PhoneNumber</td>
-                <td>@item.Email</td>
-                <td>
-                    <a asp-controller="user" asp-action="Edit" asp-route-id="@item.UserId">Pas aan</a>
-                    |
-                    <a asp-controller="User" asp-action="Delete" asp-route-id="@item.UserId">Verwijder</a>
-                </td>
+                <th>Familienaam</th>
+                <th>Voornaam</th>
+                <th>Geboortedatum</th>
+                <th>Adres</th>
+                <th>telefoonnummer</th>
+                <th>emailadres</th>
+                <th></th>
             </tr>
-        }
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.FirstName</td>
+                    <td>@item.DateOfBirth.ToShortDateString()</td>
+                    <td>@item.City.Postalcode @item.City.Name - @item.Street @item.HouseNumber</td>
+                    <td>@item.PhoneNumber</td>
+                    <td>@item.Email</td>
+                    <td>
+                        <a asp-controller="user" asp-action="Edit" asp-route-id="@item.UserId">Pas aan</a>
+                        |
+                        <a asp-controller="User" asp-action="Delete" asp-route-id="@item.UserId">Verwijder</a>
+                    </td>
+                </tr>
+
+
+            }
+        </table>
+
     }
-    
-</table>
+
+    else
+    {
+        <p>
+            Geen leden gevonden met de zoekterm, probeer opnieuw
+        </p>
+    }
+}
 
