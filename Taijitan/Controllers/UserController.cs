@@ -116,7 +116,7 @@ namespace Taijitan.Controllers
             User us = _userRepository.GetById(id);
             _userRepository.Delete(us);
             _userRepository.SaveChanges();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Summary");
         }
     }
 }

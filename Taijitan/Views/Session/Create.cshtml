@@ -5,9 +5,9 @@
 <br />
 <form method="post">
     <div class="form-group col-md-6">
-        <label asp-for="Formula">Kies een formule waarvoor je de sessie wilt starten</label>
+        <label asp-for="SessionFormula">Kies een formule waarvoor je de sessie wilt starten</label>
         <br />
-        <select asp-for="Formula" asp-items="@ViewData["Formulas"] as SelectList" class="form-control"></select>
+        <select asp-for="SessionFormula" asp-items="@ViewData["Formulas"] as SelectList" class="form-control"></select>
     </div>
     <div class="col-md-12">
         <button class="btn btn-taijitan" type="submit">Maak sessie</button>

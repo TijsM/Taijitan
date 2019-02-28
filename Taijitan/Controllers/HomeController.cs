@@ -4,16 +4,34 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Taijitan.Models;
+using Taijitan.Models.Domain;
 
 namespace Taijitan.Controllers
 {
 
     public class HomeController : Controller
     {
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IUserRepository _userRepository;
+
+        public HomeController(UserManager<IdentityUser> userManager, IUserRepository userRepository)
+        {
+            _userManager = userManager;
+            _userRepository = userRepository;
+        }
+
         public IActionResult Index()
         {
+            TempData["Role"] = "";
+            if(_userManager.GetUserName(HttpContext.User) != null)
+            {
+                var user = _userRepository.GetByEmail(_userManager.GetUserName(HttpContext.User));
+                TempData["Role"] = user.GetType();
+                TempData["Role"] = TempData["role"].ToString().Split(".")[3];
+            }
             return View();
         }
 
