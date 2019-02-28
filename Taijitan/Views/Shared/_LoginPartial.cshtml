@@ -22,13 +22,13 @@
                     <i class="fas fa-user-ninja fa-2x dropbtn" style="color: white; margin: 0.4em;" onclick="myFunction()"> </i>
                     <div id="myDropdown" class="dropdown-content">
                         <a asp-controller="User" asp-action="Index">Wijzig gegevens</a>
-                        <a onclick="document.logoutForm.submit()" href="#">Uitloggen</a>
+                        <a onclick="confirmDelete()" href="#">Uitloggen</a>
                     </div>
                 </div>
                 <div>
                     <ul class="dropdown-menu">
                         <li><a asp-controller="User" asp-action="Index">Wijzig gegevens</a></li>
-                        <li><a onclick="document.logoutForm.submit()" href="#">Uitloggen</a></li>
+                        <li><a onclick="confirmDelete()" href="#">Uitloggen</a></li>
                     </ul>
                 </div>
             </li>
@@ -75,6 +75,14 @@ else
                     }
                 }
             }
+            function confirmDelete() {
+                alert("halahal");
+                var result = confirm("Want to delete?");
+                if (result) {
+                    document.logoutForm.submit()
+                }
+            }
+            
         </script>
     }
 }
