@@ -11,7 +11,7 @@ namespace Taijitan.Models.Domain
         public Rank Rank { get; set; }
 
         public Member(string name, string firstName, DateTime dateOfBirth,string street,City city,
-            string country,string houseNumber,string phoneNumber, string email,Formula formula)
+            Country country,string houseNumber,string phoneNumber, string email,Formula formula, DateTime dateRegistred, Gender gender, Country nationality, string personalNationalNumber, string birthPlace, string landlineNumber = "Niet gekend", string mailParent = "niet gekend")
         {
             Name = name;
             FirstName = firstName;
@@ -24,6 +24,12 @@ namespace Taijitan.Models.Domain
             HouseNumber = houseNumber;
             Rank = Rank.Starter;
             Formula = formula;
+            Gender = gender;
+            Nationality = nationality;
+            PersonalNationalNumber = personalNationalNumber;
+            BirthPlace = birthPlace;
+            LandlineNumber = landlineNumber;
+            MailParent = mailParent;
         }
         private Member() { }
     }

@@ -37,7 +37,7 @@ namespace Taijitan.Models.UserViewModel
 
         [Required(ErrorMessage = "Land is verplicht in te vullen")]
         [Display(Name="Land")]
-        public string Country { get; set; }
+        public Country Country { get; set; }
 
         [Required(ErrorMessage = "Huisnummer is verplicht in te vullen")]
         [Display(Name = "Huisnummer")]
@@ -53,6 +53,37 @@ namespace Taijitan.Models.UserViewModel
         [Display(Name = "E-mailadres")]
         public string Email { get; set; }
 
+        //---------------------------------------------------------------------------------
+        [Required(ErrorMessage = "Datum van aanmelding mag niet leeg zijn")]
+        [DataType(DataType.Date)]
+        [Display(Name = "Datum van aanmelding")]
+        public DateTime DateRegistred { get; set; }
+
+        [Required(ErrorMessage = "Geslacht mag niet leeg zijn")]
+        [Display(Name = "Geslacht")]
+        public Gender Gender { get; set; }
+
+        [Required(ErrorMessage = "Nationaliteit mag niet leeg zijn")]
+        [Display(Name = "Nationaliteit")]
+        public Country Nationality { get; set; }
+
+        [Required(ErrorMessage = "Rijksregisternummer is verplicht in te vullen")]
+        [Display(Name = "Rijksregisternummer")]
+        public string PersonalNationalNumber { get; set; }
+
+        [Required(ErrorMessage = "Geboorteplaats is verplicht in te vullen")]
+        [Display(Name = "Geboorteplaats")]
+        public string BirthPlace { get; set; }
+
+        [Display(Name = "Vast telefoonnummer (optioneel)")]
+        public string LandLineNumber { get; set; }
+
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "E-mailadres van een ouder (optioneel)")]
+        public string MailParent { get; set; }
+
+
+
 
         public EditViewModel(User user)
         {
@@ -66,6 +97,14 @@ namespace Taijitan.Models.UserViewModel
             HouseNumber = user.HouseNumber;
             PhoneNumber = user.PhoneNumber;
             Email = user.Email;
+            DateRegistred = user.DateRegistred;
+            Gender = user.Gender;
+            Nationality = user.Nationality;
+            PersonalNationalNumber = user.PersonalNationalNumber;
+            BirthPlace = user.BirthPlace;
+            LandLineNumber = LandLineNumber;
+            MailParent = MailParent;
+
         }
 
         public EditViewModel()

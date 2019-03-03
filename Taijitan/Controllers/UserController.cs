@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Taijitan.Filters;
+using Taijitan.Helpers;
 using Taijitan.Models.Domain;
 using Taijitan.Models.UserViewModel;
 
@@ -32,6 +33,8 @@ namespace Taijitan.Controllers
             TempData["Role"] = TempData["role"].ToString().Split(".")[3];
             TempData["userId"] = user.UserId;
             TempData["EditViewModel"] = new EditViewModel(user);
+            ViewData["Countries"] = EnumHelpers.ToSelectList<Country>();
+            ViewData["Genders"] = EnumHelpers.ToSelectList<Gender>();
             return View("Index");
         }
 
@@ -60,6 +63,8 @@ namespace Taijitan.Controllers
             TempData["Role"] = user.GetType().ToString().Split(".")[3];
             TempData["userId"] = user.UserId;
             ViewData["isFromSummary"] = isFromSummary;
+            ViewData["Countries"] = EnumHelpers.ToSelectList<Country>();
+            ViewData["Genders"] = EnumHelpers.ToSelectList<Gender>();
 
             var model = new EditViewModel(user);
             return View("Edit", model);
@@ -73,7 +78,7 @@ namespace Taijitan.Controllers
                 try
                 {
                     u = _userRepository.GetById(id);
-                    u.Change(evm.Name, evm.FirstName, evm.DateOfBirth, evm.Street, _cityRepository.GetByPostalCode(evm.PostalCode), evm.Country, evm.HouseNumber, evm.PhoneNumber, evm.Email);
+                    u.Change(evm.Name, evm.FirstName, evm.DateOfBirth, evm.Street, _cityRepository.GetByPostalCode(evm.PostalCode), evm.Country, evm.HouseNumber, evm.PhoneNumber, evm.Email, evm.DateRegistred, evm.Gender, evm.Nationality, evm.PersonalNationalNumber, evm.BirthPlace, evm.LandLineNumber, evm.MailParent);
                     _userRepository.SaveChanges();
                     string rol = user.GetType().ToString().Split(".")[3];
                     TempData["message"] = $"De persoonlijke gegevens van {u.FirstName} {u.Name} werden aangepast";

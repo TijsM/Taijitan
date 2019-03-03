@@ -35,19 +35,19 @@ namespace TaijitanTest.Data
             _antwerpen = new City("2000", "Antwerpen");
             _brussel = new City("1000", "Brussel");
             TomJansensCity = _gent;
-            _tijs = new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Unknown", _brussel, "Belgie", "Unknown", "0499721771", "tijs.martens@student.hogent.be", Formula.Formule4);
-            _stef = new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Unknown", _antwerpen, "Belgie", "Unknown", "0000000000", "stef.verlinde@student.hogent.be", Formula.Formule4);
-            _jarne = new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", _gent, "Belgie", "16", "0492554616", "jarne.deschacht@student.hogent.be", Formula.Formule1);
-            _robbe = new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Garzebekeveldstraat", _gent, "Belgie", "Unknown", "0000000000", "robbe.dekien@student.hogent.be", Formula.Formule1);
-            UserTomJansens = new Member("Jansens", "Tom", new DateTime(1999, 8, 9), "Hoogstraat", _gent, "Belgie", "8", "+32499854775", "tom.jansens@gmail.com",Formula.Formule1);
+            _tijs = new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Unknown", _brussel, Country.Belgium, "Unknown", "0499721771", "tijs.martens@student.hogent.be", Formula.Formule4, new DateTime(2014/06/2), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent");
+            _stef = new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Unknown", _antwerpen, Country.Belgium, "Unknown", "0000000000", "stef.verlinde@student.hogent.be", Formula.Formule4, new DateTime(2015 / 08 / 4), Gender.Man, Country.Belgium, "02-08-1998.306-37", "Gent");
+            _jarne = new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", _gent, Country.Belgium, "16", "0492554616", "jarne.deschacht@student.hogent.be", Formula.Formule1, new DateTime(2016 / 01 / 30), Gender.Man, Country.Belgium, "09-08-1999.400-08", "Gent");
+            _robbe = new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Garzebekeveldstraat", _gent, Country.Belgium, "Unknown", "0000000000", "robbe.dekien@student.hogent.be", Formula.Formule1, new DateTime(2016 / 05 / 30), Gender.Man, Country.Belgium, "02-06-1999.100-20", "Gent");
+            UserTomJansens = new Member("Jansens", "Tom", new DateTime(1999, 8, 9), "Hoogstraat", _gent, Country.Belgium, "8", "+32499854775", "tom.jansens@gmail.com",Formula.Formule1, new DateTime(2017 / 05 / 18), Gender.Man, Country.Belgium, "09-08-1999.400-09", "Gent");
 
             _users = new List<User>
             {
                 UserTomJansens,
-                new Admin("Alain", "Vandamme", new DateTime(1980, 1, 15), "StationStraat", _antwerpen, "Belgie", "15", "+3249981557", "alain.vandamma@synalco.be"),
+                new Admin("Alain", "Vandamme", new DateTime(1980, 1, 15), "StationStraat", _antwerpen, Country.Belgium, "15", "+3249981557", "alain.vandamma@synalco.be",  new DateTime(2005/01/30), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent"),
                 _robbe,_jarne,_stef,_tijs,
 
-                new Teacher("Chan", "Jacky", new DateTime(1960, 10, 18), "HongkongStreet", _gent, "Belgie", "1", "+23456987447", "jacky.chan@hollywood.com" )
+                new Teacher("Chan", "Jacky", new DateTime(1960, 10, 18), "HongkongStreet", _gent, Country.Belgium, "1", "+23456987447", "jacky.chan@hollywood.com" , new DateTime(2005/01/30), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent")
 
 
             };

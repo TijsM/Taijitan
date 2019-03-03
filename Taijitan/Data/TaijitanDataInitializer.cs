@@ -34,21 +34,23 @@ namespace Taijitan.Data
 
                 IEnumerable<Member> members = new List<Member>
                 {
-                     new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", bekegem, "Belgium", "16", "0492554616", "jarne.deschacht@student.hogent.be",Formula.Formule1),
-                     new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Unknown", nazareth, "Belgium", "Unknown", "0499721771", "tijs.martens@student.hogent.be",Formula.Formule4),
-                     new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Garzebekeveldstraat", adinkerke, "Belgium", "Unknown", "0000000000", "robbe.dekien@student.hogent.be",Formula.Formule1),
-                     new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Bijlokeweg", gent, "Belgium", "73", "0000000000", "stef.verlinde@student.hogent.be",Formula.Formule4)
-                };
+                     new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", bekegem, Country.Belgium, "16", "0492554616", "jarne.deschacht@student.hogent.be",Formula.Formule1, new DateTime(2016 / 01 / 30), Gender.Man, Country.Belgium, "09-08-1999.400-08", "Gent"),
+                     new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Unknown", nazareth, Country.Belgium, "Unknown", "0499721771", "tijs.martens@student.hogent.be",Formula.Formule4,  new DateTime(2014/06/2), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent"),
+                     new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Garzebekeveldstraat", adinkerke, Country.Belgium, "Unknown", "0000000000", "robbe.dekien@student.hogent.be", Formula.Formule1, new DateTime(2016 / 05 / 30), Gender.Man, Country.Belgium, "02-06-1999.100-20", "Gent"),
+                     new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Bijlokeweg", gent, Country.Belgium ,"73", "0000000000", "stef.verlinde@student.hogent.be",Formula.Formule4, new DateTime(2015 / 08 / 4), Gender.Man, Country.Belgium, "02-08-1998.306-37", "Gent")
+            };
 
                 IEnumerable<Teacher> teachers = new List<Teacher>
                 {
-                     new Teacher("Chan", "Jacky", new DateTime(1960, 10, 18), "HongkongStreet", gent, "Belgie", "1", "+23456987447", "teacher@taijitan.be" )
+                     new Teacher("Chan", "Jacky", new DateTime(1960, 10, 18), "HongkongStreet", gent, Country.Belgium, "1", "+23456987447", "teacher@taijitan.be" , new DateTime(2005/01/30), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent")
+
 
                 };
 
                 IEnumerable<Admin> admins = new List<Admin>
                 {
-                     new Admin("Admin", "Administrator", new DateTime(1980, 1, 15), "StationStraat", nazareth, "Belgie", "15", "+3249981557", "admin@taijitan.be"),
+                     new Admin("Admin", "Administrator", new DateTime(1980, 1, 15), "StationStraat", nazareth, Country.Belgium, "15", "+3249981557", "admin@taijitan.be",  new DateTime(2005/01/30), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent"),
+
                 };
 
                 foreach (User member in members)
