@@ -62,14 +62,14 @@ a {
     color: #336566;
 }
 
-.btn-primary:hover {
+.btn-primary:hover, .btn-primary:focus {
     box-shadow: 0px 0px 0px 1px #336566 inset;
     box-sizing: border-box;
     background-color: white !important;
     color: #336566;
 }
 
-.btn-taijitan:hover {
+.btn-taijitan:hover, .btn-taijitan:focus, .btn-taijitan:active {
     box-shadow: 0px 0px 0px 1.5px #336566 inset;
     box-sizing: border-box;
     background-color: white !important;
@@ -77,7 +77,7 @@ a {
 }
 
 
-.btn-primary {
+.btn-primary, .btn-primary:focus {
     background-color: #336566;
 }
 
@@ -103,8 +103,47 @@ a {
     color: white;
 }
 
+.swal-button.swal-button--danger {
+    background-color: #336566;
+}
 
+    .swal-button.swal-button--danger:hover {
+        box-shadow: 0px 0px 0px 1.5px #336566 inset;
+        box-sizing: border-box;
+        background-color: white !important;
+        color: #336566;
+    }
 
+    .swal-button.swal-button--danger:focus {
+        box-shadow: 0px 0px 0px 1.5px #336566 inset;
+    }
+
+.swal-button.swal-button--cancel {
+    color: #555 !important;
+    background-color: #efefef !important;
+}
+
+    .swal-button.swal-button--cancel:focus {
+        box-shadow: 0px 0px 0px 1.5px #bababa inset;
+    }
+    .swal-button.swal-button--cancel:hover {
+        box-shadow: 0px 0px 0px 1.5px #bababa inset;
+    }
+
+.swal-button {
+    background-color: #336566;
+}
+
+    .swal-button:hover {
+        box-shadow: 0px 0px 0px 1.5px #336566 inset;
+        box-sizing: border-box;
+        background-color: white !important;
+        color: #336566;
+    }
+
+    .swal-button:focus {
+        box-shadow: 0px 0px 0px 1.5px #336566 inset;
+    }
 
 /*Dropdown button*/
 .dropbtn {
@@ -146,9 +185,11 @@ a {
 .show {
     display: block;
 }
+
 .ChangeAndDeleteColor {
     color: #336566;
 }
+
     .ChangeAndDeleteColor:hover {
         color: black;
     }

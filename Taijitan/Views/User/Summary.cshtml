@@ -38,7 +38,7 @@
 
             @foreach (var item in Model)
             {
-                <tr>
+                <tr id="@item.UserId">
                     <td>@item.Name</td>
                     <td>@item.FirstName</td>
                     <td>@item.DateOfBirth.ToShortDateString()</td>
@@ -47,8 +47,8 @@
                     <td>@item.Email</td>
                     <td>
                         <a asp-controller="User" asp-action="Edit" asp-route-id="@item.UserId" asp-route-isFromSummary="1"><i title="Gegevens van gebruiker aanpassen" class="fas fa-edit fa-lg ChangeAndDeleteColor"></i></a>
-                        
-                        <a asp-controller="User" asp-action="Delete" asp-route-id="@item.UserId"><i title="Gebruiker verwijderen" class="fas fa-trash-alt fa-lg ChangeAndDeleteColor"></i></a>
+                        <a onclick="confirmDelete(@item.UserId)"><i title="Gebruiker verwijderen" class="fas fa-trash-alt fa-lg ChangeAndDeleteColor"></i></a>
+                        @*<a asp-controller="User" asp-action="Delete" asp-route-id="@item.UserId" asp-route-confirmed="" onclick="confirmDelete(@item.UserId)"><i title="Gebruiker verwijderen" class="fas fa-trash-alt fa-lg ChangeAndDeleteColor"></i></a>*@
                     </td>
                 </tr>
 

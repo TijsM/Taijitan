@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Collections.Generic;
 using Taijitan.Filters;
 using Taijitan.Models.Domain;
 using Taijitan.Models.UserViewModel;
@@ -40,7 +35,7 @@ namespace Taijitan.Controllers
             return View("Index");
         }
 
-        [Authorize(Policy="Admin")]
+        [Authorize(Policy = "Admin")]
         public IActionResult Summary(string searchTerm = "")
         {
             IEnumerable<User> users;
@@ -56,7 +51,7 @@ namespace Taijitan.Controllers
         }
 
 
-        public IActionResult Edit(int id,int isFromSummary = 0)
+        public IActionResult Edit(int id, int isFromSummary = 0)
         {
             User user = _userRepository.GetById(id);
 
@@ -71,7 +66,7 @@ namespace Taijitan.Controllers
             return View("Edit", model);
         }
         [HttpPost]
-        public IActionResult Edit(int id,User user,EditViewModel evm,int isFromSummary = 0)
+        public IActionResult Edit(int id, User user, EditViewModel evm, int isFromSummary = 0)
         {
             User u = null;
             if (ModelState.IsValid)
@@ -81,7 +76,7 @@ namespace Taijitan.Controllers
                     u = _userRepository.GetById(id);
                     u.Change(evm.Name, evm.FirstName, evm.DateOfBirth, evm.Street, _cityRepository.GetByPostalCode(evm.PostalCode), evm.Country, evm.HouseNumber, evm.PhoneNumber, evm.Email);
                     _userRepository.SaveChanges();
-                     string rol = user.GetType().ToString().Split(".")[3];
+                    string rol = user.GetType().ToString().Split(".")[3];
                     TempData["message"] = $"De persoonlijke gegevens van {u.FirstName} {u.Name} werden aangepast";
 
                     if (rol.Equals("Admin") && isFromSummary == 1)
@@ -100,12 +95,15 @@ namespace Taijitan.Controllers
             return View(evm);
         }
 
-        [Authorize(Policy="Admin")]
-        public IActionResult Delete(int id)
+        [Authorize(Policy = "Admin")]
+        public IActionResult Delete(int id, string confirmed = "true")
         {
-            User us = _userRepository.GetById(id);
-            _userRepository.Delete(us);
-            _userRepository.SaveChanges();
+            if (confirmed.Equals("true"))
+            {
+                User us = _userRepository.GetById(id);
+                _userRepository.Delete(us);
+                _userRepository.SaveChanges();
+            }
             return RedirectToAction("Summary");
         }
     }

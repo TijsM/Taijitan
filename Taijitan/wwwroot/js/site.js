@@ -24,9 +24,9 @@ window.onclick = function (event) {
     }
 }
 
-function confirmDelete() {
+function confirmLogout() {
     swal({
-        title: "Ben je zeker?",
+        title: "Ben je zeker dat je wilt uitloggen?",
         //text: "Once deleted, you will not be able to recover this imaginary file!",
         icon: "warning",
         buttons: true,
@@ -36,13 +36,48 @@ function confirmDelete() {
             if (willDelete) {
                 swal("Je bent succesvol uitgelogd!", {
                     icon: "success",
+                }).then((value) => {
+                        document.logoutForm.submit();
                 });
-                setTimeout(logout, 2000);
+
             }
         });
 }
 
-function logout()
-{
+function confirmDelete(id) {
+    swal({
+        title: "Ben je zeker dat je dit lid wilt verwijderen?",
+        text: "Dit lid wordt permanent verwijderd",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                swal("Het lid is succesvol verwijderd!", {
+                    icon: "success",
+                });
+                Delete(id, name);
+            }
+        });
+}
+
+function Summary() {
+    $.ajax({
+        url: '/User/Summary'
+    });
+}
+function Delete(id) {
+    $.ajax({
+        url: '/User/Delete',
+        type: 'POST',
+        data: { id: id },
+        success: function () {
+            var member = document.getElementById(id);
+            member.parentNode.removeChild(member);
+        }
+    });
+}
+function logout() {
     document.logoutForm.submit();
 }

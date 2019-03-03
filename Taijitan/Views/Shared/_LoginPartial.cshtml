@@ -22,13 +22,13 @@
                     <i class="fas fa-user-ninja fa-2x dropbtn" style="color: white; margin: 0.4em;" onclick="myFunction()"> </i>
                     <div id="myDropdown" class="dropdown-content">
                         <a asp-controller="User" asp-action="Index">Wijzig gegevens</a>
-                        <a onclick="confirmDelete()" href="#">Uitloggen</a>
+                        <a onclick="confirmLogout()" href="#">Uitloggen</a>
                     </div>
                 </div>
                 <div>
                     <ul class="dropdown-menu">
                         <li><a asp-controller="User" asp-action="Index">Wijzig gegevens</a></li>
-                        <li><a onclick="confirmDelete()" href="#">Uitloggen</a></li>
+                        <li><a onclick="confirmLogout()" href="#">Uitloggen</a></li>
                     </ul>
                 </div>
             </li>
@@ -56,33 +56,5 @@ else
     </ul>
     @section scripts {
         <script src="~/js/site.js"></script>
-        <script>
-            /* When the user clicks on the button, toggle between hiding and showing the dropdown content */
-            function myFunction() {
-                document.getElementById("myDropdown").classList.toggle("show");
-            }
-
-            // Close the dropdown menu if the user clicks outside of it
-            window.onclick = function (event) {
-                if (!event.target.matches('.dropbtn')) {
-                    var dropdowns = document.getElementsByClassName("dropdown-content");
-                    var i;
-                    for (i = 0; i < dropdowns.length; i++) {
-                        var openDropdown = dropdowns[i];
-                        if (openDropdown.classList.contains('show')) {
-                            openDropdown.classList.remove('show');
-                        }
-                    }
-                }
-            }
-            function confirmDelete() {
-                alert("halahal");
-                var result = confirm("Want to delete?");
-                if (result) {
-                    document.logoutForm.submit()
-                }
-            }
-            
-        </script>
     }
 }
