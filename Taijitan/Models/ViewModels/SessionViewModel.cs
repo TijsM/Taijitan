@@ -12,7 +12,8 @@ namespace Taijitan.Models.ViewModels
         public IEnumerable<Member> Members { get; set; }
         public IEnumerable<Member> MembersPresent { get; set; }
         public DateTime Date { get; set; }
-        public Formula SessionFormula { get; set; }
+        public int TrainingDayId { get; set; }
+        public TrainingDay TrainingDay { get; set; }
         public Teacher SessionTeacher { get; set; }
         public int SessionId { get; set; }
 
@@ -21,22 +22,25 @@ namespace Taijitan.Models.ViewModels
             Members = s.Members;
             MembersPresent = s.MembersPresent;
             Date = s.Date;
-            SessionFormula = s.Formula;
+            TrainingDayId = s.TrainingDay.TrainingDayId;
             SessionTeacher = s.Teacher;
             SessionId = s.SessionId;
+            TrainingDay = s.TrainingDay != null ? s.TrainingDay : null;
         }
         public SessionViewModel(Session s)
         {
             Members = s.Members;
             MembersPresent = s.MembersPresent;
             Date = s.Date;
-            SessionFormula = s.Formula;
+            TrainingDayId = s.TrainingDay.TrainingDayId;
             SessionTeacher = s.Teacher;
             SessionId = s.SessionId;
+            TrainingDay = s.TrainingDay != null ? s.TrainingDay : null;
         }
         public SessionViewModel()
         {
-            SessionId = 69;
+            Members = new List<Member>();
+            MembersPresent = new List<Member>();
         }       
         
         public void UpdateMembers(IEnumerable<Member> members, IEnumerable<Member> memberspresent)

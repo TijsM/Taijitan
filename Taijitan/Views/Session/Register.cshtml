@@ -3,13 +3,13 @@
 @using Taijitan.Models.ViewModels
 <h2>Registreer je aanwezigheid</h2>
 <br />
-<h4>Sessie op @Model.Date met als lesgever  @Model.SessionTeacher.FirstName @Model.SessionTeacher.Name</h4>
+<h4>Sessie op @Model.Date.ToShortDateString() van @(Model.TrainingDay.StartHour):00 tot @(Model.TrainingDay.StopHour):00 met als lesgever  @Model.SessionTeacher.FirstName @Model.SessionTeacher.Name</h4>
 
 @{
     Session session = (Session) TempData["session"];
 }
 <br />
-<h3>Leden ingeschreven in formule: @EnumHelpers.GetDisplayName(@Model.SessionFormula)</h3>
+<h3>Leden ingeschreven in formule: </h3>
     <div class="list-group">
         @{
             foreach (var item in Model.Members)

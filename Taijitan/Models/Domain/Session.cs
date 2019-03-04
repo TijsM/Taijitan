@@ -11,20 +11,23 @@ namespace Taijitan.Models.Domain
         public IEnumerable<Member> Members { get; set; }
         public IEnumerable<Member> MembersPresent { get; set; }
         public DateTime Date { get; set; }
-        public Formula Formula { get; set; }
+        public IEnumerable<Formula> Formulas { get; set; }
         public Teacher Teacher { get; set; }
+        public TrainingDay TrainingDay { get; set; }
 
-        public Session(Formula formula,Teacher teacher,IEnumerable<Member> members)
+        public Session(List<Formula> formulas,Teacher teacher,IEnumerable<Member> members)
         {
             MembersPresent = new List<Member>();
             Members = members;
+            TrainingDay = formulas.First().TrainingDays.SingleOrDefault(d => d.DayOfWeek.Equals(DateTime.Now.DayOfWeek));
             Date = DateTime.Now;
-            Formula = formula;
+            Formulas = formulas.ToList();
             Teacher = teacher;
         }
         public Session()
         {
             MembersPresent = new List<Member>();
+            Formulas = new List<Formula>();
         }
         public void AddToMembersPresent(Member mb)
         {
