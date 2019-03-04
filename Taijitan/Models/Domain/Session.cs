@@ -14,6 +14,7 @@ namespace Taijitan.Models.Domain
         public IEnumerable<Formula> Formulas { get; set; }
         public Teacher Teacher { get; set; }
         public TrainingDay TrainingDay { get; set; }
+        public IList<SessionMember> SessionMembers{ get; set; }
 
         public Session(List<Formula> formulas,Teacher teacher,IEnumerable<Member> members)
         {
@@ -23,6 +24,8 @@ namespace Taijitan.Models.Domain
             Date = DateTime.Now;
             Formulas = formulas.ToList();
             Teacher = teacher;
+
+            SessionMembers = new List<SessionMember>();
         }
         public Session()
         {
