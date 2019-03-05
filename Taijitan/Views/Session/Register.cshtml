@@ -33,8 +33,9 @@
         }
     </div>
 
-    <a asp-controller="Session" asp-action="Confirm" class="btn btn-taijitan">Bevestig aanwezigheden</a>
+    <a asp-action="Confirm" asp-controller="Session" asp-route-sessionId="@Model.SessionId" class="btn btn-taijitan">Bevestig aanwezigheden</a>
 
+    
 
 @*<div class="col-md-8 col-md-offset-2">
 

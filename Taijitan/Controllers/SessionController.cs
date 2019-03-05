@@ -19,14 +19,16 @@ namespace Taijitan.Controllers
         private readonly IUserRepository _userRepository;
         private readonly ITrainingDayRepository _trainingDayRepository;
         private readonly IFormulaRepository _formulaRepository;
+        private readonly ISessionMemberRepository _sessionMemberRepository;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public SessionController(IUserRepository userRepository,ISessionRepository sessionRepository,IFormulaRepository formulaRepository,ITrainingDayRepository trainingDayRepository,UserManager<IdentityUser> userManager)
+        public SessionController(IUserRepository userRepository,ISessionRepository sessionRepository,IFormulaRepository formulaRepository,ITrainingDayRepository trainingDayRepository, ISessionMemberRepository sessionMemberRepository, UserManager<IdentityUser> userManager)
         {
             _userRepository = userRepository;
             _sessionRepository = sessionRepository;
             _trainingDayRepository = trainingDayRepository;
             _formulaRepository = formulaRepository;
+            _sessionMemberRepository = sessionMemberRepository;
             _userManager = userManager;
         }
         [HttpGet]
@@ -96,7 +98,19 @@ namespace Taijitan.Controllers
             return View("Register", svm);
         }
 
-
+        //[HttpPost]
+        public IActionResult Confirm(int sessionId)
+        {
+            Session currentSession = _sessionRepository.GetById(sessionId);
+            IEnumerable<Member> membersPresent = currentSession.MembersPresent;
+            foreach (var member in membersPresent)
+            {
+                SessionMember sessionMember = new SessionMember(currentSession.SessionId, null, member.UserId, null);
+                _sessionMemberRepository.Add(sessionMember);
+            }
+            _sessionMemberRepository.SaveChanges();
+            return RedirectToAction("Create");
+        }
 
     }
 }
