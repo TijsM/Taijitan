@@ -14,13 +14,18 @@ namespace Taijitan.Data.Mappers
         {
             builder.ToTable("SessionMember");
             builder.HasKey(sm => new {sm.SessionId, sm.MemberId });
-            builder.HasOne(sm => sm.Member)
+
+            builder
+                .HasOne<Member>(sm => sm.Member)
                 .WithMany(m => m.SessionMembers)
+                .HasForeignKey(sm => sm.MemberId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne(sm => sm.Session)
+            builder
+                .HasOne<Session>(sm => sm.Session)
                 .WithMany(m => m.SessionMembers)
+                .HasForeignKey(sm => sm.SessionId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
             

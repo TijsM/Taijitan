@@ -14,6 +14,8 @@ namespace Taijitan.Models.Domain
         public double Duration { get; set; }
         public DayOfWeek DayOfWeek { get; set; }
 
+        public IEnumerable<FormulaTrainingDay> FormulaTrainingDays { get; set; }
+
         public TrainingDay(string name,double startHour,double stopHour,DayOfWeek dayOfWeek)
         {
             Name = name;
@@ -21,6 +23,7 @@ namespace Taijitan.Models.Domain
             StopHour = stopHour;
             DayOfWeek = dayOfWeek;
             Duration = stopHour - startHour;
+
         }
         public TrainingDay()
         {

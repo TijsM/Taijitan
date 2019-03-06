@@ -35,6 +35,7 @@ namespace Taijitan.Data.Repositories
 
         public Session GetById(int id)
         {
+            
             return _sessions.Include(s => s.Members).Include(s => s.MembersPresent).Include(s => s.TrainingDay).SingleOrDefault(s => s.SessionId == id);
         }
 

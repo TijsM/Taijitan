@@ -36,6 +36,8 @@ namespace Taijitan.Data
                 _dbContext.TrainingDays.AddRange(trainingDays);
 
 
+
+
                 Formula dinDon = new Formula("dinsdag en donderdag", new List<TrainingDay> { dinsdag, donderdag });
                 Formula dinZat = new Formula("dinsdag en zaterdag", new List<TrainingDay> { dinsdag, zaterdag });
                 Formula woeZat = new Formula("woensdag en zaterdag", new List<TrainingDay> { woensdag, zaterdag });
