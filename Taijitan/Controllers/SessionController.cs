@@ -54,10 +54,10 @@ namespace Taijitan.Controllers
             membersSession = members;
             Session s = new Session(formulasOfDay.ToList(), t,membersSession);
             s.TrainingDay = _trainingDayRepository.getById(svm.TrainingDayId);
+            
             _sessionRepository.Add(s);
-          
-            svm.Change(s);
             _sessionRepository.SaveChanges();
+            svm.Change(s);
             TempData["session"] = s;
             return View("Register",svm);
         }
@@ -69,8 +69,8 @@ namespace Taijitan.Controllers
             Teacher t;
             string userEmail = _userManager.GetUserName(HttpContext.User);
             t = (Teacher)_userRepository.GetByEmail(userEmail);
-            //Session CurrentSession = _sessionRepository.GetById(sessionId);
-            Session CurrentSession = _sessionRepository.GetById(1);
+            Session CurrentSession = _sessionRepository.GetById(sessionId);
+            //Session CurrentSession = _sessionRepository.GetById(1);
             Member m = (Member)_userRepository.GetById(id);
             CurrentSession.AddToMembersPresent(m);
             SessionViewModel svm = new SessionViewModel(CurrentSession);

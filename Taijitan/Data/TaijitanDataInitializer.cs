@@ -27,7 +27,7 @@ namespace Taijitan.Data
                 TrainingDay woensdag = new TrainingDay("Woensdag", 14.00, 15.50, DayOfWeek.Wednesday);
                 TrainingDay donderdag = new TrainingDay("Donderdag", 18.00, 20.00, DayOfWeek.Thursday);
                 TrainingDay zaterdag = new TrainingDay("Zaterdag", 10.00, 11.50, DayOfWeek.Saturday);
-                TrainingDay zondag = new TrainingDay("Zondag", 11.00, 12.30, DayOfWeek.Sunday);
+                TrainingDay zondag = new TrainingDay("Zondag", 11.00, 12.50, DayOfWeek.Sunday);
 
                 IEnumerable<TrainingDay> trainingDays = new List<TrainingDay>
                 {
@@ -46,7 +46,7 @@ namespace Taijitan.Data
 
                 IEnumerable<Formula> formulas = new List<Formula>
                 {
-                    dinDon,woe,woeZat,zat,activiteit,stage,dinZat
+                    dinZat,dinDon,woe,woeZat,zat,activiteit,stage
                 };
                 _dbContext.Formulas.AddRange(formulas);
 
