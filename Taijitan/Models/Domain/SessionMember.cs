@@ -24,5 +24,6 @@ namespace Taijitan.Models.Domain
         {
 
         }
+
     }
 }

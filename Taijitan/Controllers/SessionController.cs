@@ -72,9 +72,9 @@ namespace Taijitan.Controllers
             string userEmail = _userManager.GetUserName(HttpContext.User);
             t = (Teacher)_userRepository.GetByEmail(userEmail);
             Session CurrentSession = _sessionRepository.GetById(sessionId);
-            //Session CurrentSession = _sessionRepository.GetById(1);
             Member m = (Member)_userRepository.GetById(id);
             CurrentSession.AddToMembersPresent(m);
+            _sessionMemberRepository.Add(new SessionMember(sessionId,CurrentSession,id,m));
             SessionViewModel svm = new SessionViewModel(CurrentSession);
             svm.SessionTeacher = t;
             svm.TrainingDay = CurrentSession.TrainingDay;
@@ -91,6 +91,7 @@ namespace Taijitan.Controllers
             Session CurrentSession = _sessionRepository.GetById(sessionId);
             Member m = (Member)_userRepository.GetById(id);
             CurrentSession.AddToMembers(m);
+            _sessionMemberRepository.Delete(_sessionMemberRepository.GetById(sessionId, id));
             SessionViewModel svm = new SessionViewModel(CurrentSession);
             svm.SessionTeacher = t;
             svm.TrainingDay = CurrentSession.TrainingDay;
@@ -108,7 +109,6 @@ namespace Taijitan.Controllers
                 SessionMember sessionMember = new SessionMember(currentSession.SessionId, null, member.UserId, null);
                 _sessionMemberRepository.Add(sessionMember);
             }
-            _sessionMemberRepository.SaveChanges();
             return RedirectToAction("Create");
         }
 

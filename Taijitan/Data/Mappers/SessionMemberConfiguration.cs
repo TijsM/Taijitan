@@ -17,12 +17,12 @@ namespace Taijitan.Data.Mappers
             builder.HasOne(sm => sm.Member)
                 .WithMany(m => m.SessionMembers)
                 .IsRequired(false)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(sm => sm.Session)
                 .WithMany(m => m.SessionMembers)
                 .IsRequired(false)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
             
    
         }

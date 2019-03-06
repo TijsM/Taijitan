@@ -32,10 +32,9 @@ namespace Taijitan.Data.Repositories
         {
             return _sessionMembers.Include(sm => sm.Session).AsNoTracking().ToList();
         }
-
-        public SessionMember GetById(int id)
+        public SessionMember GetById(int sessionId, int memberId)
         {
-            return _sessionMembers.Include(sm => sm.Session).SingleOrDefault(sm => sm.SessionId == id);
+            return _sessionMembers.SingleOrDefault(s => s.MemberId == memberId && s.SessionId == sessionId);
         }
 
         public void SaveChanges()

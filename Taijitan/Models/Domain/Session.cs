@@ -24,13 +24,13 @@ namespace Taijitan.Models.Domain
             Date = DateTime.Now;
             Formulas = formulas.ToList();
             Teacher = teacher;
-
             SessionMembers = new List<SessionMember>();
         }
         public Session()
         {
             MembersPresent = new List<Member>();
             Formulas = new List<Formula>();
+            SessionMembers = new List<SessionMember>();
         }
         public void AddToMembersPresent(Member mb)
         {

@@ -8,7 +8,7 @@ namespace Taijitan.Models.Domain
     public interface ISessionMemberRepository
     {
         IEnumerable<SessionMember> GetAll();
-        SessionMember GetById(int id);
+        SessionMember GetById(int sessionId,int memberId);
 
         void Add(SessionMember sessionMember);
         void Delete(SessionMember sessionMember);
