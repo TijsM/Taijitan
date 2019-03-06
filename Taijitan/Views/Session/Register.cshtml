@@ -1,9 +1,17 @@
 ﻿@model Taijitan.Models.ViewModels.SessionViewModel
 @using Taijitan.Helpers;
 @using Taijitan.Models.ViewModels
+
+
+@{ 
+    TimeSpan start= TimeSpan.FromHours(Model.TrainingDay.StartHour);
+    TimeSpan end = TimeSpan.FromHours(Model.TrainingDay.StopHour);
+    string startMinutes = start.Minutes /10 < 1 ? $"{start.Minutes}0" : $"{start.Minutes}";
+    string endMinutes = end.Minutes / 10 < 1 ? $"{end.Minutes}0" : $"{end.Minutes}";
+}
 <h2>Registreer je aanwezigheid</h2>
 <br />
-<h4>Sessie op @Model.Date.ToShortDateString() van @(Model.TrainingDay.StartHour):00 tot @(Model.TrainingDay.StopHour):00 met als lesgever  @Model.SessionTeacher.FirstName @Model.SessionTeacher.Name</h4>
+<h4>Sessie op @Model.Date.ToShortDateString() van @(start.Hours):@startMinutes tot @(end.Hours):@endMinutes met als lesgever  @Model.SessionTeacher.FirstName @Model.SessionTeacher.Name</h4>
 
 @{
     Session session = (Session) TempData["session"];

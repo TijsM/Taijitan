@@ -48,8 +48,7 @@ namespace Taijitan.Data
 
         public IEnumerable<Member> GetByFormula(Formula formula)
         {
-            //return _members.Where(m => m.Formula.FormulaId == formula.FormulaId).ToList();
-            return _members;
+            return _members.Where(m => m.Formula.FormulaId == formula.FormulaId).ToList();
         }
 
         public User GetById(int id)
