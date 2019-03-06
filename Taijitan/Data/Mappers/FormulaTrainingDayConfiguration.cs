@@ -19,15 +19,13 @@ namespace Taijitan.Data.Mappers
                 .HasOne<Formula>(ftd => ftd.Formula)
                 .WithMany(f => f.FormulaTrainingDays)
                 .HasForeignKey(ftd => ftd.FormulaId)
-                .IsRequired(false)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder
                 .HasOne<TrainingDay>(ftd => ftd.TrainingDay)
                 .WithMany(f => f.FormulaTrainingDays)
                 .HasForeignKey(ftd => ftd.TrainingsDayId)
-                .IsRequired(false)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

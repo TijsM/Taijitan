@@ -21,10 +21,10 @@ namespace Taijitan.Models.Domain
             TrainingsDayId = trainingDayId;
             TrainingDay = trainingDay;
         }
+        public FormulaTrainingDay()
+        {
 
-
-
-
+        }
     }
 
     

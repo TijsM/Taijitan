@@ -22,6 +22,7 @@ namespace Taijitan.Data
         public DbSet<TrainingDay> TrainingDays { get; set; }
         public DbSet<Formula> Formulas { get; set; }
         public DbSet<SessionMember> SessionMembers { get; set; }
+        public DbSet<FormulaTrainingDay> FormulaTrainingDays { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

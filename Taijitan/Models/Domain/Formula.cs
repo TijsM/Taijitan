@@ -33,16 +33,19 @@ namespace Taijitan.Models.Domain
     {
         public int FormulaId { get; set; }
         public IEnumerable<FormulaTrainingDay> FormulaTrainingDays{ get; set; }
-        //public IEnumerable<TrainingDay> TrainingDays { get; set; }
+        public IEnumerable<TrainingDay> TrainingDays { get; set; }
         public string Name { get; set; }
 
-        public Formula(string name,IEnumerable<FormulaTrainingDay> trainingDays)
+        public Formula(string name,IEnumerable<TrainingDay> trainingDays/*,IEnumerable<FormulaTrainingDay> formulaTrainingDays*/)
         {
-            FormulaTrainingDays = trainingDays;
+            TrainingDays = trainingDays;
             Name = name;
+            //FormulaTrainingDays = formulaTrainingDays;
+            FormulaTrainingDays = new List<FormulaTrainingDay>();
         }
         public Formula()
         {
+            TrainingDays = new List<TrainingDay>();
             FormulaTrainingDays = new List<FormulaTrainingDay>();
         }
     }

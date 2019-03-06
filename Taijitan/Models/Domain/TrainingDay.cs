@@ -23,11 +23,12 @@ namespace Taijitan.Models.Domain
             StopHour = stopHour;
             DayOfWeek = dayOfWeek;
             Duration = stopHour - startHour;
+            FormulaTrainingDays = new List<FormulaTrainingDay>();
 
         }
         public TrainingDay()
         {
-
+            FormulaTrainingDays = new List<FormulaTrainingDay>();
         }
     }
 }

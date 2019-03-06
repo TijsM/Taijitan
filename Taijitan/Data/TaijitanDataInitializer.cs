@@ -35,9 +35,6 @@ namespace Taijitan.Data
                 };
                 _dbContext.TrainingDays.AddRange(trainingDays);
 
-
-
-
                 Formula dinDon = new Formula("dinsdag en donderdag", new List<TrainingDay> { dinsdag, donderdag });
                 Formula dinZat = new Formula("dinsdag en zaterdag", new List<TrainingDay> { dinsdag, zaterdag });
                 Formula woeZat = new Formula("woensdag en zaterdag", new List<TrainingDay> { woensdag, zaterdag });
@@ -46,9 +43,11 @@ namespace Taijitan.Data
                 Formula activiteit = new Formula("deelname aan activiteit", new List<TrainingDay>());
                 Formula stage = new Formula("deelname aan meerdaagse stage", new List<TrainingDay>());
 
+
+
                 IEnumerable<Formula> formulas = new List<Formula>
                 {
-                    dinZat,dinDon,woe,woeZat,zat,activiteit,stage
+                    dinZat,woeZat,dinDon,woe,zat,activiteit,stage
                 };
                 _dbContext.Formulas.AddRange(formulas);
 
@@ -65,9 +64,11 @@ namespace Taijitan.Data
                 {
                      new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", bekegem, Country.Belgium, "16", "0492554616", "jarne.deschacht@student.hogent.be",dinDon, new DateTime(2016 / 01 / 30), Gender.Man, Country.Belgium, "09-08-1999.400-08", "Gent"),
                      new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Unknown", nazareth, Country.Belgium, "Unknown", "0499721771", "tijs.martens@student.hogent.be",woe,  new DateTime(2014/06/2), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent"),
-                     new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Garzebekeveldstraat", adinkerke, Country.Belgium, "Unknown", "0000000000", "robbe.dekien@student.hogent.be",dinDon, new DateTime(2016 / 05 / 30), Gender.Man, Country.Belgium, "02-06-1999.100-20", "Gent"),
+                     new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Garzebekeveldstraat", adinkerke, Country.Belgium, "Unknown", "0000000000", "robbe.dekien@student.hogent.be",dinZat, new DateTime(2016 / 05 / 30), Gender.Man, Country.Belgium, "02-06-1999.100-20", "Gent"),
                      new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Bijlokeweg", gent, Country.Belgium ,"73", "0000000000", "stef.verlinde@student.hogent.be",dinDon, new DateTime(2015 / 08 / 4), Gender.Man, Country.Belgium, "02-08-1998.306-37", "Gent")
             };
+                
+                
 
                 IEnumerable<Teacher> teachers = new List<Teacher>
                 {
