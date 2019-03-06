@@ -24,7 +24,7 @@ namespace Taijitan.Data.Mappers
                 .WithOne()
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
-            
+
         }
     }
 }

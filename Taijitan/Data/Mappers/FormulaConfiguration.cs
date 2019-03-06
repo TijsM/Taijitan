@@ -14,7 +14,7 @@ namespace Taijitan.Data.Mappers
         {
             builder.ToTable("Formula");
             builder.HasKey(f => f.FormulaId);
-            builder.HasMany(f => f.TrainingDays)
+            builder.HasMany(f => f.FormulaTrainingDays)
                 .WithOne()
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);

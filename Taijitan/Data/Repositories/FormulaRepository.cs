@@ -29,12 +29,12 @@ namespace Taijitan.Data.Repositories
 
         public IEnumerable<Formula> GetAll()
         {
-            return _formulas.Include(f => f.TrainingDays).AsNoTracking().ToList();
+            return _formulas.Include(f => f.FormulaTrainingDays).AsNoTracking().ToList();
         }
-
+            
         public IEnumerable<Formula> GetByTrainingDay(TrainingDay trainingDay)
         {
-            return _formulas.Include(f => f.TrainingDays).Where(f => f.TrainingDays.Any(td => td.TrainingDayId == trainingDay.TrainingDayId));
+            return _formulas.Include(f => f.FormulaTrainingDays).Where(f => f.FormulaTrainingDays.Any(td => td.formTrainingDayId == trainingDay.TrainingDayId));
         }
         public void SaveChanges()
         {
