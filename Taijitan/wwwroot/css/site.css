@@ -121,6 +121,7 @@ a {
 .swal-button.swal-button--cancel {
     color: #555 !important;
     background-color: #efefef !important;
+    box-shadow: 0px 0px 0px 1.5px #bababa inset;
 }
 
     .swal-button.swal-button--cancel:focus {
