@@ -19,16 +19,14 @@ namespace Taijitan.Controllers
         private readonly IUserRepository _userRepository;
         private readonly ITrainingDayRepository _trainingDayRepository;
         private readonly IFormulaRepository _formulaRepository;
-        private readonly ISessionMemberRepository _sessionMemberRepository;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public SessionController(IUserRepository userRepository,ISessionRepository sessionRepository,IFormulaRepository formulaRepository,ITrainingDayRepository trainingDayRepository, ISessionMemberRepository sessionMemberRepository, UserManager<IdentityUser> userManager)
+        public SessionController(IUserRepository userRepository,ISessionRepository sessionRepository,IFormulaRepository formulaRepository,ITrainingDayRepository trainingDayRepository,UserManager<IdentityUser> userManager)
         {
             _userRepository = userRepository;
             _sessionRepository = sessionRepository;
             _trainingDayRepository = trainingDayRepository;
             _formulaRepository = formulaRepository;
-            _sessionMemberRepository = sessionMemberRepository;
             _userManager = userManager;
         }
         [HttpGet]
@@ -83,7 +81,6 @@ namespace Taijitan.Controllers
             Session CurrentSession = _sessionRepository.GetById(sessionId);
             Member m = (Member)_userRepository.GetById(id);
             CurrentSession.AddToMembersPresent(m);
-            _sessionMemberRepository.Add(new SessionMember(sessionId,CurrentSession,id,m));
             SessionViewModel svm = new SessionViewModel(CurrentSession);
             svm.SessionTeacher = t;
             svm.TrainingDay = CurrentSession.TrainingDay;
@@ -100,7 +97,6 @@ namespace Taijitan.Controllers
             Session CurrentSession = _sessionRepository.GetById(sessionId);
             Member m = (Member)_userRepository.GetById(id);
             CurrentSession.AddToMembers(m);
-            _sessionMemberRepository.Delete(_sessionMemberRepository.GetById(sessionId, id));
             SessionViewModel svm = new SessionViewModel(CurrentSession);
             svm.SessionTeacher = t;
             svm.TrainingDay = CurrentSession.TrainingDay;
@@ -112,13 +108,13 @@ namespace Taijitan.Controllers
         public IActionResult Confirm(int sessionId)
         {
             Session currentSession = _sessionRepository.GetById(sessionId);
-            IEnumerable<Member> membersPresent = currentSession.MembersPresent;
-            foreach (var member in membersPresent)
-            {
-                //Hier geen SessionMember of SessionMemberRepo maar gebruit de currentSession om daar nieuwe members aan toe te voegen en binnen Session 
-                SessionMember sessionMember = new SessionMember(currentSession.SessionId, currentSession, member.UserId, member);
-                _sessionMemberRepository.Add(sessionMember);
-            }
+            //IEnumerable<Member> membersPresent = currentSession.MembersPresent;
+            //foreach (var member in membersPresent)
+            //{
+
+            //}
+            currentSession.AddToSessionMembers(currentSession.MembersPresent.ToList());
+            _sessionRepository.SaveChanges();
             return RedirectToAction("Create");
         }
 

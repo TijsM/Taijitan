@@ -56,6 +56,17 @@ namespace Taijitan.Models.Domain
             _hulpPresent.Remove(mb);
             MembersPresent = _hulpPresent;
         }
+        public void AddToSessionMembers(List<Member> members)
+        {
+            List<SessionMember> hulp = SessionMembers.ToList();
+            foreach (Member meme in members)
+            {
+                hulp.Add(new SessionMember(SessionId, this, meme.UserId, meme));
+            }
+            SessionMembers = hulp;
+
+            
+        }
 
         public void AddNonMember(string firstName, string lastName, string email)
         {

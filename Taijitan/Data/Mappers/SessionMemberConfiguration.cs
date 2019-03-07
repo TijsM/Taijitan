@@ -19,13 +19,13 @@ namespace Taijitan.Data.Mappers
                 .HasOne(sm => sm.Member)
                 .WithMany(m => m.SessionMembers)
                 .HasForeignKey(sm => sm.MemberId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder
                 .HasOne(sm => sm.Session)
                 .WithMany(m => m.SessionMembers)
                 .HasForeignKey(sm => sm.SessionId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
             
    
         }
