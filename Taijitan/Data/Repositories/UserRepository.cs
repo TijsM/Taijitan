@@ -17,7 +17,7 @@ namespace Taijitan.Data
         {
             _context = context;
             _users = context.Users_Domain;
-            _members = _users.OfType<Member>().Include(u => u.Formula).ThenInclude(f => f.TrainingDays).Where(item => item.GetType() == typeof(Member)).ToList();
+            _members = _users.OfType<Member>().Include(u => u.Formula).Where(item => item.GetType() == typeof(Member)).ToList();
         }
 
         public IEnumerable<Member> GetAllMembers()

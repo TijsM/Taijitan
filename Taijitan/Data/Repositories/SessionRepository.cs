@@ -30,13 +30,13 @@ namespace Taijitan.Data.Repositories
 
         public IEnumerable<Session> GetAll()
         {
-            return _sessions.Include(s => s.Members).Include(s => s.MembersPresent).AsNoTracking().ToList();
+            return _sessions.Include(s => s.Members).Include(s => s.MembersPresent).Include(s => s.NonMembers).AsNoTracking().ToList();
         }
 
         public Session GetById(int id)
         {
             
-            return _sessions.Include(s => s.Members).Include(s => s.MembersPresent).Include(s => s.TrainingDay).SingleOrDefault(s => s.SessionId == id);
+            return _sessions.Include(s => s.Members).Include(s => s.MembersPresent).Include(s => s.TrainingDay).Include(s => s.NonMembers).SingleOrDefault(s => s.SessionId == id);
         }
 
         public void SaveChanges()

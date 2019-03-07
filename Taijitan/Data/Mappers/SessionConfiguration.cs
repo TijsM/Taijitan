@@ -24,6 +24,10 @@ namespace Taijitan.Data.Mappers
                 .WithOne()
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
+            builder.HasMany(s => s.NonMembers)
+                .WithOne()
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
 
         }
     }

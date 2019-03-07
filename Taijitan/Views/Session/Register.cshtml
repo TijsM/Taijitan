@@ -8,57 +8,91 @@
     TimeSpan end = TimeSpan.FromHours(Model.TrainingDay.StopHour);
     string startMinutes = start.Minutes / 10 < 1 ? $"{start.Minutes}0" : $"{start.Minutes}";
     string endMinutes = end.Minutes / 10 < 1 ? $"{end.Minutes}0" : $"{end.Minutes}";
+    
 }
-<h2>Registreer je aanwezigheid</h2>
-<br />
-<h4>Sessie op @Model.Date.ToShortDateString() van @(start.Hours):@startMinutes tot @(end.Hours):@endMinutes met als lesgever  @Model.SessionTeacher.FirstName @Model.SessionTeacher.Name</h4>
 
+<div style="display: flex; justify-content: space-between;">
+    <div>
+        <h2>Registreer je aanwezigheid</h2>
+        <br />
+        <h4>Sessie op @Model.Date.ToShortDateString() van @(start.Hours):@startMinutes tot @(end.Hours):@endMinutes met als lesgever  @Model.SessionTeacher.FirstName @Model.SessionTeacher.Name</h4>
+    </div>
+    <div style="top: 2em; position: relative;">
+        <a asp-action="Confirm" asp-controller="Session" asp-route-sessionId="@Model.SessionId" class="btn btn-taijitan" style="float:right;">Bevestig aanwezigheden</a>
+    </div>
+</div>
+<div>
+    @{ 
+        var namen = "";
+        foreach(NonMember nm in Model.NonMembers)
+        {
+            namen += nm.FirstName + " ";
+        }
+        if(Model.NonMembers.Count() == 0)
+        {
+            <p>Er zijn geen gasten aanwezig.</p>
+        } else
+        {
+            <p>Aanwezige gasten: @namen</p>
+        }
+    }
+    <p></p>
+</div>
 <br />
 <div class="col-lg-12">
     <div class="col-lg-6">
         <h3>Leden ingeschreven in formule: </h3>
-        <div class="list-group">
-            @{
-                if (Model.Members.Count() != 0)
-                {
-                    foreach (var item in Model.Members)
+        <form method="post">
+            <div class="list-group membercontainer">
+                @{
+                    if (Model.Members.Count() != 0)
                     {
-                        <a asp-action="AddToPresent" asp-route-sessionId="@Model.SessionId" asp-route-id="@item.UserId" class="list-group-item list-group-item-action">@item.FirstName @item.Name</a>
+                        foreach (var item in Model.Members)
+                        {
+                            @*<a asp-action="AddToPresent" asp-route-sessionId="@Model.SessionId" asp-route-id="@item.UserId" class="list-group-item list-group-item-action">@item.FirstName @item.Name</a>*@
+                            <button type="submit" asp-action="AddToPresent" asp-route-sessionId="@Model.SessionId" asp-route-id="@item.UserId" class="list-group-item list-group-item-action">@item.FirstName @item.Name</button>
+                        }
                     }
-                } else
-                {
+                    else
+                    {
                         <p>Er zijn geen leden meer over. <br />Hoor je niet in deze formule? <br />Druk dan op de knop hieronder.</p>
-                }
+                    }
 
-            }
-        </div>
-        <a asp-controller="Session" asp-action="AddOtherMember" asp-route-sessionId="@Model.SessionId" class="btn btn-taijitan">Voeg gast toe</a>
+                }
+            </div>
+        </form>
+        <a asp-controller="Session" asp-action="AddOtherMember" asp-route-id="@Model.SessionId" class="btn btn-taijitan">Voeg gast toe</a>
 
     </div>
 
     <div class="col-lg-6">
         <h3>Leden aanwezig:</h3>
-        <div class="list-group">
-            @{
-                if (Model.MembersPresent.Count() != 0)
-                {
-                    foreach (var item in Model.MembersPresent)
+        <form method="post">
+            <div class="list-group membercontainer">
+                @{
+                    if (Model.MembersPresent.Count() != 0)
                     {
-                        <a asp-action="AddToUnconfirmed" asp-controller="Session" asp-route-sessionId="@Model.SessionId" asp-route-id="@item.UserId" class="list-group-item list-group-item-action">@item.FirstName @item.Name</a>
+                        foreach (var item in Model.MembersPresent)
+                        {
+                            <button type="submit" asp-action="AddtoUnconfirmed" asp-route-sessionId="@Model.SessionId" asp-route-id="@item.UserId" class="list-group-item list-group-item-action">@item.FirstName @item.Name</button>
+                        }
                     }
-                }
-                else
-                {
-                    <p>Er zijn nog geen aanwezige leden.</p>
-                }
+                    else
+                    {
+                        <p>Er zijn nog geen aanwezige leden.</p>
+                    }
 
-            }
-        </div>
-
+                }
+            </div>
+        </form>
     </div>
 </div>
-<a asp-action="Confirm" asp-controller="Session" asp-route-sessionId="@Model.SessionId" class="btn btn-taijitan" style="position: absolute; bottom: 10%; right: 15%;">Bevestig aanwezigheden</a>
 
 
+<script type="text/javascript" language="javascript">
 
+    Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(BeginRequestHandler);
+    function BeginRequestHandler(sender, args) { var oControl = args.get_postBackElement(); oControl.disabled = true; }
+
+</script>
 

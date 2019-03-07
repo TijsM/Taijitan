@@ -1,39 +1,46 @@
 ﻿@model Taijitan.Models.ViewModels.SessionViewModel
 @{
-    ViewData["Title"] = "Add other member";
+    ViewData["Title"] = "Voeg een ander lid toe";
 }
 
 <h2>@ViewData["Title"]</h2>
 
 <br />
 
-<form>
+<form method="get">
     <div class="form-inline">
         <div class="form-group">
             <input name="searchTerm" class="form-control mb-2 mr-sm-2" placeholder="Zoek op familienaam">
-            <button asp-controller="Session" asp-action="AddOtherMember" asp-route-sessionId="@Model.SessionId" asp-route-searchTerm=searchTerm class="btn btn-taijitan">Zoek</button>
-            <button asp-controller="Session" asp-action="AddOtherMember" asp-route-searchTerm="" asp-route-sessionId="@Model.SessionId" class="btn btn-taijitan">reset</button>
+            <button asp-controller="Session" asp-action="AddOtherMember" asp-route-id="@Model.SessionId" asp-route-searchTerm=searchTerm class="btn btn-taijitan">Zoek</button>
+            <button asp-controller="Session" asp-action="AddOtherMember" asp-route-searchTerm="" asp-route-id="@Model.SessionId" class="btn btn-taijitan">reset</button>
         </div>
     </div>
 </form>
-    
-<br /><br />
-
-
-
+<br />
+<form method="post">
+    <div class="form-inline">
+        <div class="form-group">
+            <input name="firstName" class="form-control mb-2" mr-sm-2 placeholder="Voornaam" />
+            <input name="lastName" class="form-control mb-2" mr-sm-2 placeholder="Achternaam" />
+            <input name="email" class="form-control mb-2" mr-sm-2 placeholder="Email" />
+            <button asp-controller="Session" asp-action="AddNonMember" asp-route-id="@Model.SessionId" class="btn btn-taijitan">Meld aan</button>
+        </div>
+    </div>
+</form>
 @{
     if (ViewData["otherMembers"] != null)
     {
-        <h3>Leden ingeschreven in formule: </h3>
-        <div class="list-group">
-            @{
-                foreach (var item in (List<User>)ViewData["otherMembers"])
-                {
-                    <a asp-controller="Session" asp-action="AddToPresent" asp-route-id="@item.UserId" asp-route-sessionId="@Model.SessionId" class="list-group-item list-group-item-action">@item.FirstName @item.Name</a>
+        <h3>Leden niet ingeschreven in formule: </h3>
+        <form method="post">
+            <div class="list-group membercontainer">
+                @{
+                    foreach (var item in (List<Member>)ViewData["otherMembers"])
+                    {
+                        <button type="submit" asp-action="AddToPresent" asp-route-sessionId="@Model.SessionId" asp-route-id="@item.UserId" class="list-group-item list-group-item-action">@item.FirstName @item.Name</button>
+                    }
                 }
-            }
-        </div>
-
+            </div>
+        </form>
     }
 }
 
