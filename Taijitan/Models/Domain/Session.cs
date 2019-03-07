@@ -20,7 +20,7 @@ namespace Taijitan.Models.Domain
         {
             MembersPresent = new List<Member>();
             Members = members;
-            TrainingDay = formulas.First().TrainingDays.SingleOrDefault(d => d.DayOfWeek.Equals(DateTime.Now.DayOfWeek));
+            TrainingDay = formulas != null ? formulas.First().TrainingDays.SingleOrDefault(d => d.DayOfWeek.Equals(DateTime.Now.DayOfWeek)) : null;
             Date = DateTime.Now;
             Formulas = formulas.ToList();
             Teacher = teacher;

@@ -16,16 +16,16 @@ namespace Taijitan.Data.Mappers
             builder.HasKey(ftd => new { ftd.FormulaId, ftd.TrainingsDayId });
 
             builder
-                .HasOne<Formula>(ftd => ftd.Formula)
+                .HasOne(ftd => ftd.Formula)
                 .WithMany(f => f.FormulaTrainingDays)
                 .HasForeignKey(ftd => ftd.FormulaId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .HasOne<TrainingDay>(ftd => ftd.TrainingDay)
+                .HasOne(ftd => ftd.TrainingDay)
                 .WithMany(f => f.FormulaTrainingDays)
                 .HasForeignKey(ftd => ftd.TrainingsDayId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

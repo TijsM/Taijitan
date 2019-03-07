@@ -34,7 +34,11 @@ namespace Taijitan.Data.Repositories
 
         public IEnumerable<Formula> GetByTrainingDay(TrainingDay trainingDay)
         {
-            return _formulas.Include(f => f.TrainingDays).Where(f => f.TrainingDays.Any(td => td.TrainingDayId == trainingDay.TrainingDayId)).ToList();
+            return _formulas
+                .Include(f => f.FormulaTrainingDays)
+                .Where(f => f.FormulaTrainingDays
+                    .Any(ftd => ftd.TrainingsDayId == trainingDay.TrainingDayId))
+                .ToList();
         }
         public void SaveChanges()
         {
