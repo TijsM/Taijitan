@@ -63,9 +63,9 @@ namespace Taijitan.Controllers
             return View("Register",svm);
         }
 
-        public IActionResult Register(int SessionId)
+        public IActionResult Register(int id)
         {
-            Session session = _sessionRepository.GetById(SessionId);
+            Session session = _sessionRepository.GetById(id);
             string userEmail = _userManager.GetUserName(HttpContext.User);
             Teacher t = (Teacher)_userRepository.GetByEmail(userEmail);
             SessionViewModel svm = new SessionViewModel(session);
@@ -74,6 +74,7 @@ namespace Taijitan.Controllers
             return View(svm);
         }
         
+        [HttpPost]
         public IActionResult AddToPresent(int sessionId, int id)
         {
             Teacher t;
@@ -87,10 +88,10 @@ namespace Taijitan.Controllers
             svm.SessionTeacher = t;
             svm.TrainingDay = CurrentSession.TrainingDay;
             _sessionRepository.SaveChanges();
-            return View("Register", svm);
+            return RedirectToAction("Register", new {id = sessionId});
         }
         
-
+        [HttpPost]
         public IActionResult AddToUnconfirmed(int sessionId, int id)
         {
             Teacher t;
@@ -104,7 +105,7 @@ namespace Taijitan.Controllers
             svm.SessionTeacher = t;
             svm.TrainingDay = CurrentSession.TrainingDay;
             _sessionRepository.SaveChanges();
-            return View("Register", svm);
+            return RedirectToAction("Register", new {id = sessionId});
         }
         
 
@@ -114,15 +115,16 @@ namespace Taijitan.Controllers
             IEnumerable<Member> membersPresent = currentSession.MembersPresent;
             foreach (var member in membersPresent)
             {
+                //Hier geen SessionMember of SessionMemberRepo maar gebruit de currentSession om daar nieuwe members aan toe te voegen en binnen Session 
                 SessionMember sessionMember = new SessionMember(currentSession.SessionId, currentSession, member.UserId, member);
                 _sessionMemberRepository.Add(sessionMember);
             }
             return RedirectToAction("Create");
         }
 
-        public IActionResult AddOtherMember(int sessionId, string searchTerm = "")
+        public IActionResult AddOtherMember(int id, string searchTerm = "")
         {
-            var session = _sessionRepository.GetById(sessionId);
+            var session = _sessionRepository.GetById(id);
             IEnumerable<User> allMembers = _userRepository.GetAllMembers();
             var sessionMembers = session.Members;
             IEnumerable<User> otherMembers = allMembers;
@@ -140,7 +142,6 @@ namespace Taijitan.Controllers
             {
                 otherMembers = otherMembers.Where(u => u.Name.Contains(searchTerm)).ToList();
             }
-            
             
             Teacher t;
             string userEmail = _userManager.GetUserName(HttpContext.User);
