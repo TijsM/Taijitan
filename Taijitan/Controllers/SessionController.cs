@@ -121,15 +121,17 @@ namespace Taijitan.Controllers
         public IActionResult AddOtherMember(int id, string searchTerm = "")
         {
             var session = _sessionRepository.GetById(id);
-            IEnumerable<User> allMembers = _userRepository.GetAllMembers();
+            IEnumerable<Member> allMembers = _userRepository.GetAllMembers();
             var sessionMembers = session.Members;
-            IEnumerable<User> otherMembers = allMembers;
+            IEnumerable<Member> otherMembers = allMembers;
 
-            foreach (User m in session.MembersPresent)
+            foreach (Member m in session.MembersPresent)
             {
-                sessionMembers.ToList<User>().Add(m);
+                List<Member> hList = sessionMembers.ToList<Member>();
+                hList.Add(m);
+                sessionMembers = hList;
             }
-            foreach (User m in sessionMembers)
+            foreach (Member m in sessionMembers)
             {
                 otherMembers = otherMembers.Where(om => om.UserId != m.UserId);
             }
@@ -145,7 +147,7 @@ namespace Taijitan.Controllers
             SessionViewModel svm = new SessionViewModel(session);
             svm.SessionTeacher = t;
             svm.TrainingDay = session.TrainingDay;
-            ViewData["otherMembers"] = otherMembers.ToList<User>();
+            ViewData["otherMembers"] = otherMembers.ToList<Member>();
             return View(svm);
         }
 

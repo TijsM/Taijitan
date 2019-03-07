@@ -32,11 +32,11 @@
     {
         <h3>Leden niet ingeschreven in formule: </h3>
         <form method="post">
-            <div class="list-group">
+            <div class="list-group membercontainer">
                 @{
-                    foreach (var item in (List<User>)ViewData["otherMembers"])
+                    foreach (var item in (List<Member>)ViewData["otherMembers"])
                     {
-                        <a asp-controller="Session" asp-action="AddToPresent" asp-route-id="@item.UserId" asp-route-sessionId="@Model.SessionId" class="list-group-item list-group-item-action">@item.FirstName @item.Name</a>
+                        <button type="submit" asp-action="AddToPresent" asp-route-sessionId="@Model.SessionId" asp-route-id="@item.UserId" class="list-group-item list-group-item-action">@item.FirstName @item.Name</button>
                     }
                 }
             </div>
