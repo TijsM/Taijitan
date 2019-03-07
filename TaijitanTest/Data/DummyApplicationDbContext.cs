@@ -28,6 +28,8 @@ namespace TaijitanTest.Data
       
         #endregion
 
+
+
         #region Constructors
         public DummyApplicationDbContext()
         {
@@ -35,11 +37,27 @@ namespace TaijitanTest.Data
             _antwerpen = new City("2000", "Antwerpen");
             _brussel = new City("1000", "Brussel");
             TomJansensCity = _gent;
-            _tijs = new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Unknown", _brussel, Country.Belgium, "Unknown", "0499721771", "tijs.martens@student.hogent.be", Formula.Formule4, new DateTime(2014/06/2), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent");
-            _stef = new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Unknown", _antwerpen, Country.Belgium, "Unknown", "0000000000", "stef.verlinde@student.hogent.be", Formula.Formule4, new DateTime(2015 / 08 / 4), Gender.Man, Country.Belgium, "02-08-1998.306-37", "Gent");
-            _jarne = new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", _gent, Country.Belgium, "16", "0492554616", "jarne.deschacht@student.hogent.be", Formula.Formule1, new DateTime(2016 / 01 / 30), Gender.Man, Country.Belgium, "09-08-1999.400-08", "Gent");
-            _robbe = new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Garzebekeveldstraat", _gent, Country.Belgium, "Unknown", "0000000000", "robbe.dekien@student.hogent.be", Formula.Formule1, new DateTime(2016 / 05 / 30), Gender.Man, Country.Belgium, "02-06-1999.100-20", "Gent");
-            UserTomJansens = new Member("Jansens", "Tom", new DateTime(1999, 8, 9), "Hoogstraat", _gent, Country.Belgium, "8", "+32499854775", "tom.jansens@gmail.com",Formula.Formule1, new DateTime(2017 / 05 / 18), Gender.Man, Country.Belgium, "09-08-1999.400-09", "Gent");
+
+
+            TrainingDay dinsdag = new TrainingDay("Dinsdag", 18.00, 20.00, DayOfWeek.Tuesday);
+            TrainingDay woensdag = new TrainingDay("Woensdag", 14.00, 15.50, DayOfWeek.Wednesday);
+            TrainingDay donderdag = new TrainingDay("Donderdag", 18.00, 20.00, DayOfWeek.Thursday);
+            TrainingDay zaterdag = new TrainingDay("Zaterdag", 10.00, 11.50, DayOfWeek.Saturday);
+            TrainingDay zondag = new TrainingDay("Zondag", 11.00, 12.50, DayOfWeek.Sunday);
+
+            Formula dinDon = new Formula("dinsdag en donderdag", new List<TrainingDay> { dinsdag, donderdag });
+            Formula dinZat = new Formula("dinsdag en zaterdag", new List<TrainingDay> { dinsdag, zaterdag });
+            Formula woeZat = new Formula("woensdag en zaterdag", new List<TrainingDay> { woensdag, zaterdag });
+            Formula woe = new Formula("woensdag", new List<TrainingDay> { woensdag });
+            Formula zat = new Formula("zaterdag", new List<TrainingDay> { zaterdag });
+            Formula activiteit = new Formula("deelname aan activiteit", new List<TrainingDay>());
+            Formula stage = new Formula("deelname aan meerdaagse stage", new List<TrainingDay>());
+
+            _tijs = new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Unknown", _brussel, Country.Belgium, "Unknown", "0499721771", "tijs.martens@student.hogent.be", dinDon, new DateTime(2014/06/2), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent");
+            _stef = new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Unknown", _antwerpen, Country.Belgium, "Unknown", "0000000000", "stef.verlinde@student.hogent.be", dinZat, new DateTime(2015 / 08 / 4), Gender.Man, Country.Belgium, "02-08-1998.306-37", "Gent");
+            _jarne = new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", _gent, Country.Belgium, "16", "0492554616", "jarne.deschacht@student.hogent.be", woeZat, new DateTime(2016 / 01 / 30), Gender.Man, Country.Belgium, "09-08-1999.400-08", "Gent");
+            _robbe = new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Garzebekeveldstraat", _gent, Country.Belgium, "Unknown", "0000000000", "robbe.dekien@student.hogent.be", woe, new DateTime(2016 / 05 / 30), Gender.Man, Country.Belgium, "02-06-1999.100-20", "Gent");
+            UserTomJansens = new Member("Jansens", "Tom", new DateTime(1999, 8, 9), "Hoogstraat", _gent, Country.Belgium, "8", "+32499854775", "tom.jansens@gmail.com",woeZat, new DateTime(2017 / 05 / 18), Gender.Man, Country.Belgium, "09-08-1999.400-09", "Gent");
 
             _users = new List<User>
             {
