@@ -17,6 +17,16 @@
     </div>
 </form>
 <br />
+<form method="post">
+    <div class="form-inline">
+        <div class="form-group">
+            <input name="firstName" class="form-control mb-2" mr-sm-2 placeholder="Voornaam" />
+            <input name="lastName" class="form-control mb-2" mr-sm-2 placeholder="Achternaam" />
+            <input name="email" class="form-control mb-2" mr-sm-2 placeholder="Email" />
+            <button asp-controller="Session" asp-action="AddNonMember" asp-route-id="@Model.SessionId" class="btn btn-taijitan">Meld aan</button>
+        </div>
+    </div>
+</form>
 @{
     if (ViewData["otherMembers"] != null)
     {

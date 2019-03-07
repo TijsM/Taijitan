@@ -16,6 +16,7 @@ namespace Taijitan.Models.ViewModels
         public TrainingDay TrainingDay { get; set; }
         public Teacher SessionTeacher { get; set; }
         public int SessionId { get; set; }
+        public IEnumerable<NonMember> NonMembers { get; set; }
 
         public void Change(Session s)
         {
@@ -26,6 +27,7 @@ namespace Taijitan.Models.ViewModels
             SessionTeacher = s.Teacher;
             SessionId = s.SessionId;
             TrainingDay = s.TrainingDay != null ? s.TrainingDay : null;
+            NonMembers = s.NonMembers;
         }
         public SessionViewModel(Session s)
         {
@@ -36,11 +38,13 @@ namespace Taijitan.Models.ViewModels
             SessionTeacher = s.Teacher;
             SessionId = s.SessionId;
             TrainingDay = s.TrainingDay != null ? s.TrainingDay : null;
+            NonMembers = s.NonMembers;
         }
         public SessionViewModel()
         {
             Members = new List<Member>();
             MembersPresent = new List<Member>();
+            NonMembers = new List<NonMember>();
         }       
         
         public void UpdateMembers(IEnumerable<Member> members, IEnumerable<Member> memberspresent)

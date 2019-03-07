@@ -153,5 +153,14 @@ namespace Taijitan.Controllers
             return View(svm);
         }
 
+        [HttpPost]
+        public IActionResult addNonMember(string firstName, string lastName, string email, int id)
+        {
+            Session s = _sessionRepository.GetById(id);
+            s.AddNonMember(firstName, lastName, email);
+            _sessionRepository.SaveChanges();
+            return RedirectToAction("Register", new { id });
+        }
+
     }
 }

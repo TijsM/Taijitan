@@ -15,6 +15,7 @@ namespace Taijitan.Models.Domain
         public Teacher Teacher { get; set; }
         public TrainingDay TrainingDay { get; set; }
         public IList<SessionMember> SessionMembers{ get; set; }
+        public IEnumerable<NonMember> NonMembers { get; set; }
 
         public Session(List<Formula> formulas,Teacher teacher,IEnumerable<Member> members)
         {
@@ -25,12 +26,14 @@ namespace Taijitan.Models.Domain
             Formulas = formulas.ToList();
             Teacher = teacher;
             SessionMembers = new List<SessionMember>();
+            NonMembers = new List<NonMember>();
         }
         public Session()
         {
             MembersPresent = new List<Member>();
             Formulas = new List<Formula>();
-            SessionMembers = new List<SessionMember>();
+            SessionMembers = new List<SessionMember>(); NonMembers = new List<NonMember>();
+            NonMembers = new List<NonMember>();
         }
         public void AddToMembersPresent(Member mb)
         {
@@ -52,6 +55,14 @@ namespace Taijitan.Models.Domain
             List<Member> _hulpPresent = MembersPresent.ToList();
             _hulpPresent.Remove(mb);
             MembersPresent = _hulpPresent;
+        }
+
+        public void AddNonMember(string firstName, string lastName, string email)
+        {
+            var nonMember = new NonMember(firstName, lastName, email);
+            List<NonMember> hList = NonMembers.ToList();
+            hList.Add(nonMember);
+            NonMembers = hList;
         }
     }
 }

@@ -21,8 +21,23 @@
         <a asp-action="Confirm" asp-controller="Session" asp-route-sessionId="@Model.SessionId" class="btn btn-taijitan" style="float:right;">Bevestig aanwezigheden</a>
     </div>
 </div>
-
-
+<div>
+    @{ 
+        var namen = "";
+        foreach(NonMember nm in Model.NonMembers)
+        {
+            namen += nm.FirstName + " ";
+        }
+        if(Model.NonMembers.Count() == 0)
+        {
+            <p>Er zijn geen gasten aanwezig.</p>
+        } else
+        {
+            <p>Aanwezige gasten: @namen</p>
+        }
+    }
+    <p></p>
+</div>
 <br />
 <div class="col-lg-12">
     <div class="col-lg-6">
