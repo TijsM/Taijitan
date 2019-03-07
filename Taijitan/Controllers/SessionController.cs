@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Taijitan.Helpers;
 using Taijitan.Models.Domain;
 using Taijitan.Models.ViewModels;
@@ -16,18 +17,25 @@ namespace Taijitan.Controllers
     {
         private readonly ISessionRepository _sessionRepository;
         private readonly IUserRepository _userRepository;
+        private readonly ITrainingDayRepository _trainingDayRepository;
+        private readonly IFormulaRepository _formulaRepository;
+        private readonly ISessionMemberRepository _sessionMemberRepository;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public SessionController(IUserRepository userRepository,ISessionRepository sessionRepository,UserManager<IdentityUser> userManager)
+        public SessionController(IUserRepository userRepository,ISessionRepository sessionRepository,IFormulaRepository formulaRepository,ITrainingDayRepository trainingDayRepository, ISessionMemberRepository sessionMemberRepository, UserManager<IdentityUser> userManager)
         {
             _userRepository = userRepository;
             _sessionRepository = sessionRepository;
+            _trainingDayRepository = trainingDayRepository;
+            _formulaRepository = formulaRepository;
+            _sessionMemberRepository = sessionMemberRepository;
             _userManager = userManager;
         }
         [HttpGet]
         public IActionResult Create()
         {
-            ViewData["Formulas"] = EnumHelpers.ToSelectList<Formula>();
+            
+            ViewData["Formulas"] = new SelectList(_trainingDayRepository.GetAll().Select(t => new { t.TrainingDayId, t.Name }).ToList(), "TrainingDayId", "Name");
             return View(new SessionViewModel());
         }
         [HttpPost]
@@ -36,8 +44,19 @@ namespace Taijitan.Controllers
             Teacher t;
             string userEmail = _userManager.GetUserName(HttpContext.User);
             t = (Teacher)_userRepository.GetByEmail(userEmail);
-            IEnumerable<Member> members = _userRepository.GetByFormula(svm.SessionFormula);
-            Session s = new Session(svm.SessionFormula, t, members);
+            IEnumerable<Formula> formulasOfDay = _formulaRepository.GetByTrainingDay(_trainingDayRepository.getById(svm.TrainingDayId));
+            IList<Member> members = new List<Member>();
+            foreach (var formula in formulasOfDay)
+            {
+                IEnumerable<Member> m = _userRepository.GetByFormula(formula);
+                foreach (var member in m)
+                    members.Add(member);
+            }
+            IEnumerable<Member> membersSession = new List<Member>();
+            membersSession = members;
+            Session s = new Session(formulasOfDay.ToList(), t,membersSession);
+            s.TrainingDay = _trainingDayRepository.getById(svm.TrainingDayId);
+            
             _sessionRepository.Add(s);
             _sessionRepository.SaveChanges();
             svm.Change(s);
@@ -55,8 +74,10 @@ namespace Taijitan.Controllers
             Session CurrentSession = _sessionRepository.GetById(sessionId);
             Member m = (Member)_userRepository.GetById(id);
             CurrentSession.AddToMembersPresent(m);
+            _sessionMemberRepository.Add(new SessionMember(sessionId,CurrentSession,id,m));
             SessionViewModel svm = new SessionViewModel(CurrentSession);
             svm.SessionTeacher = t;
+            svm.TrainingDay = CurrentSession.TrainingDay;
             _sessionRepository.SaveChanges();
             return View("Register", svm);
         }
@@ -70,13 +91,26 @@ namespace Taijitan.Controllers
             Session CurrentSession = _sessionRepository.GetById(sessionId);
             Member m = (Member)_userRepository.GetById(id);
             CurrentSession.AddToMembers(m);
+            _sessionMemberRepository.Delete(_sessionMemberRepository.GetById(sessionId, id));
             SessionViewModel svm = new SessionViewModel(CurrentSession);
             svm.SessionTeacher = t;
+            svm.TrainingDay = CurrentSession.TrainingDay;
             _sessionRepository.SaveChanges();
             return View("Register", svm);
         }
 
-
+        //[HttpPost]
+        public IActionResult Confirm(int sessionId)
+        {
+            Session currentSession = _sessionRepository.GetById(sessionId);
+            IEnumerable<Member> membersPresent = currentSession.MembersPresent;
+            foreach (var member in membersPresent)
+            {
+                SessionMember sessionMember = new SessionMember(currentSession.SessionId, null, member.UserId, null);
+                _sessionMemberRepository.Add(sessionMember);
+            }
+            return RedirectToAction("Create");
+        }
 
     }
 }

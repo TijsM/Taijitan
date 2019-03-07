@@ -127,6 +127,7 @@ a {
     .swal-button.swal-button--cancel:focus {
         box-shadow: 0px 0px 0px 1.5px #bababa inset;
     }
+
     .swal-button.swal-button--cancel:hover {
         box-shadow: 0px 0px 0px 1.5px #bababa inset;
     }
@@ -194,3 +195,11 @@ a {
     .ChangeAndDeleteColor:hover {
         color: black;
     }
+
+
+
+
+fieldset{
+    margin-bottom: 30px;
+
+}

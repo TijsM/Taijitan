@@ -1,15 +1,23 @@
 ﻿@model Taijitan.Models.ViewModels.SessionViewModel
 @using Taijitan.Helpers;
 @using Taijitan.Models.ViewModels
+
+
+@{ 
+    TimeSpan start= TimeSpan.FromHours(Model.TrainingDay.StartHour);
+    TimeSpan end = TimeSpan.FromHours(Model.TrainingDay.StopHour);
+    string startMinutes = start.Minutes /10 < 1 ? $"{start.Minutes}0" : $"{start.Minutes}";
+    string endMinutes = end.Minutes / 10 < 1 ? $"{end.Minutes}0" : $"{end.Minutes}";
+}
 <h2>Registreer je aanwezigheid</h2>
 <br />
-<h4>Sessie op @Model.Date met als lesgever  @Model.SessionTeacher.FirstName @Model.SessionTeacher.Name</h4>
+<h4>Sessie op @Model.Date.ToShortDateString() van @(start.Hours):@startMinutes tot @(end.Hours):@endMinutes met als lesgever  @Model.SessionTeacher.FirstName @Model.SessionTeacher.Name</h4>
 
 @{
     Session session = (Session) TempData["session"];
 }
 <br />
-<h3>Leden ingeschreven in formule: @EnumHelpers.GetDisplayName(@Model.SessionFormula)</h3>
+<h3>Leden ingeschreven in formule: </h3>
     <div class="list-group">
         @{
             foreach (var item in Model.Members)
@@ -33,8 +41,9 @@
         }
     </div>
 
-    <a asp-controller="Session" asp-action="Confirm" class="btn btn-taijitan">Bevestig aanwezigheden</a>
+    <a asp-action="Confirm" asp-controller="Session" asp-route-sessionId="@Model.SessionId" class="btn btn-taijitan">Bevestig aanwezigheden</a>
 
+    
 
 @*<div class="col-md-8 col-md-offset-2">
 

@@ -90,11 +90,11 @@ namespace TaijitanTest.Controllers
             var userViewmodel = new EditViewModel(_tomJansens)
             {
                 Name = "Deschacht",
-                Country = "Denmark",
+                Country = Country.Denmark
             };
             _userController.Edit(_tomJansensId,_tomJansens,userViewmodel);
             Assert.Equal("Deschacht", _tomJansens.Name);
-            Assert.Equal("Denmark", _tomJansens.Country);
+            Assert.Equal(Country.Denmark, _tomJansens.Country);
             _mockUserRepository.Verify(m => m.SaveChanges(), Times.Once);
         }
         [Fact]
