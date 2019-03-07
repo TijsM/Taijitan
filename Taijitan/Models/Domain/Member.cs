@@ -9,7 +9,8 @@ namespace Taijitan.Models.Domain
     {
         public Formula Formula { get; set; }
         public Rank Rank { get; set; }
-        public IList<SessionMember> SessionMembers { get; set; }
+        public ICollection<SessionMember> SessionMembers { get; set; }
+        public IEnumerable<Session> Sessions => SessionMembers.Select(sm => sm.Session).ToList();
 
         public Member(string name, string firstName, DateTime dateOfBirth,string street,City city,
             Country country,string houseNumber,string phoneNumber, string email,Formula formula, DateTime dateRegistred, Gender gender, Country nationality, string personalNationalNumber, string birthPlace, string landlineNumber = "Niet gekend", string mailParent = "niet gekend")

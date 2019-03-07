@@ -11,28 +11,34 @@ namespace Taijitan.Models.Domain
         public IEnumerable<Member> Members { get; set; }
         public IEnumerable<Member> MembersPresent { get; set; }
         public DateTime Date { get; set; }
-        public IEnumerable<Formula> Formulas { get; set; }
+        public IEnumerable<Formula> Formulas => SessionFormulas.Select(sf => sf.Formula).ToList();
         public Teacher Teacher { get; set; }
         public TrainingDay TrainingDay { get; set; }
-        public IList<SessionMember> SessionMembers{ get; set; }
+        public ICollection<SessionMember> SessionMembers{ get; set; }
         public IEnumerable<NonMember> NonMembers { get; set; }
+        public ICollection<SessionFormula> SessionFormulas { get; set; }
 
         public Session(List<Formula> formulas,Teacher teacher,IEnumerable<Member> members)
         {
             MembersPresent = new List<Member>();
+            SessionFormulas = new List<SessionFormula>();
             Members = members;
             TrainingDay = formulas != null ? formulas.First().TrainingDays.SingleOrDefault(d => d.DayOfWeek.Equals(DateTime.Now.DayOfWeek)) : null;
             Date = DateTime.Now;
-            Formulas = formulas.ToList();
             Teacher = teacher;
             SessionMembers = new List<SessionMember>();
             NonMembers = new List<NonMember>();
+            foreach (Formula f in formulas)
+            {
+                SessionFormulas.Add(new SessionFormula(SessionId, this, f.FormulaId, f));
+            }
         }
         public Session()
         {
             MembersPresent = new List<Member>();
-            Formulas = new List<Formula>();
-            SessionMembers = new List<SessionMember>(); NonMembers = new List<NonMember>();
+            SessionFormulas = new List<SessionFormula>();
+            SessionMembers = new List<SessionMember>();
+            NonMembers = new List<NonMember>();
             NonMembers = new List<NonMember>();
         }
         public void AddToMembersPresent(Member mb)

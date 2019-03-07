@@ -39,6 +39,7 @@ namespace Taijitan.Data
             builder.ApplyConfiguration(new SessionMemberConfiguration());
             builder.ApplyConfiguration(new FormulaTrainingDayConfiguration());
             builder.ApplyConfiguration(new NonMemberConfiguration());
+            builder.ApplyConfiguration(new SessionFormulaConfiguration());
         }
     }
 }

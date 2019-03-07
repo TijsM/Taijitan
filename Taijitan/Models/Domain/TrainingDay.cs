@@ -14,7 +14,8 @@ namespace Taijitan.Models.Domain
         public double Duration { get; set; }
         public DayOfWeek DayOfWeek { get; set; }
 
-        public IEnumerable<FormulaTrainingDay> FormulaTrainingDays { get; set; }
+        public ICollection<FormulaTrainingDay> FormulaTrainingDays { get; set; }
+        public IEnumerable<Formula> Formulas => FormulaTrainingDays.Select(ft => ft.Formula).ToList();
 
         public TrainingDay(string name,double startHour,double stopHour,DayOfWeek dayOfWeek)
         {
