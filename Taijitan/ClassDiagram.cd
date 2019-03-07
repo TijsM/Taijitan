@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Taijitan.Models.Domain.Admin" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\Admin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Taijitan.Models.Domain.City" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\City.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Taijitan.Models.Domain.Formula" Collapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAQAAAAAAAAACIAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\Formula.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Taijitan.Models.Domain.FormulaTrainingDay" Collapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAABAAACAAAQAAAAAA=</HashCode>
+      <FileName>Models\Domain\FormulaTrainingDay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Taijitan.Models.Domain.Member" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAACAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\Member.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Taijitan.Models.Domain.Session" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEgDAAAACAAAAAIAAAAAAAIAAAAAAABABAEAAAAAAA=</HashCode>
+      <FileName>Models\Domain\Session.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Taijitan.Models.Domain.SessionMember" Collapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAQAIAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\SessionMember.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Taijitan.Models.Domain.Teacher" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\Teacher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Taijitan.Models.Domain.TrainingDay" Collapsed="true">
+    <Position X="11" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAQAQAAABAAIAIAEAAAAAAA=</HashCode>
+      <FileName>Models\Domain\TrainingDay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Taijitan.Models.Domain.User" Collapsed="true">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAEAAACBAAACIABAAQAwgAEIQAgAAAAIAIAAACAA=</HashCode>
+      <FileName>Models\Domain\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Taijitan.Models.Domain.ICityRepository" Collapsed="true">
+    <Position X="7.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIAAAAAAAAAAAAAAAAgAAAAAAEAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\ICityRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Taijitan.Models.Domain.IFormulaRepository" Collapsed="true">
+    <Position X="9.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIAAAAAAAAAAAAAAAAAAAAAAAEACAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\IFormulaRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Taijitan.Models.Domain.ISessionMemberRepository" Collapsed="true">
+    <Position X="11" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAAAAAAIA=</HashCode>
+      <FileName>Models\Domain\ISessionMemberRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Taijitan.Models.Domain.ISessionRepository" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAAAAAAIA=</HashCode>
+      <FileName>Models\Domain\ISessionRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Taijitan.Models.Domain.ITrainingDayRepository" Collapsed="true">
+    <Position X="9.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIAAAAAAAAAAAAAAAAAAAAABAEAAAAAAgAAgAAAAAA=</HashCode>
+      <FileName>Models\Domain\ITrainingDayRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Taijitan.Models.Domain.IUserRepository" Collapsed="true">
+    <Position X="11" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIAAAAAAAAAAAAAAAAAAAAAAAmAAAIACgAAAAAAAIA=</HashCode>
+      <FileName>Models\Domain\IUserRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Taijitan.Models.Domain.Country" Collapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>q/F4ZLfTIzr3mt0Q/YU0xnd6Epp+N7zWF3M2rhVA1b4=</HashCode>
+      <FileName>Models\Domain\Country.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Taijitan.Models.Domain.Gender" Collapsed="true">
+    <Position X="9.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\Gender.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Taijitan.Models.Domain.Rank" Collapsed="true">
+    <Position X="11" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAEAAACAAAAANA/oBcAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\Rank.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="8.83" />
+</ClassDiagram>
