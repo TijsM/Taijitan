@@ -114,7 +114,7 @@ namespace Taijitan.Controllers
             IEnumerable<Member> membersPresent = currentSession.MembersPresent;
             foreach (var member in membersPresent)
             {
-                SessionMember sessionMember = new SessionMember(currentSession.SessionId, null, member.UserId, null);
+                SessionMember sessionMember = new SessionMember(currentSession.SessionId, currentSession, member.UserId, member);
                 _sessionMemberRepository.Add(sessionMember);
             }
             return RedirectToAction("Create");
