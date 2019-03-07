@@ -60,12 +60,20 @@ namespace Taijitan.Controllers
             _sessionRepository.Add(s);
             _sessionRepository.SaveChanges();
             svm.Change(s);
-            TempData["session"] = s;
             return View("Register",svm);
         }
 
-      
-        //[HttpPost]
+        public IActionResult Register(int SessionId)
+        {
+            Session session = _sessionRepository.GetById(SessionId);
+            string userEmail = _userManager.GetUserName(HttpContext.User);
+            Teacher t = (Teacher)_userRepository.GetByEmail(userEmail);
+            SessionViewModel svm = new SessionViewModel(session);
+            svm.SessionTeacher = t;
+            svm.TrainingDay = session.TrainingDay;
+            return View(svm);
+        }
+        
         public IActionResult AddToPresent(int sessionId, int id)
         {
             Teacher t;
@@ -81,8 +89,8 @@ namespace Taijitan.Controllers
             _sessionRepository.SaveChanges();
             return View("Register", svm);
         }
+        
 
-        //[HttpPost]
         public IActionResult AddToUnconfirmed(int sessionId, int id)
         {
             Teacher t;
@@ -98,8 +106,8 @@ namespace Taijitan.Controllers
             _sessionRepository.SaveChanges();
             return View("Register", svm);
         }
+        
 
-        //[HttpPost]
         public IActionResult Confirm(int sessionId)
         {
             Session currentSession = _sessionRepository.GetById(sessionId);
@@ -110,6 +118,38 @@ namespace Taijitan.Controllers
                 _sessionMemberRepository.Add(sessionMember);
             }
             return RedirectToAction("Create");
+        }
+
+        public IActionResult AddOtherMember(int sessionId, string searchTerm = "")
+        {
+            var session = _sessionRepository.GetById(sessionId);
+            IEnumerable<User> allMembers = _userRepository.GetAllMembers();
+            var sessionMembers = session.Members;
+            IEnumerable<User> otherMembers = allMembers;
+
+            foreach (User m in session.MembersPresent)
+            {
+                sessionMembers.ToList<User>().Add(m);
+            }
+            foreach (User m in sessionMembers)
+            {
+                otherMembers = otherMembers.Where(om => om.UserId != m.UserId);
+            }
+            
+            if (searchTerm != null && !searchTerm.Equals(""))
+            {
+                otherMembers = otherMembers.Where(u => u.Name.Contains(searchTerm)).ToList();
+            }
+            
+            
+            Teacher t;
+            string userEmail = _userManager.GetUserName(HttpContext.User);
+            t = (Teacher)_userRepository.GetByEmail(userEmail);
+            SessionViewModel svm = new SessionViewModel(session);
+            svm.SessionTeacher = t;
+            svm.TrainingDay = session.TrainingDay;
+            ViewData["otherMembers"] = otherMembers.ToList<User>();
+            return View(svm);
         }
 
     }

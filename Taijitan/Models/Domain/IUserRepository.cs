@@ -15,5 +15,6 @@ namespace Taijitan.Models.Domain
         void Add(User user);
         void Delete(User user);
         void SaveChanges();
+        IEnumerable<Member> GetAllMembers();
     }
 }

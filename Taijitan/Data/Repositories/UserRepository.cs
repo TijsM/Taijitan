@@ -20,6 +20,10 @@ namespace Taijitan.Data
             _members = _users.OfType<Member>().Include(u => u.Formula).ThenInclude(f => f.TrainingDays).Where(item => item.GetType() == typeof(Member)).ToList();
         }
 
+        public IEnumerable<Member> GetAllMembers()
+        {
+            return _members;
+        }
 
         public void Add(User user)
         {
