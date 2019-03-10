@@ -88,7 +88,6 @@ function exportTableToExcel(tableID, filename = '') {
     var dataType = 'application/vnd.ms-excel';
     var tableSelect = document.getElementById(tableID);
     var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
-    +
     // Specify file name
     filename = filename ? filename + '.xls' : 'excel_data.xls';
 
@@ -106,7 +105,7 @@ function exportTableToExcel(tableID, filename = '') {
         // Create a link to the file
         downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
 
-        // Setting the file name
+        // Setting the file name    
         downloadLink.download = filename;
 
         //triggering the function
