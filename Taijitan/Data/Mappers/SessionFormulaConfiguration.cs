@@ -8,26 +8,26 @@ using Taijitan.Models.Domain;
 
 namespace Taijitan.Data.Mappers
 {
-    public class SessionMemberConfiguration : IEntityTypeConfiguration<SessionMember>
+    public class SessionFormulaConfiguration : IEntityTypeConfiguration<SessionFormula>
     {
-        public void Configure(EntityTypeBuilder<SessionMember> builder)
+        public void Configure(EntityTypeBuilder<SessionFormula> builder)
         {
-            builder.ToTable("SessionMember");
-            builder.HasKey(sm => new {sm.SessionId, sm.MemberId });
+            builder.ToTable("SessionFormula");
+            builder.HasKey(sm => new { sm.SessionId, sm.FormulaId });
 
             builder
-                .HasOne(sm => sm.Member)
-                .WithMany(m => m.SessionMembers)
-                .HasForeignKey(sm => sm.MemberId)
+                .HasOne(sm => sm.Formula)
+                .WithMany(m => m.SessionFormulas)
+                .HasForeignKey(sm => sm.FormulaId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasOne(sm => sm.Session)
-                .WithMany(m => m.SessionMembers)
+                .WithMany(m => m.SessionFormulas)
                 .HasForeignKey(sm => sm.SessionId)
                 .OnDelete(DeleteBehavior.Restrict);
-            
-   
+
+
         }
     }
 }

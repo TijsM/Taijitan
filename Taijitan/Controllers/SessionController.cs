@@ -115,7 +115,7 @@ namespace Taijitan.Controllers
             //}
             currentSession.AddToSessionMembers(currentSession.MembersPresent.ToList());
             _sessionRepository.SaveChanges();
-            return RedirectToAction("Create");
+            return View("Training");   
         }
 
         public IActionResult AddOtherMember(int id, string searchTerm = "")
