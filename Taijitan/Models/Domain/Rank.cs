@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,61 +9,79 @@ namespace Taijitan.Models.Domain
 {
     public enum Rank
     {
-        [Display(Name = "witte gordel")]
-        Starter,
+        //[Display(Name = "witte gordel")]
+        //Starter = 0,
 
-        [Display(Name = "witte gordel met geel streepje")]
-        Kyu6,
+        [Display(Name = "Rokku-kyu")]
+        [Description("Witten band")]
+        Kyu6 = 1,
 
-        [Display(Name = "gele gordel")]
-        Kyu5,
+        [Display(Name = "Go-kyu")]
+        [Description("Gele band")]
+        Kyu5 = 2,
 
-        [Display(Name = "oranje gordel")]
-        Kyu4,
+        [Display(Name = "Yon-kyu")]
+        [Description("Oranje band")]
+        Kyu4 = 3,
 
-        [Display(Name = "groene gordel")]
-        Kyu3,
+        [Display(Name = "San-kyu")]
+        [Description("Groene band")]
+        Kyu3 = 4,
 
-        [Display(Name = "blauwe gordel")]
-        Kyu2,
+        [Display(Name = "Ni-kyu")]
+        [Description("Blauwe band")]
+        Kyu2 = 5,
 
-        [Display(Name = "bruine gordel")]
-        Kyu1,
+        [Display(Name = "Ichi-kyu")]
+        [Description("Bruine band")]
+        Kyu1 = 6,
 
-        [Display(Name = "zwarte gordel met 1 witte streep ")]
-        Dan1,
+        [Display(Name = "Sho-dan")]
+        [Description("Zwarte band")]
+        Dan1 = 7,
 
-        [Display(Name = "zwarte gordel met 2 witte strepen")]
-        Dan2,
+        [Display(Name = "Ni-dan")]
+        [Description("Zwarte band")]
+        Dan2 = 7,
 
-        [Display(Name = "zwarte gordel met 3 witte strepen")]
-        Dan3,
+        [Display(Name = "San-dan")]
+        [Description("Zwarte band")]
+        Dan3 = 7,
 
-        [Display(Name = "zwarte gordel met 4 witte strepen")]
-        Dan4,
+        [Display(Name = "Yon-dan")]
+        [Description("Zwarte band")]
+        Dan4 = 8,
 
-        [Display(Name = "zwarte gordel met 3 strepen (wit-rood-wit) ")]
-        Dan5,
+        [Display(Name = "Go-dan")]
+        [Description("Zwarte band")]
+        Dan5 = 9,
 
-        [Display(Name = "rood-wit geblokte gordel")]
-        Dan6,
+        [Description("witte breede band")]
+        [Display(Name = "Rood-witte band")]
+        Dan6 = 10,
 
-        [Display(Name = "rood-wit geblokte gordel")]
-        Dan7,
+        [Display(Name = "Shichi-dan")]
+        [Description("Rood-witte band")]
+        Dan7 = 11,
 
-        [Display(Name = "rood-wit geblokte gordel")]
-        Dan8,
+        [Display(Name = "Hachi-dan")]
+        [Description("Rood-witte band")]
+        Dan8 = 12,
 
-        [Display(Name = "rode gordel ")]
-        Dan9,
+        [Display(Name = "Ku-dan")]
+        [Description("Rode band")]
+        Dan9 = 13,
 
-        [Display(Name = "rode gordel ")]
-        Dan10,
+        [Description("Rode band")]
+        [Display(Name = "Ju-dan")]
+        Dan10 = 14,
 
-        [Display(Name = "rode gordel ")]
-        Dan11,
+        [Display(Name = "Rode band")]
+        [Description("witte breede band")]
+        Dan11 = 15,
 
-        [Display(Name = "brede witte gordel")]
-        Dan12
+        [Display(Name = "Juni-dan")]
+        [Description("witte brede band")]
+        Dan12 = 16
     }
 }

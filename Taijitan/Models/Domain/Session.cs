@@ -7,7 +7,7 @@ namespace Taijitan.Models.Domain
 {
     public class Session
     {
-        public  int SessionId { get; set; }
+        public int SessionId { get; set; }
         public IEnumerable<Member> Members { get; set; }
         public IEnumerable<Member> MembersPresent { get; set; }
         public DateTime Date { get; set; }

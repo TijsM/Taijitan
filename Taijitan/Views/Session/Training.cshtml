@@ -1,7 +1,59 @@
-﻿
+﻿@model Taijitan.Models.Domain.Session
+@using Taijitan.Helpers
 @{
     ViewData["Title"] = "Training";
 }
 
 <h2>Training</h2>
 
+
+<div class="col-lg-12">
+    <div class="col-sm-2">
+        <form method="post">
+            <div class="list-group">
+                @{
+                    foreach (var us in Model.MembersPresent)
+                    {
+                        <button type="submit" asp-action="SelectMember" asp-route-sessionId="@Model.SessionId" asp-route-id="@us.UserId" class="list-group-item list-group-item-action">@us.FirstName @us.Name</button>
+                    }
+                }
+            </div>
+        </form>
+    </div>
+
+    <div class="col-sm-2">
+        <form method="post">
+            <div class="list-group">
+                @{
+
+                    Member member = (Member)ViewData["SelectedMember"];
+
+                    if (member == null)
+                    {
+                        <p>Selecteer jouw naam om jouw kyus of dans te kunnen bekijken</p>
+                    }
+
+                    else
+                    {
+                        foreach (Rank rank in (ICollection<Rank>)ViewData["RankValue"])
+                        {
+
+
+                            if ((int)member.Rank >= (int)rank)
+                            {
+                        <button type="submit" asp-action="SelectMember" asp-route-sessionId="@Model.SessionId" @*asp-route-id="@u" *@ class="list-group-item list-group-item-action">@rank  - @rank.GetDisplayName() - @rank.GetDescription()</button>
+
+                            }
+
+                        }
+                    }
+                }
+            </div>
+        </form>
+    </div>
+
+    <div class="col-sm-8">
+    </div>
+
+
+</div>

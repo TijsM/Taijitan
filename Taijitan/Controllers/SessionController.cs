@@ -21,7 +21,7 @@ namespace Taijitan.Controllers
         private readonly IFormulaRepository _formulaRepository;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public SessionController(IUserRepository userRepository,ISessionRepository sessionRepository,IFormulaRepository formulaRepository,ITrainingDayRepository trainingDayRepository,UserManager<IdentityUser> userManager)
+        public SessionController(IUserRepository userRepository, ISessionRepository sessionRepository, IFormulaRepository formulaRepository, ITrainingDayRepository trainingDayRepository, UserManager<IdentityUser> userManager)
         {
             _userRepository = userRepository;
             _sessionRepository = sessionRepository;
@@ -33,7 +33,7 @@ namespace Taijitan.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            
+
             ViewData["Formulas"] = new SelectList(_trainingDayRepository.GetAll().Select(t => new { t.TrainingDayId, t.Name }).ToList(), "TrainingDayId", "Name");
             return View(new SessionViewModel());
         }
@@ -54,13 +54,13 @@ namespace Taijitan.Controllers
             }
             IEnumerable<Member> membersSession = new List<Member>();
             membersSession = members;
-            Session s = new Session(formulasOfDay.ToList(), t,membersSession);
+            Session s = new Session(formulasOfDay.ToList(), t, membersSession);
             s.TrainingDay = _trainingDayRepository.getById(svm.TrainingDayId);
-            
+
             _sessionRepository.Add(s);
             _sessionRepository.SaveChanges();
             svm.Change(s);
-            return View("Register",svm);
+            return View("Register", svm);
         }
 
         [Authorize(Policy = "Teacher")]
@@ -89,7 +89,7 @@ namespace Taijitan.Controllers
             svm.SessionTeacher = t;
             svm.TrainingDay = CurrentSession.TrainingDay;
             _sessionRepository.SaveChanges();
-            return RedirectToAction("Register", new {id = sessionId});
+            return RedirectToAction("Register", new { id = sessionId });
         }
 
         [Authorize(Policy = "Teacher")]
@@ -106,22 +106,11 @@ namespace Taijitan.Controllers
             svm.SessionTeacher = t;
             svm.TrainingDay = CurrentSession.TrainingDay;
             _sessionRepository.SaveChanges();
-            return RedirectToAction("Register", new {id = sessionId});
+            return RedirectToAction("Register", new { id = sessionId });
         }
 
-        [Authorize(Policy = "Teacher")]
-        public IActionResult Confirm(int sessionId)
-        {
-            Session currentSession = _sessionRepository.GetById(sessionId);
-            //IEnumerable<Member> membersPresent = currentSession.MembersPresent;
-            //foreach (var member in membersPresent)
-            //{
 
-            //}
-            currentSession.AddToSessionMembers(currentSession.MembersPresent.ToList());
-            _sessionRepository.SaveChanges();
-            return View("Training");   
-        }
+
 
         [Authorize(Policy = "Teacher")]
         public IActionResult AddOtherMember(int id, string searchTerm = "")
@@ -141,12 +130,12 @@ namespace Taijitan.Controllers
             {
                 otherMembers = otherMembers.Where(om => om.UserId != m.UserId);
             }
-            
+
             if (searchTerm != null && !searchTerm.Equals(""))
             {
                 otherMembers = otherMembers.Where(u => u.Name.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
             }
-            
+
             Teacher t;
             string userEmail = _userManager.GetUserName(HttpContext.User);
             t = (Teacher)_userRepository.GetByEmail(userEmail);
@@ -165,6 +154,39 @@ namespace Taijitan.Controllers
             s.AddNonMember(firstName, lastName, email);
             _sessionRepository.SaveChanges();
             return RedirectToAction("Register", new { id });
+        }
+
+        public IActionResult Confirm(int sessionId)
+        {
+            Session currentSession = _sessionRepository.GetById(sessionId);
+            //IEnumerable<Member> membersPresent = currentSession.MembersPresent;
+            //foreach (var member in membersPresent)
+            //{
+
+            //}
+            ViewData["RankValue"] = GiveAllRanksAsList();
+            currentSession.AddToSessionMembers(currentSession.MembersPresent.ToList());
+            _sessionRepository.SaveChanges();
+            return View("Training", currentSession);
+        }
+
+
+
+        [HttpPost]
+        public IActionResult SelectMember(int sessionId, int id)
+        {
+            var user = (Member)_userRepository.GetById(id);
+
+            ViewData["RankValue"] = GiveAllRanksAsList();
+            ViewData["SelectedMember"] = _userRepository.GetById(id);
+            var currentSession = _sessionRepository.GetById(sessionId);
+            return View("Training", currentSession);
+        }
+
+        private ICollection<Rank> GiveAllRanksAsList()
+        {
+            ICollection<Rank> ranks = Enum.GetValues(typeof(Rank)).Cast<Rank>().ToList();
+            return ranks;
         }
 
         [Authorize(Policy = "Admin")]
