@@ -24,7 +24,7 @@ namespace Taijitan.Models.Domain
             City = city;
             Country = country;
             HouseNumber = houseNumber;
-            Rank = Rank.Starter;
+            Rank = Rank.Kyu6;
             Formula = formula;
             Gender = gender;
             Nationality = nationality;

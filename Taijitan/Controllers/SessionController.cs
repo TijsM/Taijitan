@@ -21,7 +21,7 @@ namespace Taijitan.Controllers
         private readonly IFormulaRepository _formulaRepository;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public SessionController(IUserRepository userRepository,ISessionRepository sessionRepository,IFormulaRepository formulaRepository,ITrainingDayRepository trainingDayRepository,UserManager<IdentityUser> userManager)
+        public SessionController(IUserRepository userRepository, ISessionRepository sessionRepository, IFormulaRepository formulaRepository, ITrainingDayRepository trainingDayRepository, UserManager<IdentityUser> userManager)
         {
             _userRepository = userRepository;
             _sessionRepository = sessionRepository;
@@ -32,7 +32,7 @@ namespace Taijitan.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            
+
             ViewData["Formulas"] = new SelectList(_trainingDayRepository.GetAll().Select(t => new { t.TrainingDayId, t.Name }).ToList(), "TrainingDayId", "Name");
             return View(new SessionViewModel());
         }
@@ -52,13 +52,13 @@ namespace Taijitan.Controllers
             }
             IEnumerable<Member> membersSession = new List<Member>();
             membersSession = members;
-            Session s = new Session(formulasOfDay.ToList(), t,membersSession);
+            Session s = new Session(formulasOfDay.ToList(), t, membersSession);
             s.TrainingDay = _trainingDayRepository.getById(svm.TrainingDayId);
-            
+
             _sessionRepository.Add(s);
             _sessionRepository.SaveChanges();
             svm.Change(s);
-            return View("Register",svm);
+            return View("Register", svm);
         }
 
         public IActionResult Register(int id)
@@ -71,7 +71,7 @@ namespace Taijitan.Controllers
             svm.TrainingDay = session.TrainingDay;
             return View(svm);
         }
-        
+
         [HttpPost]
         public IActionResult AddToPresent(int sessionId, int id)
         {
@@ -85,9 +85,9 @@ namespace Taijitan.Controllers
             svm.SessionTeacher = t;
             svm.TrainingDay = CurrentSession.TrainingDay;
             _sessionRepository.SaveChanges();
-            return RedirectToAction("Register", new {id = sessionId});
+            return RedirectToAction("Register", new { id = sessionId });
         }
-        
+
         [HttpPost]
         public IActionResult AddToUnconfirmed(int sessionId, int id)
         {
@@ -101,22 +101,11 @@ namespace Taijitan.Controllers
             svm.SessionTeacher = t;
             svm.TrainingDay = CurrentSession.TrainingDay;
             _sessionRepository.SaveChanges();
-            return RedirectToAction("Register", new {id = sessionId});
+            return RedirectToAction("Register", new { id = sessionId });
         }
-        
 
-        public IActionResult Confirm(int sessionId)
-        {
-            Session currentSession = _sessionRepository.GetById(sessionId);
-            //IEnumerable<Member> membersPresent = currentSession.MembersPresent;
-            //foreach (var member in membersPresent)
-            //{
 
-            //}
-            currentSession.AddToSessionMembers(currentSession.MembersPresent.ToList());
-            _sessionRepository.SaveChanges();
-            return View("Training");   
-        }
+
 
         public IActionResult AddOtherMember(int id, string searchTerm = "")
         {
@@ -135,12 +124,12 @@ namespace Taijitan.Controllers
             {
                 otherMembers = otherMembers.Where(om => om.UserId != m.UserId);
             }
-            
+
             if (searchTerm != null && !searchTerm.Equals(""))
             {
                 otherMembers = otherMembers.Where(u => u.Name.Contains(searchTerm)).ToList();
             }
-            
+
             Teacher t;
             string userEmail = _userManager.GetUserName(HttpContext.User);
             t = (Teacher)_userRepository.GetByEmail(userEmail);
@@ -158,6 +147,39 @@ namespace Taijitan.Controllers
             s.AddNonMember(firstName, lastName, email);
             _sessionRepository.SaveChanges();
             return RedirectToAction("Register", new { id });
+        }
+
+        public IActionResult Confirm(int sessionId)
+        {
+            Session currentSession = _sessionRepository.GetById(sessionId);
+            //IEnumerable<Member> membersPresent = currentSession.MembersPresent;
+            //foreach (var member in membersPresent)
+            //{
+
+            //}
+            ViewData["RankValue"] = GiveAllRanksAsList();
+            currentSession.AddToSessionMembers(currentSession.MembersPresent.ToList());
+            _sessionRepository.SaveChanges();
+            return View("Training", currentSession);
+        }
+
+
+
+        [HttpPost]
+        public IActionResult SelectMember(int sessionId, int id)
+        {
+            var user = (Member)_userRepository.GetById(id);
+
+            ViewData["RankValue"] = GiveAllRanksAsList();
+            ViewData["SelectedMember"] = _userRepository.GetById(id);
+            var currentSession = _sessionRepository.GetById(sessionId);
+            return View("Training", currentSession);
+        }
+
+        private ICollection<Rank> GiveAllRanksAsList()
+        {
+            ICollection<Rank> ranks = Enum.GetValues(typeof(Rank)).Cast<Rank>().ToList();
+            return ranks;
         }
 
     }
