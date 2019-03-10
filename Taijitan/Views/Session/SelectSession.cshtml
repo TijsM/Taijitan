@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewData["Title"] = "Selecteer een sessie:";
+    IEnumerable<Session> sessions = (List<Session>)ViewData["Sessions"];
+}
+
+<h2>@ViewData["Title"]</h2>
+<div class="col-lg-4"></div>
+<div class="list-group col-lg-4">
+    @{
+        if (sessions.Count() != 0)
+        {
+            foreach (var item in sessions)
+            {
+                <a asp-action="SummaryPresences" asp-route-id="@item.SessionId" class="list-group-item list-group-item-action">Sessie gestart op @item.Date</a>
+            }
+        }
+        else
+        {
+            <p>Er zijn geen sessies beschikbaar</p>
+        }
+    }
+</div>
+<div class="col-lg-4"></div>
+

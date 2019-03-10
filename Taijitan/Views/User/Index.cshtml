@@ -8,10 +8,11 @@
             <ul class="nav nav-pills nav-stacked">
                 <li class="nav-item active"><a href="#" class="nav-link">Persoonlijke gegevens</a></li>
                 @*<li class="@ManageNavPages.ChangePasswordNavClass(ViewContext) nav-item"><a id="change-password" asp-area="Identity" asp-page="./ChangePassword">Wachtwoord</a></li>*@
-                @{ 
-                    if(TempData["Role"].Equals("Admin"))
+                @{
+                    if (TempData["Role"].Equals("Admin"))
                     {
                         <li class="nav-item"><a asp-controller="User" asp-action="Summary" class="nav-link">Wijzig gegevens leden</a></li>
+                        <li class="nav-item"><a asp-controller="Session" asp-action="GetSessions" class="nav-link">Raadpleeg aanwezigheden</a></li>
                     }
                 }
             </ul>

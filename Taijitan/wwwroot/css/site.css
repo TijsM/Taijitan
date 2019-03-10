@@ -157,7 +157,7 @@ a {
 
 .registredcontainer {
     overflow-y: scroll;
-    max-height: 250px;
+    max-height: 350px;
 }
 
 
@@ -174,24 +174,24 @@ a {
 }
 
 /* width */
-.membercontainer::-webkit-scrollbar {
+.customScroll::-webkit-scrollbar{
     width: 8px;
 }
 
 /* Track */
-    .membercontainer::-webkit-scrollbar-track {
-        background: white;
-        border-radius: 5px;
-    }
+.customScroll::-webkit-scrollbar-track {
+    background: white;
+    border-radius: 5px;
+}
 
 /* Handle */
-    .membercontainer::-webkit-scrollbar-thumb {
-        background: #336566;
-        border-radius: 5px;
-    }
+.customScroll::-webkit-scrollbar-thumb {
+    background: #336566;
+    border-radius: 5px;
+}
 
     /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
+    .customScroll::-webkit-scrollbar-thumb:hover {
         background: #555;
     }
 

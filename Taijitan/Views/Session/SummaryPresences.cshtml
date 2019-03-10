@@ -1,0 +1,58 @@
+﻿@model IEnumerable<User>
+@{
+    ViewData["Title"] = "Overzicht van alle aanwezige leden";
+    List<NonMember> nonMembers = (List<NonMember>)ViewData["NonMembers"];
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+<table class="table" id="summaryTable">
+
+    <tr>
+        <th>Familienaam</th>
+        <th>Voornaam</th>
+        <th>Geboortedatum</th>
+        <th>Adres</th>
+        <th>Telefoonnummer</th>
+        <th>E-mailadres</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.FirstName</td>
+            <td>@item.DateOfBirth.ToShortDateString()</td>
+            <td>@item.City.Postalcode @item.City.Name - @item.Street @item.HouseNumber</td>
+            <td>@item.PhoneNumber</td>
+            <td>@item.Email</td>
+        </tr>
+    }
+    @{
+        if (nonMembers.Count() != 0)
+        {
+            <tr><th colspan="6"><h2>Alle gasten aanwezig tijdens de sessie:</h2></th></tr>
+
+            <tr>
+                <th colspan="2">Familienaam</th>
+                <th colspan="2">Voornaam</th>
+                <th colspan="2">E-mailadres</th>
+            </tr>
+
+            @foreach (var item in nonMembers)
+            {
+                <tr>
+                    <td colspan="2">@item.LastName</td>
+                    <td colspan="2">@item.FirstName</td>
+                    <td colspan="2">@item.Email</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td>Er waren geen gasten aanwezig.</td></tr>
+        }
+    }
+
+</table>
+<button onclick="exportTableToExcel('summaryTable', 'Overzicht_Aanwezigheden')">klik</button>

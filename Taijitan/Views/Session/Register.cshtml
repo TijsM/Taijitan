@@ -43,7 +43,7 @@
     <div class="col-lg-6">
         <h3>Leden ingeschreven in formule: </h3>
         <form method="post">
-            <div class="list-group membercontainer">
+            <div class="list-group membercontainer customScroll">
                 @{
                     if (Model.Members.Count() != 0)
                     {
@@ -68,7 +68,7 @@
         <h3>Aanwezige Leden
         </h3>
         <form method="post">
-            <div class="list-group registredcontainer">             
+            <div class="list-group registredcontainer customScroll">             
                 @{
                     if (Model.MembersPresent.Count() != 0)
                     {
@@ -94,7 +94,7 @@
             {
                 <h3>Aanwezige gasten</h3>
                 <form method="post">
-                    <div class="list-group registredcontainer">
+                    <div class="list-group customScroll" style="max-height: 100px; overflow-y: scroll;">
                         @{     
                                 foreach (var item in Model.NonMembers)
                                 {

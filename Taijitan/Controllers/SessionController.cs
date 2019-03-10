@@ -12,7 +12,7 @@ using Taijitan.Models.ViewModels;
 
 namespace Taijitan.Controllers
 {
-    [Authorize(Policy = "Teacher")]
+    [Authorize]
     public class SessionController : Controller
     {
         private readonly ISessionRepository _sessionRepository;
@@ -29,6 +29,7 @@ namespace Taijitan.Controllers
             _formulaRepository = formulaRepository;
             _userManager = userManager;
         }
+        [Authorize(Policy = "Teacher")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -36,6 +37,7 @@ namespace Taijitan.Controllers
             ViewData["Formulas"] = new SelectList(_trainingDayRepository.GetAll().Select(t => new { t.TrainingDayId, t.Name }).ToList(), "TrainingDayId", "Name");
             return View(new SessionViewModel());
         }
+        [Authorize(Policy = "Teacher")]
         [HttpPost]
         public IActionResult Create(SessionViewModel svm)
         {
@@ -61,6 +63,7 @@ namespace Taijitan.Controllers
             return View("Register",svm);
         }
 
+        [Authorize(Policy = "Teacher")]
         public IActionResult Register(int id)
         {
             Session session = _sessionRepository.GetById(id);
@@ -71,7 +74,8 @@ namespace Taijitan.Controllers
             svm.TrainingDay = session.TrainingDay;
             return View(svm);
         }
-        
+
+        [Authorize(Policy = "Teacher")]
         [HttpPost]
         public IActionResult AddToPresent(int sessionId, int id)
         {
@@ -87,7 +91,8 @@ namespace Taijitan.Controllers
             _sessionRepository.SaveChanges();
             return RedirectToAction("Register", new {id = sessionId});
         }
-        
+
+        [Authorize(Policy = "Teacher")]
         [HttpPost]
         public IActionResult AddToUnconfirmed(int sessionId, int id)
         {
@@ -103,8 +108,8 @@ namespace Taijitan.Controllers
             _sessionRepository.SaveChanges();
             return RedirectToAction("Register", new {id = sessionId});
         }
-        
 
+        [Authorize(Policy = "Teacher")]
         public IActionResult Confirm(int sessionId)
         {
             Session currentSession = _sessionRepository.GetById(sessionId);
@@ -118,6 +123,7 @@ namespace Taijitan.Controllers
             return View("Training");   
         }
 
+        [Authorize(Policy = "Teacher")]
         public IActionResult AddOtherMember(int id, string searchTerm = "")
         {
             var session = _sessionRepository.GetById(id);
@@ -151,8 +157,9 @@ namespace Taijitan.Controllers
             return View(svm);
         }
 
+        [Authorize(Policy = "Teacher")]
         [HttpPost]
-        public IActionResult addNonMember(string firstName, string lastName, string email, int id)
+        public IActionResult AddNonMember(string firstName, string lastName, string email, int id)
         {
             Session s = _sessionRepository.GetById(id);
             s.AddNonMember(firstName, lastName, email);
@@ -160,5 +167,19 @@ namespace Taijitan.Controllers
             return RedirectToAction("Register", new { id });
         }
 
+        [Authorize(Policy = "Admin")]
+        public IActionResult GetSessions()
+        {
+            ViewData["Sessions"] = _sessionRepository.GetAll();
+            return View("SelectSession");
+        }
+
+        [Authorize(Policy = "Admin")]
+        public IActionResult SummaryPresences(int id)
+        {
+            Session s = _sessionRepository.GetById(id);
+            ViewData["NonMembers"] = s.NonMembers;
+            return View(s.MembersPresent);
+        }
     }
 }
