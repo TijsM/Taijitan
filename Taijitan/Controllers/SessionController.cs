@@ -127,7 +127,7 @@ namespace Taijitan.Controllers
 
             if (searchTerm != null && !searchTerm.Equals(""))
             {
-                otherMembers = otherMembers.Where(u => u.Name.Contains(searchTerm)).ToList();
+                otherMembers = otherMembers.Where(u => u.Name.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
             }
 
             Teacher t;
