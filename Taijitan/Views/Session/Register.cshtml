@@ -1,17 +1,19 @@
 ﻿@model Taijitan.Models.ViewModels.SessionViewModel
 @using Taijitan.Helpers;
 @using Taijitan.Models.ViewModels
-
-
 @{
     TimeSpan start = TimeSpan.FromHours(Model.TrainingDay.StartHour);
     TimeSpan end = TimeSpan.FromHours(Model.TrainingDay.StopHour);
     string startMinutes = start.Minutes / 10 < 1 ? $"{start.Minutes}0" : $"{start.Minutes}";
     string endMinutes = end.Minutes / 10 < 1 ? $"{end.Minutes}0" : $"{end.Minutes}";
-    
 }
+<script>onload = () => {
+    var navbar = document.getElementById('navbar');
+    navbar.remove();
+    }
+</script>
 
-<div style="display: flex; justify-content: space-between;">
+<div style="display: flex; justify-content: space-between;" >
     <div>
         <h2>Registreer je aanwezigheid</h2>
         <br />
@@ -22,22 +24,22 @@
     </div>
 </div>
 @*<div>
-    @{ 
-        var namen = "";
-        foreach(NonMember nm in Model.NonMembers)
-        {
-            namen += nm.FirstName + " ";
+        @{
+            var namen = "";
+            foreach(NonMember nm in Model.NonMembers)
+            {
+                namen += nm.FirstName + " ";
+            }
+            if(Model.NonMembers.Count() == 0)
+            {
+                <p>Er zijn geen gasten aanwezig.</p>
+            } else
+            {
+                <p>Aanwezige gasten: @namen</p>
+            }
         }
-        if(Model.NonMembers.Count() == 0)
-        {
-            <p>Er zijn geen gasten aanwezig.</p>
-        } else
-        {
-            <p>Aanwezige gasten: @namen</p>
-        }
-    }
-    <p></p>
-</div>*@
+        <p></p>
+    </div>*@
 <br />
 <div class="col-lg-12">
     <div class="col-lg-6">
@@ -65,10 +67,11 @@
     </div>
 
     <div class="col-lg-6">
-        <h3>Aanwezige Leden
+        <h3>
+            Aanwezige Leden
         </h3>
         <form method="post">
-            <div class="list-group registredcontainer customScroll">             
+            <div class="list-group registredcontainer customScroll">
                 @{
                     if (Model.MembersPresent.Count() != 0)
                     {
@@ -95,19 +98,18 @@
                 <h3>Aanwezige gasten</h3>
                 <form method="post">
                     <div class="list-group customScroll" style="max-height: 100px; overflow-y: scroll;">
-                        @{     
-                                foreach (var item in Model.NonMembers)
-                                {
-                                    <p  class="list-group-item list-group-item-action">@item.FirstName @item.LastName </p>
-                                }
+                        @{
+                            foreach (var item in Model.NonMembers)
+                            {
+                                <p class="list-group-item list-group-item-action">@item.FirstName @item.LastName </p>
                             }
+                        }
                     </div>
                 </form>
             }
         }
     </div>
 </div>
-
 
 <script type="text/javascript" language="javascript">
 
