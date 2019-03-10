@@ -112,3 +112,11 @@ function exportTableToExcel(tableID, filename = '') {
         downloadLink.click();
     }
 }
+function printTable(tableID) {
+    var table = document.getElementById(tableID);
+    newWin = window.open("");
+    table.classList.add("bordered");
+    newWin.document.write(table.outerHTML);
+    newWin.print();
+    newWin.close();
+}
