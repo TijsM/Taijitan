@@ -155,6 +155,12 @@ a {
     max-height: 450px;
 }
 
+.registredcontainer {
+    overflow-y: scroll;
+    max-height: 250px;
+}
+
+
 .list-group-item:focus{
     border:none;
     box-shadow: none;

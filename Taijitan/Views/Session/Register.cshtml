@@ -21,7 +21,7 @@
         <a asp-action="Confirm" asp-controller="Session" asp-route-sessionId="@Model.SessionId" class="btn btn-taijitan" style="float:right;">Bevestig aanwezigheden</a>
     </div>
 </div>
-<div>
+@*<div>
     @{ 
         var namen = "";
         foreach(NonMember nm in Model.NonMembers)
@@ -37,7 +37,7 @@
         }
     }
     <p></p>
-</div>
+</div>*@
 <br />
 <div class="col-lg-12">
     <div class="col-lg-6">
@@ -57,7 +57,6 @@
                     {
                         <p>Er zijn geen leden meer over. <br />Hoor je niet in deze formule? <br />Druk dan op de knop hieronder.</p>
                     }
-
                 }
             </div>
         </form>
@@ -66,9 +65,10 @@
     </div>
 
     <div class="col-lg-6">
-        <h3>Leden aanwezig:</h3>
+        <h3>Aanwezige Leden
+        </h3>
         <form method="post">
-            <div class="list-group membercontainer">
+            <div class="list-group registredcontainer">             
                 @{
                     if (Model.MembersPresent.Count() != 0)
                     {
@@ -81,10 +81,30 @@
                     {
                         <p>Er zijn nog geen aanwezige leden.</p>
                     }
-
                 }
             </div>
         </form>
+
+        @{
+            if (Model.NonMembers.Count() == 0)
+            {
+                <p>Er zijn nog geen gasten aangemeld voor deze les.</p>
+            }
+            else
+            {
+                <h3>Aanwezige gasten</h3>
+                <form method="post">
+                    <div class="list-group registredcontainer">
+                        @{     
+                                foreach (var item in Model.NonMembers)
+                                {
+                                    <p  class="list-group-item list-group-item-action">@item.FirstName @item.LastName </p>
+                                }
+                            }
+                    </div>
+                </form>
+            }
+        }
     </div>
 </div>
 
