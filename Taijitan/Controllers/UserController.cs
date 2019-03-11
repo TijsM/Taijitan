@@ -39,17 +39,9 @@ namespace Taijitan.Controllers
         }
 
         [Authorize(Policy = "Admin")]
-        public IActionResult Summary(string searchTerm = "")
+        public IActionResult Summary()
         {
-            IEnumerable<User> users;
-            if (searchTerm == null || searchTerm.Equals(""))
-            {
-                users = _userRepository.GetAll();
-            }
-            else
-            {
-                users = _userRepository.GetByPartofName(searchTerm);
-            }
+            IEnumerable<User> users = _userRepository.GetAll();
             return View(users);
         }
 

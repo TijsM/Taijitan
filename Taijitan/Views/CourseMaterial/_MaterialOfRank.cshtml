@@ -10,13 +10,14 @@
     @{
         foreach (var mat in Model)
         {
-           <div class="card">
-               <img class="card-img-top" src="~/images/@mat.Images.First()"/>
-               <div class="card-body">
-                   <h5 class="card-title">@mat.Title</h5>
-                   <a href="#" class="btn btn-primary">Bekijk</a>
-               </div>
-           </div>
+            string fotolink = String.Format("{0}.jpg", mat.Images.First().Name);
+            <div class="col-lg-4 thumbnail">
+                <img class="img-thumbnail rounded mx-auto d-block" src="~/images/@fotolink" />
+                <div class="card-body">
+                    <h5>@mat.Title</h5>
+                    <a href="#" class="btn btn-primary">Bekijk</a>
+                </div>
+            </div>
         }
     }
 </div>
