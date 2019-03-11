@@ -156,38 +156,7 @@ namespace Taijitan.Controllers
             return RedirectToAction("Register", new { id });
         }
 
-        public IActionResult Confirm(int sessionId)
-        {
-            Session currentSession = _sessionRepository.GetById(sessionId);
-            //IEnumerable<Member> membersPresent = currentSession.MembersPresent;
-            //foreach (var member in membersPresent)
-            //{
-
-            //}
-            ViewData["RankValue"] = GiveAllRanksAsList();
-            currentSession.AddToSessionMembers(currentSession.MembersPresent.ToList());
-            _sessionRepository.SaveChanges();
-            return View("Training", currentSession);
-        }
-
-
-
-        [HttpPost]
-        public IActionResult SelectMember(int sessionId, int id)
-        {
-            var user = (Member)_userRepository.GetById(id);
-
-            ViewData["RankValue"] = GiveAllRanksAsList();
-            ViewData["SelectedMember"] = _userRepository.GetById(id);
-            var currentSession = _sessionRepository.GetById(sessionId);
-            return View("Training", currentSession);
-        }
-
-        private ICollection<Rank> GiveAllRanksAsList()
-        {
-            ICollection<Rank> ranks = Enum.GetValues(typeof(Rank)).Cast<Rank>().ToList();
-            return ranks;
-        }
+     
 
         [Authorize(Policy = "Admin")]
         public IActionResult GetSessions()
@@ -203,5 +172,6 @@ namespace Taijitan.Controllers
             ViewData["NonMembers"] = s.NonMembers;
             return View(s.MembersPresent);
         }
+
     }
 }
