@@ -7,7 +7,7 @@
 <h2>Training</h2>
 
 
-<div class="col-lg-12">
+<div class="col-lg-12 materialScreen">
     <div class="col-sm-2">
         <form method="post">
             <div class="list-group">
@@ -38,10 +38,9 @@
                         foreach (Rank rank in (ICollection<Rank>)ViewData["RankValue"])
                         {
 
-
                             if ((int)member.Rank >= (int)rank)
                             {
-                        <button type="submit" asp-action="SelectMember" asp-route-sessionId="@Model.SessionId" @*asp-route-id="@u" *@ class="list-group-item list-group-item-action">@rank  - @rank.GetDisplayName() - @rank.GetDescription()</button>
+                                <button type="submit" class="list-group-item list-group-item-action">@rank  - @rank.GetDisplayName() - @rank.GetDescription()</button>
 
                             }
 
@@ -53,6 +52,7 @@
     </div>
 
     <div class="col-sm-8">
+        <partial name="~/Views/Session/_ConsultMaterial.cshtml"/>
     </div>
 
 
