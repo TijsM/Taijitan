@@ -11,12 +11,14 @@ namespace Taijitan.Controllers
     {
         private readonly ISessionRepository _sessionRepository;
         private readonly IUserRepository _userRepository;
+        private readonly ICourseMaterialRepository _courseMaterialRepository;
 
 
-        public CourseMaterialController(ISessionRepository sessionRepository, IUserRepository userRepository)
+        public CourseMaterialController(ISessionRepository sessionRepository, IUserRepository userRepository, ICourseMaterialRepository courseMaterialRepository)
         {
             _sessionRepository = sessionRepository;
             _userRepository = userRepository;
+            _courseMaterialRepository = courseMaterialRepository;
         }
 
         //public IActionResult Index()
@@ -48,6 +50,7 @@ namespace Taijitan.Controllers
             ViewData["RankValue"] = GiveAllRanksAsList();
             ViewData["SelectedMember"] = _userRepository.GetById(id);
             var currentSession = _sessionRepository.GetById(sessionId);
+            ViewData["Material"] = _courseMaterialRepository.GetByRank(user.Rank);
             return View("Training", currentSession);
         }
 
