@@ -1,18 +1,17 @@
-﻿@model ErrorViewModel
-@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
 
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
 @{
-    ViewData["Title"] = "Error";
+    ViewData["Title"] = "Error404";
 }
 
 <div style="text-align:center">
     <img alt="sadNinja" src="~/images/sadNinja.png" width="200" height="200" />
     <h1>Ooops!</h1>
     <h3>We can't seem to find the page you're looking for.</h3>
-    <p>Error code: @TempData["ErrorCode"]</p>
+    <p>Error code: 404</p>
     <h4>Here are some helpful links instead:</h4>
     <a asp-controller="Home" asp-action="Index">Home</a><br />
     @if (!SignInManager.IsSignedIn(User))
@@ -25,6 +24,5 @@
     }
 
 </div>
-
 
 

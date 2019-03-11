@@ -75,7 +75,8 @@ namespace Taijitan
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Errors/Index/{0}"); //Catcht runtime errors in de code
+                app.UseStatusCodePagesWithReExecute("/Errors/Index/{0}"); //Catch errors 404
                 app.UseHsts();
             }
 

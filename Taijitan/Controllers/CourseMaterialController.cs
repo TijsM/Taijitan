@@ -35,7 +35,7 @@ namespace Taijitan.Controllers
 
             //}
             ViewData["Material"] = _courseMaterialRepository.GetByRank(Rank.Kyu6);
-            ViewData["RankValue"] = GiveAllRanksAsList();
+            ViewData["Ranks"] = GiveAllRanksAsList();
             currentSession.AddToSessionMembers(currentSession.MembersPresent.ToList());
             _sessionRepository.SaveChanges();
             return View("Training", currentSession);
@@ -48,7 +48,7 @@ namespace Taijitan.Controllers
         {
             var user = (Member)_userRepository.GetById(id);
             ViewData["Material"] = _courseMaterialRepository.GetByRank(Rank.Kyu6);
-            ViewData["RankValue"] = GiveAllRanksAsList();
+            ViewData["Ranks"] = GiveAllRanksAsList();
             ViewData["SelectedMember"] = _userRepository.GetById(id);
             var currentSession = _sessionRepository.GetById(sessionId);
             return View("Training", currentSession);
@@ -60,9 +60,11 @@ namespace Taijitan.Controllers
             return ranks;
         }
 
-        public IActionResult ShowMaterialOfRank(int sessionId, Rank rank)
+        public IActionResult SelectRank(int sessionId, Rank rank, int selectedUserId)
         {
             ViewData["Material"] = _courseMaterialRepository.GetByRank(rank);
+            ViewData["SelectedMember"] = _userRepository.GetById(selectedUserId);
+            ViewData["Ranks"] = GiveAllRanksAsList();
             var currentSession = _sessionRepository.GetById(sessionId);
             return View("Training", currentSession);
         }

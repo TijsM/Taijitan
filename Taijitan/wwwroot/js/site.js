@@ -27,9 +27,8 @@ window.onclick = function (event) {
 function confirmLogout() {
     swal({
         title: "Ben je zeker dat je wilt uitloggen?",
-        //text: "Once deleted, you will not be able to recover this imaginary file!",
         icon: "warning",
-        buttons: true,
+        buttons: ["Annuleer", "Log uit"],
         dangerMode: true,
     })
         .then((willDelete) => {
@@ -49,7 +48,7 @@ function confirmDelete(id) {
         title: "Ben je zeker dat je dit lid wilt verwijderen?",
         text: "Dit lid wordt permanent verwijderd",
         icon: "warning",
-        buttons: true,
+        buttons: ["Annuleer", "Verwijder lid"],
         dangerMode: true,
     })
         .then((willDelete) => {
