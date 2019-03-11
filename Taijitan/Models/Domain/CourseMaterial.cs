@@ -12,13 +12,15 @@ namespace Taijitan.Models.Domain
         public string FullDescription { get; set; }
         public IEnumerable<Image> Images { get; set; }
         public Rank Rank { get; set; }
+        public string Title { get; set; }
 
-        public CourseMaterial(Rank rank,string url,string fullDescription,IEnumerable<Image> images)
+        public CourseMaterial(Rank rank,string url,string fullDescription,IEnumerable<Image> images, string title)
         {
             Rank = rank;
             YoutubeURL = url;
             FullDescription = fullDescription;
             Images = images == null ? new HashSet<Image>() : images;
+            Title = title;
         }
         public CourseMaterial()
         {

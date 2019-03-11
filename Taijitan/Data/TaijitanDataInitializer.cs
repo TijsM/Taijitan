@@ -120,14 +120,16 @@ namespace Taijitan.Data
                     " overleefd maar is ook, vrijwel onveranderd, overgenomen in elektronische letterzetting. Het is in de jaren '60 populair" +
                     " geworden met de introductie van Letraset vellen met Lorem Ipsum passages en meer recentelijk door desktop publishing " +
                     "software zoals Aldus PageMaker die versies van Lorem Ipsum bevatten.",
-                    new List<Image> { img_1_1_01, img_1_1_02, img_1_1_03 });
+                    new List<Image> { img_1_1_01, img_1_1_02, img_1_1_03 },
+                    "Voorbeeld1");
                 CourseMaterial mat_1_2 = new CourseMaterial(Rank.Kyu6, "https://www.youtube.com/watch?v=hY35pBOfSNk", "door de tekstuele inhoud. Het belangrijke punt van het gebruik van" +
                     " Lorem Ipsum is dat het uit een min of meer normale verdeling van letters bestaat, in tegenstelling tot wat het tot min" +
                     " of meer leesbaar nederlands maakt. Veel desktop publishing pakketten en web pagina editors gebruiken tegenwoordig Lorem" +
                     " Ipsum als hun standaard model tekst, en een zoekopdracht naar ontsluit veel websites die nog in aanbouw zijn. " +
                     "Verscheidene versies hebben zich ontwikkeld in de loop van de jaren, soms per ongeluk soms expres (ingevoegde humor en" +
                     " dergelijke).",
-                    new List<Image> { img_1_2_01, img_1_2_02, img_1_2_03 });
+                    new List<Image> { img_1_2_01, img_1_2_02, img_1_2_03 },
+                    "voorbeeld2");
                 CourseMaterial mat_1_3 = new CourseMaterial(Rank.Kyu6, "https://www.youtube.com/watch?v=D9LL_ivHTXc", "Er zijn vele variaties van passages van Lorem Ipsum beschikbaar maar" +
                     " het merendeel heeft te lijden gehad van wijzigingen in een of andere vorm, door ingevoegde humor of willekeurig gekozen" +
                     " woorden die nog niet half geloofwaardig ogen. Als u een passage uit Lorum Ipsum gaat gebruiken dient u zich ervan te " +
@@ -136,7 +138,8 @@ namespace Taijitan.Data
                     "gebruikt een woordenlijst van 200 latijnse woorden gecombineerd met een handvol zinsstructuur modellen om een Lorum Ipsum " +
                     "te genereren die redelijk overkomt. De gegenereerde Lorum Ipsum is daardoor altijd vrij van herhaling, ingevoegde humor of" +
                     " ongebruikelijke woorden etc.",
-                    new List<Image> { img_1_3_01, img_1_3_02, img_1_3_03 }); 
+                    new List<Image> { img_1_3_01, img_1_3_02, img_1_3_03 },
+                    "voorbeeld3"); 
                 #endregion
 
                 
