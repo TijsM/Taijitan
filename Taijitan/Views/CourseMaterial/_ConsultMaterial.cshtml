@@ -1,0 +1,56 @@
+﻿
+
+@{
+    ViewData["Title"] = "_ConsultMaterial";
+}
+
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#uitleg">Uitleg</a></li>
+    <li><a data-toggle="tab" href="#fotos">Foto's</a></li>
+    <li><a data-toggle="tab" href="#video">Video</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="uitleg" class="tab-pane fade in active">
+        <h3>Uitleg les</h3>
+        <p>Lorem Ipsum is slechts een proeftekst uit het drukkerij- en zetterijwezen. Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw, toen een onbekende drukker een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken. Het heeft niet alleen vijf eeuwen overleefd maar is ook, vrijwel onveranderd, overgenomen in elektronische letterzetting. Het is in de jaren '60 populair geworden met de introductie van Letraset vellen met Lorem Ipsum passages en meer recentelijk door desktop publishing software zoals Aldus PageMaker die versies van Lorem Ipsum bevatten.</p>
+    </div>
+    <div id="fotos" class="tab-pane fade">
+        <h3>Foto's</h3>
+
+        <ul id="slippry-demo">
+            <li>
+                <a href="#slide1"><img src="~/images/1_1_01.jpg" alt="Welcome to Slippry!"></a>
+            </li>
+            <li>
+                <a href="#slide2"><img src="~/images/1_1_02.jpg" alt="This is an awesome jQuery slider plugin."></a>
+            </li>
+            <li>
+                <a href="#slide3"><img src="~/images/1_1_03.jpg" alt="Check it out, you are going to <span class='red'>♥</span> it :)"></a>
+            </li>
+        </ul>
+
+    </div>
+    <div id="video" class="tab-pane fade">
+        <h3>Video</h3>
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/XDPwXQjAlB0" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
+<div class="materialComment">
+    <form method="post">
+        <div class="col-lg-12">
+            <label>Commentaar</label>
+        </div>
+        <div class="col-lg-10">
+            <textarea style="resize:none" class="form-control"></textarea>
+        </div>
+
+        <div class="col-lg-2">
+            <button type="submit" class="btn btn-taijitan">Verzend</button>
+        </div>
+    </form>
+</div>
+

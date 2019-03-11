@@ -58,6 +58,7 @@ namespace Taijitan
             services.AddScoped<ISessionRepository, SessionRepository>();
             services.AddScoped<ITrainingDayRepository, TrainingDayRepository>();
             services.AddScoped<IFormulaRepository, FormulaRepository>();
+            services.AddScoped<ICourseMaterialRepository, CourseMaterialRepository>();
             services.AddScoped<UserFilter>();
 
             services.AddSession();

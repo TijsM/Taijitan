@@ -6,9 +6,11 @@ body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
-html, body{
-    height:100%;
+
+html, body {
+    height: 100%;
 }
+
 .btn-taijitan {
     background-color: #336566 !important;
     color: white;
@@ -161,20 +163,21 @@ a {
 }
 
 
-.list-group-item:focus{
-    border:none;
+.list-group-item:focus {
+    border: none;
     box-shadow: none;
 }
 
-.left{
-    float:left;
+.left {
+    float: left;
 }
-.right{
-    float:right;
+
+.right {
+    float: right;
 }
 
 /* width */
-.customScroll::-webkit-scrollbar{
+.customScroll::-webkit-scrollbar {
     width: 8px;
 }
 
@@ -249,20 +252,47 @@ a {
 
 
 
-fieldset{
+fieldset {
     margin-bottom: 30px;
-
 }
 
 
 
-.materialScreen{
+/*.materialScreen{
     width: 140%;
     margin-left: -20%;
-}
+}*/
 
-.materialNavigation{
+/*.materialNavigation{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}*/
+
+.materialComment {
+    margin-top: 5%;
+}
+
+
+.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .btn:last-child:not(:first-child), .btn-group > .dropdown-toggle:not(:first-child) {
+    background-color: #336566 !important;
+    color: white;
+}
+
+.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-right: 1px solid gray;
+}
+
+.btn-group > .btn:last-child:not(:first-child), .btn-group > .dropdown-toggle:not(:first-child) {
+    border-left: 1px solid gray;
+}
+
+    .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle):hover, .btn-group > .btn:last-child:not(:first-child):hover, .btn-group > .dropdown-toggle:not(:first-child):hover {
+        border: 1px solid #336566;
+        background-color: white !important;
+        color: #336566;
+    }
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    background-color: #336566;
 }
