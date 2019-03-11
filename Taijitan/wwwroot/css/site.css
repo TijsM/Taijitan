@@ -34,10 +34,13 @@ html, body {
     color: #336566;
 }
 .sliderimg {
-    max-height: 540px;
+    height: 400px !important
 }
-
-
+.materialimg {
+    height: 145px !important;
+    border: none;
+    border-radius: 5%;
+}
 
 
 

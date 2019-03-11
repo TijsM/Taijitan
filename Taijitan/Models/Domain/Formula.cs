@@ -12,7 +12,7 @@ namespace Taijitan.Models.Domain
         public ICollection<FormulaTrainingDay> FormulaTrainingDays { get; set; }
         public ICollection<SessionFormula> SessionFormulas { get; set; }
         public IEnumerable<Session> Sessions => SessionFormulas.Select(sf => sf.Session).ToList();
-        public IEnumerable<TrainingDay> TrainingDays  { get; }
+        public IEnumerable<TrainingDay> TrainingDays { get; }
         public string Name { get; set; }
 
         public Formula(string name,IEnumerable<TrainingDay> trainingDays)

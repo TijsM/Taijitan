@@ -1,9 +1,4 @@
-﻿
-
-@{
-    ViewData["Title"] = "_ConsultMaterial";
-}
-
+﻿@model Taijitan.Models.ViewModels.CourseMaterialViewModel
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#uitleg">Uitleg</a></li>
     <li><a data-toggle="tab" href="#fotos">Foto's</a></li>
@@ -13,11 +8,11 @@
 <div class="tab-content">
     <div id="uitleg" class="tab-pane fade in active">
         <h3>Uitleg les</h3>
-        <p>Lorem Ipsum is slechts een proeftekst uit het drukkerij- en zetterijwezen. Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw, toen een onbekende drukker een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken. Het heeft niet alleen vijf eeuwen overleefd maar is ook, vrijwel onveranderd, overgenomen in elektronische letterzetting. Het is in de jaren '60 populair geworden met de introductie van Letraset vellen met Lorem Ipsum passages en meer recentelijk door desktop publishing software zoals Aldus PageMaker die versies van Lorem Ipsum bevatten.</p>
+        <p>@Model.SelectedCourseMaterial.FullDescription</p>
     </div>
     <div id="fotos" class="tab-pane fade">
         <h3>Foto's</h3>
-        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <div id="carousel-example-generic" class="carousel slide sliderimg" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
                 <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -27,24 +22,24 @@
 
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                    <img  class="sliderimg" src="~/images/1_2_02.jpg" alt="...">
-                    <div class="carousel-caption">
-                        testtestetsttefùkbrjlgbùgl=hrljhrzejgùo z
+                @{
+                    <div class="item active">
+                        <img class="sliderimg" src="~/images/@String.Format("{0}.jpg",Model.SelectedCourseMaterial.Images.First().Name)" alt="@Model.SelectedCourseMaterial.Images.First().Name">
+                        <div class="carousel-caption">
+                            @Model.SelectedCourseMaterial.Images.First().Description
+                        </div>
                     </div>
-                </div>
-                <div class="item">
-                    <img class="sliderimg" src="~/images/1_2_02.jpg" alt="...">
-                    <div class="carousel-caption">
-                        ekfrmogrfùeizeh gùu=h=eugjndfhfjegùeoud= zl=eb
-                    </div>
-                </div>
-                <div class="item">
-                    <img  class="sliderimg" src="~/images/1_2_02.jpg" alt="...">
-                    <div class="carousel-caption">
-                        ekfrmogrfùeizeh gùu=h=eugjndfhfjegùeoud= zl=eb
-                    </div>
-                </div>
+                    foreach (var img in Model.SelectedCourseMaterial.Images.Skip(1))
+                    {
+                        string fotolink = String.Format("{0}.jpg", img.Name);
+                        <div class="item">
+                            <img class="sliderimg" src="~/images/@fotolink" alt="@img.Name">
+                            <div class="carousel-caption">
+                                @img.Description
+                            </div>
+                        </div>
+                    }
+                }
             </div>
 
             <!-- Controls -->
@@ -61,7 +56,7 @@
     <div id="video" class="tab-pane fade">
         <h3>Video</h3>
         <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/XDPwXQjAlB0" allowfullscreen></iframe>
+            <iframe class="embed-responsive-item" src="@Model.SelectedCourseMaterial.YoutubeURL" allowfullscreen></iframe>
         </div>
     </div>
 </div>

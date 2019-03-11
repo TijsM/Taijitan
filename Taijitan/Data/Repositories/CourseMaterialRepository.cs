@@ -29,12 +29,17 @@ namespace Taijitan.Data.Repositories
 
         public IEnumerable<CourseMaterial> GetAll()
         {
-            return _courseMaterials.Include(c => c.Images).AsNoTracking().ToList();
+            return _courseMaterials.Include(c => c.Images).AsNoTracking().OrderBy(c => c.Title).ToList();
+        }
+
+        public CourseMaterial GetById(int id)
+        {
+            return _courseMaterials.Include(c => c.Images).SingleOrDefault(c => c.MaterialId == id);
         }
 
         public IEnumerable<CourseMaterial> GetByRank(Rank rank)
         {
-            return _courseMaterials.Include(c => c.Images).Where(c => (int)c.Rank == (int)rank).AsNoTracking().ToList();
+            return _courseMaterials.Include(c => c.Images).Where(c => (int)c.Rank == (int)rank).AsNoTracking().OrderBy(c => c.Title).ToList();
         }
 
         public void SaveChanges()

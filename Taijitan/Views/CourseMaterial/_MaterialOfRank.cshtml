@@ -1,24 +1,17 @@
-﻿@model IEnumerable<Taijitan.Models.Domain.CourseMaterial>
-@{
-    ViewData["Title"] = "_MaterialOfRank";
-}
-
-
-
+﻿@model Taijitan.Models.ViewModels.CourseMaterialViewModel
 
 <div class="col-lg-12">
     @{
+        <h2>Materiaal van @Model.SelectedRank</h2>
 
-        <h2>Materiaal van @ViewData["SelectedRank"]</h2>
-
-            foreach (var mat in Model)
-            {
-                string fotolink = String.Format("{0}.jpg", mat.Images.First().Name);
-            <div class="col-lg-4 thumbnail">
-                <img class="img-thumbnail" src="~/images/@fotolink" />
-                <div class="card-body">
-                    <h5>@mat.Title</h5>
-                    <a href="#" class="btn btn-primary">Bekijk</a>
+        foreach (var mat in Model.CourseMaterials)
+        {
+            string fotolink = String.Format("{0}.jpg", mat.Images.First().Name);
+            <div class="col-lg-4 thumbnail lesitem">
+                <img class="img-thumbnail materialimg" src="~/images/@fotolink" />
+                <div class="card-body text-center">
+                    <h5 >@mat.Title</h5>
+                    <a asp-controller="CourseMaterial" asp-action="SelectCourse" asp-route-sessionId="@Model.Session.SessionId" asp-route-rank="@Model.SelectedRank" asp-route-selectedUserId="@Model.SelectedMember.UserId"  asp-route-matId="@mat.MaterialId" class="btn btn-primary">Bekijk</a>
                 </div>
             </div>
         }

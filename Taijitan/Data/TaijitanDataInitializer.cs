@@ -114,23 +114,23 @@ namespace Taijitan.Data
                 Image img_1_3_02 = new Image("1_3_02", "Foto 2 bij derde les");
                 Image img_1_3_03 = new Image("1_3_03", "Foto 3 bij derde les");
 
-                CourseMaterial mat_1_1 = new CourseMaterial(Rank.Kyu6, "https://www.youtube.com/watch?v=3PEj8_0Q9Qo", "Lorem Ipsum is slechts een proeftekst uit het drukkerij- en" +
+                CourseMaterial mat_1_1 = new CourseMaterial(Rank.Kyu6, "https://www.youtube.com/embed/3PEj8_0Q9Qo", "Lorem Ipsum is slechts een proeftekst uit het drukkerij- en" +
                     " zetterijwezen. Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw, toen een onbekende drukker" +
                     " een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken. Het heeft niet alleen vijf eeuwen" +
                     " overleefd maar is ook, vrijwel onveranderd, overgenomen in elektronische letterzetting. Het is in de jaren '60 populair" +
                     " geworden met de introductie van Letraset vellen met Lorem Ipsum passages en meer recentelijk door desktop publishing " +
                     "software zoals Aldus PageMaker die versies van Lorem Ipsum bevatten.",
                     new List<Image> { img_1_1_01, img_1_1_02, img_1_1_03 },
-                    "Voorbeeld1");
-                CourseMaterial mat_1_2 = new CourseMaterial(Rank.Kyu6, "https://www.youtube.com/watch?v=hY35pBOfSNk", "door de tekstuele inhoud. Het belangrijke punt van het gebruik van" +
+                    "Voorbeeld 1");
+                CourseMaterial mat_1_2 = new CourseMaterial(Rank.Kyu6, "https://www.youtube.com/embed/hY35pBOfSNk", "door de tekstuele inhoud. Het belangrijke punt van het gebruik van" +
                     " Lorem Ipsum is dat het uit een min of meer normale verdeling van letters bestaat, in tegenstelling tot wat het tot min" +
                     " of meer leesbaar nederlands maakt. Veel desktop publishing pakketten en web pagina editors gebruiken tegenwoordig Lorem" +
                     " Ipsum als hun standaard model tekst, en een zoekopdracht naar ontsluit veel websites die nog in aanbouw zijn. " +
                     "Verscheidene versies hebben zich ontwikkeld in de loop van de jaren, soms per ongeluk soms expres (ingevoegde humor en" +
                     " dergelijke).",
                     new List<Image> { img_1_2_01, img_1_2_02, img_1_2_03 },
-                    "voorbeeld2");
-                CourseMaterial mat_1_3 = new CourseMaterial(Rank.Kyu6, "https://www.youtube.com/watch?v=D9LL_ivHTXc", "Er zijn vele variaties van passages van Lorem Ipsum beschikbaar maar" +
+                    "Voorbeeld 2");
+                CourseMaterial mat_1_3 = new CourseMaterial(Rank.Kyu6, "https://www.youtube.com/embed/D9LL_ivHTXc", "Er zijn vele variaties van passages van Lorem Ipsum beschikbaar maar" +
                     " het merendeel heeft te lijden gehad van wijzigingen in een of andere vorm, door ingevoegde humor of willekeurig gekozen" +
                     " woorden die nog niet half geloofwaardig ogen. Als u een passage uit Lorum Ipsum gaat gebruiken dient u zich ervan te " +
                     "verzekeren dat er niets beschamends midden in de tekst verborgen zit. Alle Lorum Ipsum generators op Internet hebben de " +
@@ -139,7 +139,7 @@ namespace Taijitan.Data
                     "te genereren die redelijk overkomt. De gegenereerde Lorum Ipsum is daardoor altijd vrij van herhaling, ingevoegde humor of" +
                     " ongebruikelijke woorden etc.",
                     new List<Image> { img_1_3_01, img_1_3_02, img_1_3_03 },
-                    "voorbeeld3"); 
+                    "Voorbeeld 3"); 
                 #endregion
 
                 
