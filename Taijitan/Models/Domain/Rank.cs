@@ -13,7 +13,7 @@ namespace Taijitan.Models.Domain
         //Starter = 0,
 
         [Display(Name = "Rokku-kyu")]
-        [Description("Witten band")]
+        [Description("Witte band")]
         Kyu6 = 1,
 
         [Display(Name = "Go-kyu")]

@@ -22,6 +22,7 @@ namespace Taijitan.Data
         public DbSet<TrainingDay> TrainingDays { get; set; }
         public DbSet<Formula> Formulas { get; set; }
         public DbSet<NonMember> NonMembers { get; set; }
+        public DbSet<CourseMaterial> CourseMaterials { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -40,6 +41,8 @@ namespace Taijitan.Data
             builder.ApplyConfiguration(new FormulaTrainingDayConfiguration());
             builder.ApplyConfiguration(new NonMemberConfiguration());
             builder.ApplyConfiguration(new SessionFormulaConfiguration());
+            builder.ApplyConfiguration(new CourseMaterialConfiguration());
+            builder.ApplyConfiguration(new ImageConfiguration());
         }
     }
 }
