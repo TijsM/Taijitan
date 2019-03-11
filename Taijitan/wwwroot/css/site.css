@@ -33,6 +33,9 @@ html, body {
 .home span {
     color: #336566;
 }
+.sliderimg {
+    max-height: 540px;
+}
 
 
 
