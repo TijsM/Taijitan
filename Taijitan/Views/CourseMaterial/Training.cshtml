@@ -14,7 +14,7 @@
                 @{
                     foreach (var us in Model.MembersPresent)
                     {
-                        <button type="submit" asp-action="SelectMember" asp-route-sessionId="@Model.SessionId" asp-route-id="@us.UserId" class="list-group-item list-group-item-action">@us.FirstName @us.Name</button>
+                        <button type="submit" asp-controller="CourseMaterial" asp-action="SelectMember" asp-route-sessionId="@Model.SessionId" asp-route-id="@us.UserId" class="list-group-item list-group-item-action">@us.FirstName @us.Name</button>
                     }
                 }
             </div>
@@ -52,7 +52,7 @@
     </div>
 
     <div class="col-sm-8">
-        <partial name="~/Views/Session/_ConsultMaterial.cshtml"/>
+        <partial name="~/Views/CourseMaterial/_ConsultMaterial.cshtml"/>
     </div>
 
 

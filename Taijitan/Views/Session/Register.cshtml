@@ -20,7 +20,7 @@
         <h4>Sessie op @Model.Date.ToShortDateString() van @(start.Hours):@startMinutes tot @(end.Hours):@endMinutes met als lesgever  @Model.SessionTeacher.FirstName @Model.SessionTeacher.Name</h4>
     </div>
     <div style="top: 2em; position: relative;">
-        <a asp-action="Confirm" asp-controller="Session" asp-route-sessionId="@Model.SessionId" class="btn btn-taijitan" style="float:right;">Bevestig aanwezigheden</a>
+        <a asp-action="Confirm" asp-controller="CourseMaterial" asp-route-sessionId="@Model.SessionId" class="btn btn-taijitan" style="float:right;">Bevestig aanwezigheden</a>
     </div>
 </div>
 @*<div>
