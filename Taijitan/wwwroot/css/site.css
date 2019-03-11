@@ -256,13 +256,17 @@ fieldset{
 
 
 
-.materialScreen{
+/*.materialScreen{
     width: 140%;
     margin-left: -20%;
-}
+}*/
 
-.materialNavigation{
+/*.materialNavigation{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}*/
+
+.materialComment {
+    margin-top: 5%;
 }
