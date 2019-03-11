@@ -67,16 +67,21 @@ namespace Taijitan
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,TaijitanDataInitializer dataInitializer)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
-            }
+            app.UseExceptionHandler("/Errors/Index/{0}");
+            app.UseStatusCodePagesWithReExecute("/Errors/Index/{0}");
+            app.UseHsts();
+
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //    app.UseDatabaseErrorPage();
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler("/Errors"); //Dit is voor runtime errors en codign error
+            //    app.UseStatusCodePagesWithReExecute("/Errors/Error/{0}") //Url error of user die eigen error genereerd
+            //    app.UseHsts();
+            //}
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
