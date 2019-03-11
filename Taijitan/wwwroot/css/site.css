@@ -253,3 +253,16 @@ fieldset{
     margin-bottom: 30px;
 
 }
+
+
+
+.materialScreen{
+    width: 140%;
+    margin-left: -20%;
+}
+
+.materialNavigation{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
