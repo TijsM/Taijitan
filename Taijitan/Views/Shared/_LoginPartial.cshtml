@@ -1,4 +1,6 @@
 @using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
 
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
@@ -21,7 +23,14 @@
                 <div class="dropdown">
                     <i class="fas fa-user-ninja fa-2x dropbtn" style="color: white; margin: 0.4em;" onclick="myFunction()"> </i>
                     <div id="myDropdown" class="dropdown-content">
-                        <a asp-controller="User" asp-action="Index">Menu</a>
+                        @if (!(await AuthorizationService.AuthorizeAsync(User, "Admin")).Succeeded)
+                        {
+                            <a asp-controller="User" asp-action="Index">Wijzig Gegevens</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="User" asp-action="Index">Menu</a>
+                        }
                         <a onclick="confirmLogout()" href="#">Uitloggen</a>
                     </div>
                 </div>
@@ -39,17 +48,17 @@ else
 {
     <ul class="nav navbar-nav navbar-right">
         @*<li>
-            <div class="dropdown">
-                <i class="fas fa-user-ninja fa-2x dropbtn" style="color: white; margin: 0.4em;" onclick="myFunction()" > </i>
-                <div id="myDropdown" class="dropdown-content">
-                    <a asp-area="Identity" asp-page="/Account/Register">Registreer</a>
-                    <a asp-area="Identity" asp-page="/Account/Login">Inloggen</a>
+                <div class="dropdown">
+                    <i class="fas fa-user-ninja fa-2x dropbtn" style="color: white; margin: 0.4em;" onclick="myFunction()" > </i>
+                    <div id="myDropdown" class="dropdown-content">
+                        <a asp-area="Identity" asp-page="/Account/Register">Registreer</a>
+                        <a asp-area="Identity" asp-page="/Account/Login">Inloggen</a>
+                    </div>
                 </div>
-            </div>
-        </li>*@
+            </li>*@
         @*<li>
-            <a asp-area="Identity" asp-page="/Account/Register">Registreer</a>
-        </li>*@
+                <a asp-area="Identity" asp-page="/Account/Register">Registreer</a>
+            </li>*@
         <li>
             <a asp-area="Identity" asp-page="/Account/Login">Inloggen</a>
         </li>
