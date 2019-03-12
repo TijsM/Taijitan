@@ -9,6 +9,7 @@ namespace Taijitan.Models.Domain
     {
         IEnumerable<CourseMaterial> GetAll();
         IEnumerable<CourseMaterial> GetByRank(Rank rank);
+        CourseMaterial GetById(int id);
         void Add(CourseMaterial courseMaterial);
         void Delete(CourseMaterial courseMaterial);
         void SaveChanges();

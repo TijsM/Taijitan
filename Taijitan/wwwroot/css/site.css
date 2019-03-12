@@ -33,8 +33,14 @@ html, body {
 .home span {
     color: #336566;
 }
-
-
+.sliderimg {
+    height: 400px !important
+}
+.materialimg {
+    height: 145px !important;
+    border: none;
+    border-radius: 5%;
+}
 
 
 

@@ -1,8 +1,5 @@
-﻿@model Taijitan.Models.Domain.Session
+﻿@model Taijitan.Models.ViewModels.CourseMaterialViewModel
 @using Taijitan.Helpers
-@{
-    ViewData["Title"] = "Training";
-}
 
 <h2>Training</h2>
 
@@ -12,9 +9,18 @@
         <form method="post">
             <div class="list-group">
                 @{
-                    foreach (var us in Model.MembersPresent)
+                    foreach (var us in Model.Session.MembersPresent)
                     {
-                        <button type="submit" asp-controller="CourseMaterial" asp-action="SelectMember" asp-route-sessionId="@Model.SessionId" asp-route-id="@us.UserId" class="list-group-item list-group-item-action">@us.FirstName @us.Name</button>
+                        if (us == Model.SelectedMember)
+                        {
+                            <button type="submit" asp-controller="CourseMaterial" asp-action="SelectMember"  asp-route-sessionId="@Model.Session.SessionId" asp-route-id="@us.UserId" class="list-group-item list-group-item-action list-group-item-success">@us.FirstName @us.Name</button>
+
+                        }
+                        else
+                        {
+                            <button type="submit" asp-controller="CourseMaterial" asp-action="SelectMember"  asp-route-sessionId="@Model.Session.SessionId" asp-route-id="@us.UserId" class="list-group-item list-group-item-action">@us.FirstName @us.Name</button>
+
+                        }
                     }
                 }
             </div>
@@ -26,21 +32,23 @@
             <div class="list-group">
                 @{
 
-                    Member member = (Member)ViewData["SelectedMember"];
-
-                    if (member == null)
+                    Member member = Model.SelectedMember;
+                    if (member != null)
                     {
-                        <p>Selecteer jouw naam om jouw kyus of dans te kunnen bekijken</p>
-                    }
-
-                    else
-                    {
-                        foreach (Rank rank in (ICollection<Rank>)ViewData["Ranks"])
+                        foreach (Rank rank in Model.AllRanks)
                         {
 
                             if ((int)member.Rank >= (int)rank)
                             {
-                                <button asp-controller="CourseMaterial" asp-action="SelectRank" asp-route-sessionId="@Model.SessionId" asp-route-rank=@rank asp-route-selectedUserId="@member.UserId" type="submit" class="list-group-item list-group-item-action">@rank  - @rank.GetDisplayName() - @rank.GetDescription()</button>
+                                if (rank == Model.SelectedRank)
+                                {
+                                    <button asp-controller="CourseMaterial" asp-action="SelectRank"    asp-route-sessionId="@Model.Session.SessionId" asp-route-rank=@rank asp-route-selectedUserId="@Model.SelectedMember.UserId"  type="submit" class="list-group-item list-group-item-action list-group-item-success">@rank  - @rank.GetDisplayName() - @rank.GetDescription()</button>
+                                }
+                                else
+                                {
+                                    <button asp-controller="CourseMaterial" asp-action="SelectRank"  asp-route-sessionId="@Model.Session.SessionId" asp-route-rank=@rank asp-route-selectedUserId="@Model.SelectedMember.UserId" type="submit" class="list-group-item list-group-item-action">@rank  - @rank.GetDisplayName() - @rank.GetDescription()</button>
+                                }
+
 
                             }
 
@@ -52,9 +60,19 @@
     </div>
 
     <div class="col-sm-8">
-        <partial name="~/Views/CourseMaterial/_MaterialOfRank.cshtml" model="@ViewData["Material"]" />
-        @*<partial name="~/Views/CourseMaterial/_ConsultMaterial.cshtml"/>*@
+        @{
+            if (ViewData["partialView"].Equals("lessons"))
+            {
+                <partial name="~/Views/CourseMaterial/_MaterialOfRank.cshtml" view-data="ViewData" model="@Model" />
+            }
+            else if (ViewData["partialView"].Equals("course"))
+            {
+                <partial name="~/Views/CourseMaterial/_ConsultMaterial.cshtml" view-data="ViewData" model="@Model"/>
+            }
+            else
+            {
+                <partial name="~/Views/CourseMaterial/_DefaultPartial.cshtml" />
+            }
+        }
     </div>
-
-
 </div>
