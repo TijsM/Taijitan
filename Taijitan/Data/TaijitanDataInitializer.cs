@@ -51,7 +51,7 @@ namespace Taijitan.Data
                 City adinkerke = new City("8660", "Adinkerke");
                 City antwerpen = new City("2000", "Antwerpen");
                 City brussel = new City("1000", "Brussel");
-                _dbContext.Cities.AddRange(bekegem, gent, brussel, nazareth, adinkerke, antwerpen); 
+                _dbContext.Cities.AddRange(bekegem, gent, brussel, nazareth, adinkerke, antwerpen);
                 #endregion
 
                 #region Members
@@ -102,49 +102,32 @@ namespace Taijitan.Data
                 #region CourseMaterial
 
                 #region Rang 1
-                Image img_1_1_01 = new Image("1_1_01", "Foto 1 bij eerste les");
-                Image img_1_1_02 = new Image("1_1_02", "Foto 2 bij eerste les");
-                Image img_1_1_03 = new Image("1_1_03", "Foto 3 bij eerste les");
+                Image voorwaartse_stand_1 = new Image("/VoorwaartseStand/voorwaartse_stand_1", "Foto 1 bij voachterwaartseStand");
+                Image voorwaartse_stand_2 = new Image("/VoorwaartseStand/voorwaartse_stand_2", "Foto 2 bij voachterwaartseStand");
+                Image voorwaartse_stand_3 = new Image("/VoorwaartseStand/voorwaartse_stand_3", "Foto 3 bij voachterwaartseStand");
 
-                Image img_1_2_01 = new Image("1_2_01", "Foto 1 bij tweede les");
-                Image img_1_2_02 = new Image("1_2_02", "Foto 2 bij tweede les");
-                Image img_1_2_03 = new Image("1_2_03", "Foto 3 bij tweede les");
+                Image achterwaartse_stand_1 = new Image("/AchterwaartseStand/achterwaartse_stand_1", "Foto 1 bij achterwaartseStand");
+                Image achterwaartse_stand_2 = new Image("/AchterwaartseStand/achterwaartse_stand_2", "Foto 2 bij achterwaartseStand");
+                Image achterwaartse_stand_3 = new Image("/AchterwaartseStand/achterwaartse_stand_3", "Foto 3 bij achterwaartseStand");
 
-                Image img_1_3_01 = new Image("1_3_01", "Foto 1 bij derde les");
-                Image img_1_3_02 = new Image("1_3_02", "Foto 2 bij derde les");
-                Image img_1_3_03 = new Image("1_3_03", "Foto 3 bij derde les");
 
-                CourseMaterial mat_1_1 = new CourseMaterial(Rank.Kyu6, "https://www.youtube.com/embed/3PEj8_0Q9Qo", "Lorem Ipsum is slechts een proeftekst uit het drukkerij- en" +
-                    " zetterijwezen. Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw, toen een onbekende drukker" +
-                    " een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken. Het heeft niet alleen vijf eeuwen" +
-                    " overleefd maar is ook, vrijwel onveranderd, overgenomen in elektronische letterzetting. Het is in de jaren '60 populair" +
-                    " geworden met de introductie van Letraset vellen met Lorem Ipsum passages en meer recentelijk door desktop publishing " +
-                    "software zoals Aldus PageMaker die versies van Lorem Ipsum bevatten.",
-                    new List<Image> { img_1_1_01, img_1_1_02, img_1_1_03 },
-                    "Voorbeeld 1");
-                CourseMaterial mat_1_2 = new CourseMaterial(Rank.Kyu6, "https://www.youtube.com/embed/hY35pBOfSNk", "door de tekstuele inhoud. Het belangrijke punt van het gebruik van" +
-                    " Lorem Ipsum is dat het uit een min of meer normale verdeling van letters bestaat, in tegenstelling tot wat het tot min" +
-                    " of meer leesbaar nederlands maakt. Veel desktop publishing pakketten en web pagina editors gebruiken tegenwoordig Lorem" +
-                    " Ipsum als hun standaard model tekst, en een zoekopdracht naar ontsluit veel websites die nog in aanbouw zijn. " +
-                    "Verscheidene versies hebben zich ontwikkeld in de loop van de jaren, soms per ongeluk soms expres (ingevoegde humor en" +
-                    " dergelijke).",
-                    new List<Image> { img_1_2_01, img_1_2_02, img_1_2_03 },
-                    "Voorbeeld 2");
-                CourseMaterial mat_1_3 = new CourseMaterial(Rank.Kyu6, "https://www.youtube.com/embed/D9LL_ivHTXc", "Er zijn vele variaties van passages van Lorem Ipsum beschikbaar maar" +
-                    " het merendeel heeft te lijden gehad van wijzigingen in een of andere vorm, door ingevoegde humor of willekeurig gekozen" +
-                    " woorden die nog niet half geloofwaardig ogen. Als u een passage uit Lorum Ipsum gaat gebruiken dient u zich ervan te " +
-                    "verzekeren dat er niets beschamends midden in de tekst verborgen zit. Alle Lorum Ipsum generators op Internet hebben de " +
-                    "eigenschap voorgedefinieerde stukken te herhalen waar nodig zodat dit de eerste echte generator is op internet. Het " +
-                    "gebruikt een woordenlijst van 200 latijnse woorden gecombineerd met een handvol zinsstructuur modellen om een Lorum Ipsum " +
-                    "te genereren die redelijk overkomt. De gegenereerde Lorum Ipsum is daardoor altijd vrij van herhaling, ingevoegde humor of" +
-                    " ongebruikelijke woorden etc.",
-                    new List<Image> { img_1_3_01, img_1_3_02, img_1_3_03 },
-                    "Voorbeeld 3"); 
+                CourseMaterial VoorwaarteStand = new CourseMaterial(Rank.Kyu6, "https://www.youtube.com/embed/OFaR7tlcKN0", "De benen zijn gespreid en" +
+                    " staan in een rechthoekige driehoek (zie tekening). Het achterste been is gestrekt en het voorste been is gebogen zodat de knie " +
+                    "zich recht boven de voet bevindt. De voorste voet staat recht naar voor en de achterste voet staat schuin op 30°. " +
+                    "De heupen zijn omlaag gebracht, het bovenlichaam staat loodrecht ten opzichte van de grond en is naar voor gericht. " +
+                    "Het gezicht is recht naar voor. Ongeveer 60% van het gewicht rust op het voorste en 40% op het achterste been.",
+                    new List<Image> { voorwaartse_stand_1, voorwaartse_stand_2, voorwaartse_stand_3 },
+                    "Voorwaartse stand");
+                CourseMaterial AchterwaartseStand = new CourseMaterial(Rank.Kyu6, "https://www.youtube.com/embed/OFaR7tlcKN0", "De benen zijn gespreid " +
+                    "en staan op één lijn. De knie van het achterste been is sterk gebogen, naar buiten gedraaid en bevindt zich recht boven de voet." +
+                    " Het voorste been is licht gebogen. De voorste voet staat recht naar voor en de achterste voet staat schuin op 90° in T of L stand." +
+                    " De heupen zijn omlaag gebracht, het bovenlichaam staat loodrecht ten opzichte van de grond en is half weggedraaid. " +
+                    "Het gezicht is recht naar voor. Ongeveer 30% van het gewicht rust op het voorste en 70% op het achterste been.",
+                    new List<Image> { achterwaartse_stand_1, achterwaartse_stand_2, achterwaartse_stand_3 },
+                    "Achterwaartse stand");
                 #endregion
 
-                
-
-                _dbContext.CourseMaterials.AddRange(mat_1_1, mat_1_2, mat_1_3);
+                _dbContext.CourseMaterials.AddRange(VoorwaarteStand, AchterwaartseStand);
 
                 #endregion
 
@@ -177,7 +160,7 @@ namespace Taijitan.Data
                     var password = "P@ssword1";
                     var role = "Admin";
                     await CreateUser(username, email, password, role);
-                } 
+                }
                 #endregion
 
 
