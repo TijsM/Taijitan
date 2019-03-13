@@ -22,89 +22,31 @@
     <div class="text-center">
         @if (!SignInManager.IsSignedIn(User))
         {
-        <h1>Welkom</h1>
-        <p>Op de online tool van Taijitan</p>
-        <sub><a asp-area="Identity" asp-page="/Account/Login">Login</a> om je gegevens aan te passen</sub>
+            <h1>Welkom</h1>
+            <p>Op de online tool van Taijitan</p>
+            <sub><a asp-area="Identity" asp-page="/Account/Login">Login</a> om je gegevens aan te passen</sub>
         }
         else if (TempData["Role"].Equals("Member"))
         {
-        <h1>Welkom @userNameFirstLetterUpper</h1>
-        <p>Op de online tool van Taijitan</p>
-        <sub>Bekijk en wijzig hier je <a asp-area="" asp-controller="User" asp-action="Index">gegevens</a></sub>
+            <h1>Welkom @userNameFirstLetterUpper</h1>
+            <p>Op de online tool van Taijitan</p>
+            <sub>Bekijk en wijzig hier je <a asp-area="" asp-controller="User" asp-action="Index">gegevens</a></sub>
         }
         else if (TempData["Role"].Equals("Teacher"))
         {
-        <h1>Welkom @userNameFirstLetterUpper</h1>
-        <p>Op de online tool van Taijitan</p>
-        <sub>Bekijk en wijzig hier je <a asp-area="" asp-controller="User" asp-action="Index">gegevens</a></sub>
-        } else if (TempData["Role"].Equals("Admin"))
+            <h1>Welkom @userNameFirstLetterUpper</h1>
+            <p>Op de online tool van Taijitan</p>
+            <sub>Bekijk en wijzig hier je <a asp-area="" asp-controller="User" asp-action="Index">gegevens</a></sub>
+        }
+        else if (TempData["Role"].Equals("Admin"))
         {
-        <h1>Welkom @userNameFirstLetterUpper</h1>
-        <p>Op de online tool van Taijitan</p>
-        <sub>Bekijk en wijzig hier je <a asp-area="" asp-controller="User" asp-action="Index">gegevens</a></sub>
+            <h1>Welkom @userNameFirstLetterUpper</h1>
+            <p>Op de online tool van Taijitan</p>
+            <sub>Bekijk en wijzig hier je <a asp-area="" asp-controller="User" asp-action="Index">gegevens</a></sub>
         }
 
-
-
-
-
-        @*<div class="home">
-            <h1>Wel<span>kom</span></h1>
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="card">
-                        <i class="fas fa-address-book fa-5x"></i>
-                        <div class="card-body">
-                            <h5 class="card-title">Aanwezigheden afnemen</h5>
-                            <p class="card-text">Neem de aanwezigheiden op van deze les.</p>
-                            <a href="#" class="btn btn-primary">Aanwezigheden</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="card">
-                        <i class="fas fa-info-circle fa-5x"></i>
-                        <div class="card-body">
-                            <h5 class="card-title">Overzicht aanwezigheiden</h5>
-                            <p class="card-text">Overzicht van alle aanwezigheden bekijken.</p>
-                            <a href="#" class="btn btn-primary">Overzicht</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="card">
-                        <i class="fas fa-info-circle fa-5x"></i>
-                        <div class="card-body">
-                            <h5 class="card-title">Lesmateriaal bekijken</h5>
-                            <p class="card-text">Het lesmateriaal bekijken.</p>
-                            <a href="#" class="btn btn-primary">Lesmateriaal</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="card">
-                        <i class="fas fa-info-circle fa-5x"></i>
-                        <div class="card-body">
-                            <h5 class="card-title">Overzicht raadplegingsdetails</h5>
-                            <p class="card-text">Overzicht van alle raadplegingsdetails.</p>
-                            <a href="#" class="btn btn-primary">Raadplegingsdetails</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card">
-                        <i class="fas fa-info-circle fa-5x"></i>
-                        <div class="card-body">
-                            <h5 class="card-title">Overzicht uitstappen & inschrijvingen</h5>
-                            <p class="card-text">Overzicht van alle uitstappen en inschrijvingen.</p>
-                            <a href="#" class="btn btn-primary">Overzichht<a>
-                        </div>
-                    </div>
-                </div>*@
-            </div>
-        </div>
-        @section scripts{
-        <script src="~/js/site.min.js"></script>
-        }
+    </div>
+</div>
+@section scripts{
+    <script src="~/js/site.min.js"></script>
+}
