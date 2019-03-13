@@ -48,7 +48,6 @@ namespace Taijitan.Models.UserViewModel
         [Display(Name = "Telefoonnummer")]
         public string PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "E-mailadres is verplicht in te vullen")]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "E-mailadres")]
         public string Email { get; set; }
@@ -66,8 +65,7 @@ namespace Taijitan.Models.UserViewModel
         [Required(ErrorMessage = "Nationaliteit mag niet leeg zijn")]
         [Display(Name = "Nationaliteit")]
         public Country Nationality { get; set; }
-
-        [Required(ErrorMessage = "Rijksregisternummer is verplicht in te vullen")]
+        
         [Display(Name = "Rijksregisternummer")]
         public string PersonalNationalNumber { get; set; }
 
