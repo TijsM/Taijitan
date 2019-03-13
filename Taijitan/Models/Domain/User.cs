@@ -29,7 +29,7 @@ namespace Taijitan.Models.Domain
         public string LandlineNumber { get; set; }//vaste telefoonlijn --> niet verplicht
         public string MailParent { get; set; }//--> niet verplicht
 
-        public virtual void Change(string name, string firstName, DateTime dateOfBirth, string street, City city, Country country, string houseNumber, string phoneNumber, string email, DateTime dateRegistred, Gender gender, Country nationality, string personalNationalNumber, string birthPlace, string landlineNumber = "Niet gekend", string mailParent = "niet gekend" ) {
+        public virtual void Change(string name, string firstName, string street, City city, Country country, string houseNumber, string phoneNumber, Gender gender, Country nationality, string birthPlace, string landlineNumber = "Niet gekend", string mailParent = "niet gekend" ) {
             Name = name;
             FirstName = firstName;
             DateOfBirth = DateOfBirth;
@@ -38,11 +38,8 @@ namespace Taijitan.Models.Domain
             Country = country;
             HouseNumber = houseNumber;
             PhoneNumber = phoneNumber;
-            Email = email;
-            DateRegistred = dateRegistred;
             Gender = gender;
             Nationality = nationality;
-            PersonalNationalNumber = personalNationalNumber;
             BirthPlace = birthPlace;
             LandlineNumber = landlineNumber;
             MailParent = mailParent;
