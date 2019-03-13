@@ -38,13 +38,13 @@ namespace Taijitan.Controllers
             ViewData["Formulas"] = new SelectList(_trainingDayRepository.GetAll().Select(t => new { t.TrainingDayId, t.Name }).ToList(), "TrainingDayId", "Name");
             return View(new SessionViewModel());
         }
+
         [Authorize(Policy = "Teacher")]
         [HttpPost]
         public IActionResult Create(SessionViewModel svm, User user = null)
         {
             Teacher t;
 
-            //string userEmail = _userManager.GetUserName(HttpContext.User);
             string userEmail = user.Email;
             t = (Teacher)_userRepository.GetByEmail(userEmail);
             IEnumerable<Formula> formulasOfDay = _formulaRepository.GetByTrainingDay(_trainingDayRepository.getById(svm.TrainingDayId));
