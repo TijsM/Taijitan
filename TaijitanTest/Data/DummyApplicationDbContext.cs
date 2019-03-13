@@ -17,7 +17,6 @@ namespace TaijitanTest.Data
         private readonly Member _stef;
         private readonly Member _tijs;
 
-        private readonly Session _session1;
         private readonly Teacher _teacher1;
         public readonly IEnumerable<Formula> _formulas;
         public readonly IEnumerable<Member> _members;
@@ -61,7 +60,7 @@ namespace TaijitanTest.Data
 
             _formulas = new List<Formula>
             {
-                dinDon, dinZat, woeZat, woe, zat, activiteit, stage
+                dinDon, dinZat, woeZat, woe, zat/*, activiteit, stage*/
             };
 
 
@@ -94,7 +93,7 @@ namespace TaijitanTest.Data
                 _robbe,_jarne,_stef
             };
 
-            Session1 = new Session(_formulas, _teacher1, _members);
+            //Session1 = new Session(_formulas, _teacher1, _members);
 
 
 
