@@ -11,11 +11,15 @@ namespace TaijitanTest.Data
         private readonly City _gent;
         private readonly City _antwerpen;
         private readonly City _brussel;
-        private readonly IList<User> _users;
+        private readonly IEnumerable<User> _users;
         private readonly Member _jarne;
         private readonly Member _robbe;
         private readonly Member _stef;
         private readonly Member _tijs;
+
+        private readonly Teacher _teacher1;
+        public readonly IEnumerable<Formula> _formulas;
+        public readonly IEnumerable<Member> _members;
         #endregion
 
         #region Properties
@@ -25,7 +29,8 @@ namespace TaijitanTest.Data
         public Member UserTomJansens { get;  }
         public City TomJansensCity { get; set; }
         public IEnumerable<User> UsersByPartOfName { get; set; }
-      
+        public Session Session1 { get; set; }
+
         #endregion
 
 
@@ -53,21 +58,32 @@ namespace TaijitanTest.Data
             Formula activiteit = new Formula("deelname aan activiteit", new List<TrainingDay>());
             Formula stage = new Formula("deelname aan meerdaagse stage", new List<TrainingDay>());
 
+            _formulas = new List<Formula>
+            {
+                dinDon, dinZat, woeZat, woe, zat/*, activiteit, stage*/
+            };
+
+
+
             _tijs = new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Unknown", _brussel, Country.Belgium, "Unknown", "0499721771", "tijs.martens@student.hogent.be", dinDon, new DateTime(2014/06/2), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent");
             _stef = new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Unknown", _antwerpen, Country.Belgium, "Unknown", "0000000000", "stef.verlinde@student.hogent.be", dinZat, new DateTime(2015 / 08 / 4), Gender.Man, Country.Belgium, "02-08-1998.306-37", "Gent");
             _jarne = new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", _gent, Country.Belgium, "16", "0492554616", "jarne.deschacht@student.hogent.be", woeZat, new DateTime(2016 / 01 / 30), Gender.Man, Country.Belgium, "09-08-1999.400-08", "Gent");
             _robbe = new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Garzebekeveldstraat", _gent, Country.Belgium, "Unknown", "0000000000", "robbe.dekien@student.hogent.be", woe, new DateTime(2016 / 05 / 30), Gender.Man, Country.Belgium, "02-06-1999.100-20", "Gent");
             UserTomJansens = new Member("Jansens", "Tom", new DateTime(1999, 8, 9), "Hoogstraat", _gent, Country.Belgium, "8", "+32499854775", "tom.jansens@gmail.com",woeZat, new DateTime(2017 / 05 / 18), Gender.Man, Country.Belgium, "09-08-1999.400-09", "Gent");
 
+            _teacher1 = new Teacher("Chan", "Jacky", new DateTime(1960, 10, 18), "HongkongStreet", _gent, Country.Belgium, "1", "+23456987447", "jacky.chan@hollywood.com", new DateTime(2005 / 01 / 30), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent");
+
             _users = new List<User>
             {
                 UserTomJansens,
                 new Admin("Alain", "Vandamme", new DateTime(1980, 1, 15), "StationStraat", _antwerpen, Country.Belgium, "15", "+3249981557", "alain.vandamma@synalco.be",  new DateTime(2005/01/30), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent"),
-                _robbe,_jarne,_stef,_tijs,
+                _robbe,_jarne,_stef,_tijs,_teacher1
 
-                new Teacher("Chan", "Jacky", new DateTime(1960, 10, 18), "HongkongStreet", _gent, Country.Belgium, "1", "+23456987447", "jacky.chan@hollywood.com" , new DateTime(2005/01/30), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent")
+            };
 
-
+            _members = new List<Member>
+            {
+                _tijs, _stef, _jarne, _robbe
             };
 
             UsersFormula1 = new List<Member> {
@@ -76,8 +92,12 @@ namespace TaijitanTest.Data
             UsersByPartOfName = new List<Member> {
                 _robbe,_jarne,_stef
             };
-        }
 
+            //Session1 = new Session(_formulas, _teacher1, _members);
+
+
+
+        }
         #endregion
     }
 }

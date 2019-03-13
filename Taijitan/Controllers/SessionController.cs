@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Taijitan.Filters;
 using Taijitan.Helpers;
 using Taijitan.Models.Domain;
 using Taijitan.Models.ViewModels;
@@ -13,36 +14,38 @@ using Taijitan.Models.ViewModels;
 namespace Taijitan.Controllers
 {
     [Authorize]
+    [ServiceFilter(typeof(UserFilter))]
     public class SessionController : Controller
     {
         private readonly ISessionRepository _sessionRepository;
         private readonly IUserRepository _userRepository;
         private readonly ITrainingDayRepository _trainingDayRepository;
         private readonly IFormulaRepository _formulaRepository;
-        private readonly UserManager<IdentityUser> _userManager;
+        //private readonly UserManager<IdentityUser> _userManager;
 
-        public SessionController(IUserRepository userRepository, ISessionRepository sessionRepository, IFormulaRepository formulaRepository, ITrainingDayRepository trainingDayRepository, UserManager<IdentityUser> userManager)
+        public SessionController(IUserRepository userRepository, ISessionRepository sessionRepository, IFormulaRepository formulaRepository, ITrainingDayRepository trainingDayRepository)
         {
             _userRepository = userRepository;
             _sessionRepository = sessionRepository;
             _trainingDayRepository = trainingDayRepository;
             _formulaRepository = formulaRepository;
-            _userManager = userManager;
+            //_userManager = userManager;
         }
         [Authorize(Policy = "Teacher")]
         [HttpGet]
         public IActionResult Create()
         {
-
             ViewData["Formulas"] = new SelectList(_trainingDayRepository.GetAll().Select(t => new { t.TrainingDayId, t.Name }).ToList(), "TrainingDayId", "Name");
             return View(new SessionViewModel());
         }
+
         [Authorize(Policy = "Teacher")]
         [HttpPost]
-        public IActionResult Create(SessionViewModel svm)
+        public IActionResult Create(SessionViewModel svm, User user = null)
         {
             Teacher t;
-            string userEmail = _userManager.GetUserName(HttpContext.User);
+
+            string userEmail = user.Email;
             t = (Teacher)_userRepository.GetByEmail(userEmail);
             IEnumerable<Formula> formulasOfDay = _formulaRepository.GetByTrainingDay(_trainingDayRepository.getById(svm.TrainingDayId));
             IList<Member> members = new List<Member>();
@@ -64,10 +67,11 @@ namespace Taijitan.Controllers
         }
 
         [Authorize(Policy = "Teacher")]
-        public IActionResult Register(int id)
+        public IActionResult Register(int id, User user = null)
         {
             Session session = _sessionRepository.GetById(id);
-            string userEmail = _userManager.GetUserName(HttpContext.User);
+            //string userEmail = _userManager.GetUserName(HttpContext.User);
+            string userEmail = user.Email;
             Teacher t = (Teacher)_userRepository.GetByEmail(userEmail);
             SessionViewModel svm = new SessionViewModel(session);
             svm.SessionTeacher = t;
@@ -77,10 +81,11 @@ namespace Taijitan.Controllers
 
         [Authorize(Policy = "Teacher")]
         [HttpPost]
-        public IActionResult AddToPresent(int sessionId, int id)
+        public IActionResult AddToPresent(int sessionId, int id, User user = null)
         {
             Teacher t;
-            string userEmail = _userManager.GetUserName(HttpContext.User);
+            string userEmail = user.Email;
+            //string userEmail = _userManager.GetUserName(HttpContext.User);
             t = (Teacher)_userRepository.GetByEmail(userEmail);
             Session CurrentSession = _sessionRepository.GetById(sessionId);
             Member m = (Member)_userRepository.GetById(id);
@@ -94,10 +99,11 @@ namespace Taijitan.Controllers
 
         [Authorize(Policy = "Teacher")]
         [HttpPost]
-        public IActionResult AddToUnconfirmed(int sessionId, int id)
+        public IActionResult AddToUnconfirmed(int sessionId, int id, User user = null)
         {
             Teacher t;
-            string userEmail = _userManager.GetUserName(HttpContext.User);
+            string userEmail = user.Email;
+            //string userEmail = _userManager.GetUserName(HttpContext.User);
             t = (Teacher)_userRepository.GetByEmail(userEmail);
             Session CurrentSession = _sessionRepository.GetById(sessionId);
             Member m = (Member)_userRepository.GetById(id);
@@ -113,7 +119,7 @@ namespace Taijitan.Controllers
 
 
         [Authorize(Policy = "Teacher")]
-        public IActionResult AddOtherMember(int id, string searchTerm = "")
+        public IActionResult AddOtherMember(int id, string searchTerm = "", User user = null)
         {
             var session = _sessionRepository.GetById(id);
             IEnumerable<Member> allMembers = _userRepository.GetAllMembers();
@@ -137,7 +143,8 @@ namespace Taijitan.Controllers
             }
 
             Teacher t;
-            string userEmail = _userManager.GetUserName(HttpContext.User);
+            string userEmail = user.Email;
+            //string userEmail = _userManager.GetUserName(HttpContext.User);
             t = (Teacher)_userRepository.GetByEmail(userEmail);
             SessionViewModel svm = new SessionViewModel(session);
             svm.SessionTeacher = t;

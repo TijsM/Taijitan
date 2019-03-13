@@ -9,7 +9,13 @@ namespace Taijitan.Controllers
 {
     public class ErrorsController : Controller
     {
-        public IActionResult Index(string Id)
+        public IActionResult Index()
+        {
+            TempData["ErrorCode"] = "500";
+            return View("Error");
+        }
+
+        public IActionResult Error(string Id)
         {
             TempData["ErrorCode"] = Id;
             return View("Error");

@@ -18,7 +18,7 @@ namespace Taijitan.Models.Domain
         public IEnumerable<NonMember> NonMembers { get; set; }
         public ICollection<SessionFormula> SessionFormulas { get; set; }
 
-        public Session(List<Formula> formulas,Teacher teacher,IEnumerable<Member> members)
+        public Session(IEnumerable<Formula> formulas,Teacher teacher,IEnumerable<Member> members)
         {
             MembersPresent = new List<Member>();
             SessionFormulas = new List<SessionFormula>();
