@@ -10,10 +10,10 @@
 }
 
 <div style="text-align:center">
-    <img alt="sadNinja" src="~/images/sadNinja.png" width="200" height="200" />
-    <h1>Ooops!</h1>
+    <img alt="sadNinja" src="~/images/Ninja3.png" width="200" height="258" style="margin-top: 1em" />
+    <h1 style="color: #336566">Ooops!</h1>
     <h3>We kunnen de pagina waar je naar zoekt niet vinden.</h3>
-    <p>Error code: @TempData["ErrorCode"]</p>
+    <p style="color: #336566">Error code: @TempData["ErrorCode"]</p>
     <h4>Hier zijn enkele handige links: </h4>
     <a asp-controller="Home" asp-action="Index">Home</a><br />
     @if (!SignInManager.IsSignedIn(User))
@@ -26,6 +26,9 @@
     }
 
 </div>
+
+
+
 
 
 
