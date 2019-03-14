@@ -39,7 +39,12 @@ namespace Taijitan.Data.Repositories
 
         public IEnumerable<CourseMaterial> GetByRank(Rank rank)
         {
-            return _courseMaterials.Include(c => c.Images).Where(c => (int)c.Rank == (int)rank).AsNoTracking().OrderBy(c => c.Title).ToList();
+            return _courseMaterials
+                .Include(c => c.Images)
+                .Where(c => (int)c.Rank == (int)rank)
+                .AsNoTracking()
+                .OrderBy(c => c.Title)
+                .ToList();
         }
 
         public void SaveChanges()
