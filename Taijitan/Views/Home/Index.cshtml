@@ -45,7 +45,14 @@
                     {
                         if (currentSession.Date.Date.Equals(DateTime.Today))
                         {
-                            <a asp-controller="Session" asp-action="Register" asp-route-id="@currentSession.SessionId" class="btn-taijitan btn">Hervat Sessie</a>
+                            if (currentSession.SessionStarted)
+                            {
+                                <a asp-controller="CourseMaterial" asp-action="Confirm" asp-route-id="@currentSession.SessionId" class="btn-taijitan btn">Hervat Sessie</a>
+                            }
+                            else
+                            {
+                                <a asp-controller="Session" asp-action="Register" asp-route-id="@currentSession.SessionId" class="btn-taijitan btn">Hervat Sessie</a>
+                            }
                         }
                     }
                 }

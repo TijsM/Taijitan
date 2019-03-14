@@ -18,6 +18,7 @@ namespace Taijitan.Models.Domain
         public IEnumerable<Formula> Formulas => SessionFormulas.Select(sf => sf.Formula).ToList();
         public Teacher Teacher { get; set; }
         public TrainingDay TrainingDay { get; set; }
+        [JsonProperty]
         public bool SessionStarted { get; set; }
         public ICollection<SessionMember> SessionMembers{ get; set; }
         public IEnumerable<NonMember> NonMembers { get; set; }

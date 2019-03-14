@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Taijitan.Models.Domain;
 using Taijitan.Models.ViewModels;
 
@@ -21,15 +23,16 @@ namespace Taijitan.Controllers
             _userRepository = userRepository;
             _courseMaterialRepository = courseMaterialRepository;
         }
-        public IActionResult Confirm(int sessionId)
+        public IActionResult Confirm(int id)
         {
-            Session currentSession = _sessionRepository.GetById(sessionId);
+            Session currentSession = _sessionRepository.GetById(id);
             if (!currentSession.SessionStarted)
             {
                 currentSession.AddToSessionMembers(currentSession.MembersPresent.ToList());
                 currentSession.SessionStarted = true;
                 _sessionRepository.SaveChanges();
             }
+            HttpContext.Session.SetString("Session", JsonConvert.SerializeObject(currentSession));
             ViewData["partialView"] = "";
             CourseMaterialViewModel vm = new CourseMaterialViewModel()
             {
