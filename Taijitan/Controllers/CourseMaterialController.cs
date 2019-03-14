@@ -24,8 +24,12 @@ namespace Taijitan.Controllers
         public IActionResult Confirm(int sessionId)
         {
             Session currentSession = _sessionRepository.GetById(sessionId);
-            currentSession.AddToSessionMembers(currentSession.MembersPresent.ToList());
-            _sessionRepository.SaveChanges();
+            if (!currentSession.SessionStarted)
+            {
+                currentSession.AddToSessionMembers(currentSession.MembersPresent.ToList());
+                currentSession.SessionStarted = true;
+                _sessionRepository.SaveChanges();
+            }
             ViewData["partialView"] = "";
             CourseMaterialViewModel vm = new CourseMaterialViewModel()
             {
@@ -68,7 +72,7 @@ namespace Taijitan.Controllers
             };
             return View("Training", vm);
         }
-        public IActionResult SelectCourse(int sessionId, Rank rank, int selectedUserId,int matId)
+        public IActionResult SelectCourse(int sessionId, Rank rank, int selectedUserId, int matId)
         {
             ViewData["partialView"] = "course";
             CourseMaterialViewModel vm = new CourseMaterialViewModel()
