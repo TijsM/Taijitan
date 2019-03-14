@@ -65,7 +65,7 @@
             <div style="display:flex; justify-content:center;">
                 <a asp-controller="User" asp-action="Edit" asp-route-id="@TempData["UserId"]" class="btn-taijitan btn" style="margin-right:1em;">Wijzig gegevens</a>
                 <a asp-controller="User" asp-action="Summary" class="btn-taijitan btn" style="margin-right:1em;">Wijzig gegevens leden</a>
-                <a asp-controller="User" asp-action="Summary" class="btn-taijitan btn">Overzicht aanwezigheden</a>
+                <a asp-controller="Session" asp-action="GetSessions" class="btn-taijitan btn">Overzicht aanwezigheden</a>
             </div>
         }
 
