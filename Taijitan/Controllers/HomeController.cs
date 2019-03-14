@@ -4,8 +4,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Taijitan.Models;
 using Taijitan.Models.Domain;
 
@@ -31,21 +33,12 @@ namespace Taijitan.Controllers
                 var user = _userRepository.GetByEmail(_userManager.GetUserName(HttpContext.User));
                 TempData["Role"] = user.GetType();
                 TempData["Role"] = TempData["role"].ToString().Split(".")[3];
+                TempData["UserId"] = user.UserId;
+                if(HttpContext.Session.GetString("Session") != null)
+                {
+                    ViewData["Session"] = JsonConvert.DeserializeObject<Session>(HttpContext.Session.GetString("Session"));
+                }
             }
-            return View();
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 

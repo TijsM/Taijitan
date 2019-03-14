@@ -12,46 +12,58 @@
     </div>
     <div id="fotos" class="tab-pane fade">
         <h3>Foto's</h3>
-        <div id="carousel-example-generic" class="carousel slide sliderimg" data-ride="carousel">
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-            </ol>
+        @*<div id="carousel-example-generic" class="carousel slide sliderimg" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                </ol>
 
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner" role="listbox">
-                @{
-                    <div class="item active">
-                        <img class="sliderimg" src="~/images/@String.Format("{0}.jpg",Model.SelectedCourseMaterial.Images.First().Name)" alt="@Model.SelectedCourseMaterial.Images.First().Name">
-                        <div class="carousel-caption">
-                            @Model.SelectedCourseMaterial.Images.First().Description
-                        </div>
-                    </div>
-                    foreach (var img in Model.SelectedCourseMaterial.Images.Skip(1))
-                    {
-                        string fotolink = String.Format("{0}.jpg", img.Name);
-                        <div class="item">
-                            <img class="sliderimg" src="~/images/@fotolink" alt="@img.Name">
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    @{
+                        <div class="item active">
+                            <img class="sliderimg" src="~/images/@String.Format("{0}.jpg",Model.SelectedCourseMaterial.Images.First().Name)" alt="@Model.SelectedCourseMaterial.Images.First().Name">
                             <div class="carousel-caption">
-                                @img.Description
+                                @Model.SelectedCourseMaterial.Images.First().Description
                             </div>
                         </div>
+                        foreach (var img in Model.SelectedCourseMaterial.Images.Skip(1))
+                        {
+                            string fotolink = String.Format("{0}.jpg", img.Name);
+                            <div class="item">
+                                <img class="sliderimg" src="~/images/@fotolink" alt="@img.Name">
+                                <div class="carousel-caption">
+                                    @img.Description
+                                </div>
+                            </div>
+                        }
                     }
-                }
-            </div>
+                </div>
 
-            <!-- Controls -->
-            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
+                <!-- Controls -->
+                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>*@
+        @{
+            foreach (var img in Model.SelectedCourseMaterial.Images)
+            {
+                string fotolink = String.Format("{0}.jpg", img.Name);
+                <div class="thumbnail col-lg-3">
+                    <img src="~/images/@fotolink" alt="@img.Name">
+                    <div class="caption">
+                        @img.Description
+                    </div>
+                </div>
+            }
+        }
     </div>
     <div id="video" class="tab-pane fade">
         <h3>Video</h3>

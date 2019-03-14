@@ -45,6 +45,7 @@ namespace Taijitan.Models.UserViewModel
 
         [Required(ErrorMessage = "Telefoonnummer is verplicht in te vullen")]
         [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"([+]?\d{1,2}[.\s-]?)?(\d{3}[.-]?){2}\d{4}", ErrorMessage = "Ongeldig telefoonnummer")]
         [Display(Name = "Telefoonnummer")]
         public string PhoneNumber { get; set; }
 

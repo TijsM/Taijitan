@@ -27,7 +27,6 @@ namespace Taijitan.Data.Repositories
         {
             _sessions.Remove(session);
         }
-
         public IEnumerable<Session> GetAll()
         {
             return _sessions.Include(s => s.Members).Include(s => s.MembersPresent).Include(s => s.NonMembers).AsNoTracking().ToList();
