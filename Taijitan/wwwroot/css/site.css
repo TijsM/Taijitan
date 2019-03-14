@@ -56,8 +56,6 @@ html, body {
     background-color: #336566 !important;
     border-color: white;
     color: white !important;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
 }
 
 .navbar-default .navbar-brand, .navbar-default .navbar-nav > li > a {
@@ -311,4 +309,3 @@ fieldset {
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
     background-color: #336566;
 }
-

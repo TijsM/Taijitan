@@ -23,14 +23,6 @@
                 <div class="dropdown">
                     <i class="fas fa-user-ninja fa-2x dropbtn" style="color: white; margin: 0.4em;" onclick="myFunction()"> </i>
                     <div id="myDropdown" class="dropdown-content">
-                        @if (!(await AuthorizationService.AuthorizeAsync(User, "Admin")).Succeeded)
-                        {
-                            <a asp-controller="User" asp-action="Index">Wijzig Gegevens</a>
-                        }
-                        else
-                        {
-                            <a asp-controller="User" asp-action="Index">Menu</a>
-                        }
                         <a onclick="confirmLogout()" href="#">Uitloggen</a>
                     </div>
                 </div>

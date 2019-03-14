@@ -1,15 +1,19 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Taijitan.Models.Domain
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class Session
     {
+        [JsonProperty]
         public int SessionId { get; set; }
         public IEnumerable<Member> Members { get; set; }
         public IEnumerable<Member> MembersPresent { get; set; }
+        [JsonProperty]
         public DateTime Date { get; set; }
         public IEnumerable<Formula> Formulas => SessionFormulas.Select(sf => sf.Formula).ToList();
         public Teacher Teacher { get; set; }
@@ -70,15 +74,19 @@ namespace Taijitan.Models.Domain
                 hulp.Add(new SessionMember(SessionId, this, meme.UserId, meme));
             }
             SessionMembers = hulp;
-
-            
         }
 
-        public void AddNonMember(string firstName, string lastName, string email)
+        public void AddNonMember(NonMember nonMember)
         {
-            var nonMember = new NonMember(firstName, lastName, email);
             List<NonMember> hList = NonMembers.ToList();
             hList.Add(nonMember);
+            NonMembers = hList;
+        }
+
+        public void RemoveNonMember(NonMember nonMember)
+        {
+            List<NonMember> hList = NonMembers.ToList();
+            hList.Remove(nonMember);
             NonMembers = hList;
         }
     }

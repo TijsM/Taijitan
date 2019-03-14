@@ -8,38 +8,23 @@
     string endMinutes = end.Minutes / 10 < 1 ? $"{end.Minutes}0" : $"{end.Minutes}";
 }
 @*<script>onload = () => {
-    var navbar = document.getElementById('navbar');
-    navbar.remove();
-    }
-</script>*@
+        var navbar = document.getElementById('navbar');
+        navbar.remove();
+        }
+    </script>*@
 
-<div style="display: flex; justify-content: space-between;" >
+<div style="display: flex; justify-content: space-between;">
     <div>
         <h2>Registreer je aanwezigheid</h2>
         <br />
         <h4>Sessie op @Model.Date.ToShortDateString() van @(start.Hours):@startMinutes tot @(end.Hours):@endMinutes met als lesgever  @Model.SessionTeacher.FirstName @Model.SessionTeacher.Name</h4>
     </div>
     <div style="top: 2em; position: relative;">
-        <a asp-action="Confirm" asp-controller="CourseMaterial" asp-route-sessionId="@Model.SessionId" class="btn btn-taijitan" style="float:right;">Bevestig aanwezigheden</a>
+        <form method="post">
+            <button type="submit" asp-action="Confirm" asp-controller="CourseMaterial" asp-route-sessionId="@Model.SessionId" class="btn btn-taijitan" style="float:right;">Bevestig aanwezigheden</button>
+        </form>
     </div>
 </div>
-@*<div>
-        @{
-            var namen = "";
-            foreach(NonMember nm in Model.NonMembers)
-            {
-                namen += nm.FirstName + " ";
-            }
-            if(Model.NonMembers.Count() == 0)
-            {
-                <p>Er zijn geen gasten aanwezig.</p>
-            } else
-            {
-                <p>Aanwezige gasten: @namen</p>
-            }
-        }
-        <p></p>
-    </div>*@
 <br />
 <div class="col-lg-12">
     <div class="col-lg-6">
@@ -51,7 +36,6 @@
                     {
                         foreach (var item in Model.Members)
                         {
-                            @*<a asp-action="AddToPresent" asp-route-sessionId="@Model.SessionId" asp-route-id="@item.UserId" class="list-group-item list-group-item-action">@item.FirstName @item.Name</a>*@
                             <button type="submit" asp-action="AddToPresent" asp-route-sessionId="@Model.SessionId" asp-route-id="@item.UserId" class="list-group-item list-group-item-action">@item.FirstName @item.Name</button>
                         }
                     }
@@ -101,7 +85,7 @@
                         @{
                             foreach (var item in Model.NonMembers)
                             {
-                                <p class="list-group-item list-group-item-action">@item.FirstName @item.LastName </p>
+                                <button type="submit" asp-controller="Session" asp-action="RemoveNonMember" asp-route-id="@Model.SessionId" asp-route-firstName="@item.FirstName" class="list-group-item list-group-item-action">@item.FirstName @item.LastName</button>
                             }
                         }
                     </div>

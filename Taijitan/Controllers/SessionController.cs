@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using Taijitan.Filters;
 using Taijitan.Helpers;
 using Taijitan.Models.Domain;
@@ -21,14 +24,17 @@ namespace Taijitan.Controllers
         private readonly IUserRepository _userRepository;
         private readonly ITrainingDayRepository _trainingDayRepository;
         private readonly IFormulaRepository _formulaRepository;
+        private readonly INonMemberRepository _nonMemberRepository;
+
         //private readonly UserManager<IdentityUser> _userManager;
 
-        public SessionController(IUserRepository userRepository, ISessionRepository sessionRepository, IFormulaRepository formulaRepository, ITrainingDayRepository trainingDayRepository)
+        public SessionController(IUserRepository userRepository, ISessionRepository sessionRepository, IFormulaRepository formulaRepository, ITrainingDayRepository trainingDayRepository, INonMemberRepository nonMemberRepository)
         {
             _userRepository = userRepository;
             _sessionRepository = sessionRepository;
             _trainingDayRepository = trainingDayRepository;
             _formulaRepository = formulaRepository;
+            _nonMemberRepository = nonMemberRepository;
             //_userManager = userManager;
         }
         [Authorize(Policy = "Teacher")]
@@ -63,6 +69,8 @@ namespace Taijitan.Controllers
             _sessionRepository.Add(s);
             _sessionRepository.SaveChanges();
             svm.Change(s);
+
+            HttpContext.Session.SetString("Session", JsonConvert.SerializeObject(s));
             return View("Register", svm);
         }
 
@@ -158,12 +166,22 @@ namespace Taijitan.Controllers
         public IActionResult AddNonMember(string firstName, string lastName, string email, int id)
         {
             Session s = _sessionRepository.GetById(id);
-            s.AddNonMember(firstName, lastName, email);
+            var nonMember = new NonMember(firstName, lastName, email, id);
+            s.AddNonMember(nonMember);
             _sessionRepository.SaveChanges();
             return RedirectToAction("Register", new { id });
         }
 
-     
+        [Authorize(Policy = "Teacher")]
+        [HttpPost]
+        public IActionResult RemoveNonMember(string firstName, int id)
+        {
+            Session s = _sessionRepository.GetById(id);
+            NonMember nonMember = s.NonMembers.FirstOrDefault(nm => nm.FirstName.Equals(firstName));
+            s.RemoveNonMember(nonMember);
+            _sessionRepository.SaveChanges();
+            return RedirectToAction("Register", new { id });
+        }
 
         [Authorize(Policy = "Admin")]
         public IActionResult GetSessions()

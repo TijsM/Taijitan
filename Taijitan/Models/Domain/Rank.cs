@@ -42,46 +42,46 @@ namespace Taijitan.Models.Domain
 
         [Display(Name = "Ni-dan")]
         [Description("Zwarte band")]
-        Dan2 = 7,
+        Dan2 = 8,
 
         [Display(Name = "San-dan")]
         [Description("Zwarte band")]
-        Dan3 = 7,
+        Dan3 = 9,
 
         [Display(Name = "Yon-dan")]
         [Description("Zwarte band")]
-        Dan4 = 8,
+        Dan4 = 10,
 
         [Display(Name = "Go-dan")]
         [Description("Zwarte band")]
-        Dan5 = 9,
+        Dan5 = 11,
 
         [Description("witte breede band")]
         [Display(Name = "Rood-witte band")]
-        Dan6 = 10,
+        Dan6 = 12,
 
         [Display(Name = "Shichi-dan")]
         [Description("Rood-witte band")]
-        Dan7 = 11,
+        Dan7 = 13,
 
         [Display(Name = "Hachi-dan")]
         [Description("Rood-witte band")]
-        Dan8 = 12,
+        Dan8 = 14,
 
         [Display(Name = "Ku-dan")]
         [Description("Rode band")]
-        Dan9 = 13,
+        Dan9 = 15,
 
         [Description("Rode band")]
         [Display(Name = "Ju-dan")]
-        Dan10 = 14,
+        Dan10 = 16,
 
         [Display(Name = "Rode band")]
         [Description("witte breede band")]
-        Dan11 = 15,
+        Dan11 = 17,
 
         [Display(Name = "Juni-dan")]
         [Description("witte brede band")]
-        Dan12 = 16
+        Dan12 = 18
     }
 }

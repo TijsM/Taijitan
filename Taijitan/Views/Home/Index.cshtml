@@ -17,7 +17,7 @@
 
 <div class="center-block text-center" style="margin: 20% auto">
     <div class="text-center">
-        <img src="~/images/logo.png" alt="Taijitan logo" />
+        <img src="~/images/logo.png" alt="Taijitan logo" style="width:30%" />
     </div>
     <div class="text-center">
         @if (!SignInManager.IsSignedIn(User))
@@ -30,19 +30,36 @@
         {
             <h1>Welkom @userNameFirstLetterUpper</h1>
             <p>Op de online tool van Taijitan</p>
-            <sub>Bekijk en wijzig hier je <a asp-area="" asp-controller="User" asp-action="Index">gegevens</a></sub>
+            <a asp-controller="User" asp-action="Edit" asp-route-id="@TempData["UserId"]" class="btn-taijitan btn">Wijzig gegevens</a>
         }
         else if (TempData["Role"].Equals("Teacher"))
         {
-            <h1>Welkom @userNameFirstLetterUpper</h1>
+            <h1>Welkom Leerkracht</h1>
             <p>Op de online tool van Taijitan</p>
-            <sub>Bekijk en wijzig hier je <a asp-area="" asp-controller="User" asp-action="Index">gegevens</a></sub>
+            <div style="display:flex; justify-content:center;">
+                <a asp-controller="User" asp-action="Edit" asp-route-id="@TempData["UserId"]" class="btn-taijitan btn" style="margin-right:1em;">Wijzig gegevens</a>
+                <a asp-controller="Session" asp-action="Create" class="btn-taijitan btn" style="margin-right:1em;">Start Sessie</a>
+                @{
+                    Session currentSession = (Session)ViewData["Session"];
+                    if (currentSession != null)
+                    {
+                        if (currentSession.Date.Date.Equals(DateTime.Today))
+                        {
+                            <a asp-controller="Session" asp-action="Register" asp-route-id="@currentSession.SessionId" class="btn-taijitan btn">Hervat Sessie</a>
+                        }
+                    }
+                }
+            </div>
         }
         else if (TempData["Role"].Equals("Admin"))
         {
-            <h1>Welkom @userNameFirstLetterUpper</h1>
+            <h1>Welkom Administrator</h1>
             <p>Op de online tool van Taijitan</p>
-            <sub>Bekijk en wijzig hier je <a asp-area="" asp-controller="User" asp-action="Index">gegevens</a></sub>
+            <div style="display:flex; justify-content:center;">
+                <a asp-controller="User" asp-action="Edit" asp-route-id="@TempData["UserId"]" class="btn-taijitan btn" style="margin-right:1em;">Wijzig gegevens</a>
+                <a asp-controller="User" asp-action="Summary" class="btn-taijitan btn" style="margin-right:1em;">Wijzig gegevens leden</a>
+                <a asp-controller="User" asp-action="Summary" class="btn-taijitan btn">Overzicht aanwezigheden</a>
+            </div>
         }
 
     </div>

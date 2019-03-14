@@ -3,7 +3,7 @@
 
 
 <!DOCTYPE html>
-<html class="taijitancontainer">
+<html >
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,26 +25,16 @@
     </environment>
 </head>
 <body >
-    <nav class="navbar navbar-default navbar-fixed-top taijitancontainer" id="navbar">
+    <nav class="navbar navbar-default navbar-fixed-top" id="navbar">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" id="navbar_toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <i class="fas fa-user-ninja fa-2x" style="color: white; margin: 0.4em;"> </i>
                     <div style="display: none" class="d-sm-block"><p>test</p></div>
-                    @*<span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>*@
                 </button>
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Taijitan</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    @if ((await AuthorizationService.AuthorizeAsync(User, "Teacher")).Succeeded)
-                    {
-                        <li><a asp-area="" asp-controller="Session" asp-action="Create">Sessie starten</a></li>
-                    }
-                </ul>
                 <partial name="_LoginPartial" />
             </div>
         </div>
