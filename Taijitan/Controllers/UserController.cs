@@ -29,10 +29,9 @@ namespace Taijitan.Controllers
         {
             if (user == null)
                 return NotFound();
-            TempData["Role"] = user.GetType();
-            TempData["Role"] = TempData["role"].ToString().Split(".")[3];
-            TempData["userId"] = user.UserId;
-            TempData["EditViewModel"] = new EditViewModel(user);
+            ViewData["Role"] = user.GetType().ToString().Split(".")[3];
+            ViewData["userId"] = user.UserId;
+            ViewData["EditViewModel"] = new EditViewModel(user);
             ViewData["Countries"] = EnumHelpers.ToSelectList<Country>();
             ViewData["Genders"] = EnumHelpers.ToSelectList<Gender>();
             return View("Index");
@@ -52,8 +51,8 @@ namespace Taijitan.Controllers
 
             if (user == null)
                 return NotFound();
-            TempData["Role"] = user.GetType().ToString().Split(".")[3];
-            TempData["userId"] = user.UserId;
+            ViewData["Role"] = user.GetType().ToString().Split(".")[3];
+            ViewData["userId"] = user.UserId;
             ViewData["isFromSummary"] = isFromSummary;
             ViewData["Countries"] = EnumHelpers.ToSelectList<Country>();
             ViewData["Genders"] = EnumHelpers.ToSelectList<Gender>();
@@ -67,8 +66,6 @@ namespace Taijitan.Controllers
             User u = null;
             if (ModelState.IsValid)
             {
-                try
-                {
                     u = _userRepository.GetById(id);
                     u.Change(evm.Name, evm.FirstName, evm.Street, _cityRepository.GetByPostalCode(evm.PostalCode), evm.Country, evm.HouseNumber, evm.PhoneNumber, evm.Gender, evm.Nationality, evm.BirthPlace, evm.LandLineNumber, evm.MailParent);
                     _userRepository.SaveChanges();
@@ -80,12 +77,6 @@ namespace Taijitan.Controllers
                         return RedirectToAction(nameof(Summary));
                     }
                     return RedirectToAction("Index", "Home");
-                }
-                catch
-                {
-                    TempData["error"] = $"er ging iets mis bij het wijzigen van {u.FirstName} {u.Name}";
-                    return RedirectToAction(nameof(Summary));
-                }
             }
             ViewData["userId"] = id;
             return View(evm);
@@ -94,10 +85,14 @@ namespace Taijitan.Controllers
         [Authorize(Policy = "Admin")]
         public IActionResult Delete(int id, string confirmed = "true")
         {
+            User user = _userRepository.GetById(id);
+
+            if (user == null)
+                return NotFound();
+
             if (confirmed.Equals("true"))
             {
-                User us = _userRepository.GetById(id);
-                _userRepository.Delete(us);
+                _userRepository.Delete(user);
                 _userRepository.SaveChanges();
             }
             return RedirectToAction("Summary");

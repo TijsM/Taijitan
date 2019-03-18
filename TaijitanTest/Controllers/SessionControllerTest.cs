@@ -25,7 +25,7 @@ namespace TaijitanTest.Controllers
         private readonly Mock<ISessionRepository> _mockSessionRepository;
         private readonly Mock<IFormulaRepository> _mockFormulaRepository;
         private readonly Mock<ITrainingDayRepository> _mockTrainingDayRepository;
-
+        private readonly Mock<INonMemberRepository> _nonMemberRepository;
         #endregion
 
 
@@ -37,9 +37,10 @@ namespace TaijitanTest.Controllers
             _mockSessionRepository = new Mock<ISessionRepository>();
             _mockFormulaRepository = new Mock<IFormulaRepository>();
             _mockTrainingDayRepository = new Mock<ITrainingDayRepository>();
+            _nonMemberRepository = new Mock<INonMemberRepository>();
 
 
-            _sessionController = new SessionController(_mockUserRepository.Object, _mockSessionRepository.Object, _mockFormulaRepository.Object, _mockTrainingDayRepository.Object)
+            _sessionController = new SessionController(_mockUserRepository.Object, _mockSessionRepository.Object, _mockFormulaRepository.Object, _mockTrainingDayRepository.Object,_nonMemberRepository.Object)
             {
                 TempData = new Mock<ITempDataDictionary>().Object
             };

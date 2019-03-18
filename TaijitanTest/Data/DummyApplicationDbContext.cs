@@ -30,7 +30,7 @@ namespace TaijitanTest.Data
         public City TomJansensCity { get; set; }
         public IEnumerable<User> UsersByPartOfName { get; set; }
         public Session Session1 { get; set; }
-
+        public Admin Alain { get; set; }
         #endregion
 
 
@@ -70,13 +70,13 @@ namespace TaijitanTest.Data
             _jarne = new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", _gent, Country.Belgium, "16", "0492554616", "jarne.deschacht@student.hogent.be", woeZat, new DateTime(2016 / 01 / 30), Gender.Man, Country.Belgium, "09-08-1999.400-08", "Gent");
             _robbe = new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Garzebekeveldstraat", _gent, Country.Belgium, "Unknown", "0000000000", "robbe.dekien@student.hogent.be", woe, new DateTime(2016 / 05 / 30), Gender.Man, Country.Belgium, "02-06-1999.100-20", "Gent");
             UserTomJansens = new Member("Jansens", "Tom", new DateTime(1999, 8, 9), "Hoogstraat", _gent, Country.Belgium, "8", "+32499854775", "tom.jansens@gmail.com",woeZat, new DateTime(2017 / 05 / 18), Gender.Man, Country.Belgium, "09-08-1999.400-09", "Gent");
+            Alain = new Admin("Alain", "Vandamme", new DateTime(1980, 1, 15), "StationStraat", _antwerpen, Country.Belgium, "15", "+3249981557", "alain.vandamma@synalco.be", new DateTime(2005 / 01 / 30), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent");
 
             _teacher1 = new Teacher("Chan", "Jacky", new DateTime(1960, 10, 18), "HongkongStreet", _gent, Country.Belgium, "1", "+23456987447", "jacky.chan@hollywood.com", new DateTime(2005 / 01 / 30), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent");
 
             _users = new List<User>
             {
-                UserTomJansens,
-                new Admin("Alain", "Vandamme", new DateTime(1980, 1, 15), "StationStraat", _antwerpen, Country.Belgium, "15", "+3249981557", "alain.vandamma@synalco.be",  new DateTime(2005/01/30), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent"),
+                UserTomJansens,Alain,
                 _robbe,_jarne,_stef,_tijs,_teacher1
 
             };

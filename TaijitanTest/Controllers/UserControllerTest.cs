@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
+using System.Collections.Generic;
+using System.Linq;
 using Taijitan.Controllers;
 using Taijitan.Models.Domain;
 using Taijitan.Models.UserViewModel;
@@ -26,6 +29,7 @@ namespace TaijitanTest.Controllers
         private string _tomJansensEmail;
         private Formula _tomJansensFormula;
         private string _partOfName;
+        private Admin _alain;
 
         #endregion
 
@@ -43,6 +47,7 @@ namespace TaijitanTest.Controllers
             _partOfName = "de";
             _tomJansensEmail = _tomJansens.Email;
             _tomJansensFormula = _tomJansens.Formula;
+            _alain = _dummyContext.Alain;
 
             _mockCityRepository.Setup(c => c.GetAll()).Returns(_dummyContext.Cities);
             _mockCityRepository.Setup(c => c.GetByPostalCode(_tomJansenCityPostalCode)).Returns(_dummyContext.TomJansensCity);
@@ -60,6 +65,57 @@ namespace TaijitanTest.Controllers
             };
 
             
+        }
+        #endregion
+
+        #region TestIndexMethod
+        [Fact]
+        public void Index_ExistingUser_PassesSelectListWithAllGendersInViewData()
+        {
+            var result = _userController.Index(_tomJansens) as ViewResult;
+            var genders = result?.ViewData["Genders"] as SelectList;
+            Assert.Equal(2,genders.Count());
+        }
+        [Fact]
+        public void Index_ExistingUser_PassesSelectListWithAllCountriesInViewData()
+        {
+            var result = _userController.Index(_tomJansens) as ViewResult;
+            var genders = result?.ViewData["Countries"] as SelectList;
+            Assert.Equal(204, genders.Count());
+        }
+        [Fact]
+        public void Index_ExistingUser_PassesCorrectUserIdInViewData()
+        {
+            var result = _userController.Index(_tomJansens) as ViewResult;
+            Assert.Equal(_tomJansensId,result?.ViewData["userId"]);
+        }
+        [Fact]
+        public void Index_ExistingUser_PassesCorrectRoleInViewData()
+        {
+            var result = _userController.Index(_tomJansens) as ViewResult;
+            Assert.Equal("Member", result?.ViewData["role"]);
+        }
+        [Fact]
+        public void Index_ExistingUser_PassesCorrectModelInViewData()
+        {
+            var result = _userController.Index(_tomJansens) as ViewResult;
+            Assert.IsType<EditViewModel>(result?.ViewData["EditViewModel"]);
+        }
+        [Fact]
+        public void Index_NonExistingUser_ThrowsNotFound()
+        {
+            var result = _userController.Index(null);
+            Assert.IsType<NotFoundResult>(result);
+        }
+        #endregion
+
+        #region TestSummaryHttpGet
+        [Fact]
+        public void SummaryHttpGet_PassesAllUsersToView()
+        {
+            var result = _userController.Summary() as ViewResult;
+            List<User> products = (result?.Model as IEnumerable<User>)?.ToList();
+            Assert.Equal(_dummyContext.Users.Count(), products.Count);
         }
         #endregion
 
@@ -104,6 +160,51 @@ namespace TaijitanTest.Controllers
             var result = _userController.Edit(_tomJansensId,_tomJansens, userViewmodel) as RedirectToActionResult;
             Assert.Equal("Index", result?.ActionName);
             Assert.Equal("Home", result?.ControllerName);
+        }
+        [Fact]
+        public void EditHttpPost_ValidModelGoToSummary_RedirectsToSummary()
+        {
+            var userViewmodel = new EditViewModel(_tomJansens);
+            var result = _userController.Edit(_tomJansensId, _alain, userViewmodel, 1) as RedirectToActionResult;
+            Assert.Equal("Summary", result?.ActionName);
+        }
+        [Fact]
+        public void EditHttpPost_InValidModel_DoesNotChangeNorPersistUser()
+        {
+            var userViewmodel = new EditViewModel(_tomJansens);
+            _userController.ModelState.AddModelError("", "Any error");
+            _userController.Edit(_tomJansensId, _tomJansens, userViewmodel, 1);
+            Assert.Equal("Jansens", _tomJansens.Name);
+            _mockUserRepository.Verify(m => m.SaveChanges(), Times.Never());
+        }
+        [Fact]
+        public void EditHttpPost_InValidModel_PassesUserIdToIndex()
+        {
+            var userViewmodel = new EditViewModel(_tomJansens);
+            _userController.ModelState.AddModelError("", "Any error");
+            var result = _userController.Edit(_tomJansensId, _tomJansens, userViewmodel, 1) as ViewResult;
+            Assert.Equal(_tomJansensId, result?.ViewData["userId"]);
+        }
+        #endregion
+
+        #region TestDeleteHttpPost
+        [Fact]
+        public void DeleteHttpPost_UserNotFound_ReturnsNotFound()
+        {
+            var result = _userController.Delete(_NonExistingUserId);
+            Assert.IsType<NotFoundResult>(result);
+        }
+        [Fact]
+        public void DeleteHttpPost_UserFoundWithoutConfirm_RedirectsToActionSummary()
+        {
+            var result = _userController.Delete(_tomJansensId,"false") as RedirectToActionResult;
+            Assert.Equal("Summary", result?.ActionName);
+        }
+        [Fact]
+        public void DeleteHttpPost_UserFoundAndConfirm_RedirectsToActionSummary()
+        {
+            var result = _userController.Delete(_tomJansensId) as RedirectToActionResult;
+            Assert.Equal("Summary", result?.ActionName);
         }
         #endregion
     }
