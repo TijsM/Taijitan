@@ -18,8 +18,6 @@ namespace TaijitanTest.Data
         private readonly Member _tijs;
 
         private readonly Teacher _teacher1;
-        public readonly IEnumerable<Formula> _formulas;
-        public readonly IEnumerable<Member> _members;
         #endregion
 
         #region Properties
@@ -30,6 +28,9 @@ namespace TaijitanTest.Data
         public City TomJansensCity { get; set; }
         public IEnumerable<User> UsersByPartOfName { get; set; }
         public Session Session1 { get; set; }
+        public IEnumerable<Session> Sessions { get; set; }
+        public IEnumerable<Formula> _formulas { get; set; }
+        public IEnumerable<Member> _members { get; set; }
         public Admin Alain { get; set; }
         #endregion
 
@@ -92,11 +93,8 @@ namespace TaijitanTest.Data
             UsersByPartOfName = new List<Member> {
                 _robbe,_jarne,_stef
             };
-
-            //Session1 = new Session(_formulas, _teacher1, _members);
-
-
-
+            Session1 = new Session(_formulas, _teacher1, _members);
+            Sessions = new List<Session> { Session1 };
         }
         #endregion
     }
