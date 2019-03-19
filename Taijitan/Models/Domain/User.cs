@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Taijitan.Models.Domain
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class User
     {
+        [JsonProperty]
         public int UserId { get; set; }
         public string Name { get; set; }
         public string FirstName { get; set; }
@@ -28,6 +30,8 @@ namespace Taijitan.Models.Domain
         public string BirthPlace { get; set; }
         public string LandlineNumber { get; set; }//vaste telefoonlijn --> niet verplicht
         public string MailParent { get; set; }//--> niet verplicht
+
+        public IEnumerable<Comment> Comments { get; set; }
 
         public virtual void Change(string name, string firstName, string street, City city, Country country, string houseNumber, string phoneNumber, Gender gender, Country nationality, string birthPlace, string landlineNumber = "Niet gekend", string mailParent = "niet gekend" ) {
             Name = name;

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Comment>
+@{
+    ViewData["Title"] = "Overzicht van alle commentaar:";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table" id="summaryTable">
+    <thead>
+        <tr>
+            <th>Familienaam</th>
+            <th>Voornaam</th>
+            <th>Modulenaam</th>
+            <th>Aangemaakt op</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>@item.Member.Name</td>
+                <td>@item.Member.FirstName</td>
+                <td>@item.Course.Title</td>
+                <td>@item.DateCreated.ToShortDateString()</td>*@
+            </tr>
+        }
+    </tbody>
+</table>
