@@ -17,6 +17,9 @@ namespace Taijitan.Data.Mappers
             builder.HasMany(c => c.Images)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(c => c.Comments)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

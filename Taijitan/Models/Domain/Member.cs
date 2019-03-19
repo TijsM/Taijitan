@@ -11,9 +11,10 @@ namespace Taijitan.Models.Domain
         public Rank Rank { get; set; }
         public ICollection<SessionMember> SessionMembers { get; set; }
         public IEnumerable<Session> Sessions => SessionMembers.Select(sm => sm.Session).ToList();
+        
 
-        public Member(string name, string firstName, DateTime dateOfBirth,string street,City city,
-            Country country,string houseNumber,string phoneNumber, string email,Formula formula, DateTime dateRegistred, Gender gender, Country nationality, string personalNationalNumber, string birthPlace, string landlineNumber = "Niet gekend", string mailParent = "niet gekend")
+        public Member(string name, string firstName, DateTime dateOfBirth, string street, City city,
+            Country country, string houseNumber, string phoneNumber, string email, Formula formula, DateTime dateRegistred, Gender gender, Country nationality, string personalNationalNumber, string birthPlace, string landlineNumber = "Niet gekend", string mailParent = "niet gekend")
         {
             Name = name;
             FirstName = firstName;
@@ -34,7 +35,11 @@ namespace Taijitan.Models.Domain
             MailParent = mailParent;
 
             SessionMembers = new List<SessionMember>();
+            Comments = new List<Comment>();
         }
-        private Member() { }
+        private Member()
+        {
+            Comments = new List<Comment>();
+        }
     }
 }

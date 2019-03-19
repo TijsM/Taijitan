@@ -23,6 +23,7 @@ namespace Taijitan.Data
         public DbSet<Formula> Formulas { get; set; }
         public DbSet<NonMember> NonMembers { get; set; }
         public DbSet<CourseMaterial> CourseMaterials { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -43,6 +44,7 @@ namespace Taijitan.Data
             builder.ApplyConfiguration(new SessionFormulaConfiguration());
             builder.ApplyConfiguration(new CourseMaterialConfiguration());
             builder.ApplyConfiguration(new ImageConfiguration());
+            builder.ApplyConfiguration(new CommentConfiguration());
         }
     }
 }

@@ -15,13 +15,14 @@ namespace Taijitan.Controllers
         private readonly ISessionRepository _sessionRepository;
         private readonly IUserRepository _userRepository;
         private readonly ICourseMaterialRepository _courseMaterialRepository;
+        private readonly ICommentRepository _commentRepository;
 
-
-        public CourseMaterialController(ISessionRepository sessionRepository, IUserRepository userRepository, ICourseMaterialRepository courseMaterialRepository)
+        public CourseMaterialController(ISessionRepository sessionRepository, IUserRepository userRepository, ICourseMaterialRepository courseMaterialRepository, ICommentRepository commentRepository)
         {
             _sessionRepository = sessionRepository;
             _userRepository = userRepository;
             _courseMaterialRepository = courseMaterialRepository;
+            _commentRepository = commentRepository;
         }
         public IActionResult Confirm(int id)
         {
@@ -87,7 +88,23 @@ namespace Taijitan.Controllers
                 SelectedMember = (Member)_userRepository.GetById(selectedUserId),
                 SelectedRank = rank,
             };
+            HttpContext.Session.SetString("CourseMaterialViewModel", JsonConvert.SerializeObject(vm));
             return View("Training", vm);
+        }
+
+        [HttpPost]
+        public IActionResult AddComment(string comment)
+        {
+            if (HttpContext.Session.GetString("CourseMaterialViewModel") != null)
+            {
+                CourseMaterialViewModel model = JsonConvert.DeserializeObject<CourseMaterialViewModel>(HttpContext.Session.GetString("CourseMaterialViewModel"));
+                Comment c = new Comment(comment, model.SelectedCourseMaterial, model.SelectedMember);
+                _commentRepository.Add(c);
+                _commentRepository.SaveChanges();
+                TempData["message"] = "Het commentaar is succesvol verstuurd!";
+                return RedirectToAction(nameof(SelectCourse), new { sessionId = model.Session.SessionId, rank = model.SelectedRank, selectedUserId = model.SelectedMember.UserId, matId = model.SelectedCourseMaterial.MaterialId });
+            }
+            return View("Training");
         }
     }
 }

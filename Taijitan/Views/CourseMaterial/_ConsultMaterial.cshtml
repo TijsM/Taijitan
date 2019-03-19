@@ -4,7 +4,6 @@
     <li><a data-toggle="tab" href="#fotos">Foto's</a></li>
     <li><a data-toggle="tab" href="#video">Video</a></li>
 </ul>
-
 <div class="tab-content">
     <div id="uitleg" class="tab-pane fade in active">
         <h3>Uitleg les</h3>
@@ -79,11 +78,11 @@
             <label>Commentaar</label>
         </div>
         <div class="col-lg-10">
-            <textarea style="resize:none" class="form-control"></textarea>
+            <textarea name="comment"style="resize:none" class="form-control"></textarea>
         </div>
 
         <div class="col-lg-2">
-            <button type="submit" class="btn btn-taijitan">Verzend</button>
+            <button type="submit" asp-action="AddComment" class="btn btn-taijitan">Verzend</button>
         </div>
     </form>
 </div>
