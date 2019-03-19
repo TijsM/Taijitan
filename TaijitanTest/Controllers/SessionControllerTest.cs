@@ -72,7 +72,7 @@ namespace TaijitanTest.Controllers
             _mockSessionRepository.Setup(c => c.GetById(_session1Id)).Returns(_dummyContext.Session1);
 
             _mockFormulaRepository.Setup(c => c.GetAll()).Returns(_dummyContext._formulas);
-            _mockFormulaRepository.Setup(c => c.GetByTrainingDay);
+            //_mockFormulaRepository.Setup(c => c.GetByTrainingDay);
             //_mockTrainingDayRepository;
             //_nonMemberRepository;
 
