@@ -9,6 +9,7 @@ namespace Taijitan.Models.Domain
     [JsonObject(MemberSerialization.OptIn)]
     public class Comment
     {
+        [JsonProperty]
         public int CommentId { get; set; }
         [JsonProperty]
         public string Content { get; set; }

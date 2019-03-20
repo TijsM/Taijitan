@@ -20,6 +20,14 @@ html, body {
     background-color: #336566 !important;
     color: white;
 }
+.btn-not{
+    color: white !important;
+    margin: 1em 2em;
+}
+    .btn-not:focus, .btn-not:hover {
+        color: #336566 !important;
+    }
+
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
@@ -238,6 +246,10 @@ a {
     right: 0;
     z-index: 1;
 }
+
+    .dropdown-contentnot{
+        min-width: 300px;
+    }
     .dropdown-contentmenu *, .dropdown-contentnot * {
         color: black;
         padding: 12px 16px;
@@ -313,4 +325,54 @@ fieldset {
 
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
     background-color: #336566;
+}
+
+.notRead {
+    animation-name: notification;
+    animation-duration: 2s;
+    border-radius: 2px;
+}
+@keyframes notification{
+    0% {background-color: #F1F1F1;}
+    25% {background-color: #336566; color: white;}
+    50% {background-color: #F1F1F1; color: black;}
+}
+
+/*numberbadge*/
+.notnumber {
+    color: #fff;
+    font-size: 10px;
+    font-family: Arial, san-serif;
+    font-weight: bold;
+}
+
+
+.messages img {
+}
+
+.messages {
+}
+
+.notbadge {
+    background-color: #336566;
+    border-radius: 50%;
+    border: 1px solid white;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    padding: 5% 5%;
+    position: relative;
+    right: 23px;
+    top: 1.5px;
+    float: right;
+    display: block;
+}
+
+.notnumber {
+    position: relative;
+    display: block;
+    font: bold 14px/13px Helvetica, Verdana, Tahoma;
+    text-align: center;
+    margin: 0;
+    top: 0px;
 }

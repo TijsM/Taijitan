@@ -108,10 +108,11 @@ namespace Taijitan.Controllers
                 TempData["message"] = "Het commentaar is succesvol verstuurd!";
 
                 ICollection<Comment> notifications;
-                //notificaties
+                //Notificaties
                 if (HttpContext.Session.GetString("Notifications") != null)
                 {
                     notifications = JsonConvert.DeserializeObject<ICollection<Comment>>(HttpContext.Session.GetString("Notifications"));
+                    notifications.OrderBy(n => n.DateCreated);
                     while(notifications.Where(n => n.IsRead).Count() > 0 && notifications.Count() > 5)
                     {
                         notifications.Remove(notifications.Last());

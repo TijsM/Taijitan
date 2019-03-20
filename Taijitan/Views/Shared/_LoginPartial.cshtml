@@ -29,17 +29,36 @@
                 if (TempData["Role"].Equals("Admin"))
                 {
                     <li>
-                        <div class="dropdown">
+                        <div class="dropdown messages">
                             <i class="fas fa-bell fa-2x dropbtnnot" style="color: white; margin: 0.4em;" onclick="openNotifications()"> </i>
-                            <div></div>
+                            <div class="notbadge">
+                                <div class="notnumber">@TempData["AmountUnread"]</div>
+                            </div>
                             <div id="notificationsDropdown" class="dropdown-contentnot">
-                                @{ 
+                                @{
                                     ICollection<Comment> comments = (ICollection<Comment>)TempData["Notifications"];
-                                    <p>Markeer als gelezen</p>
-                                    foreach(Comment c in comments)
+                                    <form method="post"><button type="submit" asp-action="MarkRead" class="btn btn-taijitan btn-not" style="margin:1em auto;">Markeer als gelezen</button></form>
+                                    if (comments.Count() != 0)
                                     {
-                                        <p>Nieuw commentaar door @c.Member.FirstName @c.Member.Name op @c.Course.Title</p>
+                                        foreach (Comment c in comments)
+                                        {
+                                            string className;
+                                            if (c.IsRead)
+                                            {
+                                                className = "read";
+
+                                            }
+                                            else
+                                            {
+                                                className = "notRead";
+                                            }
+                                            <a asp-controller="CourseMaterial" asp-action="SummaryComments" class="@className" style="margin: 0.5em;">Nieuw commentaar door @c.Member.FirstName @c.Member.Name bij @c.Course.Title</a>
+                                        }
+                                    } else
+                                    {
+                                        <p style="margin: 0.5em; text-align:center;">Geen notificaties</p>
                                     }
+
                                 }
                             </div>
                         </div>
