@@ -129,10 +129,49 @@ namespace Taijitan.Controllers
         }
 
         [HttpGet]
-        public IActionResult SummaryComments()
+        public IActionResult ViewComments()
         {
+            ViewData["IsEmpty"] = true;
+            return ShowComments();
+            
+        }
+
+        public IActionResult SelectComment(int id)
+        {
+            Comment comment = _commentRepository.GetById(id);
+
+            if (comment == null)
+            {
+                ViewData["IsEmpty"] = true;
+                //ViewData["Comment"] = "Selecteer een item uit de lijst om de commentaar te kunnen bekijken";
+            }
+            else
+            {
+                ViewData["IsEmpty"] = false;
+                ViewData["Comment"] = comment;
+
+            }
+
+            return ShowComments();
+        }
+
+        public IActionResult RemoveComment(int id)
+        {
+            Comment comment = _commentRepository.GetById(id);
+            if (comment == null)
+                return NotFound();
+            _commentRepository.Delete(comment);
+            _commentRepository.SaveChanges();
+            ViewData["IsEmpty"] = true;
+
+            return ShowComments();
+        }
+
+        private IActionResult ShowComments()
+        {
+            
             var comments = _commentRepository.GetAll();
-            return View(comments);
+            return View("ViewComments", comments);
         }
     }
 }

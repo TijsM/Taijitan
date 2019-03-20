@@ -173,8 +173,16 @@ namespace Taijitan.Data
 
                 #region Comment
 
-                Comment comment = new Comment("Dit is een test", VoorwaarteStand, members.First());
-                _dbContext.Comments.Add(comment);
+                Comment comment1 = new Comment("Dit is een test", VoorwaarteStand, members.First());
+                Comment comment2 = new Comment("Dit is een tweede test, hier komt de effectieve commentaar die de gebruiker heeft ingegevne", AchterwaartseStand, members.First());
+                Comment comment3 = new Comment("Dit is een derde test, hier komt de effectieve commentaar die de gebruiker heeft ingegevne", AchterwaartseStand, members.First());
+                Comment comment4 = new Comment("Dit is een vierde test, hier komt de effectieve commentaar die de gebruiker heeft ingegevne", VoorwaarteStand, members.First());
+
+                _dbContext.Comments.AddRange(comment1, comment2, comment3, comment4);
+                //_dbContext.Comments.Add(comment1);
+                ////_dbContext.Comments.Add(comment2);
+                ////_dbContext.Comments.Add(comment3);
+                ////_dbContext.Comments.Add(comment4);
 
                 #endregion
 

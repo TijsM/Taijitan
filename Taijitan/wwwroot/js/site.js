@@ -162,6 +162,55 @@ function init() {
             ]
         });
     });
+    $(document).ready(function () {
+        $('#commentSummaryTable').DataTable({
+            "language": {
+                "sProcessing": "Bezig...",
+                "sLengthMenu": "_MENU_ resultaten weergeven",
+                "sZeroRecords": "Geen resultaten gevonden",
+                "sInfo": "_START_ tot _END_ van _TOTAL_ resultaten",
+                "sInfoEmpty": "Geen resultaten om weer te geven",
+                "sInfoFiltered": " (gefilterd uit _MAX_ resultaten)",
+                "sInfoPostFix": "",
+                "sSearch": "Zoeken:",
+                "sEmptyTable": "Geen resultaten aanwezig in de tabel",
+                "sInfoThousands": ".",
+                "sLoadingRecords": "Een moment geduld aub - bezig met laden...",
+                "oPaginate": {
+                    "sFirst": "Eerste",
+                    "sLast": "Laatste",
+                    "sNext": "Volgende",
+                    "sPrevious": "Vorige"
+                },
+                "oAria": {
+                    "sSortAscending": ": activeer om kolom oplopend te sorteren",
+                    "sSortDescending": ": activeer om kolom aflopend te sorteren"
+                }
+            },
+            dom: 'Bflrtip',
+            buttons: [{
+                extend: 'print',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 5]
+                }
+            },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 5]
+                    }
+                }
+                //,
+                //{
+                //    extend: 'pdfHtml5',
+                //    exportOptions: {
+                //        columns: [0, 1, 2,3, 5]
+                //    }
+                //}
+            ]
+            
+        });
+    });
 
     
 }
