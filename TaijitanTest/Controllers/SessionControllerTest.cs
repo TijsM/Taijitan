@@ -37,6 +37,10 @@ namespace TaijitanTest.Controllers
         private Formula _tomJansensFormula;
         private string _partOfName;
         private Admin _alain;
+        private TrainingDay _dinsdag;
+        private DayOfWeek _dayOfWeekDinsdag;
+        private int _trainingsDayId;
+        private string _nonMemberFirstName;
         #endregion
 
 
@@ -60,6 +64,10 @@ namespace TaijitanTest.Controllers
             _tomJansensEmail = _tomJansens.Email;
             _tomJansensFormula = _tomJansens.Formula;
             _alain = _dummyContext.Alain;
+            _dinsdag = _dummyContext.Dinsdag;
+            _dayOfWeekDinsdag = DayOfWeek.Tuesday;
+            _trainingsDayId = _dinsdag.TrainingDayId;
+            _nonMemberFirstName = "Bernard";
 
             //Setups
             _mockUserRepository.Setup(c => c.GetAll()).Returns(_dummyContext.Users);
@@ -71,10 +79,15 @@ namespace TaijitanTest.Controllers
             _mockSessionRepository.Setup(c => c.GetAll()).Returns(_dummyContext.Sessions);
             _mockSessionRepository.Setup(c => c.GetById(_session1Id)).Returns(_dummyContext.Session1);
 
-            _mockFormulaRepository.Setup(c => c.GetAll()).Returns(_dummyContext._formulas);
-            //_mockFormulaRepository.Setup(c => c.GetByTrainingDay);
-            //_mockTrainingDayRepository;
-            //_nonMemberRepository;
+            _mockFormulaRepository.Setup(c => c.GetAll()).Returns(_dummyContext.Formulas);
+            _mockFormulaRepository.Setup(c => c.GetByTrainingDay(_dinsdag)).Returns(_dummyContext.DinsdagFormule);
+
+            _mockTrainingDayRepository.Setup(c => c.GetAll()).Returns(_dummyContext.TrainingsDays);
+            _mockTrainingDayRepository.Setup(c => c.getById(_trainingsDayId)).Returns(_dummyContext.Dinsdag);
+            _mockTrainingDayRepository.Setup(c => c.GetByDayOfWeek(_dayOfWeekDinsdag)).Returns(_dummyContext.Dinsdag);
+
+            _nonMemberRepository.Setup(c => c.GetAll()).Returns(_dummyContext.NonMembers);
+            _nonMemberRepository.Setup(c => c.GetByFirstName(_nonMemberFirstName)).Returns(_dummyContext.NonMemberBernard);
 
         _sessionController = new SessionController(_mockUserRepository.Object, _mockSessionRepository.Object, _mockFormulaRepository.Object, _mockTrainingDayRepository.Object,_nonMemberRepository.Object)
             {
