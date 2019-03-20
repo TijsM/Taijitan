@@ -45,18 +45,55 @@ namespace Taijitan.Controllers
                 {
                     if (HttpContext.Session.GetString("Notifications") != null)
                     {
-                        TempData["Notifications"] = JsonConvert.DeserializeObject<ICollection<Comment>>(HttpContext.Session.GetString("Notifications"));
+                        ICollection<Comment> comments = JsonConvert.DeserializeObject<ICollection<Comment>>(HttpContext.Session.GetString("Notifications"));
+                        while (comments.Count > 5 && comments.Where(c => c.IsRead).Count() > 0)
+                        {
+                            Comment commentToDelete = comments.Where(c => c.IsRead).First();
+                            comments.Remove(commentToDelete);
+                        }
+                        TempData["Notifications"] = comments;
+                        TempData["AmountUnread"] = comments.Where(c => !c.IsRead).Count();
+                        HttpContext.Session.SetString("Notifications", JsonConvert.SerializeObject(comments));
                     }
                     else
                     {
                         ICollection<Comment> comments = new List<Comment>();
-                        comments.Add(_commentRepostitory.GetAll().First());
+                        comments = _commentRepostitory.GetAll().Where(c => !c.IsRead).ToList();
+                        int aantal = 5 - comments.Count();
+                        var extraComments = _commentRepostitory.GetAll().Where(c => c.IsRead).Take(aantal);
+                        if(extraComments != null)
+                        {
+                            foreach (Comment c in extraComments)
+                            {
+                                comments.Add(c);
+                            }
+                        }
+                        TempData["AmountUnread"] = comments.Where(c => !c.IsRead).Count();
                         TempData["Notifications"] = comments;
+                        HttpContext.Session.SetString("Notifications", JsonConvert.SerializeObject(comments));
                     }
                 }
 
             }
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult MarkRead()
+        {
+            if (HttpContext.Session.GetString("Notifications") != null)
+            {
+                ICollection<Comment> comments = JsonConvert.DeserializeObject<ICollection<Comment>>(HttpContext.Session.GetString("Notifications"));
+                foreach (Comment c in comments)
+                {
+                    c.IsRead = true;
+                    Comment com = _commentRepostitory.GetById(c.CommentId);
+                    com.IsRead = true;
+                }
+                _commentRepostitory.SaveChanges();
+                HttpContext.Session.SetString("Notifications", JsonConvert.SerializeObject(comments));
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Privacy()
