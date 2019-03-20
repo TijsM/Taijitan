@@ -37,7 +37,7 @@ namespace TaijitanTest.Controllers
 
             //setups
             _mockSessionRepository.Setup(c => c.GetById(idOfSession)).Returns(_dummyApplicationContext.Session1);
-            _mockSessionRepository.Setup(c => c.GetById(idOfStartedSession)).Returns(_dummyApplicationContext.Session2);
+            //_mockSessionRepository.Setup(c => c.GetById(idOfStartedSession)).Returns(_dummyApplicationContext.Session2);
 
             // the controller
             _courseMaterialController = new CourseMaterialController(_mockSessionRepository.Object, _mockUserRepository.Object, _mockCourseMaterialRepository.Object, _mockCommentRepository.Object)
