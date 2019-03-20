@@ -222,7 +222,7 @@ namespace Taijitan.Data
                 _dbContext.SaveChanges();
             }
         }
-
+    
         private async Task CreateUser(string userName, string email, string password, string role)
         {
             var user = new IdentityUser { UserName = userName, Email = email };
