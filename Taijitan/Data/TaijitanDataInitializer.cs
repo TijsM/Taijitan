@@ -57,8 +57,6 @@ namespace Taijitan.Data
                 #region Members
                 IEnumerable<Member> members = new List<Member>
                 {
-
-
                      new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", bekegem, Country.Belgium, "16", "0492554616", "jarne.deschacht@student.hogent.be",dinDon, new DateTime(2016 / 01 / 30), Gender.Man, Country.Belgium, "09-08-1999.400-08", "Gent"){ Rank = Rank.Dan1},
                      new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Unknown", nazareth, Country.Belgium, "Unknown", "0499721771", "tijs.martens@student.hogent.be",woe,  new DateTime(2014/06/2), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent"){ Rank = Rank.Dan10},
                      new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Garzebekeveldstraat", adinkerke, Country.Belgium, "Unknown", "0000000000", "robbe.dekien@student.hogent.be",dinZat, new DateTime(2016 / 05 / 30), Gender.Man, Country.Belgium, "02-06-1999.100-20", "Gent"){ Rank = Rank.Dan5},
@@ -170,6 +168,13 @@ namespace Taijitan.Data
 
 
                 _dbContext.CourseMaterials.AddRange(VoorwaarteStand, AchterwaartseStand, mat_1_1, mat_1_2, mat_1_3);
+
+                #endregion
+
+                #region Comment
+
+                Comment comment = new Comment("Dit is een test", VoorwaarteStand, members.First());
+                _dbContext.Comments.Add(comment);
 
                 #endregion
 

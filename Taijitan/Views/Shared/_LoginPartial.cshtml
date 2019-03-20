@@ -7,11 +7,16 @@
 
 @{
     string userNameFirstLetterUpper = "";
+    bool isHome = false;
     if (UserManager.GetUserName(User) != null)
     {
         var email = UserManager.GetUserName(User);
         var userName = email.Substring(0, email.IndexOf("."));
         userNameFirstLetterUpper = char.ToUpper(userName[0]) + userName.Substring(1);
+        if (TempData["IsHome"] != null)
+        {
+            isHome = TempData["IsHome"].Equals("true");
+        }
     }
 }
 
@@ -19,18 +24,38 @@
 {
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right" name="logoutForm">
         <ul class="nav navbar-nav navbar-right">
+            @if (isHome == true)
+            {
+                if (TempData["Role"].Equals("Admin"))
+                {
+                    <li>
+                        <div class="dropdown">
+                            <i class="fas fa-bell fa-2x dropbtnnot" style="color: white; margin: 0.4em;" onclick="openNotifications()"> </i>
+                            <div></div>
+                            <div id="notificationsDropdown" class="dropdown-contentnot">
+                                @{ 
+                                    ICollection<Comment> comments = (ICollection<Comment>)TempData["Notifications"];
+                                    <p>Markeer als gelezen</p>
+                                    foreach(Comment c in comments)
+                                    {
+                                        <p>Nieuw commentaar door @c.Member.FirstName @c.Member.Name op @c.Course.Title</p>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div>
+                        </div>
+                    </li>
+                }
+            }
             <li>
                 <div class="dropdown">
-                    <i class="fas fa-user-ninja fa-2x dropbtn" style="color: white; margin: 0.4em;" onclick="myFunction()"> </i>
-                    <div id="myDropdown" class="dropdown-content">
+                    <i class="fas fa-user-ninja fa-2x dropbtnmenu" style="color: white; margin: 0.4em;" onclick="openMenu()"> </i>
+                    <div id="menuDropdown" class="dropdown-contentmenu">
                         <a onclick="confirmLogout()" href="#">Uitloggen</a>
                     </div>
                 </div>
                 <div>
-                    <ul class="dropdown-menu">
-                        <li><a asp-controller="User" asp-action="Index">Wijzig gegevens</a></li>
-                        <li><a onclick="confirmLogout()" href="#">Uitloggen</a></li>
-                    </ul>
                 </div>
             </li>
         </ul>

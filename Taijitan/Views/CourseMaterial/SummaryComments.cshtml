@@ -12,6 +12,7 @@
             <th>Voornaam</th>
             <th>Modulenaam</th>
             <th>Aangemaakt op</th>
+            <th>Commentaar</th>
         </tr>
     </thead>
     <tbody>
@@ -19,10 +20,10 @@
         @foreach (var item in Model)
         {
             <tr>
-                @*<td>@item.Member.Name</td>
-                <td>@item.Member.FirstName</td>
-                <td>@item.Course.Title</td>
-                <td>@item.DateCreated.ToShortDateString()</td>*@
+                <td>@item</td>
+                <td>@item</td>
+                <td>@item</td>
+                <td>@item.DateCreated.ToShortDateString()</td>
             </tr>
         }
     </tbody>

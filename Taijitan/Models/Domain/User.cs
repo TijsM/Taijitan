@@ -11,7 +11,9 @@ namespace Taijitan.Models.Domain
     {
         [JsonProperty]
         public int UserId { get; set; }
+        [JsonProperty]
         public string Name { get; set; }
+        [JsonProperty]
         public string FirstName { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Street { get; set; }

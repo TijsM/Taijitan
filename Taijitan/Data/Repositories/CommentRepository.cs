@@ -28,12 +28,12 @@ namespace Taijitan.Data.Repositories
 
         public IEnumerable<Comment> GetAll()
         {
-            return _comments.ToList();
+            return _comments.Include(c => c.Member).Include(c => c.Course).ToList();
         }
 
         public IEnumerable<Comment> GetByCourseMaterial(CourseMaterial course)
         {
-            return _comments.Where(c => c.CourseId == course.MaterialId).ToList();
+            return _comments.Where(c => c.Course.Equals(course)).ToList();
         }
 
         public Comment GetById(int id)
@@ -43,7 +43,7 @@ namespace Taijitan.Data.Repositories
 
         public IEnumerable<Comment> GetByMember(Member member)
         {
-            return _comments.Where(c => c.MemberId == member.UserId).ToList();
+            return _comments.Where(c => c.Member.Equals(member)).ToList();
         }
 
         public void SaveChanges()

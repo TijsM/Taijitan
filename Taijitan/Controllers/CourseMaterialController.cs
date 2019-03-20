@@ -88,6 +88,7 @@ namespace Taijitan.Controllers
                 SelectedMember = (Member)_userRepository.GetById(selectedUserId),
                 SelectedRank = rank,
             };
+            //viewModel in session steken
             HttpContext.Session.SetString("CourseMaterialViewModel", JsonConvert.SerializeObject(vm));
             return View("Training", vm);
         }
@@ -97,14 +98,41 @@ namespace Taijitan.Controllers
         {
             if (HttpContext.Session.GetString("CourseMaterialViewModel") != null)
             {
+                //viewModel uit session halen
                 CourseMaterialViewModel model = JsonConvert.DeserializeObject<CourseMaterialViewModel>(HttpContext.Session.GetString("CourseMaterialViewModel"));
-                Comment c = new Comment(comment, model.SelectedCourseMaterial, model.SelectedMember);
+                CourseMaterial course = _courseMaterialRepository.GetById(model.SelectedCourseMaterial.MaterialId);
+                Member member = (Member)_userRepository.GetById(model.SelectedMember.UserId);
+                Comment c = new Comment(comment, course, member);
                 _commentRepository.Add(c);
                 _commentRepository.SaveChanges();
                 TempData["message"] = "Het commentaar is succesvol verstuurd!";
+
+                ICollection<Comment> notifications;
+                //notificaties
+                if (HttpContext.Session.GetString("Notifications") != null)
+                {
+                    notifications = JsonConvert.DeserializeObject<ICollection<Comment>>(HttpContext.Session.GetString("Notifications"));
+                    while(notifications.Where(n => n.IsRead).Count() > 0 && notifications.Count() > 5)
+                    {
+                        notifications.Remove(notifications.Last());
+                    }
+                    notifications.Add(c);
+                } else
+                {
+                    notifications = new List<Comment>();
+                    notifications.Add(c);
+                }
+                HttpContext.Session.SetString("Notifications", JsonConvert.SerializeObject(notifications));
                 return RedirectToAction(nameof(SelectCourse), new { sessionId = model.Session.SessionId, rank = model.SelectedRank, selectedUserId = model.SelectedMember.UserId, matId = model.SelectedCourseMaterial.MaterialId });
             }
             return View("Training");
+        }
+
+        [HttpGet]
+        public IActionResult SummaryComments()
+        {
+            var comments = _commentRepository.GetAll();
+            return View(comments);
         }
     }
 }

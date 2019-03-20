@@ -15,6 +15,7 @@ namespace Taijitan.Models.Domain
         public string FullDescription { get; set; }
         public IEnumerable<Image> Images { get; set; }
         public Rank Rank { get; set; }
+        [JsonProperty]
         public string Title { get; set; }
         public IEnumerable<Comment> Comments { get; set; }
 
