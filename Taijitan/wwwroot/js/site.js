@@ -199,7 +199,8 @@ function init() {
                     exportOptions: {
                         columns: [0, 1, 2, 3, 5]
                     }
-                }
+                },
+
                 //,
                 //{
                 //    extend: 'pdfHtml5',
@@ -207,7 +208,16 @@ function init() {
                 //        columns: [0, 1, 2,3, 5]
                 //    }
                 //}
+            ],"columns": [
+                null,
+                null,
+                null,
+                null,
+                { "orderable": false, "width": "6%" },
+                null,
+                { "orderable": false, "width": "6%" }
             ]
+            
             
         });
     });
