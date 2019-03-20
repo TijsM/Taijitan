@@ -18,8 +18,6 @@ namespace TaijitanTest.Data
         private readonly Member _tijs;
 
         private readonly Teacher _teacher1;
-        public readonly IEnumerable<Formula> _formulas;
-        public readonly IEnumerable<Member> _members;
         #endregion
 
         #region Properties
@@ -29,8 +27,16 @@ namespace TaijitanTest.Data
         public Member UserTomJansens { get;  }
         public City TomJansensCity { get; set; }
         public IEnumerable<User> UsersByPartOfName { get; set; }
+        public TrainingDay Dinsdag { get; set; }
+        public IEnumerable<Formula> DinsdagFormule { get; set; }
+        public IEnumerable<TrainingDay> TrainingsDays { get; set; }
         public Session Session1 { get; set; }
+        public IEnumerable<Session> Sessions { get; set; }
+        public IEnumerable<Formula> Formulas { get; set; }
+        public IEnumerable<Member> Members { get; set; }
         public Admin Alain { get; set; }
+        public NonMember NonMemberBernard { get; set; }
+        public IEnumerable<NonMember> NonMembers { get; set; }
         #endregion
 
 
@@ -44,23 +50,33 @@ namespace TaijitanTest.Data
             TomJansensCity = _gent;
 
 
-            TrainingDay dinsdag = new TrainingDay("Dinsdag", 18.00, 20.00, DayOfWeek.Tuesday);
+            Dinsdag = new TrainingDay("Dinsdag", 18.00, 20.00, DayOfWeek.Tuesday);
             TrainingDay woensdag = new TrainingDay("Woensdag", 14.00, 15.50, DayOfWeek.Wednesday);
             TrainingDay donderdag = new TrainingDay("Donderdag", 18.00, 20.00, DayOfWeek.Thursday);
             TrainingDay zaterdag = new TrainingDay("Zaterdag", 10.00, 11.50, DayOfWeek.Saturday);
             TrainingDay zondag = new TrainingDay("Zondag", 11.00, 12.50, DayOfWeek.Sunday);
 
-            Formula dinDon = new Formula("dinsdag en donderdag", new List<TrainingDay> { dinsdag, donderdag });
-            Formula dinZat = new Formula("dinsdag en zaterdag", new List<TrainingDay> { dinsdag, zaterdag });
+            TrainingsDays = new List<TrainingDay>
+            {
+                Dinsdag, woensdag, donderdag, zaterdag, zondag
+            };
+
+            Formula dinDon = new Formula("dinsdag en donderdag", new List<TrainingDay> { Dinsdag, donderdag });
+            Formula dinZat = new Formula("dinsdag en zaterdag", new List<TrainingDay> { Dinsdag, zaterdag });
             Formula woeZat = new Formula("woensdag en zaterdag", new List<TrainingDay> { woensdag, zaterdag });
             Formula woe = new Formula("woensdag", new List<TrainingDay> { woensdag });
             Formula zat = new Formula("zaterdag", new List<TrainingDay> { zaterdag });
             Formula activiteit = new Formula("deelname aan activiteit", new List<TrainingDay>());
             Formula stage = new Formula("deelname aan meerdaagse stage", new List<TrainingDay>());
 
-            _formulas = new List<Formula>
+            Formulas = new List<Formula>
             {
                 dinDon, dinZat, woeZat, woe, zat/*, activiteit, stage*/
+            };
+
+            DinsdagFormule = new List<Formula>
+            {
+                dinDon, dinZat
             };
 
 
@@ -81,7 +97,7 @@ namespace TaijitanTest.Data
 
             };
 
-            _members = new List<Member>
+            Members = new List<Member>
             {
                 _tijs, _stef, _jarne, _robbe
             };
@@ -92,11 +108,15 @@ namespace TaijitanTest.Data
             UsersByPartOfName = new List<Member> {
                 _robbe,_jarne,_stef
             };
+            Session1 = new Session(Formulas, _teacher1, Members);
+            Sessions = new List<Session> { Session1 };
 
-            //Session1 = new Session(_formulas, _teacher1, _members);
-
-
-
+            NonMemberBernard = new NonMember("Bernard", "Deploige", "bernarddeploige@hotmail.com", Session1.SessionId);
+            NonMember nonMemberJordy = new NonMember("Jordy", "de Tier", "jordydetier@hotmail.com", Session1.SessionId);
+            NonMembers = new List<NonMember>
+            {
+                  NonMemberBernard, nonMemberJordy
+            };
         }
         #endregion
     }
