@@ -2,6 +2,7 @@
 @using Taijitan.Helpers;
 @using Taijitan.Models.ViewModels
 @{
+    ViewData["Title"] = "Registreer Aanwezigheid";
     TimeSpan start = TimeSpan.FromHours(Model.TrainingDay.StartHour);
     TimeSpan end = TimeSpan.FromHours(Model.TrainingDay.StopHour);
     string startMinutes = start.Minutes / 10 < 1 ? $"{start.Minutes}0" : $"{start.Minutes}";

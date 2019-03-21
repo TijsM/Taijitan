@@ -6,7 +6,9 @@ body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
-
+button:focus, a:focus, .btn:focus, .btn-taijitan:focus, .btn-not:focus, .btn-primary:focus{
+    outline:none !important;
+}
 html, body {
     height: 100%;
 }
@@ -329,13 +331,13 @@ fieldset {
 
 .notRead {
     animation-name: notification;
-    animation-duration: 2s;
+    animation-duration: 1s;
     border-radius: 2px;
 }
 @keyframes notification{
     0% {background-color: #F1F1F1;}
-    25% {background-color: #336566; color: white;}
-    50% {background-color: #F1F1F1; color: black;}
+    50% {background-color: #336566; color: white;}
+    100% {background-color: #F1F1F1; color: black;}
 }
 
 /*numberbadge*/
@@ -344,13 +346,6 @@ fieldset {
     font-size: 10px;
     font-family: Arial, san-serif;
     font-weight: bold;
-}
-
-
-.messages img {
-}
-
-.messages {
 }
 
 .notbadge {

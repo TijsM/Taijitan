@@ -1,6 +1,10 @@
 ﻿@model Taijitan.Models.ViewModels.CourseMaterialViewModel
 @using Taijitan.Helpers
 
+@{
+    ViewData["Title"] = "Training";
+}
+
 <h2>Training</h2>
 
 
@@ -13,12 +17,12 @@
                     {
                         if (us == Model.SelectedMember)
                         {
-                            <button type="submit" asp-controller="CourseMaterial" asp-action="SelectMember"  asp-route-sessionId="@Model.Session.SessionId" asp-route-id="@us.UserId" class="list-group-item list-group-item-action list-group-item-success">@us.FirstName @us.Name</button>
+                            <button type="submit" asp-controller="CourseMaterial" asp-action="SelectMember" asp-route-sessionId="@Model.Session.SessionId" asp-route-id="@us.UserId" class="list-group-item list-group-item-action list-group-item-success">@us.FirstName @us.Name</button>
 
                         }
                         else
                         {
-                            <button type="submit" asp-controller="CourseMaterial" asp-action="SelectMember"  asp-route-sessionId="@Model.Session.SessionId" asp-route-id="@us.UserId" class="list-group-item list-group-item-action">@us.FirstName @us.Name</button>
+                            <button type="submit" asp-controller="CourseMaterial" asp-action="SelectMember" asp-route-sessionId="@Model.Session.SessionId" asp-route-id="@us.UserId" class="list-group-item list-group-item-action">@us.FirstName @us.Name</button>
 
                         }
                     }
@@ -42,11 +46,11 @@
                             {
                                 if (rank == Model.SelectedRank)
                                 {
-                                    <button asp-controller="CourseMaterial" asp-action="SelectRank"    asp-route-sessionId="@Model.Session.SessionId" asp-route-rank=@rank asp-route-selectedUserId="@Model.SelectedMember.UserId"  type="submit" class="list-group-item list-group-item-action list-group-item-success">@rank  - @rank.GetDisplayName() - @rank.GetDescription()</button>
+                                    <button asp-controller="CourseMaterial" asp-action="SelectRank" asp-route-sessionId="@Model.Session.SessionId" asp-route-rank=@rank asp-route-selectedUserId="@Model.SelectedMember.UserId" type="submit" class="list-group-item list-group-item-action list-group-item-success">@rank  - @rank.GetDisplayName() - @rank.GetDescription()</button>
                                 }
                                 else
                                 {
-                                    <button asp-controller="CourseMaterial" asp-action="SelectRank"  asp-route-sessionId="@Model.Session.SessionId" asp-route-rank=@rank asp-route-selectedUserId="@Model.SelectedMember.UserId" type="submit" class="list-group-item list-group-item-action">@rank  - @rank.GetDisplayName() - @rank.GetDescription()</button>
+                                    <button asp-controller="CourseMaterial" asp-action="SelectRank" asp-route-sessionId="@Model.Session.SessionId" asp-route-rank=@rank asp-route-selectedUserId="@Model.SelectedMember.UserId" type="submit" class="list-group-item list-group-item-action">@rank  - @rank.GetDisplayName() - @rank.GetDescription()</button>
                                 }
 
 
@@ -67,7 +71,7 @@
             }
             else if (ViewData["partialView"].Equals("course"))
             {
-                <partial name="~/Views/CourseMaterial/_ConsultMaterial.cshtml" view-data="ViewData" model="@Model"/>
+                <partial name="~/Views/CourseMaterial/_ConsultMaterial.cshtml" view-data="ViewData" model="@Model" />
             }
             else
             {

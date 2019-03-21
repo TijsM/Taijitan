@@ -31,12 +31,14 @@ namespace Taijitan.Controllers
         {
             TempData["Role"] = "";
             TempData["IsHome"] = "true";
+            TempData["FullName"] = "";
             if (_userManager.GetUserName(HttpContext.User) != null)
             {
                 var user = _userRepository.GetByEmail(_userManager.GetUserName(HttpContext.User));
                 TempData["Role"] = user.GetType();
                 TempData["Role"] = TempData["role"].ToString().Split(".")[3];
                 TempData["UserId"] = user.UserId;
+                TempData["FullName"] = user.FirstName + " " + user.Name;
                 if (HttpContext.Session.GetString("Session") != null)
                 {
                     ViewData["Session"] = JsonConvert.DeserializeObject<Session>(HttpContext.Session.GetString("Session"));
