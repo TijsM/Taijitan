@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using Taijitan.Filters;
-using Taijitan.Helpers;
 using Taijitan.Models.Domain;
 using Taijitan.Models.ViewModels;
 
@@ -26,117 +22,89 @@ namespace Taijitan.Controllers
         private readonly IFormulaRepository _formulaRepository;
         private readonly INonMemberRepository _nonMemberRepository;
 
-        //private readonly UserManager<IdentityUser> _userManager;
-
-        public SessionController(IUserRepository userRepository, ISessionRepository sessionRepository, IFormulaRepository formulaRepository, ITrainingDayRepository trainingDayRepository, INonMemberRepository nonMemberRepository)
+        public SessionController(IUserRepository userRepository, ISessionRepository sessionRepository,
+            IFormulaRepository formulaRepository, ITrainingDayRepository trainingDayRepository, INonMemberRepository nonMemberRepository)
         {
             _userRepository = userRepository;
             _sessionRepository = sessionRepository;
             _trainingDayRepository = trainingDayRepository;
             _formulaRepository = formulaRepository;
             _nonMemberRepository = nonMemberRepository;
-            //_userManager = userManager;
         }
         [Authorize(Policy = "Teacher")]
         [HttpGet]
         public IActionResult Create()
         {
-            ViewData["Formulas"] = new SelectList(_trainingDayRepository.GetAll().Select(t => new { t.TrainingDayId, t.Name }).ToList(), "TrainingDayId", "Name");
+            ViewData["Formulas"] = GetSelectListFormulas();
             return View(new SessionViewModel());
         }
-
         [Authorize(Policy = "Teacher")]
         [HttpPost]
         public IActionResult Create(SessionViewModel svm, User user = null)
         {
-            Teacher t;
-
-            string userEmail = user.Email;
-            t = (Teacher)_userRepository.GetByEmail(userEmail);
             IEnumerable<Formula> formulasOfDay = _formulaRepository.GetByTrainingDay(_trainingDayRepository.getById(svm.TrainingDayId));
             IList<Member> members = new List<Member>();
             foreach (var formula in formulasOfDay)
             {
-                IEnumerable<Member> m = _userRepository.GetByFormula(formula);
-                foreach (var member in m)
+                foreach (var member in _userRepository.GetByFormula(formula))
                     members.Add(member);
             }
-            IEnumerable<Member> membersSession = new List<Member>();
-            membersSession = members;
+            IEnumerable<Member> membersSession = new List<Member>(members);
+            Teacher t = (Teacher)_userRepository.GetByEmail(user.Email);
             Session s = new Session(formulasOfDay.ToList(), t, membersSession);
             s.TrainingDay = _trainingDayRepository.getById(svm.TrainingDayId);
-
             _sessionRepository.Add(s);
             _sessionRepository.SaveChanges();
             svm.Change(s);
-
             HttpContext.Session.SetString("Session", JsonConvert.SerializeObject(s));
             return View("Register", svm);
         }
-
+        [HttpGet]
         [Authorize(Policy = "Teacher")]
         public IActionResult Register(int id, User user = null)
         {
             Session session = _sessionRepository.GetById(id);
-            //string userEmail = _userManager.GetUserName(HttpContext.User);
-            string userEmail = user.Email;
-            Teacher t = (Teacher)_userRepository.GetByEmail(userEmail);
             SessionViewModel svm = new SessionViewModel(session);
-            svm.SessionTeacher = t;
+            svm.SessionTeacher = (Teacher)_userRepository.GetByEmail(user.Email);
             svm.TrainingDay = session.TrainingDay;
             return View(svm);
         }
-
         [Authorize(Policy = "Teacher")]
         [HttpPost]
         public IActionResult AddToPresent(int sessionId, int id, User user = null)
         {
-            Teacher t;
-            string userEmail = user.Email;
-            //string userEmail = _userManager.GetUserName(HttpContext.User);
-            t = (Teacher)_userRepository.GetByEmail(userEmail);
             Session CurrentSession = _sessionRepository.GetById(sessionId);
             Member m = (Member)_userRepository.GetById(id);
             CurrentSession.AddToMembersPresent(m);
             SessionViewModel svm = new SessionViewModel(CurrentSession);
-            svm.SessionTeacher = t;
+            svm.SessionTeacher = (Teacher)_userRepository.GetByEmail(user.Email);
             svm.TrainingDay = CurrentSession.TrainingDay;
             _sessionRepository.SaveChanges();
             return RedirectToAction("Register", new { id = sessionId });
         }
-
         [Authorize(Policy = "Teacher")]
         [HttpPost]
         public IActionResult AddToUnconfirmed(int sessionId, int id, User user = null)
         {
-            Teacher t;
-            string userEmail = user.Email;
-            //string userEmail = _userManager.GetUserName(HttpContext.User);
-            t = (Teacher)_userRepository.GetByEmail(userEmail);
             Session CurrentSession = _sessionRepository.GetById(sessionId);
-            Member m = (Member)_userRepository.GetById(id);
-            CurrentSession.AddToMembers(m);
+            CurrentSession.AddToMembers((Member)_userRepository.GetById(id));
             SessionViewModel svm = new SessionViewModel(CurrentSession);
-            svm.SessionTeacher = t;
+            svm.SessionTeacher = (Teacher)_userRepository.GetByEmail(user.Email);
             svm.TrainingDay = CurrentSession.TrainingDay;
             _sessionRepository.SaveChanges();
             return RedirectToAction("Register", new { id = sessionId });
         }
-
-
-
-
+        [HttpGet]
         [Authorize(Policy = "Teacher")]
         public IActionResult AddOtherMember(int id, string searchTerm = "", User user = null)
         {
             var session = _sessionRepository.GetById(id);
-            IEnumerable<Member> allMembers = _userRepository.GetAllMembers();
             var sessionMembers = session.Members;
-            IEnumerable<Member> otherMembers = allMembers;
+            IEnumerable<Member> otherMembers = _userRepository.GetAllMembers();
 
             foreach (Member m in session.MembersPresent)
             {
-                List<Member> hList = sessionMembers.ToList<Member>();
+                List<Member> hList = sessionMembers.ToList();
                 hList.Add(m);
                 sessionMembers = hList;
             }
@@ -150,17 +118,12 @@ namespace Taijitan.Controllers
                 otherMembers = otherMembers.Where(u => u.Name.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
             }
 
-            Teacher t;
-            string userEmail = user.Email;
-            //string userEmail = _userManager.GetUserName(HttpContext.User);
-            t = (Teacher)_userRepository.GetByEmail(userEmail);
             SessionViewModel svm = new SessionViewModel(session);
-            svm.SessionTeacher = t;
+            svm.SessionTeacher = (Teacher)_userRepository.GetByEmail(user.Email);
             svm.TrainingDay = session.TrainingDay;
-            ViewData["otherMembers"] = otherMembers.ToList<Member>();
+            ViewData["otherMembers"] = otherMembers.ToList();
             return View(svm);
         }
-
         [Authorize(Policy = "Teacher")]
         [HttpPost]
         public IActionResult AddNonMember(string firstName, string lastName, string email, int id)
@@ -171,7 +134,6 @@ namespace Taijitan.Controllers
             _sessionRepository.SaveChanges();
             return RedirectToAction("Register", new { id });
         }
-
         [Authorize(Policy = "Teacher")]
         [HttpPost]
         public IActionResult RemoveNonMember(string firstName, int id)
@@ -182,14 +144,14 @@ namespace Taijitan.Controllers
             _sessionRepository.SaveChanges();
             return RedirectToAction("Register", new { id });
         }
-
+        [HttpGet]
         [Authorize(Policy = "Admin")]
         public IActionResult GetSessions()
         {
             ViewData["Sessions"] = _sessionRepository.GetAll();
             return View("SelectSession");
         }
-
+        [HttpGet]
         [Authorize(Policy = "Admin")]
         public IActionResult SummaryPresences(int id)
         {
@@ -197,6 +159,10 @@ namespace Taijitan.Controllers
             ViewData["NonMembers"] = s.NonMembers;
             return View(s.MembersPresent);
         }
-
+        private SelectList GetSelectListFormulas()
+        {
+            return new SelectList(_trainingDayRepository.GetAll().Select(t => new { t.TrainingDayId, t.Name })
+                .ToList(), "TrainingDayId", "Name");
+        }
     }
 }

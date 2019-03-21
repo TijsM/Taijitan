@@ -22,12 +22,13 @@ namespace Taijitan.Controllers
             _cityRepository = cityRepository;
         }
 
+        [HttpGet]
         public IActionResult Index(User user = null)
         {
             if (user == null)
                 return NotFound();
 
-            ViewData["Role"] = user.getRole();
+            ViewData["Role"] = user.GetRole();
             ViewData["userId"] = user.UserId;
             ViewData["EditViewModel"] = new EditViewModel(user);
             ViewData["Countries"] = EnumHelpers.ToSelectList<Country>();
@@ -40,6 +41,7 @@ namespace Taijitan.Controllers
         {
             return View(_userRepository.GetAll());
         }
+        [HttpGet]
         public IActionResult Edit(int id, int isFromSummary = 0)
         {
             User user = _userRepository.GetById(id);
@@ -47,7 +49,7 @@ namespace Taijitan.Controllers
             if (user == null)
                 return NotFound();
 
-            ViewData["Role"] = user.getRole();
+            ViewData["Role"] = user.GetRole();
             ViewData["userId"] = user.UserId;
             ViewData["isFromSummary"] = isFromSummary;
             ViewData["Countries"] = EnumHelpers.ToSelectList<Country>();
@@ -67,7 +69,7 @@ namespace Taijitan.Controllers
                 _userRepository.SaveChanges();
                 TempData["message"] = $"De persoonlijke gegevens van {u.FirstName} {u.Name} werden aangepast";
 
-                if (user.isRole("Admin") && isFromSummary == 1)
+                if (user.IsRole("Admin") && isFromSummary == 1)
                 {
                     return RedirectToAction(nameof(Summary));
                 }
@@ -77,6 +79,7 @@ namespace Taijitan.Controllers
             return View(evm);
         }
 
+        [HttpGet]
         [Authorize(Policy = "Admin")]
         public IActionResult Delete(int id, string confirmed = "true")
         {

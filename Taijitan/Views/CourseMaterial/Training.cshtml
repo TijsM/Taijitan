@@ -13,7 +13,7 @@
         <form method="post">
             <div class="list-group">
                 @{
-                    foreach (var us in Model.Session.MembersPresent)
+                    foreach (var us in Model.Session.MembersPresent.OrderBy(m => m.FirstName).ThenBy(m => m.Name).ToList())
                     {
                         if (us == Model.SelectedMember)
                         {
