@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
 using System;
@@ -22,7 +23,8 @@ namespace TaijitanTest.Controllers
         private readonly Mock<ICourseMaterialRepository> _mockCourseMaterialRepository;
         private readonly Mock<ICommentRepository> _mockCommentRepository;
 
-        private int idOfStartedSession = 1;
+        private int _idOfStartedSession = 1;
+        private int _nonExistingSessionId = 999;
         #endregion
 
 
@@ -36,13 +38,12 @@ namespace TaijitanTest.Controllers
             _mockCommentRepository = new Mock<ICommentRepository>();
 
             //setups
-            _mockSessionRepository.Setup(c => c.GetById(idOfStartedSession)).Returns(_dummyApplicationContext.Session1);
-            //_mockSessionRepository.Setup(c => c.GetById(idOfStartedSession)).Returns(_dummyApplicationContext.Session2);
+            _mockSessionRepository.Setup(c => c.GetById(_idOfStartedSession)).Returns(_dummyApplicationContext.Session1);
 
             // the controller
             _courseMaterialController = new CourseMaterialController(_mockSessionRepository.Object, _mockUserRepository.Object, _mockCourseMaterialRepository.Object, _mockCommentRepository.Object)
             {
-                TempData = new Mock<ITempDataDictionary>().Object
+                TempData = new Mock<ITempDataDictionary>().Object,
             };
         }
         #endregion
@@ -51,16 +52,26 @@ namespace TaijitanTest.Controllers
         [Fact]
         public void Confirm_nonExcistingSession_returnsNewSession()
         {
-            var result = _courseMaterialController.Confirm(idOfStartedSession) as ViewResult;
+            var result = _courseMaterialController.Confirm(_idOfStartedSession) as ViewResult;
             Assert.Equal("", result?.ViewData["partialView"]);
         }
-
         [Fact]
-        public void Confirm_existingSessiong_returnsTheSession()
+        public void Confirm_existingSession_returnsTheSession()
         {
-            var result = _courseMaterialController.Confirm(idOfStartedSession) as ViewResult;
+            var result = _courseMaterialController.Confirm(_idOfStartedSession) as ViewResult;
             var courseMaterialViewModel = result?.Model as CourseMaterialViewModel;
             Assert.Equal(_dummyApplicationContext.Session1, courseMaterialViewModel.Session);
+        }
+        [Fact]
+        public void Confirm_existingSession_returnsCourseMaterialMiewModel()
+        {
+            var result = _courseMaterialController.Confirm(_idOfStartedSession) as ViewResult;
+            Assert.IsType<CourseMaterialViewModel>(result?.Model);
+        }
+        [Fact]
+        public void Confirm_NonExistingSession_returnsNotFound()
+        {
+            Assert.IsType<NotFoundResult>(_courseMaterialController.Confirm(_nonExistingSessionId));
         }
         #endregion
     }

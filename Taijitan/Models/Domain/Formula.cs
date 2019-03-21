@@ -8,14 +8,16 @@ namespace Taijitan.Models.Domain
 {
     public class Formula
     {
+        private IEnumerable<TrainingDay> _trainingDays;
+
         public int FormulaId { get; set; }
         public ICollection<FormulaTrainingDay> FormulaTrainingDays { get; set; }
         public ICollection<SessionFormula> SessionFormulas { get; set; }
         public IEnumerable<Session> Sessions => SessionFormulas.Select(sf => sf.Session).ToList();
-        public IEnumerable<TrainingDay> TrainingDays { get; }
+        public IEnumerable<TrainingDay> TrainingDays { get; set; }
         public string Name { get; set; }
 
-        public Formula(string name,IEnumerable<TrainingDay> trainingDays)
+        public Formula(string name, IEnumerable<TrainingDay> trainingDays)
         {
             Name = name;
             FormulaTrainingDays = new List<FormulaTrainingDay>();

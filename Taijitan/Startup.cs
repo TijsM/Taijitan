@@ -62,6 +62,7 @@ namespace Taijitan
             services.AddScoped<INonMemberRepository, NonMemberRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<UserFilter>();
+            services.AddScoped<SessionFilter>();
 
             services.AddSession();
 

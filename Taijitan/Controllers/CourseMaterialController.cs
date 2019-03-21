@@ -31,6 +31,9 @@ namespace Taijitan.Controllers
         public IActionResult Confirm(int id)
         {
             Session currentSession = _sessionRepository.GetById(id);
+            if (currentSession == null)
+                return NotFound();
+
             currentSession.Start();
             _sessionRepository.SaveChanges();
             if(HttpContext != null)

@@ -35,6 +35,7 @@ namespace Taijitan.Models.Domain
 
         public IEnumerable<Comment> Comments { get; set; }
 
+        #region Methods
         public virtual void Change(string name, string firstName, string street, City city, Country country, string houseNumber, string phoneNumber, Gender gender, Country nationality, string birthPlace, string landlineNumber = "Niet gekend", string mailParent = "niet gekend" ) {
             Name = name;
             FirstName = firstName;
@@ -50,6 +51,7 @@ namespace Taijitan.Models.Domain
             LandlineNumber = landlineNumber;
             MailParent = mailParent;
         }
+        
         public string GetRole()
         {
             return GetType().ToString().Split(".")[3];
@@ -57,6 +59,7 @@ namespace Taijitan.Models.Domain
         public bool IsRole(string type)
         {
             return GetRole().Equals(type, StringComparison.CurrentCultureIgnoreCase);
-        }
+        } 
+        #endregion
     }
 }

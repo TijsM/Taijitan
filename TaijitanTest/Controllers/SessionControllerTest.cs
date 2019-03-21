@@ -100,11 +100,11 @@ namespace TaijitanTest.Controllers
 
         #region TestCreateHttpGet
         [Fact]
-        public void CreateHttpGet_PassesAllFormulesToView()
+        public void CreateHttpGet_PassesAllFormulasToView()
         {
             var result = _sessionController.Create() as ViewResult;
-            List<Formula> formulas = (result?.Model as IEnumerable<Formula>)?.ToList();
-            Assert.Equal(_dummyContext.Formulas.Count(), formulas.Count);
+            var formulas = result?.ViewData["formulas"] as SelectList;
+            Assert.Equal(_dummyContext.Formulas.Count(),formulas.Count());
         }
         #endregion
 
@@ -113,27 +113,16 @@ namespace TaijitanTest.Controllers
         public void CreateHttpPost_ValidCreate_CreatesAndPersistsSession()
         {
             var sessionViewModel = new SessionViewModel(_session1);
-            _sessionController.Create(sessionViewModel, _teacher);
+            _sessionController.Create(new Session(),sessionViewModel, _teacher);
             Assert.Equal(_session1Id, _session1.SessionId);
             _mockSessionRepository.Verify(s => s.SaveChanges(), Times.Once);
         }
-
         [Fact]
-        public void CreateHttpPost_InvalidCreate_ReturnsViewResult()
+        public void CreateHttptPost_InvalidModelState_RedirectToCreateActionMethod()
         {
-            var sessionViewModel = new SessionViewModel();
             _sessionController.ModelState.AddModelError("", "Any error");
-            var result = _sessionController.Create(sessionViewModel) as ViewResult;
-            Assert.IsType<ViewResult>(result);
-        }
-
-        [Fact]
-        public void CreateHttptPost_InvalidCreate_ReturnsCorrectView()
-        {
-            var sessionViewModel = new SessionViewModel();
-            _sessionController.ModelState.AddModelError("", "Any error");
-            var result = _sessionController.Create(sessionViewModel) as ViewResult;
-            Assert.Equal("Register", result.ViewName);
+            var result = _sessionController.Create(new Session(),new SessionViewModel()) as RedirectToActionResult;
+            Assert.Equal("Create", result?.ActionName);
         }
         #endregion
 

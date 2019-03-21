@@ -32,22 +32,25 @@ namespace Taijitan.Models.Domain
             MembersPresent = new List<Member>();
             SessionFormulas = new List<SessionFormula>();
             Members = members;
-            //TrainingDay = formulas != null ? formulas.First().TrainingDays.SingleOrDefault(d => d.DayOfWeek.Equals(DateTime.Now.DayOfWeek)) : null;
+
             ICollection<TrainingDay> temp = new HashSet<TrainingDay>();
             foreach (Formula formula in formulas)
             {
-                if (formula.TrainingDays != null)
+                List<TrainingDay> trainingDays = formula.FormulaTrainingDays.Select(td => td.TrainingDay).ToList();
+                if (trainingDays != null && formula != null)
                 {
-                    foreach (TrainingDay day in formula.TrainingDays)
+                    foreach (TrainingDay day in trainingDays)
                     {
-                        if (!temp.Contains(day))
+                        if (!temp.Contains(day) && day != null)
                         {
                             temp.Add(day);
                         }
                     }
                 }
             }
-            TrainingDay = temp.FirstOrDefault(td => td.DayOfWeek.Equals(DateTime.Today.DayOfWeek));
+            TrainingDay prefDay = temp.SingleOrDefault(t => t.DayOfWeek.Equals(DateTime.Today.DayOfWeek));
+            TrainingDay = prefDay != null ? prefDay : temp.First(t => t != null);
+
             Date = DateTime.Now;
             Teacher = teacher;
             SessionMembers = new List<SessionMember>();

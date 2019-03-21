@@ -14,6 +14,7 @@ namespace Taijitan.Controllers
 {
     [Authorize]
     [ServiceFilter(typeof(UserFilter))]
+    [ServiceFilter(typeof(SessionFilter))]
     public class SessionController : Controller
     {
         private readonly ISessionRepository _sessionRepository;
@@ -40,24 +41,27 @@ namespace Taijitan.Controllers
         }
         [Authorize(Policy = "Teacher")]
         [HttpPost]
-        public IActionResult Create(SessionViewModel svm, User user = null)
+        public IActionResult Create(Session session,SessionViewModel svm,User user = null)
         {
-            IEnumerable<Formula> formulasOfDay = _formulaRepository.GetByTrainingDay(_trainingDayRepository.getById(svm.TrainingDayId));
-            IList<Member> members = new List<Member>();
-            foreach (var formula in formulasOfDay)
+            if (ModelState.IsValid)
             {
-                foreach (var member in _userRepository.GetByFormula(formula))
-                    members.Add(member);
+                IEnumerable<Formula> formulasOfDay = _formulaRepository.GetByTrainingDay(_trainingDayRepository.getById(svm.TrainingDayId));
+                IList<Member> members = new List<Member>();
+                foreach (var formula in formulasOfDay)
+                {
+                    foreach (var member in _userRepository.GetByFormula(formula))
+                        members.Add(member);
+                }
+                IEnumerable<Member> membersSession = new List<Member>(members);
+                Teacher t = (Teacher)_userRepository.GetByEmail(user.Email);
+                session = new Session(formulasOfDay.ToList(), t, membersSession);
+                session.TrainingDay = _trainingDayRepository.getById(svm.TrainingDayId);
+                _sessionRepository.Add(session);
+                _sessionRepository.SaveChanges();
+                svm.Change(session);
+                return View("Register", svm);
             }
-            IEnumerable<Member> membersSession = new List<Member>(members);
-            Teacher t = (Teacher)_userRepository.GetByEmail(user.Email);
-            Session s = new Session(formulasOfDay.ToList(), t, membersSession);
-            s.TrainingDay = _trainingDayRepository.getById(svm.TrainingDayId);
-            _sessionRepository.Add(s);
-            _sessionRepository.SaveChanges();
-            svm.Change(s);
-            HttpContext.Session.SetString("Session", JsonConvert.SerializeObject(s));
-            return View("Register", svm);
+            return RedirectToAction(nameof(Create));
         }
         [HttpGet]
         [Authorize(Policy = "Teacher")]
