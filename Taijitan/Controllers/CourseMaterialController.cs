@@ -38,7 +38,8 @@ namespace Taijitan.Controllers
                 _sessionRepository.SaveChanges();
             }
             //
-            HttpContext.Session.SetString("Session", JsonConvert.SerializeObject(currentSession));
+            if(HttpContext != null)
+                HttpContext.Session.SetString("Session", JsonConvert.SerializeObject(currentSession));
             ViewData["partialView"] = "";
             CourseMaterialViewModel vm = new CourseMaterialViewModel()
             {

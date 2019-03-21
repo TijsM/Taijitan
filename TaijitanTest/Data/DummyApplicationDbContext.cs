@@ -108,7 +108,7 @@ namespace TaijitanTest.Data
             UsersByPartOfName = new List<Member> {
                 _robbe,_jarne,_stef
             };
-            Session1 = new Session(Formulas, _teacher1, Members);
+            Session1 = new Session(Formulas, _teacher1, Members) { SessionStarted = true};
             Sessions = new List<Session> { Session1 };
 
             NonMemberBernard = new NonMember("Bernard", "Deploige", "bernarddeploige@hotmail.com", Session1.SessionId);

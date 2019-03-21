@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using Taijitan.Controllers;
 using Taijitan.Models.Domain;
+using Taijitan.Models.ViewModels;
 using TaijitanTest.Data;
 using Xunit;
 
@@ -21,8 +22,7 @@ namespace TaijitanTest.Controllers
         private readonly Mock<ICourseMaterialRepository> _mockCourseMaterialRepository;
         private readonly Mock<ICommentRepository> _mockCommentRepository;
 
-        private int idOfSession = 1;
-        private int idOfStartedSession = 2;
+        private int idOfStartedSession = 1;
         #endregion
 
 
@@ -36,7 +36,7 @@ namespace TaijitanTest.Controllers
             _mockCommentRepository = new Mock<ICommentRepository>();
 
             //setups
-            _mockSessionRepository.Setup(c => c.GetById(idOfSession)).Returns(_dummyApplicationContext.Session1);
+            _mockSessionRepository.Setup(c => c.GetById(idOfStartedSession)).Returns(_dummyApplicationContext.Session1);
             //_mockSessionRepository.Setup(c => c.GetById(idOfStartedSession)).Returns(_dummyApplicationContext.Session2);
 
             // the controller
@@ -51,21 +51,16 @@ namespace TaijitanTest.Controllers
         [Fact]
         public void Confirm_nonExcistingSession_returnsNewSession()
         {
-            var currentSession = _mockSessionRepository.Object.GetById(idOfSession);
-            var result = _courseMaterialController.Confirm(idOfSession) as ViewResult;
-            ViewDataDictionary viewData = result.ViewData;
-
-            Assert.Equal("", viewData["partialView"]);
+            var result = _courseMaterialController.Confirm(idOfStartedSession) as ViewResult;
+            Assert.Equal("", result?.ViewData["partialView"]);
         }
 
         [Fact]
         public void Confirm_existingSessiong_returnsTheSession()
         {
-            var currentSession = _mockSessionRepository.Object.GetById(idOfStartedSession);
             var result = _courseMaterialController.Confirm(idOfStartedSession) as ViewResult;
-            ViewDataDictionary viewData = result.ViewData;
-
-           
+            var courseMaterialViewModel = result?.Model as CourseMaterialViewModel;
+            Assert.Equal(_dummyApplicationContext.Session1, courseMaterialViewModel.Session);
         }
         #endregion
     }
