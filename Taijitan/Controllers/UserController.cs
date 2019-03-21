@@ -16,20 +16,19 @@ namespace Taijitan.Controllers
         private readonly IUserRepository _userRepository;
         private readonly ICityRepository _cityRepository;
 
-
         public UserController(IUserRepository userRepository, ICityRepository cityRepository)
         {
             _userRepository = userRepository;
             _cityRepository = cityRepository;
-
         }
 
-
+        [HttpGet]
         public IActionResult Index(User user = null)
         {
             if (user == null)
                 return NotFound();
-            ViewData["Role"] = user.GetType().ToString().Split(".")[3];
+
+            ViewData["Role"] = user.GetRole();
             ViewData["userId"] = user.UserId;
             ViewData["EditViewModel"] = new EditViewModel(user);
             ViewData["Countries"] = EnumHelpers.ToSelectList<Country>();
@@ -40,25 +39,22 @@ namespace Taijitan.Controllers
         [Authorize(Policy = "Admin")]
         public IActionResult Summary()
         {
-            IEnumerable<User> users = _userRepository.GetAll();
-            return View(users);
+            return View(_userRepository.GetAll());
         }
-
-
+        [HttpGet]
         public IActionResult Edit(int id, int isFromSummary = 0)
         {
             User user = _userRepository.GetById(id);
 
             if (user == null)
                 return NotFound();
-            ViewData["Role"] = user.GetType().ToString().Split(".")[3];
+
+            ViewData["Role"] = user.GetRole();
             ViewData["userId"] = user.UserId;
             ViewData["isFromSummary"] = isFromSummary;
             ViewData["Countries"] = EnumHelpers.ToSelectList<Country>();
             ViewData["Genders"] = EnumHelpers.ToSelectList<Gender>();
-
-            var model = new EditViewModel(user);
-            return View("Edit", model);
+            return View("Edit",new EditViewModel(user));
         }
         [HttpPost]
         public IActionResult Edit(int id, User user, EditViewModel evm, int isFromSummary = 0)
@@ -66,22 +62,24 @@ namespace Taijitan.Controllers
             User u = null;
             if (ModelState.IsValid)
             {
-                    u = _userRepository.GetById(id);
-                    u.Change(evm.Name, evm.FirstName, evm.Street, _cityRepository.GetByPostalCode(evm.PostalCode), evm.Country, evm.HouseNumber, evm.PhoneNumber, evm.Gender, evm.Nationality, evm.BirthPlace, evm.LandLineNumber, evm.MailParent);
-                    _userRepository.SaveChanges();
-                    string rol = user.GetType().ToString().Split(".")[3];
-                    TempData["message"] = $"De persoonlijke gegevens van {u.FirstName} {u.Name} werden aangepast";
+                u = _userRepository.GetById(id);
+                u.Change(evm.Name, evm.FirstName, evm.Street, _cityRepository.GetByPostalCode(evm.PostalCode),
+                    evm.Country, evm.HouseNumber, evm.PhoneNumber, evm.Gender, evm.Nationality, evm.BirthPlace,
+                    evm.LandLineNumber, evm.MailParent);
+                _userRepository.SaveChanges();
+                TempData["message"] = $"De persoonlijke gegevens van {u.FirstName} {u.Name} werden aangepast";
 
-                    if (rol.Equals("Admin") && isFromSummary == 1)
-                    {
-                        return RedirectToAction(nameof(Summary));
-                    }
-                    return RedirectToAction("Index", "Home");
+                if (user.IsRole("Admin") && isFromSummary == 1)
+                {
+                    return RedirectToAction(nameof(Summary));
+                }
+                return RedirectToAction("Index", "Home");
             }
             ViewData["userId"] = id;
             return View(evm);
         }
 
+        [HttpGet]
         [Authorize(Policy = "Admin")]
         public IActionResult Delete(int id, string confirmed = "true")
         {

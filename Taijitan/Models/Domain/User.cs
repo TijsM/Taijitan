@@ -50,5 +50,13 @@ namespace Taijitan.Models.Domain
             LandlineNumber = landlineNumber;
             MailParent = mailParent;
         }
+        public string GetRole()
+        {
+            return GetType().ToString().Split(".")[3];
+        }
+        public bool IsRole(string type)
+        {
+            return GetRole().Equals(type, StringComparison.CurrentCultureIgnoreCase);
+        }
     }
 }

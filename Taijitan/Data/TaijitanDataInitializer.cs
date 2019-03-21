@@ -20,7 +20,6 @@ namespace Taijitan.Data
         }
         public async Task InitializeData()
         {
-            _dbContext.Database.EnsureDeleted();
             if (_dbContext.Database.EnsureCreated())
             {
                 #region TrainingDays
@@ -62,16 +61,16 @@ namespace Taijitan.Data
                      new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Garzebekeveldstraat", adinkerke, Country.Belgium, "Unknown", "0000000000", "robbe.dekien@student.hogent.be",dinZat, new DateTime(2016 / 05 / 30), Gender.Man, Country.Belgium, "02-06-1999.100-20", "Gent"){ Rank = Rank.Dan5},
                      new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Bijlokeweg", gent, Country.Belgium ,"73", "0000000000", "stef.verlinde@student.hogent.be",dinDon, new DateTime(2015 / 08 / 4), Gender.Man, Country.Belgium, "02-08-1998.306-37", "Gent"){ Rank = Rank.Kyu1},
                      new Member("Swets", "Jefferyf", new DateTime(1997, 7, 01), "Stationstraat", gent, Country.Belgium ,"105", "+32458732447", "jeffrey.swets@hotmail.com",woe, new DateTime(2016 / 08 / 4), Gender.Man, Country.Belgium, "02-08-1998.306-38", "Gent"){ Rank = Rank.Kyu2},
-                     new Member("Middeljans", "Eef", new DateTime(1980, 02, 01), "Bergstraat", nazareth, Country.Belgium ,"20", "+32499875236", "eef.middeljans@gmail.com",zat, new DateTime(2017 / 02 / 18), Gender.Women, Country.Belgium, "02-08-1998.306-39", "Antwerpen"){ Rank = Rank.Kyu4},
-                     new Member("Van der Ende", "Yolanda", new DateTime(1980, 03, 18), "Rue de la Tannerie", bekegem, Country.Belgium ,"357", "0480822560", "YolandevanderEnde@rhyta.com",woeZat, new DateTime(2014 / 05 / 18), Gender.Women, Country.Belgium, "02-08-1998.306-40", "Gent"){ Rank = Rank.Kyu5},
-                     new Member("Velders", "Kressy", new DateTime(1985, 5, 16), "Passieweik", nazareth, Country.Belgium ,"21", "+32499721558", "krissyvelders@gmail.com",dinDon, new DateTime(2015 / 01 / 02), Gender.Women, Country.Belgium, "02-08-1998.306-40", "Gent"){ Rank = Rank.Dan5},
+                     new Member("Middeljans", "Eef", new DateTime(1980, 02, 01), "Bergstraat", nazareth, Country.Belgium ,"20", "+32499875236", "eef.middeljans@gmail.com",zat, new DateTime(2017 / 02 / 18), Gender.Vrouw, Country.Belgium, "02-08-1998.306-39", "Antwerpen"){ Rank = Rank.Kyu4},
+                     new Member("Van der Ende", "Yolanda", new DateTime(1980, 03, 18), "Rue de la Tannerie", bekegem, Country.Belgium ,"357", "0480822560", "YolandevanderEnde@rhyta.com",woeZat, new DateTime(2014 / 05 / 18), Gender.Vrouw, Country.Belgium, "02-08-1998.306-40", "Gent"){ Rank = Rank.Kyu5},
+                     new Member("Velders", "Kressy", new DateTime(1985, 5, 16), "Passieweik", nazareth, Country.Belgium ,"21", "+32499721558", "krissyvelders@gmail.com",dinDon, new DateTime(2015 / 01 / 02), Gender.Vrouw, Country.Belgium, "02-08-1998.306-40", "Gent"){ Rank = Rank.Dan5},
                      new Member("Sluis", "Willem", new DateTime(1995, 12, 12), "Hoekstraat", gent, Country.Belgium ,"77", "+32589657448", "sluis.willem@skynet.be",dinDon, new DateTime(2010 / 11 / 08), Gender.Man, Country.Belgium, "02-08-1998.306-40", "Gent"){ Rank = Rank.Dan7},
                      new Member("Idris", "Roskam", new DateTime(2000, 08, 28), "Booischotsewag", gent, Country.Belgium ,"28", "+324896875210", "idris.roskam@gmail.be",dinDon, new DateTime(2010 / 11 / 08), Gender.Man, Country.Belgium, "02-08-1998.306-42", "Antwerpen"){ Rank = Rank.Dan8},
                      new Member("Tervoort", "Djamel", new DateTime(1996, 11, 01), "Kapelstraat", adinkerke, Country.Belgium ,"12", "+32487541225", "Djamel.tervoort@gmail.be",dinDon, new DateTime(2010 / 11 / 08), Gender.Man, Country.Belgium, "02-08-1998.306-42", "Antwerpen"){ Rank = Rank.Kyu2},
                      new Member("Tom", "Nijs", new DateTime(1980, 01, 22), "Fietsstraat", bekegem, Country.Belgium ,"12", "+32487541225", "tom.nijs@gmial.com",dinDon, new DateTime(2014 / 1 / 12), Gender.Man, Country.Belgium, "02-08-1998.306-42", "Antwerpen"){ Rank = Rank.Kyu4},
-                     new Member("Sofia", "Colpeart", new DateTime(1990, 10, 10), "Hoogstraat",brussel , Country.Belgium ,"100", "+32588754221", "colpeart.sofia@gmail.com",dinDon, new DateTime(2014 / 1 / 18), Gender.Women, Country.Belgium, "02-08-1998.306-42", "Brussel"){ Rank = Rank.Dan3},
+                     new Member("Sofia", "Colpeart", new DateTime(1990, 10, 10), "Hoogstraat",brussel , Country.Belgium ,"100", "+32588754221", "colpeart.sofia@gmail.com",dinDon, new DateTime(2014 / 1 / 18), Gender.Vrouw, Country.Belgium, "02-08-1998.306-42", "Brussel"){ Rank = Rank.Dan3},
                      new Member("Jord", "Kroos", new DateTime(1997, 01, 06), "Steinstraat",nazareth , Country.Belgium ,"25", "+32499875421", "jord.kroos@gmail.com",dinDon, new DateTime(2019 / 1 / 12), Gender.Man, Country.Belgium, "02-08-1998.306-42", "Gent"){ Rank = Rank.Dan3},
-                     new Member("Kristien", "Vandewalle", new DateTime(1960, 05, 20), "Muziekstraat",nazareth , Country.Belgium ,"45", "+32588748775", "kristien.vandewalle@gmail.com",dinDon, new DateTime(2019 / 2 / 18), Gender.Women, Country.Belgium, "02-08-1998.306-42", "Gent"){ Rank = Rank.Dan9},
+                     new Member("Kristien", "Vandewalle", new DateTime(1960, 05, 20), "Muziekstraat",nazareth , Country.Belgium ,"45", "+32588748775", "kristien.vandewalle@gmail.com",dinDon, new DateTime(2019 / 2 / 18), Gender.Vrouw, Country.Belgium, "02-08-1998.306-42", "Gent"){ Rank = Rank.Dan9},
                      new Member("Koen", "Jansens", new DateTime(1966, 09, 22), "Sterrenbosstraat",nazareth , Country.Belgium ,"10", "+324998752214", "Koen.jansens@gmail.com",dinDon, new DateTime(2018 / 06 / 22), Gender.Man, Country.Belgium, "02-08-1998.306-42", "Gent"){ Rank = Rank.Kyu5},
                      new Member("Robin", "De Groot", new DateTime(1996, 02, 26), "stationstraat",adinkerke, Country.Belgium ,"20", "+32687325741", "groot.robin@gmail.com",dinDon, new DateTime(2018 / 06 / 23), Gender.Man, Country.Belgium, "02-08-1998.306-42", "Gent"){ Rank = Rank.Kyu6},
                      new Member("Nemo", "Donselaar", new DateTime(1995, 03, 18), "Linieweg",brussel, Country.Belgium ,"98", "+32875463220", "nemo.donselaar@gmail.com",dinDon, new DateTime(2014 / 05 / 30), Gender.Man, Country.Belgium, "02-08-1998.306-42", "Gent"){ Rank = Rank.Dan1},
@@ -222,7 +221,7 @@ namespace Taijitan.Data
                 _dbContext.SaveChanges();
             }
         }
-
+    
         private async Task CreateUser(string userName, string email, string password, string role)
         {
             var user = new IdentityUser { UserName = userName, Email = email };

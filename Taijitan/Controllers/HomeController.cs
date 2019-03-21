@@ -31,24 +31,27 @@ namespace Taijitan.Controllers
         {
             TempData["Role"] = "";
             TempData["IsHome"] = "true";
+            TempData["FullName"] = "";
             if (_userManager.GetUserName(HttpContext.User) != null)
             {
                 var user = _userRepository.GetByEmail(_userManager.GetUserName(HttpContext.User));
-                TempData["Role"] = user.GetType();
-                TempData["Role"] = TempData["role"].ToString().Split(".")[3];
+                TempData["Role"] = user.GetRole();
                 TempData["UserId"] = user.UserId;
+                TempData["FullName"] = user.FirstName + " " + user.Name;
                 if (HttpContext.Session.GetString("Session") != null)
                 {
                     ViewData["Session"] = JsonConvert.DeserializeObject<Session>(HttpContext.Session.GetString("Session"));
                 }
-                if (TempData["Role"].Equals("Admin"))
+
+                //notifications
+                if (user.IsRole("Admin"))
                 {
                     if (HttpContext.Session.GetString("Notifications") != null)
                     {
                         ICollection<Comment> comments = JsonConvert.DeserializeObject<ICollection<Comment>>(HttpContext.Session.GetString("Notifications"));
                         while (comments.Count > 5 && comments.Where(c => c.IsRead).Count() > 0)
                         {
-                            Comment commentToDelete = comments.Where(c => c.IsRead).First();
+                            Comment commentToDelete = comments.Where(c => c.IsRead).Last();
                             comments.Remove(commentToDelete);
                         }
                         TempData["Notifications"] = comments;
@@ -60,6 +63,7 @@ namespace Taijitan.Controllers
                         ICollection<Comment> comments = new List<Comment>();
                         comments = _commentRepostitory.GetAll().Where(c => !c.IsRead).ToList();
                         int aantal = 5 - comments.Count();
+                        aantal = aantal < 0 ? 0 : aantal;
                         var extraComments = _commentRepostitory.GetAll().Where(c => c.IsRead).Take(aantal);
                         if(extraComments != null)
                         {

@@ -4,15 +4,7 @@
 @inject UserManager<IdentityUser> UserManager
 
 @{
-    ViewData["Title"] = "Home Page";
-
-    string userNameFirstLetterUpper = "";
-    if (UserManager.GetUserName(User) != null)
-    {
-        var email = UserManager.GetUserName(User);
-        var userName = email.Substring(0, email.IndexOf("."));
-        userNameFirstLetterUpper = char.ToUpper(userName[0]) + userName.Substring(1);
-    }
+    ViewData["Title"] = "Home";
 }
 
 <div class="center-block text-center" style="margin: 10% auto">
@@ -28,7 +20,7 @@
         }
         else if (TempData["Role"].Equals("Member"))
         {
-            <h1>Welkom @userNameFirstLetterUpper</h1>
+            <h1>Welkom @TempData["FullName"]</h1>
             <p>Op de online tool van Taijitan</p>
             <a asp-controller="User" asp-action="Edit" asp-route-id="@TempData["UserId"]" class="btn-taijitan btn">Wijzig gegevens</a>
         }

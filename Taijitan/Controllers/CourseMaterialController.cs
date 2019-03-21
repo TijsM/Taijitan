@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MimeKit;
 using Newtonsoft.Json;
 using Taijitan.Models.Domain;
 using Taijitan.Models.ViewModels;
+using MailKit.Net.Smtp;
 
 namespace Taijitan.Controllers
 {
@@ -17,7 +20,8 @@ namespace Taijitan.Controllers
         private readonly ICourseMaterialRepository _courseMaterialRepository;
         private readonly ICommentRepository _commentRepository;
 
-        public CourseMaterialController(ISessionRepository sessionRepository, IUserRepository userRepository, ICourseMaterialRepository courseMaterialRepository, ICommentRepository commentRepository)
+        public CourseMaterialController(ISessionRepository sessionRepository, IUserRepository userRepository,
+            ICourseMaterialRepository courseMaterialRepository, ICommentRepository commentRepository)
         {
             _sessionRepository = sessionRepository;
             _userRepository = userRepository;
@@ -27,13 +31,11 @@ namespace Taijitan.Controllers
         public IActionResult Confirm(int id)
         {
             Session currentSession = _sessionRepository.GetById(id);
-            if (!currentSession.SessionStarted)
-            {
-                currentSession.AddToSessionMembers(currentSession.MembersPresent.ToList());
-                currentSession.SessionStarted = true;
-                _sessionRepository.SaveChanges();
-            }
-            HttpContext.Session.SetString("Session", JsonConvert.SerializeObject(currentSession));
+            currentSession.Start();
+            _sessionRepository.SaveChanges();
+            if(HttpContext != null)
+                HttpContext.Session.SetString("Session", JsonConvert.SerializeObject(currentSession));
+
             ViewData["partialView"] = "";
             CourseMaterialViewModel vm = new CourseMaterialViewModel()
             {
@@ -60,8 +62,7 @@ namespace Taijitan.Controllers
         }
         private ICollection<Rank> GiveAllRanksAsList()
         {
-            ICollection<Rank> ranks = Enum.GetValues(typeof(Rank)).Cast<Rank>().ToList();
-            return ranks;
+            return Enum.GetValues(typeof(Rank)).Cast<Rank>().ToList();
         }
         public IActionResult SelectRank(int sessionId, Rank rank, int selectedUserId)
         {
@@ -78,14 +79,15 @@ namespace Taijitan.Controllers
         }
         public IActionResult SelectCourse(int sessionId, Rank rank, int selectedUserId, int matId)
         {
+            Session session = _sessionRepository.GetById(sessionId);
             ViewData["partialView"] = "course";
             CourseMaterialViewModel vm = new CourseMaterialViewModel()
             {
-                Session = _sessionRepository.GetById(sessionId),
+                Session = session,
                 CourseMaterials = _courseMaterialRepository.GetByRank(rank),
                 SelectedCourseMaterial = _courseMaterialRepository.GetById(matId),
                 AllRanks = GiveAllRanksAsList(),
-                SelectedMember = (Member)_userRepository.GetById(selectedUserId),
+                SelectedMember = session.MembersPresent.SingleOrDefault(m => m.UserId == selectedUserId),
                 SelectedRank = rank,
             };
             //viewModel in session steken
@@ -105,6 +107,7 @@ namespace Taijitan.Controllers
                 Comment c = new Comment(comment, course, member);
                 _commentRepository.Add(c);
                 _commentRepository.SaveChanges();
+                SendMail(c);
                 TempData["message"] = "Het commentaar is succesvol verstuurd!";
 
                 ICollection<Comment> notifications;
@@ -124,19 +127,18 @@ namespace Taijitan.Controllers
                     notifications.Add(c);
                 }
                 HttpContext.Session.SetString("Notifications", JsonConvert.SerializeObject(notifications));
-                return RedirectToAction(nameof(SelectCourse), new { sessionId = model.Session.SessionId, rank = model.SelectedRank, selectedUserId = model.SelectedMember.UserId, matId = model.SelectedCourseMaterial.MaterialId });
+                return RedirectToAction(nameof(SelectCourse), new { sessionId = model.Session.SessionId, rank = model.SelectedRank,
+                    selectedUserId = model.SelectedMember.UserId, matId = model.SelectedCourseMaterial.MaterialId });
             }
             return View("Training");
         }
-
         [HttpGet]
         public IActionResult ViewComments()
         {
             ViewData["IsEmpty"] = true;
             return ShowComments();
-            
         }
-
+        [HttpGet]
         public IActionResult SelectComment(int id)
         {
             Comment comment = _commentRepository.GetById(id);
@@ -144,7 +146,6 @@ namespace Taijitan.Controllers
             if (comment == null)
             {
                 ViewData["IsEmpty"] = true;
-                //ViewData["Comment"] = "Selecteer een item uit de lijst om de commentaar te kunnen bekijken";
             }
             else
             {
@@ -152,7 +153,6 @@ namespace Taijitan.Controllers
                 ViewData["Comment"] = comment;
 
             }
-
             return ShowComments();
         }
 
@@ -161,18 +161,47 @@ namespace Taijitan.Controllers
             Comment comment = _commentRepository.GetById(id);
             if (comment == null)
                 return NotFound();
+
             _commentRepository.Delete(comment);
             _commentRepository.SaveChanges();
             ViewData["IsEmpty"] = true;
-
             return ShowComments();
         }
 
         private IActionResult ShowComments()
         {
-            
             var comments = _commentRepository.GetAll();
             return View("ViewComments", comments);
+        }
+
+        private void SendMail(Comment comment)
+        {
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("project.groep08@gmail.com"));
+            message.To.Add(new MailboxAddress("receivetaijitan@maildrop.cc"));
+            message.Subject = "nieuwe commentaar";
+            message.Body = new TextPart("html")
+            {
+                Text =
+                "Gebruiker die commentaar leverde: " + comment.Member.FirstName +" " + comment.Member.Name
+                + "<br />"
+                + "Datum van de commentaar: " + comment.DateCreated.ToShortDateString()
+                + "<br />"
+                + "Lesmateriaal van de commentaar: " + comment.Course.Title
+                + "<br />"
+                + "Commentaar: "
+                + "<br />"
+                + comment.Content
+            };
+
+            using (var client = new SmtpClient())
+            {
+                client.Connect("smtp.gmail.com", 587);
+                client.Authenticate("groep08.project@gmail.com", "_123Groep8_123_");
+
+                client.Send(message);
+                client.Disconnect(true);
+            }
         }
     }
 }

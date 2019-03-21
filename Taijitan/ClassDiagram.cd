@@ -16,33 +16,23 @@
   </Class>
   <Class Name="Taijitan.Models.Domain.Formula">
     <Position X="6.5" Y="3.75" Width="2" />
-    <AssociationLine Name="Sessions" Type="Taijitan.Models.Domain.Session" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="8.125" Y="5.473" />
-        <Point X="8.125" Y="7" />
-        <Point X="8.5" Y="7" />
-        <Point X="8.5" Y="8.125" />
-        <Point X="10.233" Y="8.125" Type="JumpStart" />
-        <Point X="10.399" Y="8.125" Type="JumpEnd" />
-        <Point X="10.757" Y="8.125" />
-        <Point X="10.757" Y="8.5" />
-      </Path>
-    </AssociationLine>
     <AssociationLine Name="FormulaTrainingDays" Type="Taijitan.Models.Domain.FormulaTrainingDay" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="8.5" Y="4.675" />
+        <Point X="8.792" Y="4.675" Type="JumpStart" />
+        <Point X="8.958" Y="4.675" Type="JumpEnd" />
         <Point X="10.75" Y="4.675" />
         <Point X="10.75" Y="3.973" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAACAAAAQAAAAAAAAACIAAEAAAAAA=</HashCode>
+      <HashCode>AAAABAAAAAAAAAAAACAAAAQAAAAAAAAACIAAEAAAAAA=</HashCode>
       <FileName>Models\Domain\Formula.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="Sessions" />
       <Property Name="FormulaTrainingDays" />
       <Property Name="SessionFormulas" />
+      <Property Name="Sessions" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Taijitan.Models.Domain.FormulaTrainingDay">
@@ -51,6 +41,8 @@
       <Path>
         <Point X="10.375" Y="3.973" />
         <Point X="10.375" Y="4.391" />
+        <Point X="8.958" Y="4.391" Type="JumpStart" />
+        <Point X="8.792" Y="4.391" Type="JumpEnd" />
         <Point X="8.5" Y="4.391" />
       </Path>
     </AssociationLine>
@@ -65,22 +57,13 @@
   </Class>
   <Class Name="Taijitan.Models.Domain.Member">
     <Position X="6.25" Y="7.25" Width="2" />
-    <InheritanceLine Type="Taijitan.Models.Domain.User" FixedFromPoint="true">
-      <Path>
-        <Point X="4.5" Y="4.871" />
-        <Point X="4.5" Y="5.5" />
-        <Point X="5.75" Y="5.5" />
-        <Point X="5.75" Y="6.875" />
-        <Point X="7.25" Y="6.875" />
-        <Point X="7.25" Y="7.25" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAABAAAAACAAAAAAACAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\Member.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Formula" />
+      <Property Name="Rank" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="SessionMembers" />
@@ -89,12 +72,13 @@
   <Class Name="Taijitan.Models.Domain.Session">
     <Position X="10" Y="8.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAGgDAAAACAAAAAIAAAAAAAIAAAAACABABAEEEAAAAA=</HashCode>
+      <HashCode>AAGgDAAAACAAAAAIAAAAAAAIAAAACCABABQEEEAAAAA=</HashCode>
       <FileName>Models\Domain\Session.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="SessionMembers" />
       <Property Name="SessionFormulas" />
+      <Property Name="MembersPresent" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Taijitan.Models.Domain.SessionMember">
@@ -104,8 +88,8 @@
       <FileName>Models\Domain\SessionMember.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Member" />
       <Property Name="Session" />
+      <Property Name="Member" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Taijitan.Models.Domain.Teacher">
@@ -128,7 +112,7 @@
   <Class Name="Taijitan.Models.Domain.User">
     <Position X="3.5" Y="0.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>ACAAAEAAACBAAACIABAAQAwgAEIQAgAAAAIAIAAACAA=</HashCode>
+      <HashCode>ACAAAEAAACBAAACIABAAQAwgAEIQAgAAAAIAIAAAKAA=</HashCode>
       <FileName>Models\Domain\User.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -136,9 +120,9 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Taijitan.Models.Domain.CourseMaterial">
-    <Position X="15.25" Y="4.25" Width="2.25" />
+    <Position X="16" Y="4.25" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAABAAAAAAAAAEAAAAQAAAAAABAAABAAACAAAAAAAAA=</HashCode>
+      <HashCode>AAABAAAAAAAAAEAAAAQAAAAAABAAABAAACAAAAAAIAA=</HashCode>
       <FileName>Models\Domain\CourseMaterial.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -158,7 +142,7 @@
   <Class Name="Taijitan.Models.Domain.NonMember">
     <Position X="0.5" Y="2.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAACAEAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <HashCode>AAACAEAAACAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAg=</HashCode>
       <FileName>Models\Domain\NonMember.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -169,8 +153,8 @@
       <FileName>Models\Domain\SessionFormula.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Formula" />
       <Property Name="Session" />
+      <Property Name="Formula" />
     </ShowAsAssociation>
   </Class>
   <Interface Name="Taijitan.Models.Domain.ICityRepository" Collapsed="true">
@@ -232,7 +216,7 @@
   <Enum Name="Taijitan.Models.Domain.Gender" Collapsed="true">
     <Position X="14.75" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
       <FileName>Models\Domain\Gender.cs</FileName>
     </TypeIdentifier>
   </Enum>

@@ -9,6 +9,7 @@ namespace Taijitan.Models.Domain
     [JsonObject(MemberSerialization.OptIn)]
     public class Session
     {
+        #region Properties
         [JsonProperty]
         public int SessionId { get; set; }
         public IEnumerable<Member> Members { get; set; }
@@ -20,22 +21,24 @@ namespace Taijitan.Models.Domain
         public TrainingDay TrainingDay { get; set; }
         [JsonProperty]
         public bool SessionStarted { get; set; }
-        public ICollection<SessionMember> SessionMembers{ get; set; }
+        public ICollection<SessionMember> SessionMembers { get; set; }
         public IEnumerable<NonMember> NonMembers { get; set; }
-        public ICollection<SessionFormula> SessionFormulas { get; set; }
+        public ICollection<SessionFormula> SessionFormulas { get; set; } 
+        #endregion
 
-        public Session(IEnumerable<Formula> formulas,Teacher teacher,IEnumerable<Member> members)
+        #region Constructors
+        public Session(IEnumerable<Formula> formulas, Teacher teacher, IEnumerable<Member> members)
         {
             MembersPresent = new List<Member>();
             SessionFormulas = new List<SessionFormula>();
             Members = members;
-            //TrainingDay = formulas != null ? formulas.Any(f => f.TrainingDays.SingleOrDefault(d => d.DayOfWeek.Equals(DateTime.Now.DayOfWeek)) : null);
+            //TrainingDay = formulas != null ? formulas.First().TrainingDays.SingleOrDefault(d => d.DayOfWeek.Equals(DateTime.Now.DayOfWeek)) : null;
             ICollection<TrainingDay> temp = new HashSet<TrainingDay>();
             foreach (Formula formula in formulas)
             {
-                if(formula.TrainingDays != null)
+                if (formula.TrainingDays != null)
                 {
-                    foreach(TrainingDay day in formula.TrainingDays)
+                    foreach (TrainingDay day in formula.TrainingDays)
                     {
                         if (!temp.Contains(day))
                         {
@@ -61,7 +64,10 @@ namespace Taijitan.Models.Domain
             SessionMembers = new List<SessionMember>();
             NonMembers = new List<NonMember>();
             NonMembers = new List<NonMember>();
-        }
+        } 
+        #endregion
+
+        #region Methods
         public void AddToMembersPresent(Member mb)
         {
             List<Member> _hulpPresent = MembersPresent.ToList();
@@ -106,5 +112,15 @@ namespace Taijitan.Models.Domain
             hList.Remove(nonMember);
             NonMembers = hList;
         }
+        public void Start()
+        {
+            if (!SessionStarted)
+            {
+                AddToSessionMembers(MembersPresent.ToList());
+                SessionStarted = true;
+            }
+        }
+        #endregion
+
     }
 }
