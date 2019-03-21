@@ -123,7 +123,7 @@ function init() {
                 },
                 dom: 'Bflrtip',
                 buttons: [
-                    'excelHtml5', 'print'
+                    'excel', 'print'
                 ]
             });
         });
@@ -200,7 +200,7 @@ function init() {
                     }
                 },
                 {
-                    extend: 'excelHtml5',
+                    extend: 'excel',
                     exportOptions: {
                         columns: [0, 1, 2, 3, 5]
                     }

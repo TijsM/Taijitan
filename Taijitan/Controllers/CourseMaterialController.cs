@@ -30,12 +30,14 @@ namespace Taijitan.Controllers
         public IActionResult Confirm(int id)
         {
             Session currentSession = _sessionRepository.GetById(id);
+            //dit mag in session zelf zitten bv session.start
             if (!currentSession.SessionStarted)
             {
                 currentSession.AddToSessionMembers(currentSession.MembersPresent.ToList());
                 currentSession.SessionStarted = true;
                 _sessionRepository.SaveChanges();
             }
+            //
             HttpContext.Session.SetString("Session", JsonConvert.SerializeObject(currentSession));
             ViewData["partialView"] = "";
             CourseMaterialViewModel vm = new CourseMaterialViewModel()
@@ -88,6 +90,7 @@ namespace Taijitan.Controllers
                 CourseMaterials = _courseMaterialRepository.GetByRank(rank),
                 SelectedCourseMaterial = _courseMaterialRepository.GetById(matId),
                 AllRanks = GiveAllRanksAsList(),
+                //member via session ophalen!
                 SelectedMember = (Member)_userRepository.GetById(selectedUserId),
                 SelectedRank = rank,
             };
@@ -196,9 +199,9 @@ namespace Taijitan.Controllers
             message.Body = new TextPart("html")
             {
                 Text =
-                "Gbruiker die commentaar leverde: " + comment.Member.FirstName + comment.Member.Name
+                "Gebruiker die commentaar leverde: " + comment.Member.FirstName +" " + comment.Member.Name
                 + "<br />"
-                + "Datum van de commentaar: " + comment.DateCreated.ToLongDateString()
+                + "Datum van de commentaar: " + comment.DateCreated.ToShortDateString()
                 + "<br />"
                 + "Lesmateriaal van de commentaar: " + comment.Course.Title
                 + "<br />"
