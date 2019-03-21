@@ -9,9 +9,9 @@ using System.Text;
 using Taijitan.Controllers;
 using Taijitan.Models.Domain;
 using TaijitanTest.Data;
-using Xunit;
 using System.Linq;
 using Taijitan.Models.ViewModels;
+using Xunit;
 
 namespace TaijitanTest.Controllers
 {
@@ -37,6 +37,7 @@ namespace TaijitanTest.Controllers
         private Formula _tomJansensFormula;
         private string _partOfName;
         private Admin _alain;
+        private Teacher _teacher;
         private TrainingDay _dinsdag;
         private DayOfWeek _dayOfWeekDinsdag;
         private int _trainingsDayId;
@@ -64,6 +65,7 @@ namespace TaijitanTest.Controllers
             _tomJansensEmail = _tomJansens.Email;
             _tomJansensFormula = _tomJansens.Formula;
             _alain = _dummyContext.Alain;
+            _teacher = _dummyContext.Teacher1;
             _dinsdag = _dummyContext.Dinsdag;
             _dayOfWeekDinsdag = DayOfWeek.Tuesday;
             _trainingsDayId = _dinsdag.TrainingDayId;
@@ -98,30 +100,80 @@ namespace TaijitanTest.Controllers
 
         #region TestCreateHttpGet
         [Fact]
-        public void CreateHttpGet_ValidSession_PassesFormulas()
+        public void CreateHttpGet_PassesAllFormulesToView()
         {
             var result = _sessionController.Create() as ViewResult;
-            ViewDataDictionary viewData = result.ViewData;
-
-            SelectList list = new SelectList((IEnumerable)viewData["Formulas"]);
-            Assert.False(list == null);
-            Assert.IsType<SelectList>(result.ViewData["Formulas"]);
+            List<Formula> formulas = (result?.Model as IEnumerable<Formula>)?.ToList();
+            Assert.Equal(_dummyContext.Formulas.Count(), formulas.Count);
         }
         #endregion
 
         #region TestCreateHttpPost
-        //public void CreateHttpPost_ValidSession_CreatesANewSession()
-        //{
-        //    var sessionViewModel = new SessionViewModel(_dummyContext.Session1);
+        [Fact]
+        public void CreateHttpPost_ValidCreate_CreatesAndPersistsSession()
+        {
+            var sessionViewModel = new SessionViewModel(_session1);
+            _sessionController.Create(sessionViewModel, _teacher);
+            Assert.Equal(_session1Id, _session1.SessionId);
+            _mockSessionRepository.Verify(s => s.SaveChanges(), Times.Once);
+        }
 
+        [Fact]
+        public void CreateHttpPost_InvalidCreate_ReturnsViewResult()
+        {
+            var sessionViewModel = new SessionViewModel();
+            _sessionController.ModelState.AddModelError("", "Any error");
+            var result = _sessionController.Create(sessionViewModel) as ViewResult;
+            Assert.IsType<ViewResult>(result);
+        }
+
+        [Fact]
+        public void CreateHttptPost_InvalidCreate_ReturnsCorrectView()
+        {
+            var sessionViewModel = new SessionViewModel();
+            _sessionController.ModelState.AddModelError("", "Any error");
+            var result = _sessionController.Create(sessionViewModel) as ViewResult;
+            Assert.Equal("Register", result.ViewName);
+        }
+        #endregion
+
+        #region TestRegister
+        //[Fact]
+        //public void RegisterTest_ReturnsCorrectView()
+        //{
+        //    var sessionViewModel = new SessionViewModel();
+        //    _sessionController.ModelState.AddModelError("", "Any error");
+        //    var result = _sessionController.Register(_session1Id) as ViewResult;
+        //    Assert.Equal("Register", result.ViewName);
         //}
         #endregion
 
+        #region TestAddToPrestentHttpPost
 
+        #endregion
 
+        #region TestAddUnconfirmedHttpPost
 
+        #endregion
 
+        #region TestAddOtherMember
 
+        #endregion
 
+        #region TestAddNonMemberHttpPost
+
+        #endregion
+
+        #region TestRemoveNonMemberHttpPost
+
+        #endregion
+
+        #region TestGetSessions
+
+        #endregion
+
+        #region TestSummaryPresences
+
+        #endregion
     }
 }

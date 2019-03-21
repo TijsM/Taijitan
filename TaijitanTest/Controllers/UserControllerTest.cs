@@ -153,6 +153,7 @@ namespace TaijitanTest.Controllers
             Assert.Equal(Country.Denmark, _tomJansens.Country);
             _mockUserRepository.Verify(m => m.SaveChanges(), Times.Once);
         }
+
         [Fact]
         public void EditHttpPost_ValidEdit_RedirectsToIndexOfHomeController()
         {
@@ -161,6 +162,7 @@ namespace TaijitanTest.Controllers
             Assert.Equal("Index", result?.ActionName);
             Assert.Equal("Home", result?.ControllerName);
         }
+
         [Fact]
         public void EditHttpPost_ValidModelGoToSummary_RedirectsToSummary()
         {

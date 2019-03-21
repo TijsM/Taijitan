@@ -16,8 +16,6 @@ namespace TaijitanTest.Data
         private readonly Member _robbe;
         private readonly Member _stef;
         private readonly Member _tijs;
-
-        private readonly Teacher _teacher1;
         #endregion
 
         #region Properties
@@ -37,6 +35,7 @@ namespace TaijitanTest.Data
         public Admin Alain { get; set; }
         public NonMember NonMemberBernard { get; set; }
         public IEnumerable<NonMember> NonMembers { get; set; }
+        public Teacher Teacher1 { get; set; }
         #endregion
 
 
@@ -88,12 +87,12 @@ namespace TaijitanTest.Data
             UserTomJansens = new Member("Jansens", "Tom", new DateTime(1999, 8, 9), "Hoogstraat", _gent, Country.Belgium, "8", "+32499854775", "tom.jansens@gmail.com",woeZat, new DateTime(2017 / 05 / 18), Gender.Man, Country.Belgium, "09-08-1999.400-09", "Gent");
             Alain = new Admin("Alain", "Vandamme", new DateTime(1980, 1, 15), "StationStraat", _antwerpen, Country.Belgium, "15", "+3249981557", "alain.vandamma@synalco.be", new DateTime(2005 / 01 / 30), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent");
 
-            _teacher1 = new Teacher("Chan", "Jacky", new DateTime(1960, 10, 18), "HongkongStreet", _gent, Country.Belgium, "1", "+23456987447", "jacky.chan@hollywood.com", new DateTime(2005 / 01 / 30), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent");
+            Teacher1 = new Teacher("Chan", "Jacky", new DateTime(1960, 10, 18), "HongkongStreet", _gent, Country.Belgium, "1", "+23456987447", "jacky.chan@hollywood.com", new DateTime(2005 / 01 / 30), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent");
 
             _users = new List<User>
             {
                 UserTomJansens,Alain,
-                _robbe,_jarne,_stef,_tijs,_teacher1
+                _robbe,_jarne,_stef,_tijs,Teacher1
 
             };
 
@@ -108,7 +107,7 @@ namespace TaijitanTest.Data
             UsersByPartOfName = new List<Member> {
                 _robbe,_jarne,_stef
             };
-            Session1 = new Session(Formulas, _teacher1, Members);
+            Session1 = new Session(Formulas, Teacher1, Members);
             Sessions = new List<Session> { Session1 };
 
             NonMemberBernard = new NonMember("Bernard", "Deploige", "bernarddeploige@hotmail.com", Session1.SessionId);
