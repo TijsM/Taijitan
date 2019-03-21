@@ -8,6 +8,6 @@ namespace Taijitan.Models.Domain
     public enum Gender
     {
         Man,
-        Women
+        Vrouw
     }
 }
