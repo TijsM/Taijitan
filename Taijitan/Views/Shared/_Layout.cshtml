@@ -1,9 +1,24 @@
-﻿@using Microsoft.AspNetCore.Authorization
+﻿
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Authorization
 @inject IAuthorizationService AuthorizationService
 
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    bool isHome = false;
+    if (UserManager.GetUserName(User) != null)
+    {
+        if (TempData["IsHome"] != null)
+        {
+            isHome = TempData["IsHome"].Equals("true");
+        }
+    }
+}
 
 <!DOCTYPE html>
-<html >
+<html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -37,13 +52,54 @@
     <meta name="msapplication-config" content="~/favicon/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 </head>
-<body >
+<body>
     <nav class="navbar navbar-default navbar-fixed-top" id="navbar">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" id="navbar_toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle" id="navbar_toggle" data-toggle="collapse" data-target=".navbar-collapse" style="float: right;">
                     <i class="fas fa-user-ninja fa-2x" style="color: white; margin: 0.4em;"> </i>
                 </button>
+                @if (isHome == true)
+                {
+                    if (TempData["Role"].Equals("Admin"))
+                    {
+                        <div class="dropdown messages visible-xs" style="float: right;">
+                            <i class="fas fa-bell fa-2x dropbtnnotMobile" style="color: white; margin: 0.4em;" onclick="openNotificationsMobile()"> </i>
+                            <div class="notbadge">
+                                <div class="notnumber">@TempData["AmountUnread"]</div>
+                            </div>
+                            <div id="notificationsDropdownMobile" class="dropdown-contentnot">
+                                @{
+                                    ICollection<Comment> comments = (ICollection<Comment>)TempData["Notifications"];
+                                    <form method="post"><button type="submit" asp-action="MarkRead" class="btn btn-taijitan btn-not" style="margin:1em auto;">Markeer als gelezen</button></form>
+                                    if (comments.Count() != 0)
+                                    {
+                                        foreach (Comment c in comments)
+                                        {
+                                            string className;
+                                            if (c.IsRead)
+                                            {
+                                                className = "read";
+
+                                            }
+                                            else
+                                            {
+                                                className = "notRead";
+                                            }
+                                            <a asp-controller="CourseMaterial" asp-action="SelectComment" asp-route-id="@c.CommentId" class="@className" style="margin: 0.5em;">Nieuw commentaar door @c.Member.FirstName @c.Member.Name bij @c.Course.Title</a>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <p style="margin: 0.5em; text-align:center;">Geen notificaties</p>
+                                    }
+
+                                }
+                            </div>
+                        </div>
+                    }
+
+                }
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Taijitan</a>
             </div>
             <div class="navbar-collapse collapse">

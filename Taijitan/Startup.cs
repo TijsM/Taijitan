@@ -63,6 +63,8 @@ namespace Taijitan
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<UserFilter>();
             services.AddScoped<SessionFilter>();
+            services.AddScoped<HomeFilter>();
+            services.AddScoped<CourseMaterialFilter>();
 
             services.AddSession();
 

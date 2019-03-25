@@ -16,6 +16,8 @@ using Microsoft.AspNetCore.Authorization;
 namespace Taijitan.Controllers
 {
     [ServiceFilter(typeof(SessionFilter))]
+    [ServiceFilter(typeof(CourseMaterialFilter))]
+    [ServiceFilter(typeof(HomeFilter))]
     [Authorize]
     public class CourseMaterialController : Controller
     {
@@ -32,17 +34,14 @@ namespace Taijitan.Controllers
             _courseMaterialRepository = courseMaterialRepository;
             _commentRepository = commentRepository;
         }
-        public IActionResult Confirm(int id)
+        public IActionResult Confirm(int id, Session session)
         {
-            Session session = _sessionRepository.GetById(id);
+            session = _sessionRepository.GetById(id);
             if (session == null)
                 return NotFound();
 
             session.Start();
             _sessionRepository.SaveChanges();
-
-            if(HttpContext != null)
-                HttpContext.Session.SetString("Session", JsonConvert.SerializeObject(session));
 
             ViewData["partialView"] = "";
             CourseMaterialViewModel vm = new CourseMaterialViewModel()
@@ -85,11 +84,11 @@ namespace Taijitan.Controllers
             };
             return View("Training", vm);
         }
-        public IActionResult SelectCourse(int sessionId, Rank rank, int selectedUserId, int matId)
+        public IActionResult SelectCourse(int sessionId, Rank rank, int selectedUserId, int matId, CourseMaterialViewModel cmvm)
         {
             Session session = _sessionRepository.GetById(sessionId);
             ViewData["partialView"] = "course";
-            CourseMaterialViewModel vm = new CourseMaterialViewModel()
+            cmvm = new CourseMaterialViewModel()
             {
                 Session = session,
                 CourseMaterials = _courseMaterialRepository.GetByRank(rank),
@@ -99,30 +98,26 @@ namespace Taijitan.Controllers
                 SelectedRank = rank,
             };
             //viewModel in session steken
-            HttpContext.Session.SetString("CourseMaterialViewModel", JsonConvert.SerializeObject(vm));
-            return View("Training", vm);
+            return View("Training", cmvm);
         }
 
         [HttpPost]
-        public IActionResult AddComment(string comment)
+        public IActionResult AddComment(string comment, CourseMaterialViewModel cmvm, ICollection<Comment> notifications)
         {
-            if (HttpContext.Session.GetString("CourseMaterialViewModel") != null)
+            if (cmvm != null)
             {
                 //viewModel uit session halen
-                CourseMaterialViewModel model = JsonConvert.DeserializeObject<CourseMaterialViewModel>(HttpContext.Session.GetString("CourseMaterialViewModel"));
-                CourseMaterial course = _courseMaterialRepository.GetById(model.SelectedCourseMaterial.MaterialId);
-                Member member = (Member)_userRepository.GetById(model.SelectedMember.UserId);
+                CourseMaterial course = _courseMaterialRepository.GetById(cmvm.SelectedCourseMaterial.MaterialId);
+                Member member = (Member)_userRepository.GetById(cmvm.SelectedMember.UserId);
                 Comment c = new Comment(comment, course, member);
                 _commentRepository.Add(c);
                 _commentRepository.SaveChanges();
                 SendMail(c);
                 TempData["message"] = "Het commentaar is succesvol verstuurd!";
-
-                ICollection<Comment> notifications;
+                
                 //Notificaties
-                if (HttpContext.Session.GetString("Notifications") != null)
+                if (notifications != null)
                 {
-                    notifications = JsonConvert.DeserializeObject<ICollection<Comment>>(HttpContext.Session.GetString("Notifications"));
                     notifications.OrderBy(n => n.DateCreated);
                     while(notifications.Where(n => n.IsRead).Count() > 0 && notifications.Count() > 5)
                     {
@@ -134,9 +129,8 @@ namespace Taijitan.Controllers
                     notifications = new List<Comment>();
                     notifications.Add(c);
                 }
-                HttpContext.Session.SetString("Notifications", JsonConvert.SerializeObject(notifications));
-                return RedirectToAction(nameof(SelectCourse), new { sessionId = model.Session.SessionId, rank = model.SelectedRank,
-                    selectedUserId = model.SelectedMember.UserId, matId = model.SelectedCourseMaterial.MaterialId });
+                return RedirectToAction(nameof(SelectCourse), new { sessionId = cmvm.Session.SessionId, rank = cmvm.SelectedRank,
+                    selectedUserId = cmvm.SelectedMember.UserId, matId = cmvm.SelectedCourseMaterial.MaterialId });
             }
             return View("Training");
         }

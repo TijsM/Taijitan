@@ -8,94 +8,71 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Taijitan.Filters;
 using Taijitan.Models;
 using Taijitan.Models.Domain;
 
 namespace Taijitan.Controllers
 {
-
+    [ServiceFilter(typeof(HomeFilter))]
+    [ServiceFilter(typeof(UserFilter))]
+    [ServiceFilter(typeof(SessionFilter))]
     public class HomeController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IUserRepository _userRepository;
-        private readonly ICommentRepository _commentRepostitory;
+        private readonly ICommentRepository _commentRepository;
 
         public HomeController(UserManager<IdentityUser> userManager, IUserRepository userRepository, ICommentRepository commentRepository)
         {
             _userManager = userManager;
             _userRepository = userRepository;
-            _commentRepostitory = commentRepository;
+            _commentRepository = commentRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(ICollection<Comment> notifications, User User, Session session)
         {
             TempData["Role"] = "";
             TempData["IsHome"] = "true";
             TempData["FullName"] = "";
-            if (_userManager.GetUserName(HttpContext.User) != null)
+            if (User != null)
             {
-                var user = _userRepository.GetByEmail(_userManager.GetUserName(HttpContext.User));
+                var user = User;
                 TempData["Role"] = user.GetRole();
                 TempData["UserId"] = user.UserId;
                 TempData["FullName"] = user.FirstName + " " + user.Name;
-                if (HttpContext.Session.GetString("Session") != null)
+                if (session.Members != null)
                 {
-                    ViewData["Session"] = JsonConvert.DeserializeObject<Session>(HttpContext.Session.GetString("Session"));
+                    ViewData["Session"] = session;
                 }
 
                 //notifications
                 if (user.IsRole("Admin"))
                 {
-                    if (HttpContext.Session.GetString("Notifications") != null)
+                    while (notifications.Count > 5 && notifications.Where(c => c.IsRead).Count() > 0)
                     {
-                        ICollection<Comment> comments = JsonConvert.DeserializeObject<ICollection<Comment>>(HttpContext.Session.GetString("Notifications"));
-                        while (comments.Count > 5 && comments.Where(c => c.IsRead).Count() > 0)
-                        {
-                            Comment commentToDelete = comments.Where(c => c.IsRead).Last();
-                            comments.Remove(commentToDelete);
-                        }
-                        TempData["Notifications"] = comments;
-                        TempData["AmountUnread"] = comments.Where(c => !c.IsRead).Count();
-                        HttpContext.Session.SetString("Notifications", JsonConvert.SerializeObject(comments));
+                        Comment commentToDelete = notifications.Where(c => c.IsRead).Last();
+                        notifications.Remove(commentToDelete);
                     }
-                    else
-                    {
-                        ICollection<Comment> comments = new List<Comment>();
-                        comments = _commentRepostitory.GetAll().Where(c => !c.IsRead).ToList();
-                        int aantal = 5 - comments.Count();
-                        aantal = aantal < 0 ? 0 : aantal;
-                        var extraComments = _commentRepostitory.GetAll().Where(c => c.IsRead).Take(aantal);
-                        if(extraComments != null)
-                        {
-                            foreach (Comment c in extraComments)
-                            {
-                                comments.Add(c);
-                            }
-                        }
-                        TempData["AmountUnread"] = comments.Where(c => !c.IsRead).Count();
-                        TempData["Notifications"] = comments;
-                        HttpContext.Session.SetString("Notifications", JsonConvert.SerializeObject(comments));
-                    }
+                    TempData["Notifications"] = notifications;
+                    TempData["AmountUnread"] = notifications.Where(c => !c.IsRead).Count();
                 }
-
             }
             return View();
         }
 
         [HttpPost]
-        public IActionResult MarkRead()
+        public IActionResult MarkRead(ICollection<Comment> notifications)
         {
-            if (HttpContext.Session.GetString("Notifications") != null)
+            if (notifications != null)
             {
-                ICollection<Comment> comments = JsonConvert.DeserializeObject<ICollection<Comment>>(HttpContext.Session.GetString("Notifications"));
-                foreach (Comment c in comments)
+                foreach (Comment c in notifications)
                 {
                     c.IsRead = true;
-                    Comment com = _commentRepostitory.GetById(c.CommentId);
+                    Comment com = _commentRepository.GetById(c.CommentId);
                     com.IsRead = true;
                 }
-                _commentRepostitory.SaveChanges();
-                HttpContext.Session.SetString("Notifications", JsonConvert.SerializeObject(comments));
+                _commentRepository.SaveChanges();
             }
             return RedirectToAction(nameof(Index));
         }

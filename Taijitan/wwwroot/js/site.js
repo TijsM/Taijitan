@@ -12,6 +12,9 @@ function openMenu() {
 function openNotifications() {
     document.getElementById("notificationsDropdown").classList.toggle("show");
 }
+function openNotificationsMobile() {
+    document.getElementById("notificationsDropdown").classList.toggle("show");
+}
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function (event) {
     if (!event.target.matches('.dropbtnmenu')) {
@@ -26,6 +29,16 @@ window.onclick = function (event) {
     }
     if (!event.target.matches('.dropbtnnot')) {
         var dropdowns = document.getElementsByClassName("dropdown-contentnot");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+    }
+    if (!event.target.matches('.dropbtnnotMobile')) {
+        var dropdowns = document.getElementsByClassName("dropdown-contentnotMobile");
         var i;
         for (i = 0; i < dropdowns.length; i++) {
             var openDropdown = dropdowns[i];

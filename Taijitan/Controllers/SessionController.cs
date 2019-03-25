@@ -34,9 +34,10 @@ namespace Taijitan.Controllers
         }
         [Authorize(Policy = "Teacher")]
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(Session session)
         {
             ViewData["Formulas"] = GetSelectListFormulas();
+            session = new Session();
             return View(new SessionViewModel());
         }
         [Authorize(Policy = "Teacher")]

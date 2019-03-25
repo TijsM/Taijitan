@@ -33,9 +33,8 @@ namespace Taijitan.Filters
 
         private Session ReadSessionFromSession(HttpContext context)
         {
-            Session cart = context.Session.GetString("session") == null ?
+            return context.Session.GetString("session") == null ?
                 new Session() : JsonConvert.DeserializeObject<Session>(context.Session.GetString("session"));
-            return cart;
         }
         private void WriteSessionToSession(Session session, HttpContext context)
         {

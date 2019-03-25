@@ -221,8 +221,20 @@ a {
     .customScroll::-webkit-scrollbar-thumb:hover {
         background: #555;
     }
-
-
+*::-webkit-scrollbar {
+    width: 8px;
+}
+*::-webkit-scrollbar-track {
+    background: white;
+    border-radius: 5px;
+}
+*::-webkit-scrollbar-thumb {
+    background: #336566;
+    border-radius: 5px;
+}
+*::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
 
 /*Dropdown button*/
 .dropbtnmenu, .dropbtnnot {

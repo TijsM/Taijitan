@@ -23,7 +23,6 @@ namespace Taijitan.Filters
                 _userRepository.GetByEmail(context.HttpContext.User.Identity.Name) : null;
             base.OnActionExecuting(context);
         }
-
-
+        
     }
 }

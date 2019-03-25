@@ -29,15 +29,15 @@
                 if (TempData["Role"].Equals("Admin"))
                 {
                     <li>
-                        <div class="dropdown messages">
-                            <i class="fas fa-bell fa-2x dropbtnnot" style="color: white; margin: 0.4em;" onclick="openNotifications()"> </i>
+                        <div class="dropdown messages hidden-xs" onclick="openNotifications()">
+                            <i class="fas fa-bell fa-2x dropbtnnot" style="color: white; margin: 0.4em;" > </i>
                             <div class="notbadge">
                                 <div class="notnumber">@TempData["AmountUnread"]</div>
                             </div>
                             <div id="notificationsDropdown" class="dropdown-contentnot">
                                 @{
                                     ICollection<Comment> comments = (ICollection<Comment>)TempData["Notifications"];
-                                    <form method="post"><button type="submit" asp-action="MarkRead" class="btn btn-taijitan btn-not" style="margin:1em auto;">Markeer als gelezen</button></form>
+                                    <button type="submit" asp-action="MarkRead" class="btn btn-taijitan btn-not" style="margin:1em auto;">Markeer als gelezen</button>
                                     if (comments.Count() != 0)
                                     {
                                         foreach (Comment c in comments)
