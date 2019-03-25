@@ -25,14 +25,17 @@
 
                 @foreach (var item in Model)
                 {
-                    <tr>
+                    <tr id="@item.CommentId">
                         <td>@item.Member.Name</td>
                         <td>@item.Member.FirstName</td>
                         <td>@item.Course.Title</td>
                         <td>@item.DateCreated.ToShortDateString()</td>
                         <td><button type="submit" asp-action="SelectComment" asp-controller="CourseMaterial" asp-route-id="@item.CommentId" class="btn btn-taijitan">Lees commentaar</button></td>
                         <td style="display:none"> @item.Content</td>
-                        <td><button asp-action="RemoveComment" asp-controller="CourseMaterial" asp-route-id="@item.CommentId" class="btn" style="background-color: white;"><i title="Commentaar verwijderen" class="fas fa-trash-alt fa-lg ChangeAndDeleteColor"></i></button></td>
+                        <td>
+                                <a onclick="confirmDeleteComment(@item.CommentId)" class="btn" style="background-color: white;"><i title="Commentaar verwijderen"
+                                class="fas fa-trash-alt fa-lg ChangeAndDeleteColor"></i></a>
+                        </td>
                     </tr>
                 }
             </tbody>
