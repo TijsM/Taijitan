@@ -10,9 +10,13 @@ using Newtonsoft.Json;
 using Taijitan.Models.Domain;
 using Taijitan.Models.ViewModels;
 using MailKit.Net.Smtp;
+using Taijitan.Filters;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Taijitan.Controllers
 {
+    [ServiceFilter(typeof(SessionFilter))]
+    [Authorize]
     public class CourseMaterialController : Controller
     {
         private readonly ISessionRepository _sessionRepository;
