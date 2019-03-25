@@ -42,6 +42,7 @@ function confirmLogout() {
         icon: "warning",
         buttons: ["Annuleer", "Log uit"],
         dangerMode: true,
+        showConfirmButton: false,
     })
         .then((willDelete) => {
             if (willDelete) {
@@ -72,6 +73,23 @@ function confirmDelete(id) {
             }
         });
 }
+function confirmDeleteComment(id) {
+    swal({
+        title: "Ben je zeker dat je dit commentaar wilt verwijderen?",
+        text: "Dit commentaar wordt permanent verwijderd",
+        icon: "warning",
+        buttons: ["Annuleer", "Verwijder commentaar"],
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                swal("Het commentaar is succesvol verwijderd!", {
+                    icon: "success",
+                });
+                DeleteComment(id, name);
+            }
+        });
+}
 
 function Summary() {
     $.ajax({
@@ -86,6 +104,17 @@ function Delete(id) {
         success: function () {
             var member = document.getElementById(id);
             member.parentNode.removeChild(member);
+        }
+    });
+}
+function DeleteComment(id) {
+    $.ajax({
+        url: '/CourseMaterial/RemoveComment',
+        type: 'POST',
+        data: { id: id },
+        success: function () {
+            var comment = document.getElementById(id);
+            comment.parentNode.removeChild(comment);
         }
     });
 }
