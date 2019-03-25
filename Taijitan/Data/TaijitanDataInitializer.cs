@@ -20,7 +20,7 @@ namespace Taijitan.Data
         }
         public async Task InitializeData()
         {
-            //_dbContext.Database.EnsureDeleted();
+            _dbContext.Database.EnsureDeleted();  //deze lijn in comment zetten om drop en create tegen te gaan
             if (_dbContext.Database.EnsureCreated())
             {
                 #region TrainingDays
@@ -98,82 +98,211 @@ namespace Taijitan.Data
                 #endregion
 
                 #region CourseMaterial
-
+                Image NoImage = new Image("Ninja3", "Er is geen afbeelding voor dit onderdeel");
                 #region kyu6
+                #region Vorderen
+                Image vorderen_1 = new Image("/Vorderen/Vorderen_1", "Foto bij vorderen");
+
+                CourseMaterial Vorderen = new CourseMaterial(Rank.Kyu6
+                    , " "
+                    , "Het vorderen naar voor gebeurt zonder de stand of de positie van het bovenlichaam te veranderen en door met de heupen op één lijn snel naar voor te stoten. Breng de voet van het achterste been naast de voet van het afzetbeen (voorste been waar overwegend het gewicht op rust). Het oude achterste been glijdt schuin naar voor terwijl de knie van het afzetbeen gestrekt wordt en de voetzool, vooral de hiel, krachtig tegen de grond gedrukt wordt (waardoor de voet 30° draait). Tijdens de verplaatsing wordt het lichaamsgewicht van de ene voet naar de andere verplaatst. Maak een draaibeweging zodat het vorderen in de tegenovergestelde richting opnieuw kan worden uitgevoerd (doe dit na herhaaldelijk de vorderbeweging te hebben uitgevoerd). Maak de draaibeweging door het achterste been bij te trekken, het lichaam 180° terug te draaien en het oude achterste been naar voor te brengen. De draaibeweging kan/mag ook worden uitgevoerd door het voorste been (afzetbeen) naar het achterste been te brengen, 180° te draaien en het oude voorste been verder diagonaal terug naar voor te brengen. Achteruit vorderen moet eveneens ingeoefend worden."
+                    , new List<Image> { vorderen_1 }
+                    , "Basistand - Vorderen"
+                    );
+                #endregion
+                #region voorwaardse stand
                 Image voorwaartse_stand_1 = new Image("/VoorwaartseStand/voorwaartse_stand_1", "Foto 1 bij voachterwaartseStand");
                 Image voorwaartse_stand_2 = new Image("/VoorwaartseStand/voorwaartse_stand_2", "Foto 2 bij voachterwaartseStand");
                 Image voorwaartse_stand_3 = new Image("/VoorwaartseStand/voorwaartse_stand_3", "Foto 3 bij voachterwaartseStand");
 
+                CourseMaterial VoorwaarteStand = new CourseMaterial(Rank.Kyu6, "https://www.youtube.com/embed/OFaR7tlcKN0", "De benen zijn gespreid en" +
+                  " staan in een rechthoekige driehoek (zie tekening). Het achterste been is gestrekt en het voorste been is gebogen zodat de knie " +
+                  "zich recht boven de voet bevindt. De voorste voet staat recht naar voor en de achterste voet staat schuin op 30°. " +
+                  "De heupen zijn omlaag gebracht, het bovenlichaam staat loodrecht ten opzichte van de grond en is naar voor gericht. " +
+                  "Het gezicht is recht naar voor. Ongeveer 60% van het gewicht rust op het voorste en 40% op het achterste been.",
+                  new List<Image> { voorwaartse_stand_1, voorwaartse_stand_2, voorwaartse_stand_3 },
+                  "Basistand - Voorwaartse stand");
+                #endregion
+                #region achterwaartse stand
                 Image achterwaartse_stand_1 = new Image("/AchterwaartseStand/achterwaartse_stand_1", "Foto 1 bij achterwaartseStand");
                 Image achterwaartse_stand_2 = new Image("/AchterwaartseStand/achterwaartse_stand_2", "Foto 2 bij achterwaartseStand");
                 Image achterwaartse_stand_3 = new Image("/AchterwaartseStand/achterwaartse_stand_3", "Foto 3 bij achterwaartseStand");
 
-
-                CourseMaterial VoorwaarteStand = new CourseMaterial(Rank.Kyu6, "https://www.youtube.com/embed/OFaR7tlcKN0", "De benen zijn gespreid en" +
-                    " staan in een rechthoekige driehoek (zie tekening). Het achterste been is gestrekt en het voorste been is gebogen zodat de knie " +
-                    "zich recht boven de voet bevindt. De voorste voet staat recht naar voor en de achterste voet staat schuin op 30°. " +
-                    "De heupen zijn omlaag gebracht, het bovenlichaam staat loodrecht ten opzichte van de grond en is naar voor gericht. " +
-                    "Het gezicht is recht naar voor. Ongeveer 60% van het gewicht rust op het voorste en 40% op het achterste been.",
-                    new List<Image> { voorwaartse_stand_1, voorwaartse_stand_2, voorwaartse_stand_3 },
-                    "Voorwaartse stand");
-                CourseMaterial AchterwaartseStand = new CourseMaterial(Rank.Kyu6, "https://www.youtube.com/embed/OFaR7tlcKN0", "De benen zijn gespreid " +
+                CourseMaterial AchterwaartseStand = new CourseMaterial(Rank.Kyu6
+                    , "https://www.youtube.com/embed/OFaR7tlcKN0"
+                    , "De benen zijn gespreid " +
                     "en staan op één lijn. De knie van het achterste been is sterk gebogen, naar buiten gedraaid en bevindt zich recht boven de voet." +
                     " Het voorste been is licht gebogen. De voorste voet staat recht naar voor en de achterste voet staat schuin op 90° in T of L stand." +
                     " De heupen zijn omlaag gebracht, het bovenlichaam staat loodrecht ten opzichte van de grond en is half weggedraaid. " +
                     "Het gezicht is recht naar voor. Ongeveer 30% van het gewicht rust op het voorste en 70% op het achterste been.",
                     new List<Image> { achterwaartse_stand_1, achterwaartse_stand_2, achterwaartse_stand_3 },
-                    "Achterwaartse stand");
+                    "Basistand - Achterwaartse stand");
+                #endregion
+                #region natuurlijke standen
+                Image natuurlijke_stand_1 = new Image("/NatuurlijkeStand/Natuurlijke_stand_1", "Foto 1 bij natuurlijke stand");
+
+                CourseMaterial NatuurlijkeStand = new CourseMaterial(
+                    Rank.Kyu6
+                    , " "
+                    , "In de natuurlijke houding is het lichaam ontspannen, maar in een toestand van waakzaamheid, klaar om iedere situatie het hoofd te bieden. De knieën moeten altijd soepel en ontspannen blijven zodat snel iedere gewenste positie kan ingenomen worden. De stand van de voeten varieert in de verschillende vormen.Mogelijke uitvoering:Start met de voeten bij elkaar en buig een weinig door de knieën(informele militaire stand), houd de hielen dicht en breng de voeten op 45 graden(informele militaire stand met de voeten naar buiten), plaats de rechtervoet 30cm zijwaarts(spreidstand), breng de tenen naar binnen(spreidstand met de tenen naar binnen), breng de tenen recht(evenwijdige voetenstand).Breng de rechtervoet achter de linkervoet(T - stand), voer eerst de grote T - stand uit(voeten staan 30cm uit elkaar) gevolgd door de kleine T - stand(hiel en voetbrug staan tegen elkaar).Keer terug naar een evenwijdige voetenstand en voer dezelfde standen links uit.Ga opnieuw in de evenwijdige voetenstand staan, breng de rechtervoet achter de linkervoet(L - stand), voer eerst de grote L - stand uit(voeten staan 30cm uit elkaar) gevolgd door de kleine L - stand(hiel en hiel staan tegen elkaar).Keer terug naar een evenwijdige voetenstand en voer dezelfde standen links uit.Keer terug naar een evenwijdige voetenstand, breng de voeten bij elkaar en groet af."
+                    , new List<Image> { natuurlijke_stand_1 }
+                    , "Basistand - Natuurlijke stand");
+                #endregion
+                #region basisslagenALgemeen
+                Image basislag_algemeen_1 = new Image("/Basisslagen_algemeen/BasisSlagenAlgemeen_1", "Foto 1 bij basisslagen");
+
+                CourseMaterial BasisSlagenAlgemeen = new CourseMaterial(
+                    Rank.Kyu6
+                    , " "
+                    , "Een goede stoot begint vanuit een ontspannen uitgangshouding (de kiba dashi stand) waarbij er geen onnodige spierspanningen mogen zijn. Er wordt gestart met de rechtervuist in de heup en met de andere vuist gestrekt voor het lichaam en in het verlengde van de neus."
+                    , new List<Image> { basislag_algemeen_1 }
+                    , "Basisslag - algemeen");
+                #endregion
+                #region voorwaartse stoot
+                Image voorwaartste_stoot_1 = new Image("/Voorwaartse_stoot/VoorwaartseStoot_1", "Foto 1 bij voorwaartse stoot");
+                Image voorwaartste_stoot_2 = new Image("/Voorwaartse_stoot/VoorwaartseStoot_2", "Foto 2 bij voorwaartse stoot");
+
+                CourseMaterial VoorwaartseStoot = new CourseMaterial(
+                    Rank.Kyu6
+                    , " "
+                    , "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een voorwaartse rechtlijnige beweging. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een halve cirkel. Raak met het voorste deel van de vuist, met name de knokkels van de wijs- en middenvinger, de plexus. De andere arm wordt zo snel mogelijk terug naar de heup getrokken."
+                    , new List<Image> { voorwaartste_stoot_1, voorwaartste_stoot_2 }
+                    , "Basisslag - voorwaartse stoot");
+                #endregion
+                #region Omhooggaande stoot
+                Image omhooggaande_stoot_1 = new Image("Omhooggaande_stoot/Omhooggaande_stoot_1", "Foto 1 bij omhooggaande stoot");
+                Image omhooggaande_stoot_2 = new Image("Omhooggaande_stoot/Omhooggaande_stoot_2", "Foto 2 bij omhooggaande stoot");
+                Image omhooggaande_stoot_3 = new Image("Omhooggaande_stoot/Omhooggaande_stoot_3", "Foto 3 bij omhooggaande stoot");
+
+                CourseMaterial OmhooggaandeStoot = new CourseMaterial(
+                    Rank.Kyu6
+                    , ""
+                    , "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een omhooggaande rechtlijnige beweging. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een halve cirkel. Raak met het voorste deel van de vuist, met name de knokkels van de wijs- en middenvinger, de strot of het gezicht. De andere arm wordt zo snel mogelijk terug naar de heup getrokken."
+                    , new List<Image> { omhooggaande_stoot_1, omhooggaande_stoot_2, omhooggaande_stoot_3 }
+                    , " Basisslag - omhooggaande stoot");
+                #endregion
+                #region verticale stoot
+                Image verticale_stoot_1 = new Image("Verticale_stoot/Verticale_stoot_1", "Foto 1 bij verticale stoot");
+                Image verticale_stoot_2 = new Image("Verticale_stoot/Verticale_stoot_2", "Foto 2 bij verticale stoot");
+                Image verticale_stoot_3 = new Image("Verticale_stoot/Verticale_stoot_3", "Foto 3 bij verticale stoot");
+
+                CourseMaterial VerticaleStoot = new CourseMaterial(
+                    Rank.Kyu6
+                    , " "
+                    , "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een voorwaartse of omhooggaande rechtlijnige beweging. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een kwart van een cirkel. Raak met het voorste deel van de vuist, met name de knokkels van de wijs- en middenvinger, de plexus, de strot of het gezicht. De andere arm wordt zo snel mogelijk terug naar de heup getrokken."
+                    , new List<Image> { verticale_stoot_1, verticale_stoot_2, verticale_stoot_3 }
+                    , "Basisslag - verticale stoot"
+                    );
+                #endregion
+                #region Hoekstoot
+                Image hoek_stoot_1 = new Image("hoek_stoot/Hoek_stoot_1", "Foto 1 bij hoekstoot");
+                Image hoek_stoot_2 = new Image("hoek_stoot/Hoek_stoot_2", "Foto 2 bij hoekstoot");
+                Image hoek_stoot_3 = new Image("hoek_stoot/Hoek_stoot_3", "Foto 3 bij hoekstoot");
+                Image hoek_stoot_4 = new Image("hoek_stoot/Hoek_stoot_4", "Foto 4 bij hoekstoot");
+
+                CourseMaterial HoekStoot = new CourseMaterial(
+                    Rank.Kyu6,
+                    " "
+                    , "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een voorwaartse hoekbeweging. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een halve cirkel. Raak met het voorste deel van de vuist (de elleboog is volledig geplooid), met name de knokkels van de wijs- en middenvinger, de kin, de slaap of de plexus. De andere arm wordt zo snel mogelijk terug naar de heup getrokken."
+                    , new List<Image> { hoek_stoot_1, hoek_stoot_2, hoek_stoot_3, hoek_stoot_4 }
+                    , "Basisslag - hoek stoot");
+                #endregion
+
+                _dbContext.CourseMaterials.AddRange(
+                    Vorderen
+                    , VoorwaarteStand
+                    , AchterwaartseStand
+                    , NatuurlijkeStand
+                    , BasisSlagenAlgemeen
+                    , VoorwaartseStoot
+                    , OmhooggaandeStoot
+                    , VerticaleStoot
+                    , HoekStoot);
                 #endregion
 
                 #region kyu5
-                Image img_1_1_01 = new Image("1_1_01", "Foto 1 bij eerste les");
-                Image img_1_1_02 = new Image("1_1_02", "Foto 2 bij eerste les");
-                Image img_1_1_03 = new Image("1_1_03", "Foto 3 bij eerste les");
+                #region Paarzitstand
+                Image paardzit_stand_1 = new Image("PaardZitStand/PaardZitStand_1", "Foto 1 bij paardzitstand");
+                Image paardzit_stand_2 = new Image("PaardZitStand/PaardZitStand_2", "Foto 2 bij paardzitstand");
 
-                Image img_1_2_01 = new Image("1_2_01", "Foto 1 bij tweede les");
-                Image img_1_2_02 = new Image("1_2_02", "Foto 2 bij tweede les");
-                Image img_1_2_03 = new Image("1_2_03", "Foto 3 bij tweede les");
+                CourseMaterial PaardZitStand = new CourseMaterial(
+                    Rank.Kyu5,
+                    " "
+                    , "Geen uitleg beschikbaar"
+                    , new List<Image> { paardzit_stand_1, paardzit_stand_2 },
+                    "Basisstand - Paardzitstand");
+                #endregion
 
-                Image img_1_3_01 = new Image("1_3_01", "Foto 1 bij derde les");
-                Image img_1_3_02 = new Image("1_3_02", "Foto 2 bij derde les");
-                Image img_1_3_03 = new Image("1_3_03", "Foto 3 bij derde les");
+                #region Hurkstand
+                Image hurk_stand_1 = new Image("HurkStand/HurkStand_1", "Foto 1 bij hurkstand");
+                Image hurk_stand_2 = new Image("HurkStand/HurkStand_2", "Foto 2 bij hurkstand");
 
-                CourseMaterial mat_1_1 = new CourseMaterial(Rank.Kyu5, "https://www.youtube.com/embed/3PEj8_0Q9Qo", "Lorem Ipsum is slechts een proeftekst uit het drukkerij- en" +
-                    " zetterijwezen. Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw, toen een onbekende drukker" +
-                    " een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken. Het heeft niet alleen vijf eeuwen" +
-                    " overleefd maar is ook, vrijwel onveranderd, overgenomen in elektronische letterzetting. Het is in de jaren '60 populair" +
-                    " geworden met de introductie van Letraset vellen met Lorem Ipsum passages en meer recentelijk door desktop publishing " +
-                    "software zoals Aldus PageMaker die versies van Lorem Ipsum bevatten.",
-                    new List<Image> { img_1_1_01, img_1_1_02, img_1_1_03 },
-                    "Voorbeeld 1");
-                CourseMaterial mat_1_2 = new CourseMaterial(Rank.Kyu5, "https://www.youtube.com/embed/hY35pBOfSNk", "door de tekstuele inhoud. Het belangrijke punt van het gebruik van" +
-                    " Lorem Ipsum is dat het uit een min of meer normale verdeling van letters bestaat, in tegenstelling tot wat het tot min" +
-                    " of meer leesbaar nederlands maakt. Veel desktop publishing pakketten en web pagina editors gebruiken tegenwoordig Lorem" +
-                    " Ipsum als hun standaard model tekst, en een zoekopdracht naar ontsluit veel websites die nog in aanbouw zijn. " +
-                    "Verscheidene versies hebben zich ontwikkeld in de loop van de jaren, soms per ongeluk soms expres (ingevoegde humor en" +
-                    " dergelijke).",
-                    new List<Image> { img_1_2_01, img_1_2_02, img_1_2_03 },
-                    "Voorbeeld 2");
-                CourseMaterial mat_1_3 = new CourseMaterial(Rank.Kyu5, "https://www.youtube.com/embed/D9LL_ivHTXc", "Er zijn vele variaties van passages van Lorem Ipsum beschikbaar maar" +
-                    " het merendeel heeft te lijden gehad van wijzigingen in een of andere vorm, door ingevoegde humor of willekeurig gekozen" +
-                    " woorden die nog niet half geloofwaardig ogen. Als u een passage uit Lorum Ipsum gaat gebruiken dient u zich ervan te " +
-                    "verzekeren dat er niets beschamends midden in de tekst verborgen zit. Alle Lorum Ipsum generators op Internet hebben de " +
-                    "eigenschap voorgedefinieerde stukken te herhalen waar nodig zodat dit de eerste echte generator is op internet. Het " +
-                    "gebruikt een woordenlijst van 200 latijnse woorden gecombineerd met een handvol zinsstructuur modellen om een Lorum Ipsum " +
-                    "te genereren die redelijk overkomt. De gegenereerde Lorum Ipsum is daardoor altijd vrij van herhaling, ingevoegde humor of" +
-                    " ongebruikelijke woorden etc.",
-                    new List<Image> { img_1_3_01, img_1_3_02, img_1_3_03 },
-                    "Voorbeeld 3");
+                CourseMaterial HurkStand = new CourseMaterial(
+                    Rank.Kyu5
+                    , " "
+                    , "Geen uitleg beschikbaar"
+                    , new List<Image> { hurk_stand_1, hurk_stand_2 }
+                    , "Basisstand - Hurkstand");
+
+
+                #endregion
+
+                #region VerankerdeStand
+                Image verankerde_stand_1 = new Image("VerankerdeStand/VerankerdeStand_1", "Foto 1 bij verankerde stand");
+                Image verankerde_stand_2 = new Image("VerankerdeStand/VerankerdeStand_2", "Foto 2 bij verankerde stand");
+
+                CourseMaterial VerankerdeStand = new CourseMaterial(
+                    Rank.Kyu5,
+                    " "
+                    , "Geen uitleg beschikbaar",
+                    new List<Image> { verankerde_stand_1, verankerde_stand_2 }
+                    , "Basisstand - Verankerde stand");
+                #endregion
+
+                #region HandpalmHielslag
+                Image handpalm_hielslag_1 = new Image("HandpalmHielslag/HandpalmHielslag_1", "Foto 1 bij handpalm hielslag");
+
+                CourseMaterial HandpalmHielslag = new CourseMaterial(
+                    Rank.Kyu5
+                    , " "
+                    , "Geen uitleg beschikbaar"
+                    , new List<Image> { handpalm_hielslag_1 }
+                    , "Basisslag - Handpalm hielslag");
+                #endregion
+
+                _dbContext.CourseMaterials.AddRange(
+                    PaardZitStand,
+                    HurkStand,
+                    VerankerdeStand
+                    , HandpalmHielslag);
+
+                #endregion
+
+                #region Kyu2
+
+                #region slagenk2
+
+                CourseMaterial SlagenKyu2 = new CourseMaterial(
+                    Rank.Kyu2
+                    , ""
+                    , "1.1.	Aanval: De aanvaller geeft een rechte vuiststoot naar jouw gezicht.Reactie: Weer de aanval van binnen naar buiten af gevolgd door een diagonale uppercut.Keer terug met een empi in de nek.1.2.Aanval: De aanvaller geeft een rechte vuiststoot naar jouw gezicht.Reactie: Weer de aanval van binnen naar buiten af gevolgd door een swing. Keer terug met een empi in de nek 1.3.Aanval: De aanvaller geeft een rechte vuiststoot naar jouw gezicht. Reactie: Weer de aanval van buiten naar binnen af. Houd met het rechterhand controle over de pols van de aanvaller en vervolg met een gedraaide horizontale omgekeerde vuistslag met het linkerhand. Neem met het linkerhand de pols over en zet een polsklem aan en plaats de rechterhand op de elleboog van de aanvaller. Voer een drukking uit richting de oksel van de aanvaller. 1.4.Aanval: De aanvaller geeft een rechte vuiststoot naar jouw gezicht.Reactie: Weer de aanval van binnen naar buiten af gevolgd door een uppercut recht naar boven, terugkeren met een empi naar de plexus, een tweede empi in de ribben en afwerken met elleboogbreuk door een tezelfdertijd een slag te geven op de bovenarm en voorarm"
+                    , new List<Image> { NoImage }
+                    , "slagen");
+                #endregion
+
+                _dbContext.CourseMaterials.AddRange(
+                    SlagenKyu2
+                    );
                 #endregion
 
 
-                _dbContext.CourseMaterials.AddRange(VoorwaarteStand, AchterwaartseStand, mat_1_1, mat_1_2, mat_1_3);
+
 
                 #endregion
 
                 #region Comment
 
-                Comment comment1 = new Comment("Dit is een test", VoorwaarteStand, members.First());
+               Comment comment1 = new Comment("Dit is een test", VoorwaarteStand, members.First());
                 Comment comment2 = new Comment("Dit is een tweede test, hier komt de effectieve commentaar die de gebruiker heeft ingegevne", AchterwaartseStand, members.First());
                 Comment comment3 = new Comment("Dit is een derde test, hier komt de effectieve commentaar die de gebruiker heeft ingegevne", AchterwaartseStand, members.First());
                 Comment comment4 = new Comment("Dit is een vierde test, hier komt de effectieve commentaar die de gebruiker heeft ingegevne", VoorwaarteStand, members.First());
@@ -222,7 +351,7 @@ namespace Taijitan.Data
                 _dbContext.SaveChanges();
             }
         }
-    
+
         private async Task CreateUser(string userName, string email, string password, string role)
         {
             var user = new IdentityUser { UserName = userName, Email = email };

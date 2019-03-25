@@ -217,7 +217,7 @@ namespace TaijitanTest.Controllers
             Assert.Empty(othermembers);
         }
         #endregion
-
+        
         #region TestAddNonMemberHttpPost
         [Fact]
         public void AddNonMember_ValidData_PassesSessionIdToView()
