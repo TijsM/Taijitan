@@ -73,47 +73,62 @@ namespace Taijitan.Models.Domain
         #region Methods
         public void AddToMembersPresent(Member mb)
         {
-            List<Member> _hulpPresent = MembersPresent.ToList();
-            _hulpPresent.Add(mb);
-            MembersPresent = _hulpPresent;
+            if (mb != null)
+            {
+                List<Member> _hulpPresent = MembersPresent.ToList();
+                _hulpPresent.Add(mb);
+                MembersPresent = _hulpPresent;
 
-            List<Member> _hulp = Members.ToList();
-            _hulp.Remove(mb);
-            Members = _hulp;
+                List<Member> _hulp = Members.ToList();
+                _hulp.Remove(mb);
+                Members = _hulp;
+            }
         }
 
         public void AddToMembers(Member mb)
         {
-            List<Member> _hulp = Members.ToList();
-            _hulp.Add(mb);
-            Members = _hulp;
+            if (mb != null)
+            {
+                List<Member> _hulp = Members.ToList();
+                _hulp.Add(mb);
+                Members = _hulp;
 
-            List<Member> _hulpPresent = MembersPresent.ToList();
-            _hulpPresent.Remove(mb);
-            MembersPresent = _hulpPresent;
+                List<Member> _hulpPresent = MembersPresent.ToList();
+                _hulpPresent.Remove(mb);
+                MembersPresent = _hulpPresent; 
+            }
         }
         public void AddToSessionMembers(List<Member> members)
         {
-            List<SessionMember> hulp = SessionMembers.ToList();
-            foreach (Member meme in members)
+            if (members != null)
             {
-                hulp.Add(new SessionMember(SessionId, this, meme.UserId, meme));
+                List<SessionMember> hulp = SessionMembers.ToList();
+                foreach (Member meme in members)
+                {
+                    hulp.Add(new SessionMember(SessionId, this, meme.UserId, meme));
+                }
+                SessionMembers = hulp; 
             }
-            SessionMembers = hulp;
         }
 
         public void AddNonMember(NonMember nonMember)
         {
-            List<NonMember> hList = NonMembers.ToList();
-            hList.Add(nonMember);
-            NonMembers = hList;
+            if (nonMember != null)
+            {
+                List<NonMember> hList = NonMembers.ToList();
+                hList.Add(nonMember);
+                NonMembers = hList; 
+            }
         }
 
         public void RemoveNonMember(NonMember nonMember)
         {
-            List<NonMember> hList = NonMembers.ToList();
-            hList.Remove(nonMember);
-            NonMembers = hList;
+            if (nonMember != null)
+            {
+                List<NonMember> hList = NonMembers.ToList();
+                hList.Remove(nonMember);
+                NonMembers = hList; 
+            }
         }
         public void Start()
         {

@@ -38,6 +38,8 @@ namespace TaijitanTest.Data
         public Teacher Teacher1 { get; set; }
         public Formula DinDon { get; set; }
         public Formula DinZat { get; set; }
+        public IEnumerable<Image> Images { get; set; }
+        public CourseMaterial CourseMaterial { get; set; }
         #endregion
 
 
@@ -95,6 +97,17 @@ namespace TaijitanTest.Data
                 _robbe,_jarne,_stef,_tijs,Teacher1
 
             };
+
+            Images = new List<Image>
+            {
+                new Image("test1","test"),
+                new Image("test2","test"),
+                new Image("test3","test"),
+                new Image("test4","test"),
+
+            };
+            CourseMaterial = new CourseMaterial(Rank.Dan1, "testURL", "testtest",Images, "test");
+
 
             Members = new List<Member>
             {
