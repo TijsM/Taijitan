@@ -98,6 +98,7 @@ function init() {
     if (!$.fn.dataTable.isDataTable('#summaryTable')) {
         $(document).ready(function () {
             $('#summaryTable').DataTable({
+                "responsive":true,
                 "language": {
                     "sProcessing": "Bezig...",
                     "sLengthMenu": "_MENU_ resultaten weergeven",
@@ -131,6 +132,7 @@ function init() {
     if (!$.fn.dataTable.isDataTable('#userSummaryTable')) {
         $(document).ready(function () {
             $('#userSummaryTable').DataTable({
+                "responsive": true,
                 "language": {
                     "sProcessing": "Bezig...",
                     "sLengthMenu": "_MENU_ resultaten weergeven",
@@ -169,6 +171,7 @@ function init() {
     if (!$.fn.dataTable.isDataTable('#commentSummaryTable')) {
         $(document).ready(function () {
             $('#commentSummaryTable').DataTable({
+                "responsive": true,
                 "language": {
                     "sProcessing": "Bezig...",
                     "sLengthMenu": "_MENU_ resultaten weergeven",

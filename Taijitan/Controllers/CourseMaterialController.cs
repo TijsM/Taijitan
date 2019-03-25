@@ -10,9 +10,13 @@ using Newtonsoft.Json;
 using Taijitan.Models.Domain;
 using Taijitan.Models.ViewModels;
 using MailKit.Net.Smtp;
+using Taijitan.Filters;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Taijitan.Controllers
 {
+    [ServiceFilter(typeof(SessionFilter))]
+    [Authorize]
     public class CourseMaterialController : Controller
     {
         private readonly ISessionRepository _sessionRepository;
@@ -30,19 +34,20 @@ namespace Taijitan.Controllers
         }
         public IActionResult Confirm(int id)
         {
-            Session currentSession = _sessionRepository.GetById(id);
-            if (currentSession == null)
+            Session session = _sessionRepository.GetById(id);
+            if (session == null)
                 return NotFound();
 
-            currentSession.Start();
+            session.Start();
             _sessionRepository.SaveChanges();
+
             if(HttpContext != null)
-                HttpContext.Session.SetString("Session", JsonConvert.SerializeObject(currentSession));
+                HttpContext.Session.SetString("Session", JsonConvert.SerializeObject(session));
 
             ViewData["partialView"] = "";
             CourseMaterialViewModel vm = new CourseMaterialViewModel()
             {
-                Session = currentSession,
+                Session = session,
                 CourseMaterials = _courseMaterialRepository.GetByRank(Rank.Kyu6),
                 AllRanks = GiveAllRanksAsList(),
                 SelectedRank = Rank.Kyu6
@@ -141,7 +146,6 @@ namespace Taijitan.Controllers
             ViewData["IsEmpty"] = true;
             return ShowComments();
         }
-        [HttpGet]
         public IActionResult SelectComment(int id)
         {
             Comment comment = _commentRepository.GetById(id);

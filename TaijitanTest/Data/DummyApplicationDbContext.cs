@@ -36,6 +36,8 @@ namespace TaijitanTest.Data
         public NonMember NonMemberBernard { get; set; }
         public IEnumerable<NonMember> NonMembers { get; set; }
         public Teacher Teacher1 { get; set; }
+        public Formula DinDon { get; set; }
+        public Formula DinZat { get; set; }
         #endregion
 
 
@@ -60,8 +62,8 @@ namespace TaijitanTest.Data
                 Dinsdag, woensdag, donderdag, zaterdag, zondag
             };
 
-            Formula dinDon = new Formula("dinsdag en donderdag", new List<TrainingDay> { Dinsdag, donderdag });
-            Formula dinZat = new Formula("dinsdag en zaterdag", new List<TrainingDay> { Dinsdag, zaterdag });
+            DinDon = new Formula("dinsdag en donderdag", new List<TrainingDay> { Dinsdag, donderdag });
+            DinZat = new Formula("dinsdag en zaterdag", new List<TrainingDay> { Dinsdag, zaterdag });
             Formula woeZat = new Formula("woensdag en zaterdag", new List<TrainingDay> { woensdag, zaterdag });
             Formula woe = new Formula("woensdag", new List<TrainingDay> { woensdag });
             Formula zat = new Formula("zaterdag", new List<TrainingDay> { zaterdag });
@@ -70,18 +72,16 @@ namespace TaijitanTest.Data
 
             Formulas = new List<Formula>
             {
-                dinDon, dinZat, woeZat, woe, zat/*, activiteit, stage*/
+                DinDon, DinZat, woeZat, woe, zat/*, activiteit, stage*/
             };
 
             DinsdagFormule = new List<Formula>
             {
-                dinDon, dinZat
+                DinDon, DinZat
             };
 
-
-
-            _tijs = new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Unknown", _brussel, Country.Belgium, "Unknown", "0499721771", "tijs.martens@student.hogent.be", dinDon, new DateTime(2014/06/2), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent");
-            _stef = new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Unknown", _antwerpen, Country.Belgium, "Unknown", "0000000000", "stef.verlinde@student.hogent.be", dinZat, new DateTime(2015 / 08 / 4), Gender.Man, Country.Belgium, "02-08-1998.306-37", "Gent");
+            _tijs = new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Unknown", _brussel, Country.Belgium, "Unknown", "0499721771", "tijs.martens@student.hogent.be", DinDon, new DateTime(2014/06/2), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent");
+            _stef = new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Unknown", _antwerpen, Country.Belgium, "Unknown", "0000000000", "stef.verlinde@student.hogent.be", DinZat, new DateTime(2015 / 08 / 4), Gender.Man, Country.Belgium, "02-08-1998.306-37", "Gent");
             _jarne = new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", _gent, Country.Belgium, "16", "0492554616", "jarne.deschacht@student.hogent.be", woeZat, new DateTime(2016 / 01 / 30), Gender.Man, Country.Belgium, "09-08-1999.400-08", "Gent");
             _robbe = new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Garzebekeveldstraat", _gent, Country.Belgium, "Unknown", "0000000000", "robbe.dekien@student.hogent.be", woe, new DateTime(2016 / 05 / 30), Gender.Man, Country.Belgium, "02-06-1999.100-20", "Gent");
             UserTomJansens = new Member("Jansens", "Tom", new DateTime(1999, 8, 9), "Hoogstraat", _gent, Country.Belgium, "8", "+32499854775", "tom.jansens@gmail.com",woeZat, new DateTime(2017 / 05 / 18), Gender.Man, Country.Belgium, "09-08-1999.400-09", "Gent");

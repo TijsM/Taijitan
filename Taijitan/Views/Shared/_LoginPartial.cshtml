@@ -54,7 +54,8 @@
                                             }
                                             <a asp-controller="CourseMaterial" asp-action="SelectComment" asp-route-id="@c.CommentId" class="@className" style="margin: 0.5em;">Nieuw commentaar door @c.Member.FirstName @c.Member.Name bij @c.Course.Title</a>
                                         }
-                                    } else
+                                    }
+                                    else
                                     {
                                         <p style="margin: 0.5em; text-align:center;">Geen notificaties</p>
                                     }
@@ -66,6 +67,7 @@
                         </div>
                     </li>
                 }
+
             }
             <li>
                 <div class="dropdown">
@@ -74,27 +76,14 @@
                         <a onclick="confirmLogout()" href="#">Uitloggen</a>
                     </div>
                 </div>
-                <div>
-                </div>
             </li>
+
         </ul>
     </form>
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        @*<li>
-                <div class="dropdown">
-                    <i class="fas fa-user-ninja fa-2x dropbtn" style="color: white; margin: 0.4em;" onclick="myFunction()" > </i>
-                    <div id="myDropdown" class="dropdown-content">
-                        <a asp-area="Identity" asp-page="/Account/Register">Registreer</a>
-                        <a asp-area="Identity" asp-page="/Account/Login">Inloggen</a>
-                    </div>
-                </div>
-            </li>*@
-        @*<li>
-                <a asp-area="Identity" asp-page="/Account/Register">Registreer</a>
-            </li>*@
         <li>
             <a asp-area="Identity" asp-page="/Account/Login">Inloggen</a>
         </li>

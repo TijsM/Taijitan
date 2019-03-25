@@ -54,12 +54,17 @@
         {
             <h1>Welkom Administrator</h1>
             <p>Op de online tool van Taijitan</p>
-            <div style="display:flex; justify-content:center;">
+            <div class="visible-xs row">
+                <a asp-controller="User" asp-action="Edit" asp-route-id="@TempData["UserId"]" class="btn-taijitan btn btn-block" style="margin-right:1em;">Wijzig gegevens</a>
+                <a asp-controller="User" asp-action="Summary" class="btn-taijitan btn btn-block" style="margin-right:1em;">Wijzig gegevens leden</a>
+                <a asp-controller="Session" asp-action="GetSessions" class="btn-taijitan btn btn-block" style="margin-right: 1em;">Overzicht aanwezigheden</a>
+                <a asp-controller="CourseMaterial" asp-action="ViewComments" class="btn-taijitan btn btn-block">Overzicht Commentaren</a>
+            </div>
+            <div class="hidden-xs row">
                 <a asp-controller="User" asp-action="Edit" asp-route-id="@TempData["UserId"]" class="btn-taijitan btn" style="margin-right:1em;">Wijzig gegevens</a>
                 <a asp-controller="User" asp-action="Summary" class="btn-taijitan btn" style="margin-right:1em;">Wijzig gegevens leden</a>
                 <a asp-controller="Session" asp-action="GetSessions" class="btn-taijitan btn" style="margin-right: 1em;">Overzicht aanwezigheden</a>
                 <a asp-controller="CourseMaterial" asp-action="ViewComments" class="btn-taijitan btn">Overzicht Commentaren</a>
-
             </div>
         }
 
