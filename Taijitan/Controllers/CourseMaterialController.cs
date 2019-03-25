@@ -18,7 +18,7 @@ namespace Taijitan.Controllers
     [ServiceFilter(typeof(SessionFilter))]
     [ServiceFilter(typeof(CourseMaterialFilter))]
     [ServiceFilter(typeof(HomeFilter))]
-    [Authorize]
+    [Authorize(Policy ="Teacher")]
     public class CourseMaterialController : Controller
     {
         private readonly ISessionRepository _sessionRepository;
@@ -34,9 +34,9 @@ namespace Taijitan.Controllers
             _courseMaterialRepository = courseMaterialRepository;
             _commentRepository = commentRepository;
         }
-        public IActionResult Confirm(int id, Session session)
+        public IActionResult Confirm(int id)
         {
-            session = _sessionRepository.GetById(id);
+            Session session = _sessionRepository.GetById(id);
             if (session == null)
                 return NotFound();
 
@@ -57,12 +57,19 @@ namespace Taijitan.Controllers
         public IActionResult SelectMember(int sessionId, int id)
         {
             ViewData["partialView"] = "lessons";
+            var session = _sessionRepository.GetById(sessionId);
+            var courseMaterial = _courseMaterialRepository.GetByRank(Rank.Kyu6);
+            var selectedMember = (Member)_userRepository.GetById(id);
+
+            if (session == null || selectedMember == null)
+                return NotFound();
+
             CourseMaterialViewModel vm = new CourseMaterialViewModel()
             {
-                Session = _sessionRepository.GetById(sessionId),
-                CourseMaterials = _courseMaterialRepository.GetByRank(Rank.Kyu6),
+                Session = session,
+                CourseMaterials = courseMaterial,
                 AllRanks = GiveAllRanksAsList(),
-                SelectedMember = (Member)_userRepository.GetById(id),
+                SelectedMember = selectedMember,
                 SelectedRank = Rank.Kyu6
             };
             return View("Training", vm);
@@ -74,30 +81,43 @@ namespace Taijitan.Controllers
         public IActionResult SelectRank(int sessionId, Rank rank, int selectedUserId)
         {
             ViewData["partialView"] = "lessons";
+            var session = _sessionRepository.GetById(sessionId);
+            var courseMaterial = _courseMaterialRepository.GetByRank(rank);
+            var selectedMember = (Member)_userRepository.GetById(selectedUserId);
+
+            if (session == null || selectedMember == null)
+                return NotFound();
+
             CourseMaterialViewModel vm = new CourseMaterialViewModel()
             {
-                Session = _sessionRepository.GetById(sessionId),
-                CourseMaterials = _courseMaterialRepository.GetByRank(rank),
+                Session = session,
+                CourseMaterials = courseMaterial,
                 AllRanks = GiveAllRanksAsList(),
-                SelectedMember = (Member)_userRepository.GetById(selectedUserId),
+                SelectedMember = selectedMember,
                 SelectedRank = rank,
             };
             return View("Training", vm);
         }
-        public IActionResult SelectCourse(int sessionId, Rank rank, int selectedUserId, int matId, CourseMaterialViewModel cmvm)
+        public IActionResult SelectCourse(int sessionId, Rank rank, int selectedUserId, int matId)
         {
-            Session session = _sessionRepository.GetById(sessionId);
+            var session = _sessionRepository.GetById(sessionId);
+            var courseMaterial = _courseMaterialRepository.GetByRank(rank);
+            var selectedMember = (Member)_userRepository.GetById(selectedUserId);
+            var selectedCourseMaterial = _courseMaterialRepository.GetById(matId);
+
+            if (session == null || selectedMember == null)
+                return NotFound();
+
             ViewData["partialView"] = "course";
-            cmvm = new CourseMaterialViewModel()
+            CourseMaterialViewModel cmvm = new CourseMaterialViewModel()
             {
                 Session = session,
-                CourseMaterials = _courseMaterialRepository.GetByRank(rank),
-                SelectedCourseMaterial = _courseMaterialRepository.GetById(matId),
+                CourseMaterials = courseMaterial,
+                SelectedCourseMaterial = selectedCourseMaterial,
                 AllRanks = GiveAllRanksAsList(),
-                SelectedMember = session.MembersPresent.SingleOrDefault(m => m.UserId == selectedUserId),
+                SelectedMember = selectedMember,
                 SelectedRank = rank,
             };
-            //viewModel in session steken
             return View("Training", cmvm);
         }
 
@@ -109,6 +129,10 @@ namespace Taijitan.Controllers
                 //viewModel uit session halen
                 CourseMaterial course = _courseMaterialRepository.GetById(cmvm.SelectedCourseMaterial.MaterialId);
                 Member member = (Member)_userRepository.GetById(cmvm.SelectedMember.UserId);
+
+                if (course == null || member == null)
+                    return NotFound();
+
                 Comment c = new Comment(comment, course, member);
                 _commentRepository.Add(c);
                 _commentRepository.SaveChanges();

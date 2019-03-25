@@ -17,16 +17,11 @@ namespace Taijitan.Controllers
     [ServiceFilter(typeof(HomeFilter))]
     [ServiceFilter(typeof(UserFilter))]
     [ServiceFilter(typeof(SessionFilter))]
-    public class HomeController : Controller
-    {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly IUserRepository _userRepository;
+    public class HomeController : Controller {
         private readonly ICommentRepository _commentRepository;
 
-        public HomeController(UserManager<IdentityUser> userManager, IUserRepository userRepository, ICommentRepository commentRepository)
+        public HomeController(ICommentRepository commentRepository)
         {
-            _userManager = userManager;
-            _userRepository = userRepository;
             _commentRepository = commentRepository;
         }
 
@@ -41,11 +36,10 @@ namespace Taijitan.Controllers
                 TempData["Role"] = user.GetRole();
                 TempData["UserId"] = user.UserId;
                 TempData["FullName"] = user.FirstName + " " + user.Name;
-                if (session.Members != null)
+                if (session != null && session.Members != null)
                 {
                     ViewData["Session"] = session;
                 }
-
                 //notifications
                 if (user.IsRole("Admin"))
                 {

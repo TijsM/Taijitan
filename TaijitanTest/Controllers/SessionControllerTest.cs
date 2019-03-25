@@ -17,7 +17,6 @@ namespace TaijitanTest.Controllers
 {
     public class SessionControllerTest
     {
-
         #region Fields
         private readonly DummyApplicationDbContext _dummyContext;
         private SessionController _sessionController;
@@ -43,7 +42,6 @@ namespace TaijitanTest.Controllers
         private int _trainingsDayId;
         private string _nonMemberFirstName;
         #endregion
-
 
         #region Constructor
         public SessionControllerTest()
@@ -78,6 +76,7 @@ namespace TaijitanTest.Controllers
             _mockUserRepository.Setup(c => c.GetByPartofName(_partOfName)).Returns(_dummyContext.UsersByPartOfName);
             _mockUserRepository.Setup(c => c.GetByFormula(_dummyContext.DinDon)).Returns(_dummyContext.Members);
             _mockUserRepository.Setup(c => c.GetByFormula(_dummyContext.DinZat)).Returns(_dummyContext.Members);
+            _mockUserRepository.Setup(c => c.GetAllMembers()).Returns(_dummyContext.Members);
 
             _mockSessionRepository.Setup(c => c.GetAll()).Returns(_dummyContext.Sessions);
             _mockSessionRepository.Setup(c => c.GetById(_session1Id)).Returns(_dummyContext.Session1);
@@ -103,14 +102,14 @@ namespace TaijitanTest.Controllers
         [Fact]
         public void CreateHttpGet_PassesAllFormulasToView()
         {
-            var result = _sessionController.Create() as ViewResult;
+            var result = _sessionController.Create(new Session()) as ViewResult;
             var formulas = result?.ViewData["formulas"] as SelectList;
-            Assert.Equal(_dummyContext.Formulas.Count(),formulas.Count());
+            Assert.Equal(_dummyContext.Formulas.Count(), formulas.Count());
         }
         [Fact]
         public void CreateHttpGet_ReturnsSessionViewModel()
         {
-            var result = _sessionController.Create() as ViewResult;
+            var result = _sessionController.Create(new Session()) as ViewResult;
             Assert.IsType<SessionViewModel>(result?.Model);
         }
         #endregion
@@ -134,42 +133,159 @@ namespace TaijitanTest.Controllers
         #endregion
 
         #region TestRegister
-        //[Fact]
-        //public void RegisterTest_ReturnsCorrectView()
-        //{
-        //    var sessionViewModel = new SessionViewModel();
-        //    _sessionController.ModelState.AddModelError("", "Any error");
-        //    var result = _sessionController.Register(_session1Id) as ViewResult;
-        //    Assert.Equal("Register", result.ViewName);
-        //}
+        [Fact]
+        public void RegisterTest_PassesSessionviewModelToView()
+        {
+            var sessionViewModel = new SessionViewModel();
+            _sessionController.ModelState.AddModelError("", "Any error");
+            var result = _sessionController.Register(_session1Id, _dummyContext.Teacher1) as ViewResult;
+            Assert.IsType<SessionViewModel>(result?.Model);
+        }
         #endregion
 
-        #region TestAddToPrestentHttpPost
-
+        #region TestAddToPresentHttpPost
+        [Fact]
+        public void AddToPresent_NonExistingUser_ReturnsNotFound()
+        {
+            Assert.IsType<NotFoundResult>(_sessionController.AddToPresent(1,1, null));
+        }
+        [Fact]
+        public void AddToPresent_NonExistingSessionId_ReturnsNotFound()
+        {
+            Assert.IsType<NotFoundResult>(_sessionController.AddToPresent(99, 1,_dummyContext.Teacher1));
+        }
+        [Fact]
+        public void AddToPresent_NonExistingMember_ReturnsNotFound()
+        {
+            Assert.IsType<NotFoundResult>(_sessionController.AddToPresent(_session1.SessionId,99, _dummyContext.Teacher1));
+        }
+        [Fact]
+        public void AddToPresent_ValidData_RedirectsToActionRegister()
+        {
+            var result = _sessionController.AddToPresent(_session1.SessionId,_tomJansensId, _dummyContext.Teacher1) as RedirectToActionResult;
+            Assert.Equal("Register", result?.ActionName);
+        }
         #endregion
 
         #region TestAddUnconfirmedHttpPost
-
+        [Fact]
+        public void AddToUnconfirmed_NonExistingUser_ReturnsNotFound()
+        {
+            Assert.IsType<NotFoundResult>(_sessionController.AddToUnconfirmed(1, 1, null));
+        }
+        [Fact]
+        public void AddToUnconfirmed_NonExistingSessionId_ReturnsNotFound()
+        {
+            Assert.IsType<NotFoundResult>(_sessionController.AddToUnconfirmed(99, 1, _dummyContext.Teacher1));
+        }
+        [Fact]
+        public void AddToPresent_ValidData_PassesSessionIdToView()
+        {
+            var result = _sessionController.AddToPresent(_session1.SessionId, _tomJansensId, _dummyContext.Teacher1) as RedirectToActionResult;
+            Assert.Equal(_session1.SessionId, result?.RouteValues["id"]);
+        }
+        [Fact]
+        public void AddToUnconfirmed_ValidData_RedirectsToActionRegister()
+        {
+            var result = _sessionController.AddToUnconfirmed(_session1.SessionId, _tomJansensId, _dummyContext.Teacher1) as RedirectToActionResult;
+            Assert.Equal("Register", result?.ActionName);
+        }
+        [Fact]
+        public void AddToUnconfirmed_ValidData_PassesSessionIdToView()
+        {
+            var result = _sessionController.AddToUnconfirmed(_session1.SessionId, _tomJansensId, _dummyContext.Teacher1) as RedirectToActionResult;
+            Assert.Equal(_session1.SessionId, result?.RouteValues["id"]);
+        }
         #endregion
 
         #region TestAddOtherMember
-
+        [Fact]
+        public void AddToOtherMember_NonExistingUser_ReturnsNotFound()
+        {
+            Assert.IsType<NotFoundResult>(_sessionController.AddOtherMember(99,null));
+        }
+        [Fact]
+        public void AddToOtherMember_NonExistingSession_ReturnsNotFound()
+        {
+            Assert.IsType<NotFoundResult>(_sessionController.AddOtherMember(99,_tomJansens));
+        }
+        [Fact]
+        public void AddToOtherMember_ValidData_PassesOtherMembersToView()
+        {
+            var result = _sessionController.AddOtherMember(_session1Id, _teacher,"de") as ViewResult;
+            var othermembers = result?.ViewData["otherMembers"] as List<Member>;
+            Assert.Empty(othermembers);
+        }
         #endregion
 
         #region TestAddNonMemberHttpPost
-
+        [Fact]
+        public void AddNonMember_ValidData_PassesSessionIdToView()
+        {
+            var result = _sessionController.AddNonMember("Jarne","Deschacht","Jarne.deschacht@student.hogent.be",_session1Id) as RedirectToActionResult;
+            Assert.Equal(_session1.SessionId, result?.RouteValues["id"]);
+        }
+        [Fact]
+        public void AddNonMember_ValidData_RedirectToRegister()
+        {
+            var result = _sessionController.AddNonMember("Jarne", "Deschacht", "Jarne.deschacht@student.hogent.be", _session1Id) as RedirectToActionResult;
+            Assert.Equal("Register", result?.ActionName);
+        }
+        [Fact]
+        public void AddNonMember_NonExistingSession_ReturnsNotFound()
+        {
+            Assert.IsType<NotFoundResult>(_sessionController.AddNonMember("Jarne", "Deschacht", "Jarne.deschacht@student.hogent.be", 99));
+        }
         #endregion
 
         #region TestRemoveNonMemberHttpPost
-
+        [Fact]
+        public void RemoveNonMember_NonExistingSession_ReturnsNotFound()
+        {
+            Assert.IsType<NotFoundResult>(_sessionController.RemoveNonMember("Jarne",99));
+        }
+        [Fact]
+        public void RemoveNonMember_NonExistingNonMember_ReturnsNotFound()
+        {
+            Assert.IsType<NotFoundResult>(_sessionController.RemoveNonMember("Jarne",_session1Id));
+        }
+        [Fact]
+        public void RemoveNonMember_ValidData_RedirectsToRegister()
+        {
+            _sessionController.AddNonMember("Jarne", "Deschacht", "Jarne.deschacht@student.hogent.be", _session1Id);
+            var result = _sessionController.RemoveNonMember("Jarne",_session1Id) as RedirectToActionResult;
+            Assert.Equal("Register", result?.ActionName);
+        }
+        [Fact]
+        public void RemoveNonMember_ValidData_PassesSessionIdToView()
+        {
+            _sessionController.AddNonMember("Jarne", "Deschacht", "Jarne.deschacht@student.hogent.be", _session1Id);
+            var result = _sessionController.RemoveNonMember("Jarne", _session1Id) as RedirectToActionResult;
+            Assert.Equal(_session1.SessionId, result?.RouteValues["id"]);
+        }
         #endregion
 
         #region TestGetSessions
-
+        [Fact]
+        public void GetSessions_PassesSessionsToView()
+        {
+            Assert.Equal(_dummyContext.Sessions, (_sessionController.GetSessions() as ViewResult)?.ViewData["sessions"]);
+        }
         #endregion
 
         #region TestSummaryPresences
-
+        [Fact]
+        public void SummaryPresences_NonExistingSession_ReturnsNotFound()
+        {
+            Assert.IsType<NotFoundResult>(_sessionController.SummaryPresences(99));
+        }
+        [Fact]
+        public void SummaryPresences_PassesSessionsToView()
+        {
+            _sessionController.AddNonMember("Jarne", "Deschacht", "Jarne.deschacht@student.hogent.be", _session1Id);
+            var nonmembers = (_sessionController.SummaryPresences(_session1Id) as ViewResult)?.ViewData["NonMembers"] as List<NonMember>;
+            Assert.Single(nonmembers);
+        }
         #endregion
     }
 }

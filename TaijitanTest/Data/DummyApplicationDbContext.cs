@@ -40,6 +40,9 @@ namespace TaijitanTest.Data
         public Formula DinZat { get; set; }
         public IEnumerable<Image> Images { get; set; }
         public CourseMaterial CourseMaterial { get; set; }
+        public Comment CommentWithId1 { get; set; }
+        public IEnumerable<Comment> Comments { get; set; }
+        public IEnumerable<CourseMaterial> CourseMaterials { get; set; }
         #endregion
 
 
@@ -106,8 +109,25 @@ namespace TaijitanTest.Data
                 new Image("test4","test"),
 
             };
-            CourseMaterial = new CourseMaterial(Rank.Dan1, "testURL", "testtest",Images, "test");
+            CourseMaterial = new CourseMaterial(Rank.Kyu6, "testURL", "testtest", Images, "test") { MaterialId = 1};
+            CourseMaterials = new List<CourseMaterial>
+            {
+                CourseMaterial,
+                new CourseMaterial(Rank.Kyu6, "testURL", "testtest",Images, "kweetnie"),
+                new CourseMaterial(Rank.Kyu6, "testURL", "testtest",Images, "test"),
+                new CourseMaterial(Rank.Kyu6, "testURL", "testtest",Images, "test"),
+        };
 
+            CommentWithId1 = new Comment("content", CourseMaterial, UserTomJansens) { CommentId = 1};
+            Comments = new List<Comment>()
+            {
+                CommentWithId1,
+                new Comment("test",CourseMaterial,UserTomJansens){ CommentId = 2},
+                new Comment("test",CourseMaterial,UserTomJansens){ CommentId = 3},
+                new Comment("test",CourseMaterial,UserTomJansens){ CommentId = 4},
+                new Comment("test",CourseMaterial,UserTomJansens){ CommentId = 5},
+                new Comment("test",CourseMaterial,UserTomJansens){ CommentId = 6,IsRead = true},
+            };
 
             Members = new List<Member>
             {
@@ -121,6 +141,9 @@ namespace TaijitanTest.Data
                 _robbe,_jarne,_stef
             };
             Session1 = new Session(Formulas, Teacher1, Members);
+            Session1.AddToMembersPresent(_jarne);
+            Session1.AddToMembersPresent(_tijs);
+            Session1.AddToMembersPresent(_robbe);
             Sessions = new List<Session> { Session1 };
 
             NonMemberBernard = new NonMember("Bernard", "Deploige", "bernarddeploige@hotmail.com", Session1.SessionId);

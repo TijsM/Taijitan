@@ -76,10 +76,16 @@ namespace Taijitan.Controllers
         }
         [Authorize(Policy = "Teacher")]
         [HttpPost]
-        public IActionResult AddToPresent(int sessionId, int id, User user = null)
+        public IActionResult AddToPresent(int sessionId, int id, User user)
         {
+            if (user == null)
+                return NotFound();
             Session CurrentSession = _sessionRepository.GetById(sessionId);
+            if (CurrentSession == null)
+                return NotFound();
             Member m = (Member)_userRepository.GetById(id);
+            if (m == null)
+                return NotFound();
             CurrentSession.AddToMembersPresent(m);
             SessionViewModel svm = new SessionViewModel(CurrentSession);
             svm.SessionTeacher = (Teacher)_userRepository.GetByEmail(user.Email);
@@ -89,9 +95,13 @@ namespace Taijitan.Controllers
         }
         [Authorize(Policy = "Teacher")]
         [HttpPost]
-        public IActionResult AddToUnconfirmed(int sessionId, int id, User user = null)
+        public IActionResult AddToUnconfirmed(int sessionId, int id, User user)
         {
+            if (user == null)
+                return NotFound();
             Session CurrentSession = _sessionRepository.GetById(sessionId);
+            if (CurrentSession == null)
+                return NotFound();
             CurrentSession.AddToMembers((Member)_userRepository.GetById(id));
             SessionViewModel svm = new SessionViewModel(CurrentSession);
             svm.SessionTeacher = (Teacher)_userRepository.GetByEmail(user.Email);
@@ -101,9 +111,13 @@ namespace Taijitan.Controllers
         }
         [HttpGet]
         [Authorize(Policy = "Teacher")]
-        public IActionResult AddOtherMember(int id, string searchTerm = "", User user = null)
+        public IActionResult AddOtherMember(int id,User user, string searchTerm = "")
         {
+            if (user == null)
+                return NotFound();
             var session = _sessionRepository.GetById(id);
+            if (session == null)
+                return NotFound();
             var sessionMembers = session.Members;
             IEnumerable<Member> otherMembers = _userRepository.GetAllMembers();
 
@@ -134,6 +148,8 @@ namespace Taijitan.Controllers
         public IActionResult AddNonMember(string firstName, string lastName, string email, int id)
         {
             Session s = _sessionRepository.GetById(id);
+            if (s == null)
+                return NotFound();
             var nonMember = new NonMember(firstName, lastName, email, id);
             s.AddNonMember(nonMember);
             _sessionRepository.SaveChanges();
@@ -144,7 +160,11 @@ namespace Taijitan.Controllers
         public IActionResult RemoveNonMember(string firstName, int id)
         {
             Session s = _sessionRepository.GetById(id);
+            if (s == null)
+                return NotFound();
             NonMember nonMember = s.NonMembers.FirstOrDefault(nm => nm.FirstName.Equals(firstName));
+            if (nonMember == null)
+                return NotFound();
             s.RemoveNonMember(nonMember);
             _sessionRepository.SaveChanges();
             return RedirectToAction("Register", new { id });
@@ -161,6 +181,8 @@ namespace Taijitan.Controllers
         public IActionResult SummaryPresences(int id)
         {
             Session s = _sessionRepository.GetById(id);
+            if (s == null)
+                return NotFound();
             ViewData["NonMembers"] = s.NonMembers;
             return View(s.MembersPresent);
         }
