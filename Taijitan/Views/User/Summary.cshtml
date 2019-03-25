@@ -8,37 +8,40 @@
 @{
     if (Model.Any())
     {
-        <table class="table" id="userSummaryTable">
-            <thead>
-                <tr>
-                    <th>Familienaam</th>
-                    <th>Voornaam</th>
-                    <th>Geboortedatum</th>
-                    <th>Adres</th>
-                    <th>Telefoonnummer</th>
-                    <th>E-mailadres</th>
-                    <th></th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr id="@item.UserId">
-                        <td>@item.Name</td>
-                        <td>@item.FirstName</td>
-                        <td>@item.DateOfBirth.ToShortDateString()</td>
-                        <td>@item.City.Postalcode @item.City.Name - @item.Street @item.HouseNumber</td>
-                        <td>@item.PhoneNumber</td>
-                        <td>@item.Email</td>
-                        <td>
-                            <a asp-controller="User" asp-action="Edit" asp-route-id="@item.UserId" asp-route-isFromSummary="1"><i title="Gegevens van gebruiker aanpassen" class="fas fa-edit fa-lg ChangeAndDeleteColor"></i></a>
-                            <a onclick="confirmDelete(@item.UserId)"><i title="Gebruiker verwijderen" class="fas fa-trash-alt fa-lg ChangeAndDeleteColor"></i></a>
-                        </td>
+        <div style="width: 100%">
+            <table class="table" id="userSummaryTable" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>Familienaam</th>
+                        <th>Voornaam</th>
+                        <th>Geboortedatum</th>
+                        <th>Adres</th>
+                        <th>Telefoonnummer</th>
+                        <th>E-mailadres</th>
+                        <th></th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr id="@item.UserId">
+                            <td>@item.Name</td>
+                            <td>@item.FirstName</td>
+                            <td>@item.DateOfBirth.ToShortDateString()</td>
+                            <td>@item.City.Postalcode @item.City.Name - @item.Street @item.HouseNumber</td>
+                            <td>@item.PhoneNumber</td>
+                            <td>@item.Email</td>
+                            <td>
+                                <a asp-controller="User" asp-action="Edit" asp-route-id="@item.UserId" asp-route-isFromSummary="1"><i title="Gegevens van gebruiker aanpassen" class="fas fa-edit fa-lg ChangeAndDeleteColor"></i></a>
+                                <a onclick="confirmDelete(@item.UserId)"><i title="Gebruiker verwijderen" class="fas fa-trash-alt fa-lg ChangeAndDeleteColor"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
 
     }
 
