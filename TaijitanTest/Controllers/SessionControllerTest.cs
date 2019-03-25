@@ -75,8 +75,9 @@ namespace TaijitanTest.Controllers
             _mockUserRepository.Setup(c => c.GetAll()).Returns(_dummyContext.Users);
             _mockUserRepository.Setup(c => c.GetById(_tomJansensId)).Returns(_dummyContext.UserTomJansens);
             _mockUserRepository.Setup(c => c.GetByEmail(_tomJansensEmail)).Returns(_dummyContext.UserTomJansens);
-            _mockUserRepository.Setup(c => c.GetByFormula(_tomJansensFormula)).Returns(_dummyContext.UsersFormula1);
             _mockUserRepository.Setup(c => c.GetByPartofName(_partOfName)).Returns(_dummyContext.UsersByPartOfName);
+            _mockUserRepository.Setup(c => c.GetByFormula(_dummyContext.DinDon)).Returns(_dummyContext.Members);
+            _mockUserRepository.Setup(c => c.GetByFormula(_dummyContext.DinZat)).Returns(_dummyContext.Members);
 
             _mockSessionRepository.Setup(c => c.GetAll()).Returns(_dummyContext.Sessions);
             _mockSessionRepository.Setup(c => c.GetById(_session1Id)).Returns(_dummyContext.Session1);
@@ -105,6 +106,12 @@ namespace TaijitanTest.Controllers
             var result = _sessionController.Create() as ViewResult;
             var formulas = result?.ViewData["formulas"] as SelectList;
             Assert.Equal(_dummyContext.Formulas.Count(),formulas.Count());
+        }
+        [Fact]
+        public void CreateHttpGet_ReturnsSessionViewModel()
+        {
+            var result = _sessionController.Create() as ViewResult;
+            Assert.IsType<SessionViewModel>(result?.Model);
         }
         #endregion
 
