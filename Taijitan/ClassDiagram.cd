@@ -19,14 +19,12 @@
     <AssociationLine Name="FormulaTrainingDays" Type="Taijitan.Models.Domain.FormulaTrainingDay" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="8.5" Y="4.675" />
-        <Point X="8.792" Y="4.675" Type="JumpStart" />
-        <Point X="8.958" Y="4.675" Type="JumpEnd" />
-        <Point X="10.75" Y="4.675" />
-        <Point X="10.75" Y="3.973" />
+        <Point X="10.975" Y="4.675" />
+        <Point X="10.975" Y="3.973" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAABAAAAAAAAAAAACAAAAQAAAAAAAAACIAAEAAAAAA=</HashCode>
+      <HashCode>AAAABAAAAAAAAAAAACAAAAQAAAAAAAAACIEAEAAAAAA=</HashCode>
       <FileName>Models\Domain\Formula.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -36,13 +34,11 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Taijitan.Models.Domain.FormulaTrainingDay">
-    <Position X="10" Y="2.25" Width="2.5" />
+    <Position X="10" Y="2.25" Width="3.25" />
     <AssociationLine Name="Formula" Type="Taijitan.Models.Domain.Formula" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="10.375" Y="3.973" />
-        <Point X="10.375" Y="4.391" />
-        <Point X="8.958" Y="4.391" Type="JumpStart" />
-        <Point X="8.792" Y="4.391" Type="JumpEnd" />
+        <Point X="10.488" Y="3.973" />
+        <Point X="10.488" Y="4.391" />
         <Point X="8.5" Y="4.391" />
       </Path>
     </AssociationLine>
@@ -72,13 +68,13 @@
   <Class Name="Taijitan.Models.Domain.Session">
     <Position X="10" Y="8.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAGgDAAAACAAAAAIAAAAAAAIAAAACCABABQEEEAAAAA=</HashCode>
+      <HashCode>AAGgDAAAACAAAAAIEAAAAAAIAAAACCABABQEEEAAAAA=</HashCode>
       <FileName>Models\Domain\Session.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
+      <Property Name="MembersPresent" />
       <Property Name="SessionMembers" />
       <Property Name="SessionFormulas" />
-      <Property Name="MembersPresent" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Taijitan.Models.Domain.SessionMember">
@@ -112,7 +108,7 @@
   <Class Name="Taijitan.Models.Domain.User">
     <Position X="3.5" Y="0.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>ACAAAEAAACBAAACIABAAQAwgAEIQAgAAAAIAIAAAKAA=</HashCode>
+      <HashCode>ACAAAEEAACBAAACIABAAQAwgAEIwAgAAAAIAIAAAKAA=</HashCode>
       <FileName>Models\Domain\User.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

@@ -22,15 +22,28 @@
         {
             <h1>Welkom @TempData["FullName"]</h1>
             <p>Op de online tool van Taijitan</p>
-            <a asp-controller="User" asp-action="Edit" asp-route-id="@TempData["UserId"]" class="btn-taijitan btn">Wijzig gegevens</a>
+            <div class="visible-xs visible-sm">
+                <a asp-controller="User" asp-action="Edit" asp-route-id="@TempData["UserId"]" class="btn-taijitan btn btn-block">Wijzig gegevens</a>
+            </div>
+            <div class="hidden-xs hidden-sm">
+                <a asp-controller="User" asp-action="Edit" asp-route-id="@TempData["UserId"]" class="btn-taijitan btn">Wijzig gegevens</a>
+            </div>
+            
         }
         else if (TempData["Role"].Equals("Teacher"))
         {
             <h1>Welkom @TempData["FullName"] (Leerkracht)</h1>
             <p>Op de online tool van Taijitan</p>
-            <div style="display:flex; justify-content:center;">
-                <a asp-controller="User" asp-action="Edit" asp-route-id="@TempData["UserId"]" class="btn-taijitan btn" style="margin-right:1em;">Wijzig gegevens</a>
-                <a asp-controller="Session" asp-action="Create" class="btn-taijitan btn" style="margin-right:1em;">Start Sessie</a>
+            <div class="row">
+                <div class="visible-xs visible-sm">
+                    <a asp-controller="User" asp-action="Edit" asp-route-id="@TempData["UserId"]" class="btn-taijitan btn btn-block" style="margin-right:1em;">Wijzig gegevens</a>
+                    <a asp-controller="Session" asp-action="Create" class="btn-taijitan btn btn-block" style="margin-right:1em;">Start Sessie</a>
+                </div>
+                <div class="hidden-xs hidden-sm">
+                    <a asp-controller="User" asp-action="Edit" asp-route-id="@TempData["UserId"]" class="btn-taijitan btn" style="margin-right:1em;">Wijzig gegevens</a>
+                    <a asp-controller="Session" asp-action="Create" class="btn-taijitan btn" style="margin-right:1em;">Start Sessie</a>
+                </div>
+
                 @{
                     Session currentSession = (Session)ViewData["Session"];
                     if (currentSession != null)
@@ -39,11 +52,23 @@
                         {
                             if (currentSession.SessionStarted)
                             {
-                                <a asp-controller="CourseMaterial" asp-action="Confirm" class="btn-taijitan btn">Hervat Sessie</a>
+                                <div class="visible-xs visible-sm" style="margin-top: 1.4%;">
+                                    <a asp-controller="CourseMaterial" asp-action="Confirm" class="btn-taijitan btn btn-block">Hervat Sessie</a>
+                                </div>
+                                <div class="hidden-xs hidden-sm row">
+                                    <a asp-controller="CourseMaterial" asp-action="Confirm" class="btn-taijitan btn">Hervat Sessie</a>
+                                </div>
+
                             }
                             else
                             {
-                                <a asp-controller="Session" asp-action="Register" class="btn-taijitan btn">Hervat Sessie</a>
+                                <div class="visible-xs visible-sm" style="margin-top: 1.4%;">
+                                    <a asp-controller="Session" asp-action="Register" class="btn-taijitan btn btn-block">Hervat Sessie</a>
+                                </div>
+                                <div class="hidden-xs hidden-sm row">
+                                    <a asp-controller="Session" asp-action="Register" class="btn-taijitan btn">Hervat Sessie</a>
+                                </div>
+
                             }
                         }
                     }
