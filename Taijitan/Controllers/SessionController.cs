@@ -58,8 +58,11 @@ namespace Taijitan.Controllers
                 session.Teacher = t;
                 session.Members = membersSession;
                 session.TrainingDay = _trainingDayRepository.getById(svm.TrainingDayId);
-                _sessionRepository.Add(session);
-                _sessionRepository.SaveChanges();
+                if (session.SessionId == svm.SessionId)
+                {
+                    _sessionRepository.Add(session);
+                    _sessionRepository.SaveChanges();
+                }
                 svm.Change(session);
                 return View("Register", svm);
             }
@@ -110,7 +113,7 @@ namespace Taijitan.Controllers
             _sessionRepository.SaveChanges();
             return RedirectToAction("Register", new { id = sessionId });
         }
-        [HttpGet]
+        [HttpPost]
         [Authorize(Policy = "Teacher")]
         public IActionResult AddOtherMember(int id,User user, string searchTerm = "")
         {

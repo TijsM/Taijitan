@@ -285,7 +285,9 @@ a {
 .show {
     display: block;
 }
-
+.show>*{
+    display: block;
+}
 .ChangeAndDeleteColor {
     color: #336566;
 }

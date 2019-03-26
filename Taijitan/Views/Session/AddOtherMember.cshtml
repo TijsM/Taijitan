@@ -12,23 +12,23 @@ onload = () => {
 
 <br />
 
-<form method="get">
-    <div class="form-inline">
-        <div class="form-group">
-            <input name="searchTerm" class="form-control mb-2 mr-sm-2" placeholder="Zoek op familienaam">
-            <button asp-controller="Session" asp-action="AddOtherMember" asp-route-id="@Model.SessionId" asp-route-searchTerm=searchTerm class="btn btn-taijitan">Zoek</button>
-            <button asp-controller="Session" asp-action="AddOtherMember" asp-route-searchTerm="" asp-route-id="@Model.SessionId" class="btn btn-taijitan">reset</button>
+<form method="post">
+    <div class="form-inline col-xs-12" style="padding: 0;">
+        <div class="form-group col-xs-8" style="padding: 0;">
+            <input name="searchTerm" class="form-control mb-2 mr-sm-2" placeholder="Zoek op familienaam" style="margin-right: 0.5em; margin-bottom: 0.5em;">
+            <button asp-controller="Session" asp-action="AddOtherMember" asp-route-id="@Model.SessionId" asp-route-searchTerm=searchTerm class="btn btn-taijitan" style="margin-right: 0.5em; margin-bottom: 0.5em;">Zoek</button>
+            <button asp-controller="Session" asp-action="AddOtherMember" asp-route-searchTerm="" asp-route-id="@Model.SessionId" class="btn btn-taijitan" style="margin-right: 0.5em; margin-bottom: 0.5em;">reset</button>
         </div>
     </div>
 </form>
 <br />
 <form method="post">
-    <div class="form-inline">
-        <div class="form-group">
-            <input name="firstName" class="form-control mb-2" mr-sm-2 placeholder="Voornaam" required />
-            <input name="lastName" class="form-control mb-2" mr-sm-2 placeholder="Achternaam" required />
-            <input name="email" class="form-control mb-2" mr-sm-2 placeholder="Email" required />
-            <button asp-controller="Session" asp-action="AddNonMember" asp-route-id="@Model.SessionId" class="btn btn-taijitan">Meld aan</button>
+    <div class="form-inline col-xs-12" style="padding: 0;">
+        <div class="form-group col-xs-8" style="padding: 0;">
+            <input name="firstName" class="form-control mb-2" style="margin-bottom: 0.5em;" mr-sm-2 placeholder="Voornaam" required />
+            <input name="lastName" class="form-control mb-2" style="margin-bottom: 0.5em;" mr-sm-2 placeholder="Achternaam" required />
+            <input name="email" class="form-control mb-2" style="margin-bottom: 0.5em;"  mr-sm-2 placeholder="Email" required />
+            <button asp-controller="Session" asp-action="AddNonMember" asp-route-id="@Model.SessionId" class="btn btn-taijitan" style="margin-bottom: 0.5em;">Meld aan</button>
         </div>
     </div>
 </form>
