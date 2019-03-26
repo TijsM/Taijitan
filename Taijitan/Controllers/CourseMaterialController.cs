@@ -99,7 +99,7 @@ namespace Taijitan.Controllers
             };
             return View("Training", vm);
         }
-        public IActionResult SelectCourse(int sessionId, Rank rank, int selectedUserId, int matId)
+        public IActionResult SelectCourse(int sessionId, Rank rank, int selectedUserId, int matId, CourseMaterialViewModel cmvm)
         {
             var session = _sessionRepository.GetById(sessionId);
             var courseMaterial = _courseMaterialRepository.GetByRank(rank);
@@ -110,15 +110,7 @@ namespace Taijitan.Controllers
                 return NotFound();
 
             ViewData["partialView"] = "course";
-            CourseMaterialViewModel cmvm = new CourseMaterialViewModel()
-            {
-                Session = session,
-                CourseMaterials = courseMaterial,
-                SelectedCourseMaterial = selectedCourseMaterial,
-                AllRanks = GiveAllRanksAsList(),
-                SelectedMember = selectedMember,
-                SelectedRank = rank,
-            };
+            cmvm.Update(session, courseMaterial, selectedCourseMaterial, GiveAllRanksAsList(), selectedMember, rank);
             return View("Training", cmvm);
         }
 

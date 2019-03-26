@@ -26,5 +26,15 @@ namespace Taijitan.Models.ViewModels
             CourseMaterials = new List<CourseMaterial>();
             AllRanks = new List<Rank>();
         }
+
+        public void Update(Session session, IEnumerable<CourseMaterial> courseMaterials, CourseMaterial selectedCourseMaterial, IEnumerable<Rank> allRanks, Member selectedMember, Rank selectedRank)
+        {
+            Session = session;
+            CourseMaterials = courseMaterials;
+            SelectedCourseMaterial = selectedCourseMaterial;
+            AllRanks = allRanks;
+            SelectedRank = selectedRank;
+            SelectedMember = selectedMember;
+        }
     }
 }
