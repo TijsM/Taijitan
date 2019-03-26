@@ -21,7 +21,7 @@ namespace Taijitan.Filters
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             _session = ReadSessionFromSession(context.HttpContext);
-            context.ActionArguments["session"] = _session;
+            context.ActionArguments["sessionFilter"] = _session;
             base.OnActionExecuting(context);
         }
 
@@ -33,12 +33,19 @@ namespace Taijitan.Filters
 
         private Session ReadSessionFromSession(HttpContext context)
         {
-            return context.Session.GetString("session") == null ?
-                new Session() : JsonConvert.DeserializeObject<Session>(context.Session.GetString("session"));
+            Session session;
+            if(context.Session.GetString("SessionFilter") == null)
+            {
+                session = null;
+            } else
+            {
+                session = JsonConvert.DeserializeObject<Session>(context.Session.GetString("SessionFilter"));
+            }
+            return session;
         }
         private void WriteSessionToSession(Session session, HttpContext context)
         {
-            context.Session.SetString("session", JsonConvert.SerializeObject(session));
+            context.Session.SetString("Session", JsonConvert.SerializeObject(session));
         }
     }
 }

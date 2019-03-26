@@ -13,8 +13,8 @@ using Taijitan.Models.ViewModels;
 namespace Taijitan.Controllers
 {
     [Authorize]
-    [ServiceFilter(typeof(UserFilter))]
     [ServiceFilter(typeof(SessionFilter))]
+    [ServiceFilter(typeof(UserFilter))]
     public class SessionController : Controller
     {
         private readonly ISessionRepository _sessionRepository;
@@ -34,15 +34,14 @@ namespace Taijitan.Controllers
         }
         [Authorize(Policy = "Teacher")]
         [HttpGet]
-        public IActionResult Create(Session session)
+        public IActionResult Create()
         {
             ViewData["Formulas"] = GetSelectListFormulas();
-            session = new Session();
             return View(new SessionViewModel());
         }
         [Authorize(Policy = "Teacher")]
         [HttpPost]
-        public IActionResult Create(Session session,SessionViewModel svm,User user = null)
+        public IActionResult Create(Session sessionFilter,SessionViewModel svm,User user = null)
         {
             if (ModelState.IsValid)
             {
@@ -55,11 +54,11 @@ namespace Taijitan.Controllers
                 }
                 IEnumerable<Member> membersSession = new List<Member>(members);
                 Teacher t = (Teacher)_userRepository.GetByEmail(user.Email);
-                session = new Session(formulasOfDay.ToList(), t, membersSession);
-                session.TrainingDay = _trainingDayRepository.getById(svm.TrainingDayId);
-                _sessionRepository.Add(session);
+                sessionFilter = new Session(formulasOfDay.ToList(), t, membersSession);
+                sessionFilter.TrainingDay = _trainingDayRepository.getById(svm.TrainingDayId);
+                _sessionRepository.Add(sessionFilter);
                 _sessionRepository.SaveChanges();
-                svm.Change(session);
+                svm.Change(sessionFilter);
                 return View("Register", svm);
             }
             return RedirectToAction(nameof(Create));

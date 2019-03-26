@@ -34,19 +34,19 @@ namespace Taijitan.Controllers
             _courseMaterialRepository = courseMaterialRepository;
             _commentRepository = commentRepository;
         }
-        public IActionResult Confirm(int id, Session session)
+        public IActionResult Confirm(int id, Session sessionFilter)
         {
-            session = _sessionRepository.GetById(id);
-            if (session == null)
+            sessionFilter = _sessionRepository.GetById(id);
+            if (sessionFilter == null)
                 return NotFound();
 
-            session.Start();
+            sessionFilter.Start();
             _sessionRepository.SaveChanges();
 
             ViewData["partialView"] = "";
             CourseMaterialViewModel vm = new CourseMaterialViewModel()
             {
-                Session = session,
+                Session = sessionFilter,
                 CourseMaterials = _courseMaterialRepository.GetByRank(Rank.Kyu6),
                 AllRanks = GiveAllRanksAsList(),
                 SelectedRank = Rank.Kyu6
@@ -80,7 +80,7 @@ namespace Taijitan.Controllers
                 CourseMaterials = _courseMaterialRepository.GetByRank(rank),
                 AllRanks = GiveAllRanksAsList(),
                 SelectedMember = (Member)_userRepository.GetById(selectedUserId),
-                SelectedRank = rank,
+                SelectedRank = rank
             };
             return View("Training", vm);
         }
@@ -95,7 +95,7 @@ namespace Taijitan.Controllers
                 SelectedCourseMaterial = _courseMaterialRepository.GetById(matId),
                 AllRanks = GiveAllRanksAsList(),
                 SelectedMember = session.MembersPresent.SingleOrDefault(m => m.UserId == selectedUserId),
-                SelectedRank = rank,
+                SelectedRank = rank
             };
             //viewModel in session steken
             return View("Training", cmvm);

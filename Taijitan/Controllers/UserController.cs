@@ -79,7 +79,7 @@ namespace Taijitan.Controllers
             return View(evm);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Authorize(Policy = "Admin")]
         public IActionResult Delete(int id, string confirmed = "true")
         {

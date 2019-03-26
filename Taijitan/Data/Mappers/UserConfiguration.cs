@@ -18,9 +18,9 @@ namespace Taijitan.Data.Mappers
                     .WithMany()
                     .IsRequired()
                     .OnDelete(DeleteBehavior.Restrict);
-                //builder.HasMany(c => c.Comments)
-                //.WithOne()
-                //.OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(c => c.Comments)
+            .WithOne()
+            .OnDelete(DeleteBehavior.ClientSetNull);
         }
         }
     }

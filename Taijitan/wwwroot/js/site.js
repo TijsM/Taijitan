@@ -61,6 +61,8 @@ function confirmLogout() {
             if (willDelete) {
                 swal("Je bent succesvol uitgelogd!", {
                     icon: "success",
+                    timer: 2000,
+                    buttons: false
                 }).then((value) => {
                         document.logoutForm.submit();
                 });
@@ -81,6 +83,8 @@ function confirmDelete(id) {
             if (willDelete) {
                 swal("Het lid is succesvol verwijderd!", {
                     icon: "success",
+                    timer: 1000,
+                    buttons: false
                 });
                 Delete(id, name);
             }
@@ -98,6 +102,8 @@ function confirmDeleteComment(id) {
             if (willDelete) {
                 swal("Het commentaar is succesvol verwijderd!", {
                     icon: "success",
+                    timer: 1000,
+                    buttons: false
                 });
                 DeleteComment(id, name);
             }
@@ -109,33 +115,15 @@ function Summary() {
         url: '/User/Summary'
     });
 }
-function Delete(id) {
-    $.ajax({
-        url: '/User/Delete',
-        type: 'POST',
-        data: { id: id },
-        success: function () {
-            var member = document.getElementById(id);
-            member.parentNode.removeChild(member);
-        }
-    });
-}
-function DeleteComment(id) {
-    $.ajax({
-        url: '/CourseMaterial/RemoveComment',
-        type: 'POST',
-        data: { id: id },
-        success: function () {
-            var comment = document.getElementById(id);
-            comment.parentNode.removeChild(comment);
-        }
-    });
-}
+
+
 function logout() {
     document.logoutForm.submit();
 }
 
 init();
+var userSummaryTable;
+var commentSummaryTable;
 function init() {
     if (!$.fn.dataTable.isDataTable('#summaryTable')) {
         $(document).ready(function () {
@@ -173,7 +161,7 @@ function init() {
     }
     if (!$.fn.dataTable.isDataTable('#userSummaryTable')) {
         $(document).ready(function () {
-            $('#userSummaryTable').DataTable({
+            userSummaryTable = $('#userSummaryTable').DataTable({
                 "responsive": true,
                 "language": {
                     "sProcessing": "Bezig...",
@@ -211,8 +199,8 @@ function init() {
         });
     }
     if (!$.fn.dataTable.isDataTable('#commentSummaryTable')) {
-        $(document).ready(function () {
-            $('#commentSummaryTable').DataTable({
+         $(document).ready(function () {
+             commentSummaryTable = $('#commentSummaryTable').DataTable({
                 "responsive": true,
                 "language": {
                     "sProcessing": "Bezig...",
@@ -266,11 +254,42 @@ function init() {
                     { "orderable": false, "width": "6%" },
                     null,
                     { "orderable": false, "width": "6%" }
-                ]
+                 ],
+                 "columnDefs": [
+                     {
+                         "targets": [5],
+                         "visible": false,
+                         "searchable": false
+                     }
+                 ]
 
 
             });
         });
     }
     
+}
+
+function DeleteComment(id) {
+    $.ajax({
+        url: '/CourseMaterial/RemoveComment',
+        type: 'POST',
+        data: { id: id },
+        success: function () {
+            var tr = document.getElementById(id);
+            commentSummaryTable.row(tr).remove().draw(false);
+        }
+    });
+}
+
+function Delete(id) {
+    $.ajax({
+        url: '/User/Delete',
+        type: 'POST',
+        data: { id: id },
+        success: function () {
+            var tr = document.getElementById(id);
+            userSummaryTable.row(tr).remove().draw(false);
+        }
+    });
 }

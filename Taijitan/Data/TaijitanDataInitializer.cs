@@ -20,7 +20,7 @@ namespace Taijitan.Data
         }
         public async Task InitializeData()
         {
-            //_dbContext.Database.EnsureDeleted();
+            _dbContext.Database.EnsureDeleted();
             if (_dbContext.Database.EnsureCreated())
             {
                 #region TrainingDays
@@ -177,8 +177,10 @@ namespace Taijitan.Data
                 Comment comment2 = new Comment("Dit is een tweede test, hier komt de effectieve commentaar die de gebruiker heeft ingegevne", AchterwaartseStand, members.First());
                 Comment comment3 = new Comment("Dit is een derde test, hier komt de effectieve commentaar die de gebruiker heeft ingegevne", AchterwaartseStand, members.First());
                 Comment comment4 = new Comment("Dit is een vierde test, hier komt de effectieve commentaar die de gebruiker heeft ingegevne", VoorwaarteStand, members.First());
+                Comment comment5 = new Comment("Dit is een vijfde test, hier komt de effectieve commentaar die de gebruiker heeft ingegevne", VoorwaarteStand, members.First());
+                Comment comment6 = new Comment("Dit is een zesde test, hier komt de effectieve commentaar die de gebruiker heeft ingegevne", VoorwaarteStand, members.First());
 
-                _dbContext.Comments.AddRange(comment1, comment2, comment3, comment4);
+                _dbContext.Comments.AddRange(comment1, comment2, comment3, comment4, comment5, comment6);
                 //_dbContext.Comments.Add(comment1);
                 ////_dbContext.Comments.Add(comment2);
                 ////_dbContext.Comments.Add(comment3);

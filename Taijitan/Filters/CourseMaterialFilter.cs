@@ -22,7 +22,7 @@ namespace Taijitan.Filters
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             _cmvm = ReadViewModelFromSession(context.HttpContext);
-            context.ActionArguments["courseMaterialViewModel"] = _cmvm;
+            context.ActionArguments["cmvm"] = _cmvm;
             base.OnActionExecuting(context);
         }
 
