@@ -35,15 +35,15 @@
                     Session currentSession = (Session)ViewData["Session"];
                     if (currentSession != null)
                     {
-                        if (currentSession.Date.Date.Equals(DateTime.Today))
+                        if (currentSession.Date.Date.Equals(DateTime.Today) && currentSession.SessionId != 0)
                         {
                             if (currentSession.SessionStarted)
                             {
-                                <a asp-controller="CourseMaterial" asp-action="Confirm" asp-route-id="@currentSession.SessionId" class="btn-taijitan btn">Hervat Sessie</a>
+                                <a asp-controller="CourseMaterial" asp-action="Confirm" class="btn-taijitan btn">Hervat Sessie</a>
                             }
                             else
                             {
-                                <a asp-controller="Session" asp-action="Register" asp-route-id="@currentSession.SessionId" class="btn-taijitan btn">Hervat Sessie</a>
+                                <a asp-controller="Session" asp-action="Register" class="btn-taijitan btn">Hervat Sessie</a>
                             }
                         }
                     }

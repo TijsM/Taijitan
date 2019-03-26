@@ -25,7 +25,7 @@ namespace Taijitan.Controllers
             _commentRepository = commentRepository;
         }
 
-        public IActionResult Index(ICollection<Comment> notifications, User User, Session sessionFilter)
+        public IActionResult Index(ICollection<Comment> notifications, User User, Session session)
         {
             TempData["Role"] = "";
             TempData["IsHome"] = "true";
@@ -36,9 +36,9 @@ namespace Taijitan.Controllers
                 TempData["Role"] = user.GetRole();
                 TempData["UserId"] = user.UserId;
                 TempData["FullName"] = user.FirstName + " " + user.Name;
-                if (sessionFilter != null)
+                if (session != null)
                 {
-                    ViewData["Session"] = sessionFilter;
+                    ViewData["Session"] = session;
                 }
                 //notifications
                 if (user.IsRole("Admin"))

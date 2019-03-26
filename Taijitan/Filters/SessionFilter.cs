@@ -12,16 +12,17 @@ namespace Taijitan.Filters
     public class SessionFilter : ActionFilterAttribute
     {
         private Session _session;
+        private readonly ISessionRepository _sessionRepository;
 
-        public SessionFilter()
+        public SessionFilter(ISessionRepository sessionRepository)
         {
-            
+            _sessionRepository = sessionRepository;
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             _session = ReadSessionFromSession(context.HttpContext);
-            context.ActionArguments["sessionFilter"] = _session;
+            context.ActionArguments["session"] = _session;
             base.OnActionExecuting(context);
         }
 
@@ -34,12 +35,12 @@ namespace Taijitan.Filters
         private Session ReadSessionFromSession(HttpContext context)
         {
             Session session;
-            if(context.Session.GetString("SessionFilter") == null)
+            if(context.Session.GetString("Session") == null)
             {
-                session = null;
+                session = new Session();
             } else
             {
-                session = JsonConvert.DeserializeObject<Session>(context.Session.GetString("SessionFilter"));
+                session = JsonConvert.DeserializeObject<Session>(context.Session.GetString("Session"));
             }
             return session;
         }

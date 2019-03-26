@@ -62,11 +62,15 @@ namespace Taijitan.Models.Domain
         }
         public Session()
         {
+            Date = DateTime.Now;
+
             MembersPresent = new List<Member>();
             SessionFormulas = new List<SessionFormula>();
             SessionMembers = new List<SessionMember>();
             NonMembers = new List<NonMember>();
             NonMembers = new List<NonMember>();
+
+            
         } 
         #endregion
 
@@ -83,6 +87,31 @@ namespace Taijitan.Models.Domain
                 _hulp.Remove(mb);
                 Members = _hulp;
             }
+        }
+
+        public void PutFormulas(IEnumerable<Formula> formulas)
+        {
+            ICollection<TrainingDay> temp = new HashSet<TrainingDay>();
+            foreach (Formula formula in formulas)
+            {
+                List<TrainingDay> trainingDays = formula.FormulaTrainingDays.Select(td => td.TrainingDay).ToList();
+                if (trainingDays != null && formula != null)
+                {
+                    foreach (TrainingDay day in trainingDays)
+                    {
+                        if (!temp.Contains(day) && day != null)
+                        {
+                            temp.Add(day);
+                        }
+                    }
+                }
+            }
+            foreach (Formula f in formulas)
+            {
+                SessionFormulas.Add(new SessionFormula(SessionId, this, f.FormulaId, f));
+            }
+            TrainingDay prefDay = temp.SingleOrDefault(t => t.DayOfWeek.Equals(DateTime.Today.DayOfWeek));
+            TrainingDay = prefDay != null ? prefDay : temp.First(t => t != null);
         }
 
         public void AddToMembers(Member mb)

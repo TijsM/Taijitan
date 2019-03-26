@@ -34,19 +34,20 @@ namespace Taijitan.Controllers
             _courseMaterialRepository = courseMaterialRepository;
             _commentRepository = commentRepository;
         }
-        public IActionResult Confirm(int id, Session sessionFilter)
+        public IActionResult Confirm(Session session)
         {
-            sessionFilter = _sessionRepository.GetById(id);
-            if (sessionFilter == null)
+            Session tempSession = _sessionRepository.GetById(session.SessionId);
+            if (tempSession == null)
                 return NotFound();
 
-            sessionFilter.Start();
+            tempSession.Start();
+            session.Start();
             _sessionRepository.SaveChanges();
 
             ViewData["partialView"] = "";
             CourseMaterialViewModel vm = new CourseMaterialViewModel()
             {
-                Session = sessionFilter,
+                Session = tempSession,
                 CourseMaterials = _courseMaterialRepository.GetByRank(Rank.Kyu6),
                 AllRanks = GiveAllRanksAsList(),
                 SelectedRank = Rank.Kyu6

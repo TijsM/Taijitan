@@ -41,7 +41,7 @@ namespace Taijitan.Controllers
         }
         [Authorize(Policy = "Teacher")]
         [HttpPost]
-        public IActionResult Create(Session sessionFilter,SessionViewModel svm,User user = null)
+        public IActionResult Create(Session session,SessionViewModel svm,User user = null)
         {
             if (ModelState.IsValid)
             {
@@ -54,23 +54,25 @@ namespace Taijitan.Controllers
                 }
                 IEnumerable<Member> membersSession = new List<Member>(members);
                 Teacher t = (Teacher)_userRepository.GetByEmail(user.Email);
-                sessionFilter = new Session(formulasOfDay.ToList(), t, membersSession);
-                sessionFilter.TrainingDay = _trainingDayRepository.getById(svm.TrainingDayId);
-                _sessionRepository.Add(sessionFilter);
+                session.PutFormulas(formulasOfDay.ToList());
+                session.Teacher = t;
+                session.Members = membersSession;
+                session.TrainingDay = _trainingDayRepository.getById(svm.TrainingDayId);
+                _sessionRepository.Add(session);
                 _sessionRepository.SaveChanges();
-                svm.Change(sessionFilter);
+                svm.Change(session);
                 return View("Register", svm);
             }
             return RedirectToAction(nameof(Create));
         }
         [HttpGet]
         [Authorize(Policy = "Teacher")]
-        public IActionResult Register(int id, User user = null)
+        public IActionResult Register(Session session, User user = null)
         {
-            Session session = _sessionRepository.GetById(id);
-            SessionViewModel svm = new SessionViewModel(session);
+            Session sessionFromR = _sessionRepository.GetById(session.SessionId);
+            SessionViewModel svm = new SessionViewModel(sessionFromR);
             svm.SessionTeacher = (Teacher)_userRepository.GetByEmail(user.Email);
-            svm.TrainingDay = session.TrainingDay;
+            svm.TrainingDay = sessionFromR.TrainingDay;
             return View(svm);
         }
         [Authorize(Policy = "Teacher")]
