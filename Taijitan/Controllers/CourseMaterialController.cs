@@ -204,7 +204,7 @@ namespace Taijitan.Controllers
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("project.groep08@gmail.com"));
             message.To.Add(new MailboxAddress("receivetaijitan@maildrop.cc"));
-            message.Subject = "nieuwe commentaar";
+            message.Subject = "nieuwe commentaar van " + comment.Member.FirstName;
             message.Body = new TextPart("html")
             {
                 Text =
