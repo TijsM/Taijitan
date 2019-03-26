@@ -38,6 +38,11 @@ namespace Taijitan.Data.Repositories
             return _sessions.Include(s => s.Members).ThenInclude(m => m.City).Include(s => s.MembersPresent).ThenInclude(m => m.City).Include(s => s.TrainingDay).Include(s => s.NonMembers).SingleOrDefault(s => s.SessionId == id);
         }
 
+        public IEnumerable<Session> GetByUser(int id)
+        {
+            return _sessions.Where(s => s.Members.Any(m => m.UserId == id)).ToList();
+        }
+
         public void SaveChanges()
         {
             _context.SaveChanges();

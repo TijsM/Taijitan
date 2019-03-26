@@ -20,7 +20,7 @@ namespace Taijitan.Data
         }
         public async Task InitializeData()
         {
-            //_dbContext.Database.EnsureDeleted();
+            _dbContext.Database.EnsureDeleted();
             if (_dbContext.Database.EnsureCreated())
             {
                 #region TrainingDays

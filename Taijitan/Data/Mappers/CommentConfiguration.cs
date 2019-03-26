@@ -14,6 +14,9 @@ namespace Taijitan.Data.Mappers
         {
             builder.ToTable("Comment");
             builder.HasKey(c => c.CommentId);
+            builder.HasOne(c => c.Member)
+                .WithMany()
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

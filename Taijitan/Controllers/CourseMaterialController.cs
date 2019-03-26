@@ -38,6 +38,7 @@ namespace Taijitan.Controllers
         public IActionResult Confirm(Session session)
         {
             Session tempSession = _sessionRepository.GetById(session.SessionId);
+
             if (tempSession == null)
                 return NotFound();
 

@@ -16,8 +16,9 @@ namespace Taijitan.Models.Domain
         [JsonProperty]
         public CourseMaterial Course { get; set; }
         [JsonProperty]
-        public Member Member { get; set; }
+        public User Member { get; set; }
         public DateTime DateCreated { get; set; }
+
         [JsonProperty]
         public bool IsRead { get; set; }
 
@@ -27,7 +28,7 @@ namespace Taijitan.Models.Domain
             IsRead = false;
         }
 
-        public Comment(string content, CourseMaterial course, Member member)
+        public Comment(string content, CourseMaterial course, User member)
         {
             Content = content;
             Course = course;

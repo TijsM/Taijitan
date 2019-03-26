@@ -14,13 +14,12 @@ namespace Taijitan.Data.Mappers
             {
                 builder.ToTable("User");
                 builder.HasKey(m => m.UserId);
-                builder.HasOne(m => m.City)
-                    .WithMany()
-                    .IsRequired()
-                    .OnDelete(DeleteBehavior.Restrict);
-            //builder.HasMany(c => c.Comments)
-            //.WithOne()
-            //.OnDelete(DeleteBehavior.ClientSetNull);
+            builder.HasOne(m => m.City)
+                .WithMany()
+                .IsRequired();
+            builder.HasMany(c => c.Comments)
+                .WithOne(c => c.Member)
+                .OnDelete(DeleteBehavior.Cascade);
         }
         }
     }
