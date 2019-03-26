@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,14 @@ namespace Taijitan.Data
         private readonly ApplicationDbContext _context;
         private readonly DbSet<User> _users;
         private readonly IEnumerable<Member> _members;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public UserRepository(ApplicationDbContext context)
+        public UserRepository(ApplicationDbContext context,UserManager<IdentityUser> userManager)
         {
             _context = context;
             _users = context.Users_Domain;
             _members = _users.OfType<Member>().Include(u => u.Formula).Where(item => item.GetType() == typeof(Member)).ToList();
+            _userManager = userManager;
         }
 
         public IEnumerable<Member> GetAllMembers()
@@ -33,6 +36,7 @@ namespace Taijitan.Data
         public void Delete(User user)
         {
             _users.Remove(user);
+            RemoveUser(user).Wait();
         }
 
         public IEnumerable<User> GetAll()
@@ -74,6 +78,11 @@ namespace Taijitan.Data
         public void SaveChanges()
         {
             _context.SaveChanges();
+        }
+        private async Task RemoveUser(User user)
+        {
+            var usr = await _userManager.FindByEmailAsync(user.Email);
+            await _userManager.DeleteAsync(usr);
         }
     }
 }

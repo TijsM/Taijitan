@@ -140,7 +140,7 @@ namespace TaijitanTest.Data
             UsersByPartOfName = new List<Member> {
                 _robbe,_jarne,_stef
             };
-            Session1 = new Session(Formulas, Teacher1, Members);
+            Session1 = new Session(Formulas, Teacher1, Members) { SessionId = 0};
             Session1.AddToMembersPresent(_jarne);
             Session1.AddToMembersPresent(_tijs);
             Session1.AddToMembersPresent(_robbe);

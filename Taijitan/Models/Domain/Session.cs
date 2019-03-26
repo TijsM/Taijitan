@@ -139,7 +139,6 @@ namespace Taijitan.Models.Domain
                 SessionMembers = hulp; 
             }
         }
-
         public void AddNonMember(NonMember nonMember)
         {
             if (nonMember != null)
