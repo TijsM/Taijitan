@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Taijitan.Controllers.CourseMaterialController">
+    <Position X="1.75" Y="0.75" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAgACAEsBAAQAAAAABAAAAAAAAACCAAgAAgAAAAAAhA=</HashCode>
+      <FileName>Controllers\CourseMaterialController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Taijitan.Controllers.ErrorsController">
+    <Position X="7.25" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\ErrorsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Taijitan.Controllers.HomeController">
+    <Position X="7.25" Y="0.75" Width="5.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAQAAEAAAAAABA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Taijitan.Controllers.SessionController">
+    <Position X="1.75" Y="5.25" Width="13.25" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAgIAAAAAAAEAAAABAAAgADAGICAQQABAAAAAA=</HashCode>
+      <FileName>Controllers\SessionController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Taijitan.Controllers.UserController">
+    <Position X="1.75" Y="10" Width="5.25" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAgAAAAAAAAAAAACAAAAAEAAAACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\UserController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="8.83" />
+</ClassDiagram>
