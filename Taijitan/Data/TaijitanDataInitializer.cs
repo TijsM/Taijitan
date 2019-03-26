@@ -92,7 +92,7 @@ namespace Taijitan.Data
                 #region Admins
                 IEnumerable<Admin> admins = new List<Admin>
                 {
-                     new Admin("Admin", "Administrator", new DateTime(1980, 1, 15), "StationStraat", nazareth, Country.Belgium, "15", "+3249981557", "admin@taijitan.be",  new DateTime(2005/01/30), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent"),
+                     new Admin("Gracie", "Rickson", new DateTime(1980, 1, 15), "StationStraat", nazareth, Country.Belgium, "15", "+3249981557", "admin@taijitan.be",  new DateTime(2005/01/30), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent"),
 
                 };
                 #endregion
