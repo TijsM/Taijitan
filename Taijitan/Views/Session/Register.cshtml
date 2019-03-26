@@ -20,11 +20,6 @@
         <br />
         <h4>Sessie op @Model.Date.ToShortDateString() van @(start.Hours):@startMinutes tot @(end.Hours):@endMinutes met als lesgever  @Model.SessionTeacher.FirstName @Model.SessionTeacher.Name</h4>
     </div>
-    <div style="top: 2em; position: relative;">
-        <form method="post">
-            <button type="submit" asp-action="Confirm" asp-controller="CourseMaterial" asp-route-id="@Model.SessionId" class="btn btn-taijitan" style="float:right;">Bevestig aanwezigheden</button>
-        </form>
-    </div>
 </div>
 <br />
 <div class="col-lg-12">
@@ -46,7 +41,8 @@
                     }
                 }
             </div>
-            <button type="submit" asp-controller="Session" asp-action="AddOtherMember" asp-route-id="@Model.SessionId" class="btn btn-taijitan">Voeg gast toe</button>
+            <button type="submit" asp-controller="Session" asp-action="AddOtherMember" asp-route-id="@Model.SessionId" class="btn btn-taijitan" style="margin-bottom: 1em;">Voeg gast toe</button>
+            <button type="submit" asp-action="Confirm" asp-controller="CourseMaterial" asp-route-id="@Model.SessionId" class="btn btn-taijitan" style="margin-bottom: 1em;">Bevestig aanwezigheden</button>
         </form>
 
     </div>
