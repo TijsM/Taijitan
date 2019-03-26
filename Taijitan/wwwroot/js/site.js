@@ -13,7 +13,7 @@ function openNotifications() {
     document.getElementById("notificationsDropdown").classList.toggle("show");
 }
 function openNotificationsMobile() {
-    document.getElementById("notificationsDropdown").classList.toggle("show");
+    document.getElementById("notificationsDropdownMobile").classList.toggle("show");
 }
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function (event) {
@@ -154,7 +154,7 @@ function init() {
                 },
                 dom: 'Bflrtip',
                 buttons: [
-                    'excel', 'print'
+                    'excelHtml5', 'print'
                 ]
             });
         });
@@ -233,7 +233,7 @@ function init() {
                     }
                 },
                 {
-                    extend: 'excel',
+                    extend: 'excelHtml5',
                     exportOptions: {
                         columns: [0, 1, 2, 3, 5]
                     }

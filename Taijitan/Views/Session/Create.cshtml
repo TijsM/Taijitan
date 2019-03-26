@@ -4,15 +4,18 @@
     ViewData["Title"] = "Sessie";
 }
 
-<div>
+<div style="width: 100%;">
     <h2>Een sessie aanmaken</h2>
     <br />
     <br />
     <form method="post">
-        <div class="form-group col-md-6">
-            <label asp-for="TrainingDayId">Kies een dag waarvoor je de sessie wilt starten</label>
+        <div class="form-group col-md-12">
+            <label asp-for="TrainingDayId" class="col-md-12">Kies een dag waarvoor je de sessie wilt starten</label>
             <br />
-            <select asp-for="TrainingDayId" asp-items="@ViewData["Formulas"] as SelectList" class="form-control"></select>
+            <div class="col-md-6">
+                <select asp-for="TrainingDayId" asp-items="@ViewData["Formulas"] as SelectList" class="form-control"></select>
+
+            </div>
         </div>
         <div class="col-md-12">
             <button class="btn btn-taijitan"type="submit">Maak sessie</button>
