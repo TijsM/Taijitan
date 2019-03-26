@@ -12,5 +12,6 @@ namespace Taijitan.Models.Domain
         void Add(Session session);
         void Delete(Session session);
         void SaveChanges();
+        IEnumerable<Session> GetByUser(int id);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace Taijitan.Filters
     public class UserFilter : ActionFilterAttribute
     {
         private readonly IUserRepository _userRepository;
+        
 
         public UserFilter(IUserRepository userRepository)
         {
@@ -18,11 +20,9 @@ namespace Taijitan.Filters
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-
             context.ActionArguments["User"] = context.HttpContext.User.Identity.IsAuthenticated ?
                 _userRepository.GetByEmail(context.HttpContext.User.Identity.Name) : null;
             base.OnActionExecuting(context);
         }
-        
     }
 }

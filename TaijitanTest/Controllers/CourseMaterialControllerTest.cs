@@ -26,7 +26,7 @@ namespace TaijitanTest.Controllers
         private Member _tomJansens;
         private int _tomJansensId;
 
-        private int _idOfStartedSession = 1;
+        private int _idOfStartedSession = 0;
         private int _idOfCourseMaterial = 1;
         private int _idComment = 1;
         private int _nonExistingSessionId = 999;
@@ -65,7 +65,7 @@ namespace TaijitanTest.Controllers
         [Fact]
         public void Confirm_nonExcistingSession_returnsNewSession()
         {
-            var result = _courseMaterialController.Confirm(new Session()) as ViewResult;
+            var result = _courseMaterialController.Confirm(_dummyApplicationContext.Session1) as ViewResult;
             Assert.Equal("", result?.ViewData["partialView"]);
         }
         [Fact]

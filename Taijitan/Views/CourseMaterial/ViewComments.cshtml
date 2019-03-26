@@ -25,18 +25,34 @@
 
                 @foreach (var item in Model)
                 {
-                    <tr id="@item.CommentId">
+                <tr id="@item.CommentId">
+                    @if (item.Member != null)
+                    {
                         <td>@item.Member.Name</td>
+                    }
+                    else
+                    {
+                        <td>Gebruiker is verwijderd</td>
+                    }
+                    @if (item.Member != null)
+                    {
                         <td>@item.Member.FirstName</td>
-                        <td>@item.Course.Title</td>
-                        <td>@item.DateCreated.ToShortDateString()</td>
-                        <td><button type="submit" asp-action="SelectComment" asp-controller="CourseMaterial" asp-route-id="@item.CommentId" class="btn btn-taijitan">Lees commentaar</button></td>
-                        <td> @item.Content</td>
-                        <td>
-                                <a onclick="confirmDeleteComment(@item.CommentId)" class="btn" style="background-color: white;"><i title="Commentaar verwijderen"
-                                class="fas fa-trash-alt fa-lg ChangeAndDeleteColor"></i></a>
-                        </td>
-                    </tr>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    <td>@item.Course.Title</td>
+                    <td>@item.DateCreated.ToShortDateString()</td>
+                    <td><button type="submit" asp-action="SelectComment" asp-controller="CourseMaterial" asp-route-id="@item.CommentId" class="btn btn-taijitan">Lees commentaar</button></td>
+                    <td> @item.Content</td>
+                    <td>
+                        <a onclick="confirmDeleteComment(@item.CommentId)" class="btn" style="background-color: white;">
+                            <i title="Commentaar verwijderen"
+                               class="fas fa-trash-alt fa-lg ChangeAndDeleteColor"></i>
+                        </a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
@@ -74,7 +90,14 @@
                         @comment.Course.Title
                     </div>
                     <ul class="list-group">
-                        <li class="list-group-item">Geplaatst door: @comment.Member.FirstName @comment.Member.Name</li>
+                        @if (comment.Member != null)
+                        {
+                            <li class="list-group-item">Geplaatst door: @comment.Member.FirstName @comment.Member.Name</li>
+                        }
+                        else
+                        {
+                            <li class="list-group-item">Gebruiker is verwijderd</li>
+                        }
                         <li class="list-group-item">Geplaatste op: @comment.DateCreated.ToLongDateString()</li>
                         <li class="list-group-item">@comment.Content</li>
                     </ul>
