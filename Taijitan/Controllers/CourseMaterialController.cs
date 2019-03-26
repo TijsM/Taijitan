@@ -18,7 +18,7 @@ namespace Taijitan.Controllers
     [ServiceFilter(typeof(SessionFilter))]
     [ServiceFilter(typeof(CourseMaterialFilter))]
     [ServiceFilter(typeof(HomeFilter))]
-    [Authorize(Policy ="Teacher")]
+    [Authorize]
     public class CourseMaterialController : Controller
     {
         private readonly ISessionRepository _sessionRepository;
@@ -34,6 +34,7 @@ namespace Taijitan.Controllers
             _courseMaterialRepository = courseMaterialRepository;
             _commentRepository = commentRepository;
         }
+        [Authorize(Policy = "Teacher")]
         public IActionResult Confirm(Session session)
         {
             Session tempSession = _sessionRepository.GetById(session.SessionId);
@@ -55,6 +56,7 @@ namespace Taijitan.Controllers
             return View("Training", vm);
         }
         [HttpPost]
+        [Authorize(Policy = "Teacher")]
         public IActionResult SelectMember(int sessionId, int id)
         {
             ViewData["partialView"] = "lessons";
@@ -75,10 +77,12 @@ namespace Taijitan.Controllers
             };
             return View("Training", vm);
         }
+        [Authorize(Policy = "Teacher")]
         private ICollection<Rank> GiveAllRanksAsList()
         {
             return Enum.GetValues(typeof(Rank)).Cast<Rank>().ToList();
         }
+        [Authorize(Policy = "Teacher")]
         public IActionResult SelectRank(int sessionId, Rank rank, int selectedUserId)
         {
             ViewData["partialView"] = "lessons";
@@ -99,6 +103,7 @@ namespace Taijitan.Controllers
             };
             return View("Training", vm);
         }
+        [Authorize(Policy = "Teacher")]
         public IActionResult SelectCourse(int sessionId, Rank rank, int selectedUserId, int matId, CourseMaterialViewModel cmvm)
         {
             var session = _sessionRepository.GetById(sessionId);
@@ -115,6 +120,7 @@ namespace Taijitan.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "Teacher")]
         public IActionResult AddComment(string comment, CourseMaterialViewModel cmvm, ICollection<Comment> notifications)
         {
             if (cmvm != null)
@@ -152,6 +158,7 @@ namespace Taijitan.Controllers
             return View("Training");
         }
         [HttpGet]
+        [Authorize(Policy = "Admin")]
         public IActionResult ViewComments()
         {
             ViewData["IsEmpty"] = true;
@@ -173,7 +180,7 @@ namespace Taijitan.Controllers
             }
             return ShowComments();
         }
-
+        [Authorize(Policy = "Admin")]
         public IActionResult RemoveComment(int id)
         {
             Comment comment = _commentRepository.GetById(id);
@@ -185,13 +192,13 @@ namespace Taijitan.Controllers
             ViewData["IsEmpty"] = true;
             return ShowComments();
         }
-
+        [Authorize(Policy = "Admin")]
         private IActionResult ShowComments()
         {
             var comments = _commentRepository.GetAll();
             return View("ViewComments", comments);
         }
-
+        [Authorize(Policy = "Admin")]
         private void SendMail(Comment comment)
         {
             var message = new MimeMessage();

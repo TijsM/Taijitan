@@ -26,7 +26,7 @@
         }
         else if (TempData["Role"].Equals("Teacher"))
         {
-            <h1>Welkom Leerkracht</h1>
+            <h1>Welkom @TempData["FullName"] (Leerkracht)</h1>
             <p>Op de online tool van Taijitan</p>
             <div style="display:flex; justify-content:center;">
                 <a asp-controller="User" asp-action="Edit" asp-route-id="@TempData["UserId"]" class="btn-taijitan btn" style="margin-right:1em;">Wijzig gegevens</a>
@@ -52,7 +52,7 @@
         }
         else if (TempData["Role"].Equals("Admin"))
         {
-            <h1>Welkom Administrator</h1>
+            <h1>Welkom @TempData["FullName"] (Administrator)</h1>
             <p>Op de online tool van Taijitan</p>
             <div class="visible-xs visible-sm row">
                 <a asp-controller="User" asp-action="Edit" asp-route-id="@TempData["UserId"]" class="btn-taijitan btn btn-block" style="margin-right:1em;">Wijzig gegevens</a>
