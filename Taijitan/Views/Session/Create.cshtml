@@ -10,9 +10,9 @@
     <br />
     <form method="post">
         <div class="form-group col-md-12">
-            <label asp-for="TrainingDayId" class="col-md-12">Kies een dag waarvoor je de sessie wilt starten</label>
+            <label asp-for="TrainingDayId" class="col-md-12" style="padding: 0;">Kies een dag waarvoor je de sessie wilt starten</label>
             <br />
-            <div class="col-md-6">
+            <div class="col-md-6" style="padding: 0;">
                 <select asp-for="TrainingDayId" asp-items="@ViewData["Formulas"] as SelectList" class="form-control"></select>
 
             </div>
