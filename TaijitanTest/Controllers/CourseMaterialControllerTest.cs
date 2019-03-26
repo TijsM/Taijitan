@@ -65,26 +65,30 @@ namespace TaijitanTest.Controllers
         [Fact]
         public void Confirm_nonExcistingSession_returnsNewSession()
         {
-            var result = _courseMaterialController.Confirm(_idOfStartedSession) as ViewResult;
+            var result = _courseMaterialController.Confirm(new Session()) as ViewResult;
             Assert.Equal("", result?.ViewData["partialView"]);
         }
         [Fact]
         public void Confirm_existingSession_returnsTheSession()
         {
-            var result = _courseMaterialController.Confirm(_idOfStartedSession) as ViewResult;
+            var result = _courseMaterialController.Confirm(_dummyApplicationContext.Session1) as ViewResult;
             var courseMaterialViewModel = result?.Model as CourseMaterialViewModel;
             Assert.Equal(_dummyApplicationContext.Session1, courseMaterialViewModel.Session);
         }
         [Fact]
         public void Confirm_existingSession_returnsCourseMaterialMiewModel()
         {
-            var result = _courseMaterialController.Confirm(_idOfStartedSession) as ViewResult;
+            var result = _courseMaterialController.Confirm(new Session()) as ViewResult;
             Assert.IsType<CourseMaterialViewModel>(result?.Model);
         }
         [Fact]
         public void Confirm_NonExistingSession_returnsNotFound()
         {
-            Assert.IsType<NotFoundResult>(_courseMaterialController.Confirm(_nonExistingSessionId));
+            Session nonExistingSession = new Session()
+            {
+                SessionId = _nonExistingSessionId
+            };
+            Assert.IsType<NotFoundResult>(_courseMaterialController.Confirm(nonExistingSession));
         }
         #endregion
 
@@ -142,23 +146,23 @@ namespace TaijitanTest.Controllers
         [Fact]
         public void SelectCourse_ValidData_ReturnsCourseMaterialViewModel()
         {
-            var result = _courseMaterialController.SelectCourse(_idOfStartedSession, Rank.Kyu6, _tomJansensId,_idOfCourseMaterial) as ViewResult;
+            var result = _courseMaterialController.SelectCourse(_idOfStartedSession, Rank.Kyu6, _tomJansensId,_idOfCourseMaterial, new CourseMaterialViewModel()) as ViewResult;
             Assert.IsType<CourseMaterialViewModel>(result?.Model);
         }
         [Fact]
         public void SelectCourse_NoValidSessionId_ReturnsCourseMaterialViewModel()
         {
-            Assert.IsType<NotFoundResult>(_courseMaterialController.SelectCourse(_nonExistingSessionId, Rank.Kyu6, _tomJansensId,_idOfCourseMaterial));
+            Assert.IsType<NotFoundResult>(_courseMaterialController.SelectCourse(_nonExistingSessionId, Rank.Kyu6, _tomJansensId,_idOfCourseMaterial, new CourseMaterialViewModel()));
         }
         [Fact]
         public void SelectCourse_NoValidUserId_ReturnsCourseMaterialViewModel()
         {
-            Assert.IsType<NotFoundResult>(_courseMaterialController.SelectCourse(_nonExistingSessionId, Rank.Kyu6, 999,_idOfCourseMaterial));
+            Assert.IsType<NotFoundResult>(_courseMaterialController.SelectCourse(_nonExistingSessionId, Rank.Kyu6, 999,_idOfCourseMaterial, new CourseMaterialViewModel()));
         }
         [Fact]
         public void SelectCourse_ValidData_PassesCorrectCourseMaterialsToView()
         {
-            var result = _courseMaterialController.SelectCourse(_idOfStartedSession, Rank.Kyu6, _tomJansensId,_idOfCourseMaterial) as ViewResult;
+            var result = _courseMaterialController.SelectCourse(_idOfStartedSession, Rank.Kyu6, _tomJansensId,_idOfCourseMaterial, new CourseMaterialViewModel()) as ViewResult;
             Assert.Equal(_dummyApplicationContext.CourseMaterials.First(), (result?.Model as CourseMaterialViewModel).SelectedCourseMaterial);
         }
         #endregion

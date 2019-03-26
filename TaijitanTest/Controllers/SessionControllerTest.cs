@@ -102,14 +102,14 @@ namespace TaijitanTest.Controllers
         [Fact]
         public void CreateHttpGet_PassesAllFormulasToView()
         {
-            var result = _sessionController.Create(new Session()) as ViewResult;
+            var result = _sessionController.Create() as ViewResult;
             var formulas = result?.ViewData["formulas"] as SelectList;
             Assert.Equal(_dummyContext.Formulas.Count(), formulas.Count());
         }
         [Fact]
         public void CreateHttpGet_ReturnsSessionViewModel()
         {
-            var result = _sessionController.Create(new Session()) as ViewResult;
+            var result = _sessionController.Create() as ViewResult;
             Assert.IsType<SessionViewModel>(result?.Model);
         }
         #endregion
@@ -138,7 +138,7 @@ namespace TaijitanTest.Controllers
         {
             var sessionViewModel = new SessionViewModel();
             _sessionController.ModelState.AddModelError("", "Any error");
-            var result = _sessionController.Register(_session1Id, _dummyContext.Teacher1) as ViewResult;
+            var result = _sessionController.Register(_dummyContext.Session1, _dummyContext.Teacher1) as ViewResult;
             Assert.IsType<SessionViewModel>(result?.Model);
         }
         #endregion
