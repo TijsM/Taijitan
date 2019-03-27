@@ -4,7 +4,6 @@
 }
 
 <h2>Overzicht van alle commentaar:</h2>
-
 <div class="col-lg-8">
     <form method="post">
         <table class="table" id="commentSummaryTable" style="width:100%;">
@@ -25,34 +24,34 @@
 
                 @foreach (var item in Model)
                 {
-                <tr id="@item.CommentId">
-                    @if (item.Member != null)
-                    {
-                        <td>@item.Member.Name</td>
-                    }
-                    else
-                    {
-                        <td>Gebruiker is verwijderd</td>
-                    }
-                    @if (item.Member != null)
-                    {
-                        <td>@item.Member.FirstName</td>
-                    }
-                    else
-                    {
-                        <td></td>
-                    }
-                    <td>@item.Course.Title</td>
-                    <td>@item.DateCreated.ToShortDateString()</td>
-                    <td><button type="submit" asp-action="SelectComment" asp-controller="CourseMaterial" asp-route-id="@item.CommentId" class="btn btn-taijitan">Lees commentaar</button></td>
-                    <td> @item.Content</td>
-                    <td>
-                        <a onclick="confirmDeleteComment(@item.CommentId)" class="btn" style="background-color: white;">
-                            <i title="Commentaar verwijderen"
-                               class="fas fa-trash-alt fa-lg ChangeAndDeleteColor"></i>
-                        </a>
-                    </td>
-                </tr>
+                    <tr id="@item.CommentId">
+                        @if (item.Member != null)
+                        {
+                            <td>@item.Member.Name</td>
+                        }
+                        else
+                        {
+                            <td>Gebruiker is verwijderd</td>
+                        }
+                        @if (item.Member != null)
+                        {
+                            <td>@item.Member.FirstName</td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                        <td>@item.Course.Title</td>
+                        <td>@item.DateCreated.ToShortDateString()</td>
+                        <td><button type="submit" asp-action="SelectComment" asp-controller="CourseMaterial" asp-route-id="@item.CommentId" class="btn btn-taijitan">Lees commentaar</button></td>
+                        <td> @item.Content</td>
+                        <td>
+                            <a onclick="confirmDeleteComment(@item.CommentId)" class="btn" style="background-color: white;">
+                                <i title="Commentaar verwijderen"
+                                   class="fas fa-trash-alt fa-lg ChangeAndDeleteColor"></i>
+                            </a>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>

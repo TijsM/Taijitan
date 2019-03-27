@@ -159,6 +159,7 @@ function init() {
             });
         });
     }
+    $('#summaryTable').show();
     if (!$.fn.dataTable.isDataTable('#userSummaryTable')) {
         $(document).ready(function () {
             userSummaryTable = $('#userSummaryTable').DataTable({
@@ -194,10 +195,14 @@ function init() {
                     null,
                     null,
                     { "orderable": false, "width": "6%" }
-                ]
+                ],
+                "drawCallback": function (settings) {
+                    console.log("test");
+                }
             });
         });
     }
+    $('#userSummaryTable').show();
     if (!$.fn.dataTable.isDataTable('#commentSummaryTable')) {
          $(document).ready(function () {
              commentSummaryTable = $('#commentSummaryTable').DataTable({
@@ -267,7 +272,7 @@ function init() {
             });
         });
     }
-    
+    $('#commentSummaryTable').show();
 }
 
 function DeleteComment(id) {
@@ -293,3 +298,4 @@ function Delete(id) {
         }
     });
 }
+

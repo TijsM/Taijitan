@@ -74,11 +74,11 @@ namespace Taijitan.Models.UserViewModel
         [Display(Name = "Geboorteplaats")]
         public string BirthPlace { get; set; }
 
-        [Display(Name = "Vast telefoonnummer (optioneel)")]
+        [Display(Name = "Vast telefoonnummer")]
         public string LandLineNumber { get; set; }
 
         [DataType(DataType.EmailAddress)]
-        [Display(Name = "E-mailadres van een ouder (optioneel)")]
+        [Display(Name = "E-mailadres van een ouder")]
         public string MailParent { get; set; }
 
 
