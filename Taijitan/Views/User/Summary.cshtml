@@ -34,8 +34,12 @@
                             <td>@item.Email</td>
                             <td>
                                 <a asp-controller="User" asp-action="Edit" asp-route-id="@item.UserId" asp-route-isFromSummary="1"><i title="Gegevens van gebruiker aanpassen" class="fas fa-edit fa-lg ChangeAndDeleteColor"></i></a>
-                                <a onclick="confirmDelete(@item.UserId)"><i title="Gebruiker verwijderen" class="fas fa-trash-alt fa-lg ChangeAndDeleteColor"></i></a>
+                                @if (!item.Email.Equals(ViewData["AdminEmail"]))
+                                {
+                                    <a onclick="confirmDelete(@item.UserId)"><i title="Gebruiker verwijderen" class="fas fa-trash-alt fa-lg ChangeAndDeleteColor"></i></a>
+                                }
                             </td>
+
                         </tr>
                     }
                 </tbody>

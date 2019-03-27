@@ -10,49 +10,49 @@
     <fieldset class="customGroup">
         <h3>Persoonlijke gegevens</h3>
         <div class="form-group col-md-6 col-lg-6">
-            <label asp-for="Name"></label>
+            <label asp-for="Name"></label>*
             <input asp-for="Name" class="form-control" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
 
         <div class="form-group col-md-6 col-lg-6">
-            <label asp-for="FirstName"></label>
+            <label asp-for="FirstName"></label>*
             <input asp-for="FirstName" class="form-control" />
             <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
 
         <div class="form-group col-md-6 col-lg-6">
-            <label asp-for="DateOfBirth"></label>
+            <label asp-for="DateOfBirth"></label>*
             <input asp-for="DateOfBirth" class="form-control" disabled />
             <span asp-validation-for="DateOfBirth" class="text-danger"></span>
         </div>
 
         <div class="form-group col-md-6 col-lg-6">
-            <label asp-for="DateRegistred"></label>
+            <label asp-for="DateRegistred"></label>*
             <input asp-for="DateRegistred" class="form-control" disabled/>
             <span asp-validation-for="DateRegistred" class="text-danger"></span>
         </div>
 
         <div class="form-group col-md-6 col-lg-6">
-            <label asp-for="Nationality"></label>
+            <label asp-for="Nationality"></label>*
             <select asp-for="Nationality" asp-items="@ViewData["Countries"] as SelectList" class="form-control"></select>
             <span asp-validation-for="Nationality" class="text-danger"></span>
         </div>
 
         <div class="form-group col-md-6 col-lg-6">
-            <label asp-for="BirthPlace"></label>
+            <label asp-for="BirthPlace"></label>*
             <input asp-for="BirthPlace" class="form-control" />
             <span asp-validation-for="BirthPlace" class="text-danger"></span>
         </div>
 
         <div class="form-group col-md-6 col-lg-6">
-            <label asp-for="Gender"></label>
+            <label asp-for="Gender"></label>*
             <select asp-for="Gender" asp-items="@ViewData["Genders"] as SelectList" class="form-control"></select>
             <span asp-validation-for="Gender" class="text-danger"></span>
         </div>
 
         <div class="form-group col-md-6 col-lg-6">
-            <label asp-for="PersonalNationalNumber"></label>
+            <label asp-for="PersonalNationalNumber"></label>*
             <input asp-for="PersonalNationalNumber" class="form-control" disabled/>
             <span asp-validation-for="PersonalNationalNumber" class="text-danger"></span>
         </div>
@@ -60,31 +60,31 @@
     <fieldset class="customGroup">
         <h3>Woonplaats</h3>
         <div class="form-group col-md-6 col-lg-6">
-            <label asp-for="Street"></label>
+            <label asp-for="Street"></label>*
             <input asp-for="Street" class="form-control" />
             <span asp-validation-for="Street" class="text-danger"></span>
         </div>
 
         <div class="form-group col-md-6 col-lg-6">
-            <label asp-for="HouseNumber"></label>
+            <label asp-for="HouseNumber"></label>*
             <input asp-for="HouseNumber" class="form-control" />
             <span asp-validation-for="HouseNumber" class="text-danger"></span>
         </div>
 
         <div class="form-group col-md-6 col-lg-6">
-            <label asp-for="PostalCode"></label>
+            <label asp-for="PostalCode"></label>*
             <input asp-for="PostalCode" class="form-control" />
             <span asp-validation-for="PostalCode" class="text-danger"></span>
         </div>
 
         <div class="form-group col-md-6 col-lg-6">
-            <label asp-for="CityName"></label>
+            <label asp-for="CityName"></label>*
             <input asp-for="CityName" class="form-control" />
             <span asp-validation-for="CityName" class="text-danger"></span>
         </div>
 
         <div class="form-group col-md-6 col-lg-6">
-            <label asp-for="Country"></label>
+            <label asp-for="Country"></label>*
             <select asp-for="Country" asp-items="@ViewData["Countries"] as SelectList" class="form-control"></select>
             <span asp-validation-for="Country" class="text-danger"></span>
         </div>
@@ -94,13 +94,13 @@
     <fieldset class="customGroup">
         <h3>Contact</h3>
         <div class="form-group col-md-6 col-lg-6">
-            <label asp-for="Email"></label>
+            <label asp-for="Email"></label>*
             <input asp-for="Email" class="form-control" disabled/>
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
 
         <div class="form-group col-md-6 col-lg-6">
-            <label asp-for="PhoneNumber"></label>
+            <label asp-for="PhoneNumber"></label>*
             <input asp-for="PhoneNumber" class="form-control" />
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </div>
