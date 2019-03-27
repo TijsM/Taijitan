@@ -4,109 +4,109 @@
 }
 
 <h2>Overzicht van alle commentaar:</h2>
-<div class="col-lg-8">
-    <form method="post">
-        <table class="table" id="commentSummaryTable" style="width:100%;">
-            <thead>
-                <tr>
-                    <th>Familienaam</th>
-                    <th>Voornaam</th>
-                    <th>Modulenaam</th>
-                    <th>Aangemaakt op</th>
-                    <th></th>
-                    <th style="display:none">commentaar</th>
-                    <th></th>
-
-                </tr>
-            </thead>
-            <tbody>
-
-
-                @foreach (var item in Model)
-                {
-                    <tr id="@item.CommentId">
-                        @if (item.Member != null)
-                        {
-                            <td>@item.Member.Name</td>
-                        }
-                        else
-                        {
-                            <td>Gebruiker is verwijderd</td>
-                        }
-                        @if (item.Member != null)
-                        {
-                            <td>@item.Member.FirstName</td>
-                        }
-                        else
-                        {
-                            <td></td>
-                        }
-                        <td>@item.Course.Title</td>
-                        <td>@item.DateCreated.ToShortDateString()</td>
-                        <td><button type="submit" asp-action="SelectComment" asp-controller="CourseMaterial" asp-route-id="@item.CommentId" class="btn btn-taijitan">Lees commentaar</button></td>
-                        <td> @item.Content</td>
-                        <td>
-                            <a onclick="confirmDeleteComment(@item.CommentId)" class="btn" style="background-color: white;">
-                                <i title="Commentaar verwijderen"
-                                   class="fas fa-trash-alt fa-lg ChangeAndDeleteColor"></i>
-                            </a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </form>
+<div id="loadingDiv">
+    <img src="~/images/logo.png" />
 </div>
+<div class="hidden" id="commentSummaryDiv">
+    <div class="col-lg-8">
+        <form method="post">
+            <table class="table" id="commentSummaryTable" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>Familienaam</th>
+                        <th>Voornaam</th>
+                        <th>Modulenaam</th>
+                        <th>Aangemaakt op</th>
+                        <th></th>
+                        <th style="display:none">commentaar</th>
+                        <th></th>
 
-<div class="col-lg-4">
-
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
+                    </tr>
+                </thead>
+                <tbody>
 
 
-    <p>
-        @{
-            if ((bool)ViewData["IsEmpty"] == true)
-            {
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Geen commentaar geselecteerd.
+                    @foreach (var item in Model)
+                    {
+                        <tr id="@item.CommentId">
+                            @if (item.Member != null)
+                            {
+                                <td>@item.Member.Name</td>
+                            }
+                            else
+                            {
+                                <td>Gebruiker is verwijderd</td>
+                            }
+                            @if (item.Member != null)
+                            {
+                                <td>@item.Member.FirstName</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                            <td>@item.Course.Title</td>
+                            <td>@item.DateCreated.ToShortDateString()</td>
+                            <td><button type="submit" asp-action="SelectComment" asp-controller="CourseMaterial" asp-route-id="@item.CommentId" class="btn btn-taijitan">Lees commentaar</button></td>
+                            <td> @item.Content</td>
+                            <td>
+                                <a onclick="confirmDeleteComment(@item.CommentId)" class="btn" style="background-color: white;">
+                                    <i title="Commentaar verwijderen"
+                                       class="fas fa-trash-alt fa-lg ChangeAndDeleteColor"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+    <div class="col-lg-4">
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+
+        <p>
+            @{
+                if ((bool)ViewData["IsEmpty"] == true)
+                {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Geen commentaar geselecteerd.
+                        </div>
+                        <div class="panel-body">
+                            Selecteer een commentaar in de lijst om hem te kunnen bekijken
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        Selecteer een commentaar in de lijst om hem te kunnen bekijken
+                }
+
+                else
+                {
+                    var comment = (Comment)ViewData["Comment"];
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            @comment.Course.Title
+                        </div>
+                        <ul class="list-group">
+                            @if (comment.Member != null)
+                            {
+                                <li class="list-group-item">Geplaatst door: @comment.Member.FirstName @comment.Member.Name</li>
+                            }
+                            else
+                            {
+                                <li class="list-group-item">Gebruiker is verwijderd</li>
+                            }
+                            <li class="list-group-item">Geplaatste op: @comment.DateCreated.ToLongDateString()</li>
+                            <li class="list-group-item">@comment.Content</li>
+                        </ul>
                     </div>
-                </div>
+                }
             }
-
-            else
-            {
-                var comment = (Comment)ViewData["Comment"];
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        @comment.Course.Title
-                    </div>
-                    <ul class="list-group">
-                        @if (comment.Member != null)
-                        {
-                            <li class="list-group-item">Geplaatst door: @comment.Member.FirstName @comment.Member.Name</li>
-                        }
-                        else
-                        {
-                            <li class="list-group-item">Gebruiker is verwijderd</li>
-                        }
-                        <li class="list-group-item">Geplaatste op: @comment.DateCreated.ToLongDateString()</li>
-                        <li class="list-group-item">@comment.Content</li>
-                    </ul>
-                </div>
-            }
-
-
-        }
-
-    </p>
-
-
+        </p>
+    </div>
 </div>

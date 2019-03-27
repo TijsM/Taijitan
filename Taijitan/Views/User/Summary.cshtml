@@ -8,7 +8,10 @@
 @{
     if (Model.Any())
     {
-        <div style="width: 100%">
+        <div id="loadingDiv">
+            <img src="~/images/logo.png" />
+        </div>
+        <div style="width: 100%" class="hidden" id="userSummaryDiv">
             <table class="table" id="userSummaryTable" style="width:100%;">
                 <thead>
                     <tr>

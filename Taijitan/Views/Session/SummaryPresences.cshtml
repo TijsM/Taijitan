@@ -5,47 +5,52 @@
 }
 
 <h2>Overzicht van alle aanwezige leden</h2>
-
-<table class="table" id="summaryTable" style="width: 100%;">
-    <thead>
-        <tr>
-            <th>Familienaam</th>
-            <th>Voornaam</th>
-            <th>Geboortedatum</th>
-            <th>Adres</th>
-            <th>Telefoonnummer</th>
-            <th>E-mailadres</th>
-        </tr>
-    </thead>
-    <tbody>
-
-        @foreach (var item in Model)
-        {
+<div id="loadingDiv">
+    <img src="~/images/logo.png" />
+</div>
+<div id="summaryDiv" class="hidden">
+    <table class="table" id="summaryTable" style="width: 100%;">
+        <thead>
             <tr>
-                <td>@item.Name</td>
-                <td>@item.FirstName</td>
-                <td>@item.DateOfBirth.ToShortDateString()</td>
-                <td>@item.City.Postalcode @item.City.Name - @item.Street @item.HouseNumber</td>
-                <td>@item.PhoneNumber</td>
-                <td>@item.Email</td>
+                <th>Familienaam</th>
+                <th>Voornaam</th>
+                <th>Geboortedatum</th>
+                <th>Adres</th>
+                <th>Telefoonnummer</th>
+                <th>E-mailadres</th>
             </tr>
-        }
-        @{
-            if (nonMembers.Count() != 0)
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
             {
-                @foreach (var item in nonMembers)
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.FirstName</td>
+                    <td>@item.DateOfBirth.ToShortDateString()</td>
+                    <td>@item.City.Postalcode @item.City.Name - @item.Street @item.HouseNumber</td>
+                    <td>@item.PhoneNumber</td>
+                    <td>@item.Email</td>
+                </tr>
+            }
+            @{
+                if (nonMembers.Count() != 0)
                 {
-                    <tr>
-                        <td>@item.LastName</td>
-                        <td>@item.FirstName</td>
-                        <td style="text-align:center">-</td>
-                        <td style="text-align:center">-</td>
-                        <td style="text-align:center">-</td>
-                        <td>@item.Email</td>
-                    </tr>
+                    @foreach (var item in nonMembers)
+                    {
+                        <tr>
+                            <td>@item.LastName</td>
+                            <td>@item.FirstName</td>
+                            <td style="text-align:center">-</td>
+                            <td style="text-align:center">-</td>
+                            <td style="text-align:center">-</td>
+                            <td>@item.Email</td>
+                        </tr>
+                    }
                 }
             }
-        }
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
+

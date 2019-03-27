@@ -5,21 +5,24 @@
 }
 
 <h2>Selecteer een sessie:</h2>
-<div class="col-lg-4"></div>
-<div class="list-group col-lg-4">
-    @{
-        if (sessions.Count() != 0)
-        {
-            foreach (var item in sessions)
+<div class="col-md-12">
+    <div class="col-lg-4" style="margin-bottom: 0.5em;"></div>
+    <div class="list-group col-lg-4" style="margin-bottom: 0.5em;">
+        @{
+            if (sessions.Count() != 0)
             {
-                <a asp-action="SummaryPresences" asp-route-id="@item.SessionId" class="list-group-item list-group-item-action">Sessie gestart op @item.Date</a>
+                foreach (var item in sessions)
+                {
+                    <a asp-action="SummaryPresences" asp-route-id="@item.SessionId" class="list-group-item list-group-item-action">Sessie gestart op @item.Date</a>
+                }
+            }
+            else
+            {
+                <p>Er zijn geen sessies beschikbaar</p>
             }
         }
-        else
-        {
-            <p>Er zijn geen sessies beschikbaar</p>
-        }
-    }
+    </div>
+    <div class="col-lg-4"></div>
 </div>
-<div class="col-lg-4"></div>
+
 
