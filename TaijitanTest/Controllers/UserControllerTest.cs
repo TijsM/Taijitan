@@ -113,7 +113,7 @@ namespace TaijitanTest.Controllers
         [Fact]
         public void SummaryHttpGet_PassesAllUsersToView()
         {
-            var result = _userController.Summary() as ViewResult;
+            var result = _userController.Summary(_tomJansensId) as ViewResult;
             List<User> products = (result?.Model as IEnumerable<User>)?.ToList();
             Assert.Equal(_dummyContext.Users.Count(), products.Count);
         }

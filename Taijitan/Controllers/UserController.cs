@@ -37,10 +37,14 @@ namespace Taijitan.Controllers
         }
 
         [Authorize(Policy = "Admin")]
-        public IActionResult Summary()
+        [HttpGet]
+        public IActionResult Summary(int id)
         {
+            User admin = _userRepository.GetById(id);
+            ViewData["AdminEmail"] = admin.Email;
             return View(_userRepository.GetAll());
         }
+
         [HttpGet]
         public IActionResult Edit(int id, int isFromSummary = 0)
         {
