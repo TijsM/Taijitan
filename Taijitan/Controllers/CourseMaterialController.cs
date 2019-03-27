@@ -56,7 +56,6 @@ namespace Taijitan.Controllers
             };
             return View("Training", vm);
         }
-        [HttpPost]
         [Authorize(Policy = "Teacher")]
         public IActionResult SelectMember(int sessionId, int id)
         {
@@ -84,10 +83,10 @@ namespace Taijitan.Controllers
             return Enum.GetValues(typeof(Rank)).Cast<Rank>().ToList();
         }
         [Authorize(Policy = "Teacher")]
-        public IActionResult SelectRank(int sessionId, Rank rank, int selectedUserId)
+        public IActionResult SelectRank(int id, Rank rank, int selectedUserId)
         {
             ViewData["partialView"] = "lessons";
-            var session = _sessionRepository.GetById(sessionId);
+            var session = _sessionRepository.GetById(id);
             var courseMaterial = _courseMaterialRepository.GetByRank(rank);
             var selectedMember = (Member)_userRepository.GetById(selectedUserId);
 

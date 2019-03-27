@@ -10,57 +10,52 @@
 
 <div class="col-lg-12 materialScreen">
     <div class="col-sm-2">
-        <form method="post">
             <div class="list-group">
                 @{
                     foreach (var us in Model.Session.MembersPresent.OrderBy(m => m.FirstName).ThenBy(m => m.Name).ToList())
                     {
                         if (us == Model.SelectedMember)
                         {
-                            <button type="submit" asp-controller="CourseMaterial" asp-action="SelectMember" asp-route-sessionId="@Model.Session.SessionId" asp-route-id="@us.UserId" class="list-group-item list-group-item-action list-group-item-success">@us.FirstName @us.Name</button>
+                            <a asp-controller="CourseMaterial" asp-action="SelectMember" asp-route-sessionId="@Model.Session.SessionId" asp-route-id="@us.UserId" class="list-group-item list-group-item-action list-group-item-success">@us.FirstName @us.Name</a>
 
                         }
                         else
                         {
-                            <button type="submit" asp-controller="CourseMaterial" asp-action="SelectMember" asp-route-sessionId="@Model.Session.SessionId" asp-route-id="@us.UserId" class="list-group-item list-group-item-action">@us.FirstName @us.Name</button>
-
+                            <a asp-controller="CourseMaterial" asp-action="SelectMember" asp-route-sessionId="@Model.Session.SessionId" asp-route-id="@us.UserId" class="list-group-item list-group-item-action">@us.FirstName @us.Name</a>
                         }
                     }
                 }
             </div>
-        </form>
     </div>
 
     <div class="col-sm-2">
-        <form method="post">
-            <div class="list-group">
-                @{
+        <div class="list-group">
+            @{
 
-                    Member member = Model.SelectedMember;
-                    if (member != null)
+                Member member = Model.SelectedMember;
+                if (member != null)
+                {
+                    foreach (Rank rank in Model.AllRanks)
                     {
-                        foreach (Rank rank in Model.AllRanks)
+
+                        if ((int)member.Rank >= (int)rank)
                         {
-
-                            if ((int)member.Rank >= (int)rank)
+                            if (rank == Model.SelectedRank)
                             {
-                                if (rank == Model.SelectedRank)
-                                {
-                                    <button asp-controller="CourseMaterial" asp-action="SelectRank" asp-route-sessionId="@Model.Session.SessionId" asp-route-rank=@rank asp-route-selectedUserId="@Model.SelectedMember.UserId" type="submit" class="list-group-item list-group-item-action list-group-item-success">@rank  - @rank.GetDisplayName() - @rank.GetDescription()</button>
-                                }
-                                else
-                                {
-                                    <button asp-controller="CourseMaterial" asp-action="SelectRank" asp-route-sessionId="@Model.Session.SessionId" asp-route-rank=@rank asp-route-selectedUserId="@Model.SelectedMember.UserId" type="submit" class="list-group-item list-group-item-action">@rank  - @rank.GetDisplayName() - @rank.GetDescription()</button>
-                                }
-
-
+                                <a asp-action="SelectRank" asp-controller="CourseMaterial" asp-route-id="@Model.Session.SessionId" asp-route-rank=@rank asp-route-selectedUserId="@Model.SelectedMember.UserId" class="list-group-item list-group-item-action list-group-item-success">@rank  - @rank.GetDisplayName() - @rank.GetDescription()</a>
+                            }
+                            else
+                            {
+                                <a asp-action="SelectRank" asp-controller="CourseMaterial" asp-route-id="@Model.Session.SessionId" asp-route-rank=@rank asp-route-selectedUserId="@Model.SelectedMember.UserId" class="list-group-item list-group-item-action">@rank  - @rank.GetDisplayName() - @rank.GetDescription()</a>
                             }
 
+
                         }
+
                     }
                 }
-            </div>
-        </form>
+            }
+        </div>
     </div>
 
     <div class="col-sm-8">

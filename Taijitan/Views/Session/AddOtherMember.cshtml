@@ -30,7 +30,7 @@
         <div class="form-group col-xs-8" style="padding: 0;">
             <input name="firstName" class="form-control mb-2" style="margin-bottom: 0.5em;" mr-sm-2 placeholder="Voornaam" required />
             <input name="lastName" class="form-control mb-2" style="margin-bottom: 0.5em;" mr-sm-2 placeholder="Achternaam" required />
-            <input name="email" class="form-control mb-2" style="margin-bottom: 0.5em;"  mr-sm-2 placeholder="Email" required />
+            <input name="email" class="form-control mb-2" style="margin-bottom: 0.5em;"  mr-sm-2 placeholder="Email" required type="email" />
             <button asp-controller="Session" asp-action="AddNonMember" asp-route-id="@Model.SessionId" class="btn btn-taijitan" style="margin-bottom: 0.5em;">Meld aan</button>
         </div>
     </div>
