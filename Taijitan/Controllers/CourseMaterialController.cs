@@ -141,12 +141,20 @@ namespace Taijitan.Controllers
                 //Notificaties
                 if (notifications != null)
                 {
-                    notifications.OrderBy(n => n.DateCreated);
-                    while(notifications.Where(n => n.IsRead).Count() > 0 && notifications.Count() > 5)
+                    notifications.Add(c);
+                    ICollection<Comment> tempList = notifications.OrderByDescending(com => com.CommentId).ToList();
+                    while(notifications.Count() > 0)
                     {
                         notifications.Remove(notifications.Last());
                     }
-                    notifications.Add(c);
+                    foreach(Comment loopComment in tempList)
+                    {
+                        notifications.Add(loopComment);
+                    }
+                    while (notifications.Where(n => n.IsRead).Count() > 0 && notifications.Count() > 5)
+                    {
+                        notifications.Remove(notifications.Last());
+                    }
                 } else
                 {
                     notifications = new List<Comment>();

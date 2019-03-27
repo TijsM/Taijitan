@@ -49,10 +49,10 @@ namespace Taijitan.Filters
                         notifications.Add(c);
                     }
                 }
-                _notifications = notifications.OrderByDescending(c => c.DateCreated).ToList(); ;
+                _notifications = notifications.OrderByDescending(c => c.CommentId).ToList();
             } else
             {
-                _notifications = JsonConvert.DeserializeObject<ICollection<Comment>>(context.Session.GetString("Notifications")).OrderByDescending(c => c.DateCreated).ToList();
+                _notifications = JsonConvert.DeserializeObject<ICollection<Comment>>(context.Session.GetString("Notifications")).OrderByDescending(c => c.CommentId).ToList();
             }
             return _notifications;
         }
