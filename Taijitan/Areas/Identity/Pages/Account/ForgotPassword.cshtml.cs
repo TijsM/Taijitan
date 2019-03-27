@@ -32,6 +32,12 @@ namespace Taijitan.Areas.Identity.Pages.Account
             [EmailAddress]
             public string Email { get; set; }
         }
+        public IActionResult OnGet()
+        {
+
+            return RedirectToPage("/Account/login");
+
+        }
 
         public async Task<IActionResult> OnPostAsync()
         {

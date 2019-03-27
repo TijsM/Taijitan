@@ -49,22 +49,11 @@ namespace Taijitan.Areas.Identity.Pages.Account.Manage
             [Compare("NewPassword", ErrorMessage = "Het nieuwe wachtwoord en de bevestiging komen niet overeen")]
             public string ConfirmPassword { get; set; }
         }
-
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGet()
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
 
-            var hasPassword = await _userManager.HasPasswordAsync(user);
-            if (!hasPassword)
-            {
-                return RedirectToPage("./SetPassword");
-            }
+            return RedirectToPage("/Account/login");
 
-            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()

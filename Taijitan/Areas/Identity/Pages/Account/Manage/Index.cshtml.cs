@@ -48,29 +48,11 @@ namespace Taijitan.Areas.Identity.Pages.Account.Manage
             public string PhoneNumber { get; set; }
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGet()
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
 
-            var userName = await _userManager.GetUserNameAsync(user);
-            var email = await _userManager.GetEmailAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            return RedirectToPage("/Account/login");
 
-            Username = userName;
-
-            Input = new InputModel
-            {
-                Email = email,
-                PhoneNumber = phoneNumber
-            };
-
-            IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
-
-            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()

@@ -53,17 +53,11 @@ namespace Taijitan.Areas.Identity.Pages.Account.Manage
             public string Code { get; set; }
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGet()
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
 
-            await LoadSharedKeyAndQrCodeUriAsync(user);
+            return RedirectToPage("/Account/login");
 
-            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()

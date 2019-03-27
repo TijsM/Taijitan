@@ -46,5 +46,12 @@ namespace Taijitan.Areas.Identity.Pages.Account.Manage
             Response.Headers.Add("Content-Disposition", "attachment; filename=PersonalData.json");
             return new FileContentResult(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(personalData)), "text/json");
         }
+
+        public IActionResult OnGet()
+        {
+
+            return RedirectToPage("/Account/login");
+
+        }
     }
 }

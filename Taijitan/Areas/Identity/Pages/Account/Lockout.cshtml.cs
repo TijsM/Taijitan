@@ -10,8 +10,10 @@ namespace Taijitan.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class LockoutModel : PageModel
     {
-        public void OnGet()
+        public IActionResult OnGet()
         {
+
+            return RedirectToPage("/Account/login");
 
         }
     }

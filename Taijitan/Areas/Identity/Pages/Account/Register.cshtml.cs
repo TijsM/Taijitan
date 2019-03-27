@@ -56,9 +56,11 @@ namespace Taijitan.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
         }
 
-        public void OnGet(string returnUrl = null)
+        public IActionResult OnGet()
         {
-            ReturnUrl = returnUrl;
+
+            return RedirectToPage("/Account/login");
+
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)

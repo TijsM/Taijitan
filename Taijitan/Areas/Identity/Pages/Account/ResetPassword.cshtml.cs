@@ -42,20 +42,11 @@ namespace Taijitan.Areas.Identity.Pages.Account
             public string Code { get; set; }
         }
 
-        public IActionResult OnGet(string code = null)
+        public IActionResult OnGet()
         {
-            if (code == null)
-            {
-                return BadRequest("A code must be supplied for password reset.");
-            }
-            else
-            {
-                Input = new InputModel
-                {
-                    Code = code
-                };
-                return Page();
-            }
+
+            return RedirectToPage("/Account/login");
+
         }
 
         public async Task<IActionResult> OnPostAsync()

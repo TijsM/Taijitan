@@ -42,22 +42,11 @@ namespace Taijitan.Areas.Identity.Pages.Account.Manage
             public string ConfirmPassword { get; set; }
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGet()
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
 
-            var hasPassword = await _userManager.HasPasswordAsync(user);
+            return RedirectToPage("/Account/login");
 
-            if (hasPassword)
-            {
-                return RedirectToPage("./ChangePassword");
-            }
-
-            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()

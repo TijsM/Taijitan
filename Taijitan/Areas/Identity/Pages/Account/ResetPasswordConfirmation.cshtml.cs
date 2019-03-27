@@ -10,6 +10,12 @@ namespace Taijitan.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class ResetPasswordConfirmationModel : PageModel
     {
+        public IActionResult OnGet()
+        {
+
+            return RedirectToPage("/Account/login");
+
+        }
         public void OnGet()
         {
 
