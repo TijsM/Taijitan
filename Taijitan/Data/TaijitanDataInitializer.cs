@@ -303,11 +303,11 @@ namespace Taijitan.Data
                 #region Comment
 
                Comment comment1 = new Comment("Dit is een test", VoorwaarteStand, members.First());
-                Comment comment2 = new Comment("Dit is een tweede test, hier komt de effectieve commentaar die de gebruiker heeft ingegevne", AchterwaartseStand, members.First());
-                Comment comment3 = new Comment("Dit is een derde test, hier komt de effectieve commentaar die de gebruiker heeft ingegevne", AchterwaartseStand, members.First());
-                Comment comment4 = new Comment("Dit is een vierde test, hier komt de effectieve commentaar die de gebruiker heeft ingegevne", VoorwaarteStand, members.First());
-                Comment comment5 = new Comment("Dit is een vijfde test, hier komt de effectieve commentaar die de gebruiker heeft ingegevne", VoorwaarteStand, members.First());
-                Comment comment6 = new Comment("Dit is een zesde test, hier komt de effectieve commentaar die de gebruiker heeft ingegevne", VoorwaarteStand, members.First());
+                Comment comment2 = new Comment("Dit is een tweede test, hier komt de effectieve commentaar die de gebruiker heeft ingegeven", AchterwaartseStand, members.First());
+                Comment comment3 = new Comment("Dit is een derde test, hier komt de effectieve commentaar die de gebruiker heeft ingegeven", AchterwaartseStand, members.First());
+                Comment comment4 = new Comment("Dit is een vierde test, hier komt de effectieve commentaar die de gebruiker heeft ingegeven", VoorwaarteStand, members.First());
+                Comment comment5 = new Comment("Dit is een vijfde test, hier komt de effectieve commentaar die de gebruiker heeft ingegeven", VoorwaarteStand, members.First());
+                Comment comment6 = new Comment("Dit is een zesde test, hier komt de effectieve commentaar die de gebruiker heeft ingegeven", VoorwaarteStand, members.First());
 
                 _dbContext.Comments.AddRange(comment1, comment2, comment3, comment4, comment5, comment6);
                 //_dbContext.Comments.Add(comment1);
