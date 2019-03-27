@@ -38,9 +38,9 @@ namespace Taijitan.Controllers
 
         [Authorize(Policy = "Admin")]
         [HttpGet]
-        public IActionResult Summary(int id)
+        public IActionResult Summary(User user)
         {
-            User admin = _userRepository.GetById(id);
+            User admin = _userRepository.GetById(user.UserId);
             ViewData["AdminEmail"] = admin.Email;
             return View(_userRepository.GetAll());
         }
@@ -60,6 +60,7 @@ namespace Taijitan.Controllers
             ViewData["Genders"] = EnumHelpers.ToSelectList<Gender>();
             return View("Edit",new EditViewModel(user));
         }
+
         [HttpPost]
         public IActionResult Edit(int id, User user, EditViewModel evm, int isFromSummary = 0)
         {

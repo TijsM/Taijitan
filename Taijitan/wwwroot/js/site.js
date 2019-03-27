@@ -86,7 +86,7 @@ function confirmDelete(id) {
                     timer: 1000,
                     buttons: false
                 });
-                Delete(id, name);
+                Delete(id);
             }
         });
 }
@@ -286,7 +286,7 @@ function Delete(id) {
     $.ajax({
         url: '/User/Delete',
         type: 'POST',
-        data: { id: id },
+        data: { id: id},
         success: function () {
             var tr = document.getElementById(id);
             userSummaryTable.row(tr).remove().draw(false);
