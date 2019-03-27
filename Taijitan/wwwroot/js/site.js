@@ -155,7 +155,11 @@ function init() {
                 dom: 'Bflrtip',
                 buttons: [
                     'excelHtml5', 'print'
-                ]
+                ],
+                "initComplete": function (settings, json) {
+                    document.getElementById("loadingDiv").classList.toggle("hidden");
+                    document.getElementById("summaryDiv").classList.toggle("hidden");
+                }
             });
         });
     }
@@ -198,6 +202,10 @@ function init() {
                 ],
                 "drawCallback": function (settings) {
                     console.log("test");
+                },
+                "initComplete": function (settings, json) {
+                    document.getElementById("loadingDiv").classList.toggle("hidden");
+                    document.getElementById("userSummaryDiv").classList.toggle("hidden");
                 }
             });
         });
@@ -266,7 +274,11 @@ function init() {
                          "visible": false,
                          "searchable": false
                      }
-                 ]
+                 ],
+                 "initComplete": function (settings, json) {
+                     document.getElementById("loadingDiv").classList.toggle("hidden");
+                     document.getElementById("commentSummaryDiv").classList.toggle("hidden");
+                 }
 
 
             });
