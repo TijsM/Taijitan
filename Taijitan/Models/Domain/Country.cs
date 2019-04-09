@@ -100,7 +100,7 @@ namespace Taijitan.Models.Domain
         Japan = 89,
         Jordan = 90,
         Kazakhstan = 91,
-        Kenya = 91,
+        Kenya = 92,
         Kiribati = 93,
         Kuwait = 94,
         Kyrgyzstan = 95,
