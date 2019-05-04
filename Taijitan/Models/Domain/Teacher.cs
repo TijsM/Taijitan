@@ -7,7 +7,7 @@ namespace Taijitan.Models.Domain
 {
     public class Teacher : User
     {
-        public Teacher(string name, string firstName, DateTime dateOfBirth, string street, City city, Country country, string houseNumber, string phoneNumber, string email, DateTime dateRegistred, Gender gender, Country nationality, string personalNationalNumber, string birthPlace, string landlineNumber = "Niet gekend", string mailParent = "niet gekend")
+        public Teacher(string name, string firstName, DateTime dateOfBirth, string street, City city, Country country, string houseNumber, string phoneNumber, string email, DateTime dateRegistred, Gender gender, Country nationality, string personalNationalNumber, string birthPlace, string landlineNumber = "", string mailParent = "")
         {
             Name = name;
             FirstName = firstName;

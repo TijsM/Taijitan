@@ -12,7 +12,7 @@ namespace Taijitan.Data.Mappers
         {
             public void Configure(EntityTypeBuilder<User> builder)
             {
-                builder.ToTable("User");
+                builder.ToTable("Users");
                 builder.HasKey(m => m.UserId);
             builder.HasOne(m => m.City)
                 .WithMany()

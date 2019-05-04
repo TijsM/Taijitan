@@ -24,6 +24,7 @@ namespace Taijitan.Data
         public DbSet<NonMember> NonMembers { get; set; }
         public DbSet<CourseMaterial> CourseMaterials { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Activity> Activities { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -45,6 +46,8 @@ namespace Taijitan.Data
             builder.ApplyConfiguration(new CourseMaterialConfiguration());
             builder.ApplyConfiguration(new ImageConfiguration());
             builder.ApplyConfiguration(new CommentConfiguration());
+            builder.ApplyConfiguration(new ActivityConfiguration());
+            builder.ApplyConfiguration(new ActivityMemberConfiguration());
         }
     }
 }

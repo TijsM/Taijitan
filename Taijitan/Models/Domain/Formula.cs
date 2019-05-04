@@ -22,6 +22,7 @@ namespace Taijitan.Models.Domain
             Name = name;
             FormulaTrainingDays = new List<FormulaTrainingDay>();
             SessionFormulas = new List<SessionFormula>();
+            TrainingDays = trainingDays;
             List<FormulaTrainingDay> test = new List<FormulaTrainingDay>();
             foreach (TrainingDay day in trainingDays)
             {

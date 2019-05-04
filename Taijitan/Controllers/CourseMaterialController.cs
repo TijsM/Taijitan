@@ -77,11 +77,13 @@ namespace Taijitan.Controllers
             };
             return View("Training", vm);
         }
+
         [Authorize(Policy = "Teacher")]
         private ICollection<Rank> GiveAllRanksAsList()
         {
             return Enum.GetValues(typeof(Rank)).Cast<Rank>().ToList();
         }
+
         [Authorize(Policy = "Teacher")]
         public IActionResult SelectRank(int id, Rank rank, int selectedUserId)
         {

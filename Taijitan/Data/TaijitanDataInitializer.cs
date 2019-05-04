@@ -55,35 +55,40 @@ namespace Taijitan.Data
                 #endregion
 
                 #region Members
+
+                Member Jarne = new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", bekegem, Country.Belgium, "16", "0492554616", "jarne.deschacht@student.hogent.be", dinDon, new DateTime(2016 / 01 / 30), Gender.Man, Country.Belgium, "09-08-1999.400-08", "Gent") { Rank = Rank.Dan1 };
+                Member Tijs = new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Bekken", nazareth, Country.Belgium, "8", "0499721771", "tijs.martens@student.hogent.be", woe, new DateTime(2014 / 06 / 2), Gender.Man, Country.Belgium, "99.06.14-306.37", "Gent") { Rank = Rank.Dan10 };
+                Member Robbe = new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Garzebekeveldstraat", adinkerke, Country.Belgium, "10", "+32497838825", "robbe.dekien@student.hogent.be", dinZat, new DateTime(2016 / 05 / 30), Gender.Man, Country.Belgium, "99.02.06-100.20", "Gent") { Rank = Rank.Dan5 };
+                Member Stef =  new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Bijlokeweg", gent, Country.Belgium, "73", "0495339936", "stef.verlinde@student.hogent.be", dinDon, new DateTime(2015 / 08 / 4), Gender.Man, Country.Belgium, "98.02.08-306.37", "Gent") { Rank = Rank.Kyu1 };
+                Member Jeffrey = new Member("Swets", "Jefferyf", new DateTime(1997, 7, 01), "Stationstraat", gent, Country.Belgium, "105", "+32458732447", "jeffrey.swets@hotmail.com", woe, new DateTime(2016 / 08 / 4), Gender.Man, Country.Belgium, "98.02.08-306.38", "Gent") { Rank = Rank.Kyu2 };
+                Member Eef =  new Member("Middeljans", "Eef", new DateTime(1980, 02, 01), "Bergstraat", nazareth, Country.Belgium, "20", "+32499875236", "eef.middeljans@gmail.com", zat, new DateTime(2017 / 02 / 18), Gender.Vrouw, Country.Belgium, "98.02.08-306.3", "Antwerpen") { Rank = Rank.Kyu4 };
+                Member Yolande = new Member("Van der Ende", "Yolanda", new DateTime(1980, 03, 18), "Rue de la Tannerie", bekegem, Country.Belgium, "357", "0480822560", "YolandevanderEnde@rhyta.com", woeZat, new DateTime(2014 / 05 / 18), Gender.Vrouw, Country.Belgium, "98.02.08-306.40", "Gent") { Rank = Rank.Kyu5 };
+                Member Kressy = new Member("Velders", "Kressy", new DateTime(1985, 5, 16), "Passieweik", nazareth, Country.Belgium, "21", "+32499721558", "krissyvelders@gmail.com", dinDon, new DateTime(2015 / 01 / 02), Gender.Vrouw, Country.Belgium, "98.02.08-306.40", "Gent") { Rank = Rank.Dan5 };
+                Member Willem = new Member("Sluis", "Willem", new DateTime(1995, 12, 12), "Hoekstraat", gent, Country.Belgium, "77", "+32589657448", "sluis.willem@skynet.be", dinDon, new DateTime(2010 / 11 / 08), Gender.Man, Country.Belgium, "98.02.08-306.40", "Gent") { Rank = Rank.Dan7 };
+                Member Roskam =  new Member("Idris", "Roskam", new DateTime(2000, 08, 28), "Booischotsewag", gent, Country.Belgium, "28", "+324896875210", "idris.roskam@gmail.be", dinDon, new DateTime(2010 / 11 / 08), Gender.Man, Country.Belgium, "98.02.08-306.42", "Antwerpen") { Rank = Rank.Dan8 };
+                Member Djamel = new Member("Tervoort", "Djamel", new DateTime(1996, 11, 01), "Kapelstraat", adinkerke, Country.Belgium, "12", "+32487541225", "Djamel.tervoort@gmail.be", dinDon, new DateTime(2010 / 11 / 08), Gender.Man, Country.Belgium, "98.02.08-306.42", "Antwerpen") { Rank = Rank.Kyu2 };
                 IEnumerable<Member> members = new List<Member>
                 {
-                     new Member("Deschacht", "Jarne", new DateTime(1999, 8, 9), "Zilverstraat", bekegem, Country.Belgium, "16", "0492554616", "jarne.deschacht@student.hogent.be",dinDon, new DateTime(2016 / 01 / 30), Gender.Man, Country.Belgium, "09-08-1999.400-08", "Gent"){ Rank = Rank.Dan1},
-                     new Member("Martens", "Tijs", new DateTime(1999, 6, 14), "Bekken", nazareth, Country.Belgium, "8", "0499721771", "tijs.martens@student.hogent.be",woe,  new DateTime(2014/06/2), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent"){ Rank = Rank.Dan10},
-                     new Member("Dekien", "Robbe", new DateTime(1998, 8, 26), "Garzebekeveldstraat", adinkerke, Country.Belgium, "10", "+32497838825", "robbe.dekien@student.hogent.be",dinZat, new DateTime(2016 / 05 / 30), Gender.Man, Country.Belgium, "02-06-1999.100-20", "Gent"){ Rank = Rank.Dan5},
-                     new Member("Verlinde", "Stef", new DateTime(1999, 4, 25), "Bijlokeweg", gent, Country.Belgium ,"73", "0495339936", "stef.verlinde@student.hogent.be",dinDon, new DateTime(2015 / 08 / 4), Gender.Man, Country.Belgium, "02-08-1998.306-37", "Gent"){ Rank = Rank.Kyu1},
-                     new Member("Swets", "Jefferyf", new DateTime(1997, 7, 01), "Stationstraat", gent, Country.Belgium ,"105", "+32458732447", "jeffrey.swets@hotmail.com",woe, new DateTime(2016 / 08 / 4), Gender.Man, Country.Belgium, "02-08-1998.306-38", "Gent"){ Rank = Rank.Kyu2},
-                     new Member("Middeljans", "Eef", new DateTime(1980, 02, 01), "Bergstraat", nazareth, Country.Belgium ,"20", "+32499875236", "eef.middeljans@gmail.com",zat, new DateTime(2017 / 02 / 18), Gender.Vrouw, Country.Belgium, "02-08-1998.306-39", "Antwerpen"){ Rank = Rank.Kyu4},
-                     new Member("Van der Ende", "Yolanda", new DateTime(1980, 03, 18), "Rue de la Tannerie", bekegem, Country.Belgium ,"357", "0480822560", "YolandevanderEnde@rhyta.com",woeZat, new DateTime(2014 / 05 / 18), Gender.Vrouw, Country.Belgium, "02-08-1998.306-40", "Gent"){ Rank = Rank.Kyu5},
-                     new Member("Velders", "Kressy", new DateTime(1985, 5, 16), "Passieweik", nazareth, Country.Belgium ,"21", "+32499721558", "krissyvelders@gmail.com",dinDon, new DateTime(2015 / 01 / 02), Gender.Vrouw, Country.Belgium, "02-08-1998.306-40", "Gent"){ Rank = Rank.Dan5},
-                     new Member("Sluis", "Willem", new DateTime(1995, 12, 12), "Hoekstraat", gent, Country.Belgium ,"77", "+32589657448", "sluis.willem@skynet.be",dinDon, new DateTime(2010 / 11 / 08), Gender.Man, Country.Belgium, "02-08-1998.306-40", "Gent"){ Rank = Rank.Dan7},
-                     new Member("Idris", "Roskam", new DateTime(2000, 08, 28), "Booischotsewag", gent, Country.Belgium ,"28", "+324896875210", "idris.roskam@gmail.be",dinDon, new DateTime(2010 / 11 / 08), Gender.Man, Country.Belgium, "02-08-1998.306-42", "Antwerpen"){ Rank = Rank.Dan8},
-                     new Member("Tervoort", "Djamel", new DateTime(1996, 11, 01), "Kapelstraat", adinkerke, Country.Belgium ,"12", "+32487541225", "Djamel.tervoort@gmail.be",dinDon, new DateTime(2010 / 11 / 08), Gender.Man, Country.Belgium, "02-08-1998.306-42", "Antwerpen"){ Rank = Rank.Kyu2},
-                     new Member("Tom", "Nijs", new DateTime(1980, 01, 22), "Fietsstraat", bekegem, Country.Belgium ,"12", "+32487541225", "tom.nijs@gmial.com",dinDon, new DateTime(2014 / 1 / 12), Gender.Man, Country.Belgium, "02-08-1998.306-42", "Antwerpen"){ Rank = Rank.Kyu4},
-                     new Member("Sofia", "Colpeart", new DateTime(1990, 10, 10), "Hoogstraat",brussel , Country.Belgium ,"100", "+32588754221", "colpeart.sofia@gmail.com",dinDon, new DateTime(2014 / 1 / 18), Gender.Vrouw, Country.Belgium, "02-08-1998.306-42", "Brussel"){ Rank = Rank.Dan3},
-                     new Member("Jord", "Kroos", new DateTime(1997, 01, 06), "Steinstraat",nazareth , Country.Belgium ,"25", "+32499875421", "jord.kroos@gmail.com",dinDon, new DateTime(2019 / 1 / 12), Gender.Man, Country.Belgium, "02-08-1998.306-42", "Gent"){ Rank = Rank.Dan3},
-                     new Member("Kristien", "Vandewalle", new DateTime(1960, 05, 20), "Muziekstraat",nazareth , Country.Belgium ,"45", "+32588748775", "kristien.vandewalle@gmail.com",dinDon, new DateTime(2019 / 2 / 18), Gender.Vrouw, Country.Belgium, "02-08-1998.306-42", "Gent"){ Rank = Rank.Dan9},
-                     new Member("Koen", "Jansens", new DateTime(1966, 09, 22), "Sterrenbosstraat",nazareth , Country.Belgium ,"10", "+324998752214", "Koen.jansens@gmail.com",dinDon, new DateTime(2018 / 06 / 22), Gender.Man, Country.Belgium, "02-08-1998.306-42", "Gent"){ Rank = Rank.Kyu5},
-                     new Member("Robin", "De Groot", new DateTime(1996, 02, 26), "stationstraat",adinkerke, Country.Belgium ,"20", "+32687325741", "groot.robin@gmail.com",dinDon, new DateTime(2018 / 06 / 23), Gender.Man, Country.Belgium, "02-08-1998.306-42", "Gent"){ Rank = Rank.Kyu6},
-                     new Member("Nemo", "Donselaar", new DateTime(1995, 03, 18), "Linieweg",brussel, Country.Belgium ,"98", "+32875463220", "nemo.donselaar@gmail.com",dinDon, new DateTime(2014 / 05 / 30), Gender.Man, Country.Belgium, "02-08-1998.306-42", "Gent"){ Rank = Rank.Dan1},
-                     new Member("Enrique", "Van Wetten", new DateTime(2002, 08, 30), "Koestraat",antwerpen, Country.Belgium ,"874", "+32499721771", "vanwetten.enrique@gmail.com",dinDon, new DateTime(2014 / 05 / 30), Gender.Man, Country.Belgium, "02-08-1998.306-42", "Gent", "093859142", "kristien.bekkens@gmail.com"){ Rank = Rank.Dan9},
-                     new Member("Jef", "Koppens", new DateTime(1999, 10, 12), "Rue du Chapy",brussel, Country.Belgium ,"351", "+32488512547", "jef.koppens@gmail.com",dinDon, new DateTime(2019 / 03 / 1), Gender.Man, Country.Belgium, "02-08-1998.306-42", "Gent"){ Rank = Rank.Dan12}
+                     Jarne,Tijs, Robbe,Stef, Jeffrey, Eef, Yolande, Kressy, Willem, Roskam, Djamel,
+
+                     new Member("Tom", "Nijs", new DateTime(1980, 01, 22), "Fietsstraat", bekegem, Country.Belgium ,"12", "+32487541225", "tom.nijs@gmial.com",dinDon, new DateTime(2014 / 1 / 12), Gender.Man, Country.Belgium, "98.02.08-306.42", "Antwerpen"){ Rank = Rank.Kyu4},
+                     new Member("Sofia", "Colpeart", new DateTime(1990, 10, 10), "Hoogstraat",brussel , Country.Belgium ,"100", "+32588754221", "colpeart.sofia@gmail.com",dinDon, new DateTime(2014 / 1 / 18), Gender.Vrouw, Country.Belgium, "98.02.08-306.42", "Brussel"){ Rank = Rank.Dan3},
+                     new Member("Jord", "Kroos", new DateTime(1997, 01, 06), "Steinstraat",nazareth , Country.Belgium ,"25", "+32499875421", "jord.kroos@gmail.com",dinDon, new DateTime(2019 / 1 / 12), Gender.Man, Country.Belgium, "98.02.08-306.42", "Gent"){ Rank = Rank.Dan3},
+                     new Member("Kristien", "Vandewalle", new DateTime(1960, 05, 20), "Muziekstraat",nazareth , Country.Belgium ,"45", "+32588748775", "kristien.vandewalle@gmail.com",dinDon, new DateTime(2019 / 2 / 18), Gender.Vrouw, Country.Belgium, "98.02.08-306.42", "Gent"){ Rank = Rank.Dan9},
+                     new Member("Koen", "Jansens", new DateTime(1966, 09, 22), "Sterrenbosstraat",nazareth , Country.Belgium ,"10", "+324998752214", "Koen.jansens@gmail.com",dinDon, new DateTime(2018 / 06 / 22), Gender.Man, Country.Belgium, "98.02.08-306.42", "Gent"){ Rank = Rank.Kyu5},
+                     new Member("Robin", "De Groot", new DateTime(1996, 02, 26), "stationstraat",adinkerke, Country.Belgium ,"20", "+32687325741", "groot.robin@gmail.com",dinDon, new DateTime(2018 / 06 / 23), Gender.Man, Country.Belgium, "98.02.08-306.42", "Gent"){ Rank = Rank.Kyu6},
+                     new Member("Nemo", "Donselaar", new DateTime(1995, 03, 18), "Linieweg",brussel, Country.Belgium ,"98", "+32875463220", "nemo.donselaar@gmail.com",dinDon, new DateTime(2014 / 05 / 30), Gender.Man, Country.Belgium, "98.02.08-306.42", "Gent"){ Rank = Rank.Dan1},
+                     new Member("Enrique", "Van Wetten", new DateTime(2002, 08, 30), "Koestraat",antwerpen, Country.Belgium ,"874", "+32499721771", "vanwetten.enrique@gmail.com",dinDon, new DateTime(2014 / 05 / 30), Gender.Man, Country.Belgium, "98.02.08-306.42", "Gent", "093859142", "kristien.bekkens@gmail.com"){ Rank = Rank.Dan9},
+                     new Member("Jef", "Koppens", new DateTime(1999, 10, 12), "Rue du Chapy",brussel, Country.Belgium ,"351", "+32488512547", "jef.koppens@gmail.com",dinDon, new DateTime(2019 / 03 / 1), Gender.Man, Country.Belgium, "98.02.08-306", "Gent"){ Rank = Rank.Dan12}
                 };
+
+                _dbContext.SaveChanges();
                 #endregion
 
                 #region Teachers
                 IEnumerable<Teacher> teachers = new List<Teacher>
                 {
-                     new Teacher("Chan", "Jacky", new DateTime(1960, 10, 18), "HongkongStreet", gent, Country.Belgium, "1", "+23456987447", "teacher@taijitan.be" , new DateTime(2005/01/30), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent")
+                     new Teacher("Chan", "Jacky", new DateTime(1960, 10, 18), "HongkongStreet", gent, Country.Belgium, "1", "+23456987447", "teacher@taijitan.be" , new DateTime(2005/01/30), Gender.Man, Country.Belgium, "60.10.18-302.45", "Gent")
 
 
                 };
@@ -92,7 +97,7 @@ namespace Taijitan.Data
                 #region Admins
                 IEnumerable<Admin> admins = new List<Admin>
                 {
-                     new Admin("Gracie", "Rickson", new DateTime(1980, 1, 15), "StationStraat", nazareth, Country.Belgium, "15", "+3249981557", "admin@taijitan.be",  new DateTime(2005/01/30), Gender.Man, Country.Belgium, "14-06-1999.306-37", "Gent"),
+                     new Admin("Gracie", "Rickson", new DateTime(1980, 1, 15), "StationStraat", nazareth, Country.Belgium, "15", "+3249981557", "admin@taijitan.be",  new DateTime(2005/01/30), Gender.Man, Country.Belgium, "98.02.08-306.42", "Gent"),
 
                 };
                 #endregion
@@ -317,6 +322,8 @@ namespace Taijitan.Data
 
                 #endregion
 
+                
+
                 #region Give users an account in Identity
                 foreach (User member in members)
                 {
@@ -326,6 +333,7 @@ namespace Taijitan.Data
                     var password = "P@ssword1";
                     var role = "Member";
                     await CreateUser(username, email, password, role);
+                    _dbContext.SaveChanges();
                 }
 
                 foreach (User teacher in teachers)
@@ -336,6 +344,7 @@ namespace Taijitan.Data
                     var password = "P@ssword1";
                     var role = "Teacher";
                     await CreateUser(username, email, password, role);
+                    _dbContext.SaveChanges();
                 }
 
                 foreach (User admin in admins)
@@ -346,9 +355,17 @@ namespace Taijitan.Data
                     var password = "P@ssword1";
                     var role = "Admin";
                     await CreateUser(username, email, password, role);
+                    _dbContext.SaveChanges();
                 }
                 #endregion
 
+
+                #region Activity
+                Activity zwemmen = new Activity("zwemmen", TypeActivity.excursion, new DateTime(2019, 06, 12, 14, 00, 00), new DateTime(2019, 06, 12, 17, 00, 00),  new List<Member>() { Tijs, Jarne, Stef, Robbe });
+                Activity voetbal = new Activity("Supporteren voor de buffalo's", TypeActivity.excursion, new DateTime(2019, 05, 01, 10, 00, 00), new DateTime(2019, 05, 01, 23, 59, 00),  new List<Member>() { Tijs, Jarne, Stef, Robbe, Djamel, Roskam, Eef });
+                Activity stageZee = new Activity("3-daagse in De Panne", TypeActivity.stage, new DateTime(2019, 07, 01, 10, 00, 00), new DateTime(2019, 07, 04, 23, 59, 00), new List<Member>() { Jarne, Tijs, Robbe, Stef, Jeffrey, Eef, Yolande, Kressy, Willem, Roskam, Djamel, });
+                _dbContext.Activities.AddRange(zwemmen, voetbal, stageZee);
+                #endregion
 
                 _dbContext.SaveChanges();
             }

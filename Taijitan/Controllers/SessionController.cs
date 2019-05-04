@@ -91,6 +91,18 @@ namespace Taijitan.Controllers
             if (m == null)
                 return NotFound();
             CurrentSession.AddToMembersPresent(m);
+
+            if (m.Formula.TrainingDays.Count() >= 2)
+            {
+         
+                m.Score += 5;
+            }
+
+            else
+            {
+                m.Score += 10;
+            }
+
             SessionViewModel svm = new SessionViewModel(CurrentSession);
             svm.SessionTeacher = (Teacher)_userRepository.GetByEmail(user.Email);
             svm.TrainingDay = CurrentSession.TrainingDay;
