@@ -69,7 +69,7 @@ namespace Taijitan.Controllers
             {
                 u = _userRepository.GetById(id);
                 u.Change(evm.Name, evm.FirstName, evm.Street, _cityRepository.GetByPostalCode(evm.PostalCode),
-                    evm.Country, evm.HouseNumber, evm.PhoneNumber, evm.Gender, evm.Nationality, evm.BirthPlace,
+                    evm.Country, evm.HouseNumber, evm.PhoneNumber, evm.Gender, evm.Nationality, evm.BirthPlace, evm.Rank,
                     evm.LandLineNumber, evm.MailParent);
                 _userRepository.SaveChanges();
                 TempData["message"] = $"De persoonlijke gegevens van {u.FirstName} {u.Name} werden aangepast";

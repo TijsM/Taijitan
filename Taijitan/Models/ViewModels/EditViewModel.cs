@@ -81,6 +81,10 @@ namespace Taijitan.Models.UserViewModel
         [Display(Name = "E-mailadres van een ouder")]
         public string MailParent { get; set; }
 
+        [Required(ErrorMessage = "Een gebruiker moet een Rank hebben")]
+        [Display(Name = "Kyu/ graad")]
+        public Rank Rank { get; set; }
+
 
 
 
@@ -103,6 +107,7 @@ namespace Taijitan.Models.UserViewModel
             BirthPlace = user.BirthPlace;
             LandLineNumber = LandLineNumber;
             MailParent = MailParent;
+            Rank = user.Rank;
 
         }
 

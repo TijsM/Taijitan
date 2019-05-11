@@ -7,7 +7,7 @@ namespace Taijitan.Models.Domain
 {
     public class Admin : User
     {
-        public Admin(string name, string firstName, DateTime dateOfBirth, string street, City city, Country country, string houseNumber, string phoneNumber, string email, DateTime dateRegistred, Gender gender, Country nationality, string personalNationalNumber, string birthPlace, string landlineNumber = "", string mailParent = "")
+        public Admin(string name, string firstName, DateTime dateOfBirth, string street, City city, Country country, string houseNumber, string phoneNumber, string email, DateTime dateRegistred, Gender gender, Country nationality, string personalNationalNumber, string birthPlace, Rank rank, string landlineNumber = "", string mailParent = "")
         {
             Name = name;
             FirstName = firstName;
@@ -24,6 +24,7 @@ namespace Taijitan.Models.Domain
             BirthPlace = birthPlace;
             LandlineNumber = landlineNumber;
             MailParent = mailParent;
+            Rank = rank;
         }
         private Admin() { }
     }

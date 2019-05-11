@@ -22,6 +22,7 @@ namespace Taijitan.Models.Domain
         public string HouseNumber { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
+        public Rank Rank { get; set; }
 
 
 
@@ -36,7 +37,7 @@ namespace Taijitan.Models.Domain
         public IEnumerable<Comment> Comments { get; set; }
 
         #region Methods
-        public virtual void Change(string name, string firstName, string street, City city, Country country, string houseNumber, string phoneNumber, Gender gender, Country nationality, string birthPlace, string landlineNumber = "Niet gekend", string mailParent = "niet gekend" ) {
+        public virtual void Change(string name, string firstName, string street, City city, Country country, string houseNumber, string phoneNumber, Gender gender, Country nationality, string birthPlace, Rank rank, string landlineNumber = "Niet gekend", string mailParent = "niet gekend" ) {
             Name = name;
             FirstName = firstName;
             DateOfBirth = DateOfBirth;
@@ -50,6 +51,7 @@ namespace Taijitan.Models.Domain
             BirthPlace = birthPlace;
             LandlineNumber = landlineNumber;
             MailParent = mailParent;
+            Rank = rank;
         }
         
         public string GetRole()

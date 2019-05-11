@@ -88,7 +88,7 @@ namespace Taijitan.Data
                 #region Teachers
                 IEnumerable<Teacher> teachers = new List<Teacher>
                 {
-                     new Teacher("Chan", "Jacky", new DateTime(1960, 10, 18), "HongkongStreet", gent, Country.Belgium, "1", "+23456987447", "teacher@taijitan.be" , new DateTime(2005/01/30), Gender.Man, Country.Belgium, "60.10.18-302.45", "Gent")
+                     new Teacher("Chan", "Jacky", new DateTime(1960, 10, 18), "HongkongStreet", gent, Country.Belgium, "1", "+23456987447", "teacher@taijitan.be" , new DateTime(2005/01/30), Gender.Man, Country.Belgium, "60.10.18-302.45", "Gent", Rank.Dan11)
 
 
                 };
@@ -97,7 +97,7 @@ namespace Taijitan.Data
                 #region Admins
                 IEnumerable<Admin> admins = new List<Admin>
                 {
-                     new Admin("Gracie", "Rickson", new DateTime(1980, 1, 15), "StationStraat", nazareth, Country.Belgium, "15", "+3249981557", "admin@taijitan.be",  new DateTime(2005/01/30), Gender.Man, Country.Belgium, "98.02.08-306.42", "Gent"),
+                     new Admin("Gracie", "Rickson", new DateTime(1980, 1, 15), "StationStraat", nazareth, Country.Belgium, "15", "+3249981557", "admin@taijitan.be",  new DateTime(2005/01/30), Gender.Man, Country.Belgium,  "98.02.08-306.42", "Gent", Rank.Dan2),
 
                 };
                 #endregion
