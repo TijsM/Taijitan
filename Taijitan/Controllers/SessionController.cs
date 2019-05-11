@@ -92,17 +92,15 @@ namespace Taijitan.Controllers
                 return NotFound();
             CurrentSession.AddToMembersPresent(m);
 
-            if (m.Formula.TrainingDays.Count() >= 2)
+            if (m.Formula.Name.Contains("en"))
             {
-         
                 m.Score += 5;
             }
-
             else
             {
                 m.Score += 10;
             }
-
+            _userRepository.SaveChanges();
             SessionViewModel svm = new SessionViewModel(CurrentSession);
             svm.SessionTeacher = (Teacher)_userRepository.GetByEmail(user.Email);
             svm.TrainingDay = CurrentSession.TrainingDay;
@@ -118,7 +116,17 @@ namespace Taijitan.Controllers
             Session CurrentSession = _sessionRepository.GetById(sessionId);
             if (CurrentSession == null)
                 return NotFound();
-            CurrentSession.AddToMembers((Member)_userRepository.GetById(id));
+            Member m = (Member)_userRepository.GetById(id);
+            CurrentSession.AddToMembers(m);
+            if (m.Formula.Name.Contains("en"))
+            {
+                m.Score -= 5;
+            }
+            else
+            {
+                m.Score -= 10;
+            }
+            _userRepository.SaveChanges();
             SessionViewModel svm = new SessionViewModel(CurrentSession);
             svm.SessionTeacher = (Teacher)_userRepository.GetByEmail(user.Email);
             svm.TrainingDay = CurrentSession.TrainingDay;
