@@ -361,9 +361,9 @@ namespace Taijitan.Data
 
 
                 #region Activity
-                Activity zwemmen = new Activity("zwemmen", TypeActivity.excursion, new DateTime(2019, 06, 12, 14, 00, 00), new DateTime(2019, 06, 12, 17, 00, 00),  new List<Member>() { Tijs, Jarne, Stef, Robbe });
-                Activity voetbal = new Activity("Supporteren voor de buffalo's", TypeActivity.excursion, new DateTime(2019, 05, 01, 10, 00, 00), new DateTime(2019, 05, 01, 23, 59, 00),  new List<Member>() { Tijs, Jarne, Stef, Robbe, Djamel, Roskam, Eef });
-                Activity stageZee = new Activity("3-daagse in De Panne", TypeActivity.stage, new DateTime(2019, 07, 01, 10, 00, 00), new DateTime(2019, 07, 04, 23, 59, 00), new List<Member>() { Jarne, Tijs, Robbe, Stef, Jeffrey, Eef, Yolande, Kressy, Willem, Roskam, Djamel, });
+                Activity zwemmen = new Activity("zwemmen", TypeActivity.excursion, new DateTime(2019, 06, 12, 14, 00, 00), new DateTime(2019, 06, 12, 17, 00, 00),  new List<Member>() { Tijs, Jarne, Stef, Robbe }, 25, 10);
+                Activity voetbal = new Activity("Supporteren voor de buffalo's", TypeActivity.excursion, new DateTime(2019, 05, 01, 10, 00, 00), new DateTime(2019, 05, 01, 23, 59, 00),  new List<Member>() { Tijs, Jarne, Stef, Robbe, Djamel, Roskam, Eef }, 30, 7);
+                Activity stageZee = new Activity("3-daagse in De Panne", TypeActivity.stage, new DateTime(2019, 07, 01, 10, 00, 00), new DateTime(2019, 07, 04, 23, 59, 00), new List<Member>() { Jarne, Tijs, Robbe, Stef, Jeffrey, Eef, Yolande, Kressy, Willem, Roskam, Djamel, }, 35, 10);
                 _dbContext.Activities.AddRange(zwemmen, voetbal, stageZee);
                 #endregion
 

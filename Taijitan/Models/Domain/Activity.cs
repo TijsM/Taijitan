@@ -15,9 +15,11 @@ namespace Taijitan.Models.Domain
         public Boolean IsFull { get; set; }
         public ICollection<Member> Members { get; set; }
         public ICollection<ActivityMember> ActivityMembers { get; set; }
+        public int MaxParticpants { get; set; }
+        public int Score { get; set; }
 
 
-        public Activity(string name, TypeActivity type, DateTime start, DateTime end, List<Member> members)
+        public Activity(string name, TypeActivity type, DateTime start, DateTime end, List<Member> members, int maxpart, int score)
         {
             Name = name;
             Type = type;
@@ -32,6 +34,9 @@ namespace Taijitan.Models.Domain
                 ActivityMember am = new ActivityMember(ActivityId, this, m.UserId, m);
                 ActivityMembers.Add(am);
             }
+
+            this.MaxParticpants = maxpart;
+            this.Score = score;
         }
 
         public Activity()
