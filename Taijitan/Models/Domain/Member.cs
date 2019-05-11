@@ -8,7 +8,7 @@ namespace Taijitan.Models.Domain
     public class Member : User
     {
         public Formula Formula { get; set; }
-        public Rank Rank { get; set; }
+        //public Rank Rank { get; set; }
         public ICollection<SessionMember> SessionMembers { get; set; }
         public IEnumerable<Session> Sessions => SessionMembers.Select(sm => sm.Session).ToList();
         public int Score { get; set; }
