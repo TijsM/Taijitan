@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Taijitan.Filters;
 using Taijitan.Models.Domain;
 using Taijitan.Models.ViewModels;
+using System.Web;
 
 namespace Taijitan.Controllers
 {
@@ -22,15 +23,17 @@ namespace Taijitan.Controllers
         private readonly ITrainingDayRepository _trainingDayRepository;
         private readonly IFormulaRepository _formulaRepository;
         private readonly INonMemberRepository _nonMemberRepository;
+        private readonly IScoreRepository _scoreRepository;
 
         public SessionController(IUserRepository userRepository, ISessionRepository sessionRepository,
-            IFormulaRepository formulaRepository, ITrainingDayRepository trainingDayRepository, INonMemberRepository nonMemberRepository)
+            IFormulaRepository formulaRepository, ITrainingDayRepository trainingDayRepository, INonMemberRepository nonMemberRepository, IScoreRepository scoreRepository)
         {
             _userRepository = userRepository;
             _sessionRepository = sessionRepository;
             _trainingDayRepository = trainingDayRepository;
             _formulaRepository = formulaRepository;
             _nonMemberRepository = nonMemberRepository;
+            _scoreRepository = scoreRepository;
         }
         [Authorize(Policy = "Teacher")]
         [HttpGet]
@@ -94,11 +97,11 @@ namespace Taijitan.Controllers
 
             if (m.Formula.Name.Contains("en"))
             {
-                m.Score += 5;
+                m.Scores.Add(new Score { Amount = 5, MemberId = m.UserId, Name = "Aanwezigheid 1/2", Type = "Aanwezigheid" });
             }
             else
             {
-                m.Score += 10;
+                m.Scores.Add(new Score { Amount = 10, MemberId = m.UserId, Name = "Aanwezigheid", Type= "Aanwezigheid"});
             }
             _userRepository.SaveChanges();
             SessionViewModel svm = new SessionViewModel(CurrentSession);
@@ -120,11 +123,11 @@ namespace Taijitan.Controllers
             CurrentSession.AddToMembers(m);
             if (m.Formula.Name.Contains("en"))
             {
-                m.Score -= 5;
+                _scoreRepository.Delete(_scoreRepository.GetByAmount(5, m.UserId));
             }
             else
             {
-                m.Score -= 10;
+                _scoreRepository.Delete(_scoreRepository.GetByAmount(10, m.UserId));
             }
             _userRepository.SaveChanges();
             SessionViewModel svm = new SessionViewModel(CurrentSession);

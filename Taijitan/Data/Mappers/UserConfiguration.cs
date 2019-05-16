@@ -20,6 +20,9 @@ namespace Taijitan.Data.Mappers
             builder.HasMany(c => c.Comments)
                 .WithOne(c => c.Member)
                 .OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(m => m.Scores)
+                .WithOne(c => c.Member)
+                .OnDelete(DeleteBehavior.Cascade);
         }
         }
     }

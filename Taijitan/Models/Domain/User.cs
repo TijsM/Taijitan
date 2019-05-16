@@ -23,6 +23,7 @@ namespace Taijitan.Models.Domain
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public Rank Rank { get; set; }
+        public ICollection<Score> Scores { get; set; }
 
 
 
