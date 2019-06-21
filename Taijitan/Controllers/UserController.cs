@@ -1,27 +1,33 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Taijitan.Filters;
 using Taijitan.Helpers;
 using Taijitan.Models.Domain;
 using Taijitan.Models.UserViewModel;
-
+using Taijitan.Models.ViewModels;
 
 namespace Taijitan.Controllers
 {
-    [Authorize]
     [ServiceFilter(typeof(UserFilter))]
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
         private readonly ICityRepository _cityRepository;
+        private readonly UserManager<IdentityUser> _userManager;
+        private const string adminCode = "Admin123";
+        private bool isAuthenticatedToCreate = false;
 
-        public UserController(IUserRepository userRepository, ICityRepository cityRepository)
+        public UserController(IUserRepository userRepository, ICityRepository cityRepository, UserManager<IdentityUser> userManager)
         {
             _userRepository = userRepository;
             _cityRepository = cityRepository;
+            _userManager = userManager;
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Index(User user = null)
         {
@@ -45,6 +51,7 @@ namespace Taijitan.Controllers
             return View(_userRepository.GetAll());
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Edit(int id, int isFromSummary = 0)
         {
@@ -58,9 +65,10 @@ namespace Taijitan.Controllers
             ViewData["isFromSummary"] = isFromSummary;
             ViewData["Countries"] = EnumHelpers.ToSelectList<Country>();
             ViewData["Genders"] = EnumHelpers.ToSelectList<Gender>();
-            return View("Edit",new EditViewModel(user));
+            return View("Edit", new EditViewModel(user));
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Edit(int id, User user, EditViewModel evm, int isFromSummary = 0)
         {
@@ -99,6 +107,76 @@ namespace Taijitan.Controllers
                 _userRepository.SaveChanges();
             }
             return RedirectToAction("Summary");
+        }
+
+        [HttpGet]
+        public IActionResult CreateAccount()
+        {
+            return View("CheckAdminCode");
+        }
+
+        [HttpPost]
+        public IActionResult CreateAccount(string code)
+        {
+            if (code.Equals(adminCode))
+            {
+                isAuthenticatedToCreate = true;
+                return View("CreateAccount");
+            }
+            else
+            {
+                TempData["CodeError"] = "De code is incorrect";
+                return RedirectToAction(nameof(CreateAccount));
+            }
+
+        }
+
+        [HttpGet]
+        public IActionResult CreateAccountPassword()
+        {
+            if(isAuthenticatedToCreate == false)
+            {
+                return RedirectToAction(nameof(CreateAccount));
+            }
+            return View("CreateAccount", new AccountViewModel());
+        }
+
+        [HttpPost]
+        public IActionResult CreateAccountPassword(AccountViewModel accountViewModel)
+        {
+            if(ModelState.IsValid)
+            {
+                if (_userRepository.GetByEmail(accountViewModel.Email) != null)
+                {
+                    if (_userManager.FindByEmailAsync(accountViewModel.Email).Result == null)
+                    {
+                        CreateUser(accountViewModel.Email, accountViewModel.Email, accountViewModel.Password, "Member").Wait();
+                        TempData["message"] = "Het account is succesvol aangemaakt";
+                        isAuthenticatedToCreate = false;
+                        return View("~/Areas/Identity/Pages/Account/Login.cshtml");
+                    }
+                    else
+                    {
+                        TempData["EmailError"] = "Er bestaat al een account op dit email adres";
+                        return View("CreateAccount", accountViewModel);
+                    }
+                }
+                else
+                {
+                    TempData["EmailError"] = "Er is geen gebruiker met dit email adres";
+                    return View("CreateAccount", accountViewModel);
+                }
+            }
+            else
+            {
+                return View("CreateAccount", accountViewModel);
+            }
+        }
+        private async Task CreateUser(string userName, string email, string password, string role)
+        {
+            var user = new IdentityUser { UserName = userName, Email = email };
+            await _userManager.CreateAsync(user, password);
+            await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, role));
         }
     }
 }

@@ -67,6 +67,8 @@ namespace Taijitan.Data
                 Member Willem = new Member("Sluis", "Willem", new DateTime(1995, 12, 12), "Hoekstraat", gent, Country.Belgium, "77", "+32589657448", "sluis.willem@skynet.be", dinDon, new DateTime(2010 / 11 / 08), Gender.Man, Country.Belgium, "98.02.08-306.40", "Gent") { Rank = Rank.Dan7 };
                 Member Roskam =  new Member("Idris", "Roskam", new DateTime(2000, 08, 28), "Booischotsewag", gent, Country.Belgium, "28", "+324896875210", "idris.roskam@gmail.be", dinDon, new DateTime(2010 / 11 / 08), Gender.Man, Country.Belgium, "98.02.08-306.42", "Antwerpen") { Rank = Rank.Dan8 };
                 Member Djamel = new Member("Tervoort", "Djamel", new DateTime(1996, 11, 01), "Kapelstraat", adinkerke, Country.Belgium, "12", "+32487541225", "Djamel.tervoort@gmail.be", dinDon, new DateTime(2010 / 11 / 08), Gender.Man, Country.Belgium, "98.02.08-306.42", "Antwerpen") { Rank = Rank.Kyu2 };
+                Member Jan = new Member("Jansens", "Jan", new DateTime(1996, 11, 01), "Janstraat", adinkerke, Country.Belgium, "12", "+32487541225", "jan.jansens@gmail.com", dinDon, new DateTime(2010 / 11 / 08), Gender.Man, Country.Belgium, "98.02.08-306.42", "Antwerpen") { Rank = Rank.Kyu2 };
+
                 IEnumerable<Member> members = new List<Member>
                 {
                      Jarne,Tijs, Robbe,Stef, Jeffrey, Eef, Yolande, Kressy, Willem, Roskam, Djamel,
@@ -81,7 +83,7 @@ namespace Taijitan.Data
                      new Member("Enrique", "Van Wetten", new DateTime(2002, 08, 30), "Koestraat",antwerpen, Country.Belgium ,"874", "+32499721771", "vanwetten.enrique@gmail.com",dinDon, new DateTime(2014 / 05 / 30), Gender.Man, Country.Belgium, "98.02.08-306.42", "Gent", "093859142", "kristien.bekkens@gmail.com"){ Rank = Rank.Dan9},
                      new Member("Jef", "Koppens", new DateTime(1999, 10, 12), "Rue du Chapy",brussel, Country.Belgium ,"351", "+32488512547", "jef.koppens@gmail.com",dinDon, new DateTime(2019 / 03 / 1), Gender.Man, Country.Belgium, "98.02.08-306", "Gent"){ Rank = Rank.Dan12}
                 };
-
+                _dbContext.Members.Add(Jan);
                 _dbContext.SaveChanges();
                 #endregion
 

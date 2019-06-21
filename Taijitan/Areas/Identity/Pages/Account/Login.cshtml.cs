@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Taijitan.Data;
+using Taijitan.Models.Domain;
 
 namespace Taijitan.Areas.Identity.Pages.Account
 {
@@ -17,11 +19,13 @@ namespace Taijitan.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IUserRepository _userRepository;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger, IUserRepository userRepository)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _userRepository = userRepository;
         }
 
         [BindProperty]
@@ -66,6 +70,7 @@ namespace Taijitan.Areas.Identity.Pages.Account
 
             ReturnUrl = returnUrl;
         }
+
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
