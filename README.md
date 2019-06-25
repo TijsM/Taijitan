@@ -10,3 +10,24 @@ This project was created in collaboration with:
 * Stef Verlinde --> https://github.com/StefVerlinde
 
 
+The project consisted out of 2 parts
+* .Net
+* Java
+
+# .Net
+
+This repository is the .Net project.
+
+The goal was to create a web application where a trainer can start a training and where the ji-jitsu students can consult documentation about what they are learning.
+
+# Java
+
+The java project can be found at: https://github.com/TijsM/Taijitan_Java 
+
+We created a administration tool for the ji-jitsu club in Java. 
+This tool can manage
+* users
+* activities
+* sessions
+* scoreboard
+* ...
